@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 
 class GenericButton extends Component {
     render() {
-        return ( <
-            div >
-            <
-            button > { this.props.name } < /button> <
-            /div>
+        return ( 
+            <div>
+            <button> { this.props.name } </button>
+            </div>
         );
     }
 }
