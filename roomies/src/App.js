@@ -11,7 +11,7 @@ class App extends Component {
             <div className = "App" >
                 {/* <Nav/> */}
                 <Profile/>
-                <GenericButton name = "woof"/>
+                <GenericButton name = "woof" buttonClass="button red"/>
             </div>
         );
     }
