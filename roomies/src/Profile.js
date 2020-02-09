@@ -1,43 +1,67 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import "./Profile.css";
 
 class Profile extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            getName: '',
-            getCity: ''
-        };
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleChange(event) {
-        const target = event.target;
-        const name = target.name;
-        const city = target.city;
-        this.setState({ 
-            [name]: name,
-            [city]: city
-         });
-    }
-
-    handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.getCity);
-        event.preventDefault();
-    }
-
-    render() {
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <label name="name">Name: <input id="name" type="text" value={this.state.value} onChange={this.handleChange} /></label>
-                <br /><br />
-                <label name="city">City: <input id="city" type="text" value={this.state.value} onChange={this.handleChange} /></label>
-                <br /><br />
-                <input type="submit" value="Submit" />
-            </form>
-        );
-    }
+  constructor(props) {
+    super(props);
+    this.state = { firstName: "", city: "", about: "", occupation: ""};
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleChange(evt) {
+    this.setState({ [evt.target.name]: evt.target.value });
+  }
+  handleSubmit(evt) {
+    evt.preventDefault();
+    alert(`You typed: ${this.state.firstName}`);
+    this.setState({ firstName: "" });
+  }
+  render() {
+    return (
+      <div>
+        <h1>Profile Information</h1>
+        <form onSubmit={this.handleSubmit}>
+        <label htmlFor="firstName">First Name </label>
+          <input
+            id='firstName'
+            type='text'
+            name='firstName'
+            value={this.state.firstName}
+            onChange={this.handleChange}
+          />
+          <br /><br />
+          <label htmlFor="city">City </label>
+          <input
+            id="city"
+            type='text'
+            name='city'
+            value={this.state.city}
+            onChange={this.handleChange}
+          />
+          <br /><br />
+          <label htmlFor="about">About </label>
+          <input
+            id="about"
+            type='text'
+            name='about'
+            value={this.state.about}
+            onChange={this.handleChange}
+          />
+          <br /><br />
+          <label htmlFor="occupation">Occupation </label>
+          <input
+            id="occupation"
+            type='occupation'
+            name='occupation'
+            value={this.state.occupation}
+            onChange={this.handleChange}
+          />
+          <br /><br />
+          <button>Save</button>
+        </form>
+      </div>
+    );
+  }
 }
 
 export default Profile;
