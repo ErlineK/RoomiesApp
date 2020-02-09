@@ -13,8 +13,9 @@ class TextBox extends Component {
 
         return ( 
             <div>
-            <label htmlFor={this.props.name}>{this.props.name}</label>
-            <textarea className="TextBox-textbox" style={divStyle} id={this.props.name}></textarea>
+            <label className="TextBox-center" htmlFor={this.props.name}>{this.props.name}</label>
+            <br />
+            <textarea className="TextBox-center" style={divStyle} id={this.props.name}></textarea>
             </div>
         );
     }
