@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import './main.module.css'
 import GenericButton from './GenericButton';
-import Nav from './Nav';
+import Example from './Nav';
 import Profile from './Profile';
 import 'bootstrap/dist/css/bootstrap.css';
 import Example from './Nav';
@@ -15,7 +15,8 @@ class App extends Component {
             <div className = "App" >
                 <Example/>
                 <Profile/>
-                <GenericButton name = "woof" buttonClass="button red"/>
+                <GenericButton name="woof" buttonClass="button red"/>
+                <TextBox height="200px" width="500px"  name="About me!"/>
             </div>
         );
     }
