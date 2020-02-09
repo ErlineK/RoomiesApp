@@ -18,7 +18,7 @@ class Profile extends Component {
   }
   render() {
     return (
-      <div>
+      <div className='Profile'>
         <h1>Profile Information</h1>
         <form onSubmit={this.handleSubmit}>
         <label htmlFor="firstName">First Name </label>

@@ -1,0 +1,61 @@
+.App {
+    text-align: center;
+    display: flex;
+    background:#5C5E5E;
+    height: 100vh;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .App-nav {
+    width: 50%;
+    display: flex;
+    margin: 1rem auto;
+    justify-content: space-around;
+  }
+  
+  .active-page {
+    color:#249696;
+    border-bottom: 1px solid white;
+  }
+  
+  a {
+    font-size: 2rem;
+    text-decoration: none;
+    color: white;
+    transition: all 0.4s ease-out;
+  }
+  
+  .App-nav a:hover {
+    color: #249696;
+    cursor: pointer;
+  }
+  
+  .App-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background: #ef5777;
+    border: 1px solid black;
+  }
+  
+  img {
+    border-radius: 50%;
+    width: 10%;
+  }
+  
+  .Profile,
+  .About{
+    width: 1000px;
+    height: 800px;
+  }
+  
+  h1 {
+    font-size: 4rem;
+  }
+
+  p {
+     font-size: 1rem; 
+  }  
