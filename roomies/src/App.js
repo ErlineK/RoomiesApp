@@ -12,6 +12,13 @@ import About from './About';
 // Put any other imports below so that CSS from your
 // components takes precedence over default styles.
 import "./app.css";
+// import TextBox from './TextBox';
+// import NavSection from './NavSection';
+// import Navbar from './Navbar';
+// import 'bootstrap/dist/css/bootstrap.css';
+// import Example from './Nav';
+// Put any other imports below so that CSS from your
+// components takes precedence over default styles.
 
 
 class App extends Component {
@@ -31,10 +38,7 @@ class App extends Component {
                     <Route exact path='/Profile' component={Profile} />
                     <Route exact path='/About' render={() => <About name='Pugsy' city='London'/>} />
                 </Switch>
-
-                {/* <GenericButton name="woof" buttonClass="button red"/> */}
-                {/* <TextBox height="200px" width="500px"  name="About me!"/> */}
-            </div>
+            </div >
         );
     }
 }
