@@ -12,6 +12,7 @@ import About from './About';
 // Put any other imports below so that CSS from your
 // components takes precedence over default styles.
 import "./app.css";
+import Home from './home/home';
 // import TextBox from './TextBox';
 // import NavSection from './NavSection';
 // import Navbar from './Navbar';
@@ -25,6 +26,7 @@ class App extends Component {
     render() {
         return (
             <div className="App" >
+                <Home />
                 <nav className='App-nav'>
                     <NavLink activeClassName='active-page' to='/Profile'>
                         Edit
@@ -36,7 +38,7 @@ class App extends Component {
 
                 <Switch>
                     <Route exact path='/Profile' component={Profile} />
-                    <Route exact path='/About' render={() => <About name='Pugsy' city='London'/>} />
+                    <Route exact path='/About' render={() => <About name='Pugsy' city='London' />} />
                 </Switch>
             </div >
         );

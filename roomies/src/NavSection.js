@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import "./NavSection.css";
+import "./Navbar.css";
 
 class NavSection extends Component {
     render() {
-        return ( 
-            <p className="NavSection-stuff">{this.props.name}</p>
+        return (
+            <h5 className="NavSection-stuff">{this.props.name}</h5>
         );
     }
 }
