@@ -32,15 +32,15 @@ class Registration extends Component {
 
     render() {
         return (
-            <div>
-                This is my registration form
-                <Form onSubmit={this.doSubmit}>
+            <div className="appContainerGreen">
+                <h1>This is my registration form </h1>
+                <form onSubmit={this.doSubmit}>
                     <input type="email" name="email" placeholder="Email" value={this.state.email} onChange={this.doOnChange} required />
                     <input type="password" name="password" placeholder="Password" value={this.state.password} onChange={this.doOnChange} required />
                     <input type="password" name="password_confirm" placeholder="Confirm Password" value={this.state.password_confirm} onChange={this.doOnChange} required />
 
                     <button type="submit">Register</button>
-                </Form>
+                </form>
             </div>
         );
     }
