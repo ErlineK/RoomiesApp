@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import { Switch, Route, NavLink } from 'react-router-dom';
+import Profile from './Profile';
+import About from './About';
+import GroupChat from './components/GroupChat';
+import "./app.css";
+
 // import './main.module.css'
 // import GenericButton from './GenericButton';
 // import Example from './Nav';
-import Profile from './Profile';
-import About from './About';
-
 // import 'bootstrap/dist/css/bootstrap.css';
 // import { NavLink } from 'reactstrap';
-
-// Put any other imports below so that CSS from your
-// components takes precedence over default styles.
-import "./app.css";
 // import TextBox from './TextBox';
 // import NavSection from './NavSection';
 // import Navbar from './Navbar';
@@ -32,10 +30,14 @@ class App extends Component {
                     <NavLink activeClassName='active-page' to='/About'>
                         About
                     </NavLink>
+                    <NavLink activeClassName='active-page' to='/GroupChat'>
+                        GroupChat
+                    </NavLink>
                 </nav>
 
                 <Switch>
                     <Route exact path='/Profile' component={Profile} />
+                    <Route exact path='/GroupChat' component={GroupChat} />
                     <Route exact path='/About' render={() => <About name='Pugsy' city='London'/>} />
                 </Switch>
             </div >
