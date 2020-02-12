@@ -23,7 +23,7 @@ class Home extends Component {
     render() {
         return (
             <div className="appContainer">
-                <Navbar cat={["Home", "About"]} />
+                <Navbar cat={["About", "Help"]} />
                 <div id="centralHolder">
                     <img className="homeLogo" src={require('../london.jpg')} alt="application logo" />
                     <h3>Roomie App</h3>

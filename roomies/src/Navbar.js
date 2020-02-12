@@ -11,8 +11,8 @@ class Navbar extends Component {
         return (
             <div className="Navbar-stuff">
                 <img className="navLogo" src={require('./london.jpg')} alt="application logo" />
-                <NavSection name="Home" />
                 <NavSection name="About" />
+                <NavSection name="Help" />
                 {navArray}
             </div>
         );
