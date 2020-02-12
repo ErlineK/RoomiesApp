@@ -16,7 +16,7 @@ body{
   *display: inline;
   zoom: 1;
   padding: 6px 20px;
-  margin: 0;
+  margin: 5px;
   cursor: pointer;
   border: 1px solid #bbb;
   overflow: visible;
