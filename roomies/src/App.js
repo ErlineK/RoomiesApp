@@ -5,6 +5,7 @@ import { Switch, Route, NavLink } from 'react-router-dom';
 // import Example from './Nav';
 import Profile from './Profile';
 import About from './About';
+import Bills from './Bills';
 
 // import 'bootstrap/dist/css/bootstrap.css';
 // import { NavLink } from 'reactstrap';
@@ -32,11 +33,15 @@ class App extends Component {
                     <NavLink activeClassName='active-page' to='/About'>
                         About
                     </NavLink>
+                    <NavLink activeClassName='active-page' to='/Bills'>
+                        Bills
+                    </NavLink>
                 </nav>
 
                 <Switch>
                     <Route exact path='/Profile' component={Profile} />
                     <Route exact path='/About' render={() => <About name='Pugsy' city='London'/>} />
+                    <Route exact path='/Bills' component={Bills} />
                 </Switch>
             </div >
         );
