@@ -2,6 +2,7 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import chat from "../lib/chat";
 import config from "../config";
+import "./groupChat.css"
 
 class Groupchat extends React.Component {
     constructor(props) {
@@ -88,37 +89,39 @@ class Groupchat extends React.Component {
             return <Redirect to="/" />;
         }
         return (
-            <div className="chatWindow">
-                <ul className="chat" id="chatList">
-                    {this.state.groupMessage.map(data => (
-                        <div key={data.id}>
-                            {this.state.user.uid === data.sender.uid ? (
-                                <li className="self">
-                                    <div className="msg">
-                                        <p>{data.sender.uid}</p>
-                                        <div className="message"> {data.data.text}</div>
-                                    </div>
-                                </li>
-                            ) : (
-                                    <li className="other">
+            <div className="chatBody">
+                <div className="chatWindow">
+                    <ul className="chat" id="chatList">
+                        {this.state.groupMessage.map(data => (
+                            <div key={data.id}>
+                                {this.state.user.uid === data.sender.uid ? (
+                                    <li className="self">
                                         <div className="msg">
                                             <p>{data.sender.uid}</p>
-                                            <div className="message"> {data.data.text} </div>
+                                            <div className="message"> {data.data.text}</div>
                                         </div>
                                     </li>
-                                )}
-                        </div>
-                    ))}
-                </ul>
-                <div className="chatInputWrapper">
-                    <form onSubmit={this.handleSubmit}>
-                        <input
-                            className="textarea input"
-                            type="text"
-                            placeholder="Enter your message..."
-                            onChange={this.handleChange}
-                        />
-                    </form>
+                                ) : (
+                                        <li className="other">
+                                            <div className="msg">
+                                                <p>{data.sender.uid}</p>
+                                                <div className="message"> {data.data.text} </div>
+                                            </div>
+                                        </li>
+                                    )}
+                            </div>
+                        ))}
+                    </ul>
+                    <div className="chatInputWrapper">
+                        <form onSubmit={this.handleSubmit}>
+                            <input
+                                className="textarea input"
+                                type="text"
+                                placeholder="Enter your message..."
+                                onChange={this.handleChange}
+                            />
+                        </form>
+                    </div>
                 </div>
             </div>
         );
