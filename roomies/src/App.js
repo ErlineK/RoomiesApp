@@ -29,7 +29,6 @@ class App extends Component {
     render() {
         return (
             <div className="App" >
-                <Home />
                 <nav className='App-nav'>
                     <NavLink activeClassName='active-page' to='/Profile'>
                         Edit
@@ -46,10 +45,12 @@ class App extends Component {
                 </nav>
 
                 <Switch>
+                    <Route path="/" exact component={Home} />
                     <Route exact path='/Profile' component={Profile} />
                     <Route exact path='/About' render={() => <About name='Pugsy' city='London'/>} />
                     <Route exact path='/Bills' component={Bills} />
                     <Route exact path='/About' render={() => <About name='Pugsy' city='London' />} />
+                    <Route exact path='/GroupChat' component={GroupChat} />
                 </Switch>
             </div >
         );

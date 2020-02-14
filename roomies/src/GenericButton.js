@@ -5,7 +5,7 @@ class GenericButton extends Component {
     render() {
         return ( 
             <div>
-            <button className={this.props.buttonClass}> { this.props.name } </button>
+            <button className={this.props.buttonClass}> { this.props.name }</button>
             </div>
         );
     }
