@@ -42,23 +42,29 @@ class Login extends Component {
             type="email"
             name="email"
             placeholder="Email"
+            className="form-control"
             value={this.state.email}
             onChange={this.doOnChange}
             required
             value="aa@aa.ca"
           />
+
           <label htmlFor="pass">Password</label>
           <input
             id="pass"
             type="password"
             name="password"
             placeholder="Password"
+            className="form-control"
             value={this.state.password}
             onChange={this.doOnChange}
             required
             value="111111"
           />
-          <button type="submit">Log In</button>
+
+          <button type="submit" className="btn btn-primary">
+            Log In
+          </button>
         </form>
       </div>
     );

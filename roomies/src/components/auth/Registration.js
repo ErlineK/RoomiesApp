@@ -41,6 +41,7 @@ class Registration extends Component {
             type="email"
             name="email"
             placeholder="Email"
+            className="form-control"
             value={this.state.email}
             onChange={this.doOnChange}
             required
@@ -51,6 +52,7 @@ class Registration extends Component {
             type="password"
             name="password"
             placeholder="Password"
+            className="form-control"
             value={this.state.password}
             onChange={this.doOnChange}
             required
@@ -59,11 +61,14 @@ class Registration extends Component {
             type="password"
             name="password_confirm"
             placeholder="Confirm Password"
+            className="form-control input-margin"
             value={this.state.password_confirm}
             onChange={this.doOnChange}
             required
           />
-          <button type="submit">Register</button>
+          <button type="submit" className="btn btn-primary">
+            Register
+          </button>
         </form>
       </div>
     );

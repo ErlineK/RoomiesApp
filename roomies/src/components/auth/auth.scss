@@ -1,7 +1,10 @@
 .from-container {
   padding: 2%;
-
   text-align: center;
+
+  button {
+    margin-top: 5%;
+  }
 
   form {
     display: flex;
@@ -12,6 +15,11 @@
 
     label {
       text-align: left;
+      margin-top: 5%;
+    }
+
+    .input-margin {
+      margin-top: 5%;
     }
   }
 }
