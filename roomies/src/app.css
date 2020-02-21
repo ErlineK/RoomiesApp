@@ -8,18 +8,7 @@
     align-items: center;
   }
   
-  .App-nav {
-    width: 50%;
-    display: flex;
-    margin: 1rem auto;
-    justify-content: space-around;
-  }
-  
-  .active-page {
-    color:#249696;
-    border-bottom: 1px solid white;
-  }
-  
+
   a {
     font-size: 2rem;
     text-decoration: none;
@@ -41,7 +30,7 @@
     border: 1px solid black;
   }
   
-  img {
+  .round-img {
     border-radius: 50%;
     width: 10%;
   }
@@ -51,7 +40,7 @@
   .GroupChat,
   .HouseList{
     width: 1000px;
-    height: 800px;
+    /* height: 800px; */
   }
   
   h1 {

@@ -1,0 +1,17 @@
+.from-container {
+  padding: 2%;
+
+  text-align: center;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    max-width: 30%;
+    margin: auto;
+
+    label {
+      text-align: left;
+    }
+  }
+}
