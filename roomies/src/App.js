@@ -1,28 +1,12 @@
 import React, { Component } from 'react';
-import { Switch, Route, NavLink } from 'react-router-dom';
-import Profile from './Profile';
-import About from './About';
-import Bills from './Bills';
-import GroupChat from './components/GroupChat';
+import { NavLink, Route, Switch } from 'react-router-dom';
+import About from './components/About/About';
 import "./app.css";
-
-// import './main.module.css'
-// import GenericButton from './GenericButton';
-// import Example from './Nav';
-// import 'bootstrap/dist/css/bootstrap.css';
-// import { NavLink } from 'reactstrap';
-
-// Put any other imports below so that CSS from your
-// components takes precedence over default styles.
-import "./app.css";
+import Bills from './components/Bills/Bills';
+import GroupChat from './components/groupchat/GroupChat';
 import Home from './home/home';
-// import TextBox from './TextBox';
-// import NavSection from './NavSection';
-// import Navbar from './Navbar';
-// import 'bootstrap/dist/css/bootstrap.css';
-// import Example from './Nav';
-// Put any other imports below so that CSS from your
-// components takes precedence over default styles.
+import Profile from './Profile';
+import HouseList from './components/HouseList/houselist';
 
 
 class App extends Component {
@@ -49,8 +33,8 @@ class App extends Component {
                     <Route exact path='/Profile' component={Profile} />
                     <Route exact path='/About' render={() => <About name='Pugsy' city='London'/>} />
                     <Route exact path='/Bills' component={Bills} />
-                    <Route exact path='/About' render={() => <About name='Pugsy' city='London' />} />
                     <Route exact path='/GroupChat' component={GroupChat} />
+                    <Route exact path='/HouseList' component={HouseList} />
                 </Switch>
             </div >
         );

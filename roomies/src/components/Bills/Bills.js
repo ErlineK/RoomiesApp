@@ -1,41 +1,21 @@
 import React, { Component } from 'react';
-import { Switch, Route, NavLink } from 'react-router-dom';
-import GenericButton from './GenericButton';
-// import './main.module.css'
-// import GenericButton from './GenericButton';
-// import Example from './Nav';
-
-// import 'bootstrap/dist/css/bootstrap.css';
-// import { NavLink } from 'reactstrap';
-
-// Put any other imports below so that CSS from your
-// components takes precedence over default styles.
+// import GenericButton from '../../GenericButton';
 import "./Bills.css";
-// import TextBox from './TextBox';
-// import NavSection from './NavSection';
-// import Navbar from './Navbar';
-// import 'bootstrap/dist/css/bootstrap.css';
-// import Example from './Nav';
-// Put any other imports below so that CSS from your
-// components takes precedence over default styles.
-
+import SideButton from '../SideBar/sidebuttons';
 
 class Bills extends Component {
     render() {
         return (
-            <div className="Bills-body">
+            <div className="Bills">
                 <div className="Bills-topNav">
-                    <div className="Bills-nav">
+                    {/* <div className="Bills-nav">
                         <GenericButton buttonClass="button red" name="button1" />
                         <GenericButton buttonClass="button red" name="button1" />
-                    </div>
+                    </div> */}
                 </div>
                 
-                <div className="Bills-leftNav">
-                    <GenericButton buttonClass="button red" name="button1" />
-                    <GenericButton buttonClass="button red" name="button1" />
-                    <GenericButton buttonClass="button red" name="button1" />
-                    <GenericButton buttonClass="button red" name="button1" />
+                <div>
+                    <SideButton />
                 </div>  
                 <div className="Bills-mainContent">
                     <h1>Bills</h1>

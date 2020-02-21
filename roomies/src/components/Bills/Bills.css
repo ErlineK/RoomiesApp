@@ -1,6 +1,5 @@
 .Bills-topNav {
     width: 100%;
-    height: 200px;
     display: block;
     border-bottom: 1px solid black;
 }
@@ -16,7 +15,6 @@
 }
 
 .Bills-leftNav {
-    height: 800px;
     width: 150px;
     border-right: 1px solid black;
     margin: 0px;
@@ -29,7 +27,6 @@
 }
 
 .Bills-mainContent {
-    height: 100%;
     width: 100%;
     text-align: center;
 }
@@ -38,4 +35,20 @@
     float: left;
     width: 30%;
     padding: 10px;
+}
+
+.sideButton {
+    background-color: #ffffff;
+    border: none;
+    color: #000000;
+    box-shadow: none;
+    text-shadow: none;
+    font-size: large;
+    margin: 20px;
+    text-align: center;
+}
+
+.sideButton:hover {
+    background-color: #249696;
+    cursor: pointer;
 }

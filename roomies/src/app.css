@@ -1,7 +1,7 @@
 .App {
     text-align: center;
     display: flex;
-    background:#5C5E5E;
+    background:#ffffff;
     height: 100vh;
     justify-content: center;
     flex-direction: column;
@@ -23,7 +23,7 @@
   a {
     font-size: 2rem;
     text-decoration: none;
-    color: white;
+    color: #000000;
     transition: all 0.4s ease-out;
   }
   
@@ -48,7 +48,8 @@
   
   .Profile,
   .About,
-  .GroupChat{
+  .GroupChat,
+  .HouseList{
     width: 1000px;
     height: 800px;
   }

@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import chat from "../lib/chat";
-import config from "../config";
+import chat from "../../lib/chat";
+import config from "../../config";
 import "./groupChat.css"
 
 class Groupchat extends React.Component {

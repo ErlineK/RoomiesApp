@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+import SideButton from "../SideBar/sidebuttons";
 
 class About extends Component {
   render() {
     return (
       <div className='About'>
+        <SideButton />
         <h1>About</h1>
         <h3>Hi, I'm {this.props.name}</h3>
         <p>I live in {this.props.city}</p>
