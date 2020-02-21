@@ -17,7 +17,7 @@ class Navbar extends Component {
         <NavLink key={uuid()} to={`/${ni.path}`}>
           <img
             className="navLogo"
-            src={require("./london.jpg")}
+            src={require("../../assets/london.jpg")}
             alt="application logo"
           />
         </NavLink>

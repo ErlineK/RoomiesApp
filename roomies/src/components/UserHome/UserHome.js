@@ -1,12 +1,7 @@
 import React, { Component } from "react";
-import "../general.css";
-import { Switch, Route, Link } from "react-router-dom";
+import "../GenericComponents/general.css";
 
 class UserHome extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div>

@@ -1,21 +1,16 @@
-import React, { Component } from "./node_modules/react";
-import "../general.css";
+import React, { Component } from "react";
+import "../GenericComponents/general.css";
 import "./home.css";
-import Registration from "../auth/Registration";
-import { Switch, Route, Link } from "./node_modules/react-router-dom";
+import { Link } from "react-router-dom";
 
 class Home extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div>
         <div id="centralHolder">
           <img
             className="homeLogo"
-            src={require("../london.jpg")}
+            src={require("../../assets/london.jpg")}
             alt="application logo"
           />
           <h3>Roomie App</h3>
