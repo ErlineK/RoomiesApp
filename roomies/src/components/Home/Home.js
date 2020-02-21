@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { Component } from "./node_modules/react";
 import "../general.css";
 import "./home.css";
 import Registration from "../auth/Registration";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route, Link } from "./node_modules/react-router-dom";
 
 class Home extends Component {
   constructor(props) {

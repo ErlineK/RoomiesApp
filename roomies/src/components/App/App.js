@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import { NavLink, Route, Switch, Redirect } from "react-router-dom";
-import About from "./components/About/About";
+import About from "../About/About";
 import "./app.css";
-import Bills from "./components/Bills/Bills";
-import GroupChat from "./components/groupchat/GroupChat";
-import Home from "./home/home";
-import Profile from "./Profile";
-import HouseList from "./components/HouseList/houselist";
-import Registration from "./auth/Registration";
-import Navbar from "./Navbar";
-import Login from "./auth/Login";
-import UserHome from "./UserHome/UserHome";
+import Bills from "../Bills/Bills";
+import GroupChat from "../groupchat/GroupChat";
+import Home from "../Home/Home";
+import Profile from "../Profile/Profile";
+import HouseList from "../HouseList/houselist";
+import Registration from "../auth/Registration";
+import Navbar from "../Nav/Navbar";
+import Login from "../auth/Login";
+import UserHome from "../UserHome/UserHome";
 
 class App extends Component {
   constructor(props) {
