@@ -61,15 +61,12 @@ class Bills extends Component {
                     bills: prevState.bills.map(
                         el => el.key === key? { ...el, value: newValue }: el
                     )
-                  
                 }))
             }
             console.log(this.state.bills);
         }
     }
-
-
-
+    
     render() {
         return (
             <div className="Bills">
