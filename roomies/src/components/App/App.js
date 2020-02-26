@@ -23,7 +23,23 @@ class App extends Component {
   }
 
   handleLogin() {
+    // call to Login WS goes Here
     this.setState(st => ({ loggedIn: true }));
+  }
+
+  handleRegistration() {
+    console.log("Registered successfully");
+    //TODO: handle registration
+
+    // axios
+    //   .post("http://localhost:3000/users/register", userObject)
+    //   .then(res => {
+    //     console.log("Registered successfully");
+    //     //TODO: redirect to thank you page with login
+    //   })
+    //   .catch(error => {
+    //     console.log("Registration Error");
+    //   });
   }
 
   render() {
@@ -63,7 +79,13 @@ class App extends Component {
               path="/About"
               render={() => <About name="Pugsy" city="London" />}
             />
-            <Route exact path="/Registration" render={() => <Registration />} />
+            <Route
+              exact
+              path="/Registration"
+              render={() => (
+                <Registration handleRegistration={this.handleRegistration} />
+              )}
+            />
             <Route
               exact
               path="/Login"
