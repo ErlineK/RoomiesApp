@@ -3,8 +3,8 @@ import useInputState from "../../hooks/useInputState";
 import "./auth.scss";
 
 function Login({ handleLogin }) {
-  const [email, handleEmailChange, resetEmail] = useInputState("");
-  const [password, handlePassChange, resetPass] = useInputState("");
+  const [email, handleEmailChange, resetEmail] = useInputState("me@roomies.ca");
+  const [password, handlePassChange, resetPass] = useInputState("111111");
 
   const validated = () => {
     /** TODO: Consider adding validation to input state hook */
@@ -38,7 +38,7 @@ function Login({ handleLogin }) {
           value={email}
           onChange={handleEmailChange}
           required
-          value="me@roomies.ca"
+          value={email}
         />
 
         <label htmlFor="pass">Password</label>
@@ -51,7 +51,7 @@ function Login({ handleLogin }) {
           value={password}
           onChange={handlePassChange}
           required
-          value="111111"
+          value={password}
         />
 
         <button type="submit" className="btn btn-primary">
