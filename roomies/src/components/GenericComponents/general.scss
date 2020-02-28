@@ -1,0 +1,91 @@
+$primary-color: #fef430;
+$orange-color: #eaa418;
+$primary-color-dark: #ea7818;
+$accent-red-light: #f15742;
+$accent-red: #c60402;
+$accent-blue: #3c8be0;
+$accent-light: #fff;
+$accent-dark: #414141;
+
+.background-gradient {
+  //   background-image: radial-gradient(
+  //     circle farthest-corner at 10% 20%,
+  //     $primary-color 0.1%,
+  //     rgba(255, 153, 1, 1) 90%
+  //   );
+
+  background-image: radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba(254, 244, 48, 1) 0%,
+    rgba(250, 214, 1, 1) 42%,
+    rgba(234, 171, 24, 1) 100%
+  );
+}
+
+.appContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: visible;
+}
+
+#centralHolder {
+  position: inherit;
+  color: $accent-light;
+
+  h1 {
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+  }
+
+  h4 {
+    color: $accent-dark;
+  }
+
+  hr {
+    width: 50%;
+  }
+}
+
+// gradient button
+.btn-grad {
+  border-radius: 30rem;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.5rem 3rem;
+  color: $accent-dark;
+  box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
+  border: solid 3px transparent;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0)
+    ),
+    linear-gradient(101deg, $orange-color, $accent-red-light);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  box-shadow: 2px 1000px 1px #fff inset;
+}
+
+.btn-grad-pressed {
+  border-radius: 30rem;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.5rem 3rem;
+  color: $accent-light;
+  box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
+  border: solid 3px transparent;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0)
+    ),
+    linear-gradient(101deg, $orange-color, $accent-red-light);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+
+.btn-grad:hover {
+  box-shadow: none;
+  color: $accent-light;
+}

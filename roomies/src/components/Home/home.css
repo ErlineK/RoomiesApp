@@ -1,6 +1,17 @@
 .homeLogo {
   border-radius: 50%;
   width: 200px;
+  height: 200px;
   box-shadow: 3px 3px 5px gray;
+}
+
+.buttonsHolder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 5%;
+}
+
+.buttonsHolder a {
+  margin: 5px;
 }

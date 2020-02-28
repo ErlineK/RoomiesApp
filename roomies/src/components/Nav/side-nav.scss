@@ -1,0 +1,16 @@
+@import "../GenericComponents/general.scss";
+@import "./navbar.scss";
+
+.side-nav {
+  height: 100%;
+  max-width: 250px;
+  float: left;
+  position: fixed;
+  display: table;
+}
+
+.nav-content-holder {
+  display: table-cell;
+  vertical-align: middle;
+  padding-bottom: 20%;
+}

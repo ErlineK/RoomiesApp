@@ -1,6 +1,7 @@
 import React, { Component, useState } from "react";
 import useInputState from "../../hooks/useInputState";
 import "./auth.scss";
+import { Link } from "react-router-dom";
 
 function Login({ handleLogin }) {
   const [email, handleEmailChange, resetEmail] = useInputState("me@roomies.ca");
@@ -26,8 +27,8 @@ function Login({ handleLogin }) {
   };
 
   return (
-    <div className="from-container">
-      <form onSubmit={doSubmit}>
+    <div className=" from-container">
+      <form className="card" onSubmit={doSubmit}>
         <label htmlFor="email">Email</label>
         <input
           id="email"
@@ -54,10 +55,13 @@ function Login({ handleLogin }) {
           value={password}
         />
 
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-grad-pressed">
           Log In
         </button>
       </form>
+      <Link className="secondary-link" to="/Registration">
+        New here? Create account
+      </Link>
     </div>
   );
 }

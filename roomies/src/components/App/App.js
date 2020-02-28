@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import About from "../About/About";
-import "./app.css";
+import "./app.scss";
 import Bills from "../Bills/Bills";
 import GroupChat from "../groupchat/GroupChat";
 import Home from "../Home/Home";
@@ -11,6 +11,8 @@ import Registration from "../auth/Registration";
 import Navbar from "../Nav/Navbar";
 import Login from "../auth/Login";
 import UserHome from "../UserHome/UserHome";
+import SideNav from "../Nav/SideNav";
+import UserTopNav from "../Nav/UserTopNav";
 
 class App extends Component {
   constructor(props) {
@@ -49,20 +51,29 @@ class App extends Component {
           {!this.state.loggedIn ? (
             <Navbar
               cat={[
-                { title: "Logo", path: "" },
+                // { title: "Logo", path: "" },
                 { title: "About", path: "About" },
                 { title: "Help", path: "About" }
               ]}
             />
           ) : (
-            <Navbar
-              cat={[
-                { title: "Logo", path: "UserHome" },
-                { title: "Edit", path: "Profile" },
-                { title: "Bills", path: "Bills" },
-                { title: "GroupChat", path: "GroupChat" }
-              ]}
-            />
+            <>
+              <UserTopNav
+                cat={[
+                  { title: "Logo", path: "UserHome" },
+                  { title: "Edit", path: "Profile" },
+                  { title: "Bills", path: "Bills" }
+                ]}
+              />
+              <SideNav
+                className="side-bar"
+                cat={[
+                  { title: "Edit", path: "Profile" },
+                  { title: "Bills", path: "Bills" },
+                  { title: "GroupChat", path: "GroupChat" }
+                ]}
+              />
+            </>
           )}
 
           {this.state.loggedIn && <Redirect to="/UserHome" />}

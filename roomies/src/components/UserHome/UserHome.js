@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "../GenericComponents/general.css";
+import "../GenericComponents/general.scss";
 
 class UserHome extends Component {
   render() {
