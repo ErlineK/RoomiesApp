@@ -35,6 +35,10 @@ export default initialVal => {
         // check for strong password: at least one capital letter, one small latter
         console.log("pass validation: " + valid);
         break;
+
+      default:
+        valid = false;
+        break;
     }
 
     return valid;

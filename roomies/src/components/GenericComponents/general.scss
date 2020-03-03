@@ -7,6 +7,20 @@ $accent-blue: #3c8be0;
 $accent-light: #fff;
 $accent-dark: #414141;
 
+@import url("https://fonts.googleapis.com/css?family=Acme|Righteous|Spartan|Teko|Varela+Round&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Bangers&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Trade+Winds&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Philosopher&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Kranky&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Carter+One&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Fredericka+the+Great&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Knewave&display=swap");
+
+// @font-face {
+//   font-family: "Teko", cursive;
+//   src: "https://fonts.googleapis.com/css?family=Teko&display=swap";
+// }
+
 .background-gradient {
   //   background-image: radial-gradient(
   //     circle farthest-corner at 10% 20%,
@@ -36,6 +50,7 @@ $accent-dark: #414141;
   h1 {
     text-transform: uppercase;
     letter-spacing: 0.25em;
+    font-family: "Bangers", cursive;
   }
 
   h4 {

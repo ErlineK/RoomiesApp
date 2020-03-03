@@ -1,9 +1,8 @@
 import React from "react";
 import useInputState from "../../hooks/useInputState";
 import "./auth.scss";
-import { Link } from "react-router-dom";
 
-function Registration({ handleRegistration }) {
+function Registration() {
   const [email, handleEmailChange, resetEmail, validateEmail] = useInputState(
     ""
   );
@@ -13,9 +12,23 @@ function Registration({ handleRegistration }) {
   const [
     passConfirm,
     handlePassConfirmChange,
-    resetPassConfirm,
-    validatePassConfirm
+    resetPassConfirm
   ] = useInputState("");
+
+  const handleRegistration = () => {
+    console.log("Registered successfully");
+    //TODO: handle registration
+
+    // axios
+    //   .post("http://localhost:3000/users/register", userObject)
+    //   .then(res => {
+    //     console.log("Registered successfully");
+    //     //TODO: redirect to thank you page with login
+    //   })
+    //   .catch(error => {
+    //     console.log("Registration Error");
+    //   });
+  };
 
   const validated = () => {
     let validated = true;

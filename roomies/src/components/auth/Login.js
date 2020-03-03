@@ -1,29 +1,57 @@
-import React, { Component, useState } from "react";
+import React, { useContext } from "react";
 import useInputState from "../../hooks/useInputState";
 import "./auth.scss";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../auth/AuthContext";
 
-function Login({ handleLogin }) {
-  const [email, handleEmailChange, resetEmail] = useInputState("me@roomies.ca");
-  const [password, handlePassChange, resetPass] = useInputState("111111");
+function Login() {
+  const [email, handleEmailChange, resetEmail, validateEmail] = useInputState(
+    "me@roomies.ca"
+  );
+  const [password, handlePassChange, resetPass, validatePass] = useInputState(
+    "111111"
+  );
+  const { setUserId } = useContext(AuthContext);
 
   const validated = () => {
-    /** TODO: Consider adding validation to input state hook */
-    //TODO: validate data
+    let validated = false;
+    validated = validateEmail();
+    if (validated) {
+      validated = validatePass;
+    }
     return true;
   };
 
   const doSubmit = event => {
-    console.log("clicked login");
     event.preventDefault();
 
     if (validated()) {
-      /** Consider adding validation to input state hook */
-      // call to login WS goes here
       handleLogin();
+
+      // TODO: remove these after WS implementation
       resetEmail();
       resetPass();
     }
+  };
+
+  const handleLogin = () => {
+    // TODO: call Login WSH, get userId in return.
+    // axios
+    //   .post("http://localhost:3000/users/login", userObject)
+    //   .then(res => {
+    console.log("Logged In successfully");
+    //    save userId to global context
+    setUserId("1111");
+    //    window.localStorage.setItem("userId", { res.data.userId });
+    //     //TODO: redirect to thank you page with login
+    // <Redirect to={"/UserHome"} />;
+    //   })
+    //   .catch(error => {
+    //     console.log("Login Error");
+    // TODO: display errors
+    // resetEmail();
+    // resetPass();
+    //   });
   };
 
   return (
@@ -39,7 +67,6 @@ function Login({ handleLogin }) {
           value={email}
           onChange={handleEmailChange}
           required
-          value={email}
         />
 
         <label htmlFor="pass">Password</label>
@@ -52,7 +79,6 @@ function Login({ handleLogin }) {
           value={password}
           onChange={handlePassChange}
           required
-          value={password}
         />
 
         <button type="submit" className="btn btn-grad-pressed">

@@ -3,19 +3,19 @@ import "./navbar.scss";
 import { NavLink } from "react-router-dom";
 import uuid from "uuid";
 
-class Navbar extends Component {
+class SideNav extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      navItems: [this.props.cat]
+      navItems: [this.props.navItems]
     };
   }
 
   render() {
-    let navArray = this.props.cat.map(ni => (
+    let navArray = this.props.navItems.map(ni => (
       <div className="navLink-holder" key={uuid()}>
         <NavLink
-          className="underline nav-link"
+          className="nav-link"
           activeClassName="active-page"
           to={`/${ni.path}`}
         >
@@ -31,4 +31,4 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar;
+export default SideNav;

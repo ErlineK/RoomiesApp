@@ -12,6 +12,10 @@
   justify-content: space-between;
 }
 
+.nav-link {
+  display: inline;
+}
+
 .navbar a {
   color: $accent-dark;
   font-size: 1rem;
@@ -33,6 +37,15 @@
   position: relative;
 }
 
+.navLink-holder {
+  display: inline-block;
+
+  .nav-icon-margin-fix {
+    margin-bottom: 11px;
+    cursor: pointer;
+  }
+}
+
 .navLink-holder .underline::after {
   width: 0%;
   height: 4px;
@@ -40,7 +53,7 @@
   background-color: $accent-red;
   content: " ";
   position: relative;
-  top: 10px;
+  top: 0.4rem;
   left: 50%;
   transition: left 0.4s cubic-bezier(0.215, 0.61, 0.355, 1),
     width 0.4s cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -48,7 +61,7 @@
 
 .navLink-holder:hover .underline::after {
   width: 100%;
-  left: 0;
+  left: 10%;
 }
 
 .user-navLink-holder a {

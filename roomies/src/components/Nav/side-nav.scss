@@ -5,12 +5,17 @@
   height: 100%;
   max-width: 250px;
   float: left;
-  position: fixed;
+  // position: fixed;
   display: table;
 }
 
 .nav-content-holder {
   display: table-cell;
+  flex-direction: column;
   vertical-align: middle;
   padding-bottom: 20%;
+
+  .navLink-holder {
+    display: block;
+  }
 }
