@@ -5,6 +5,11 @@
   box-shadow: 3px 3px 5px gray;
 }
 
+.home-central-holder {
+  margin: auto;
+  display: inline-block;
+}
+
 .buttonsHolder {
   display: flex;
   align-items: center;

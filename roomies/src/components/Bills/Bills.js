@@ -113,14 +113,14 @@ class Bills extends Component {
   render() {
     return (
       <div className="Bills">
-        <div className="Bills-topNav">
+        {/* <div className="Bills-topNav">
           {/* <div className="Bills-nav">
                         <GenericButton buttonClass="button red" name="button1" />
                         <GenericButton buttonClass="button red" name="button1" />
                     </div> */}
-        </div>
+        {/* </div> */}
 
-        <SideButton />
+        {/* <SideButton /> */}
         <div className="Bills-mainContent">
           <h1>Bills</h1>
           <div className="Bills-columns">

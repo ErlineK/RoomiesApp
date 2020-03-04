@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 function Home() {
   return (
     <div>
-      <div id="centralHolder">
+      <div className="home-central-holder">
         <img
           className="homeLogo"
           src={require("../../assets/Logo.svg")}
