@@ -46,6 +46,10 @@ $accent-dark: #414141;
 #centralHolder {
   position: inherit;
   color: $accent-light;
+  background-color: fade-out($accent-light, 0.5);
+  float: left;
+  width: 79%;
+  margin: auto;
 
   h1 {
     text-transform: uppercase;
@@ -103,4 +107,16 @@ $accent-dark: #414141;
 .btn-grad:hover {
   box-shadow: none;
   color: $accent-light;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.flex-item {
+  width: 98%;
+  padding: 2%;
+  margin: 0.5%;
 }

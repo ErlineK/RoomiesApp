@@ -7,7 +7,7 @@ import Profile from "../Profile/Profile";
 import HouseList from "../HouseList/houselist";
 import Registration from "../auth/Registration";
 import Login from "../auth/Login";
-import UserHome from "../UserHome/UserHome";
+import UserHome from "../Home/UserHome/UserHome";
 import About from "../About/About";
 
 export default function() {

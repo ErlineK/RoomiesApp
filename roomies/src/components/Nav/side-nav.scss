@@ -3,9 +3,10 @@
 
 .side-nav {
   height: 100%;
-  max-width: 230px;
+  width: 25%;
+  max-width: 210px;
   float: left;
-  margin-right: 50px;
+  padding-right: 15px;
 
   * {
     margin: 0;
@@ -18,7 +19,7 @@
   }
 
   .nav-content-holder {
-    width: 200px;
+    // width: 200px;
     margin-left: auto;
     margin-right: auto;
     display: grid;
@@ -43,7 +44,7 @@
     margin-left: auto;
     margin-right: auto;
     border-radius: 10px;
-    width: 210px;
+    width: 100%;
     min-height: 20px;
     margin-top: 4%;
     transition-duration: 0.2s;
@@ -104,7 +105,7 @@
       height: 75px;
       width: 50px;
       margin-top: -3.5rem;
-      margin-left: 5.5rem;
+      margin-left: 4.5rem;
       position: absolute;
       background-repeat: no-repeat;
     }
