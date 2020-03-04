@@ -26,15 +26,16 @@
   }
   .side-nav-link {
     font-size: 35px;
-    font-size: 3vw;
+    font-size: 2.5vw;
+    color: $accent-dark;
     text-align: center;
     margin-top: 0;
     cursor: pointer;
     width: 100%;
-    background: $orange-color;
+    background: fade-out($primary-color-dark, 0.5);
     border-radius: 10px;
     font-family: Century Gothic;
-    letter-spacing: 5px;
+    letter-spacing: 3%;
     display: inherit;
     line-height: initial;
   }
@@ -103,7 +104,7 @@
       height: 75px;
       width: 50px;
       margin-top: -3.5rem;
-      margin-left: 6rem;
+      margin-left: 5.5rem;
       position: absolute;
       background-repeat: no-repeat;
     }

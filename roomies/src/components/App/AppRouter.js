@@ -19,22 +19,18 @@ export default function() {
         // render={() => <Home handleLogin={this.handleLogin} />}
         render={() => <Home />}
       />
-      <Route exact path="/Profile" component={Profile} />
+
       <Route
         exact
         path="/About"
         render={() => <About name="Pugsy" city="London" />}
       />
       <Route exact path="/Registration" render={() => <Registration />} />
-      <Route
-        exact
-        path="/Login"
-        // render={() => <Login handleLogin={this.handleLogin} />}
-        render={() => <Login />}
-      />
+      <Route exact path="/Login" render={() => <Login />} />
       <Route exact path="/Bills" component={Bills} />
       <Route exact path="/GroupChat" component={GroupChat} />
       <Route exact path="/HouseList" component={HouseList} />
+      <Route exact path="/Profile" component={Profile} />
       <Route exact path="/UserHome" component={UserHome} />
     </Switch>
   );
