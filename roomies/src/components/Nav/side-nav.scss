@@ -3,19 +3,109 @@
 
 .side-nav {
   height: 100%;
-  max-width: 250px;
+  max-width: 230px;
   float: left;
-  // position: fixed;
-  display: table;
-}
+  margin-right: 50px;
 
-.nav-content-holder {
-  display: table-cell;
-  flex-direction: column;
-  vertical-align: middle;
-  padding-bottom: 20%;
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-  .navLink-holder {
-    display: block;
+  a:hover {
+    text-decoration: none;
+  }
+
+  .nav-content-holder {
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    margin-top: 10%;
+  }
+  .side-nav-link {
+    font-size: 35px;
+    font-size: 3vw;
+    text-align: center;
+    margin-top: 0;
+    cursor: pointer;
+    width: 100%;
+    background: $orange-color;
+    border-radius: 10px;
+    font-family: Century Gothic;
+    letter-spacing: 5px;
+    display: inherit;
+    line-height: initial;
+  }
+  .side-nav-link-container {
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    width: 210px;
+    min-height: 20px;
+    margin-top: 4%;
+    transition-duration: 0.2s;
+
+    &::after {
+      content: "";
+      background-color: transparent;
+      -webkit-mask: url("../../assets/arrow_forward.svg") no-repeat 50% 50%;
+      mask: url("../../assets/arrow_forward.svg") no-repeat 50% 50%;
+      height: 75px;
+      width: 50px;
+      margin-top: -30%;
+      margin-left: 25%;
+      position: absolute;
+      background-repeat: no-repeat;
+      transition-property: margin-left, background-color;
+      transition-duration: 0.25s;
+      transition-timing-function: ease-out;
+    }
+  }
+  .side-nav-link:hover {
+    background: transparent;
+    color: black;
+  }
+  .side-nav-link-container:nth-child(odd) {
+    transform: perspective(300px) rotateY(45deg);
+    box-shadow: -2px 2px 7px gray;
+  }
+  .side-nav-link-container:nth-child(even) {
+    transform: perspective(300px) rotateY(-45deg);
+    box-shadow: 2px 2px 7px gray;
+  }
+  .side-nav-link-container:hover {
+    transform: rotateY(0);
+    background: transparent;
+    color: black;
+    box-shadow: 0px 0px 0px;
+  }
+
+  .side-nav-link-active {
+    &.side-nav-link-container {
+      transform: rotateY(0);
+      background: transparent;
+      color: black;
+      box-shadow: 0px 0px 0px;
+    }
+
+    p {
+      background: transparent;
+      color: black;
+    }
+
+    &::after {
+      content: "";
+      background-color: $accent-red;
+      -webkit-mask: url("../../assets/arrow_forward.svg") no-repeat 50% 50%;
+      mask: url("../../assets/arrow_forward.svg") no-repeat 50% 50%;
+      height: 75px;
+      width: 50px;
+      margin-top: -3.5rem;
+      margin-left: 6rem;
+      position: absolute;
+      background-repeat: no-repeat;
+    }
   }
 }

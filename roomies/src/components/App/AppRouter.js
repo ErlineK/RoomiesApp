@@ -35,7 +35,7 @@ export default function() {
       <Route exact path="/Bills" component={Bills} />
       <Route exact path="/GroupChat" component={GroupChat} />
       <Route exact path="/HouseList" component={HouseList} />
-      <Route exact path="/UserHome" render={() => <UserHome />} />
+      <Route exact path="/UserHome" component={UserHome} />
     </Switch>
   );
 }

@@ -23,7 +23,7 @@ function Registration() {
     //   .post("http://localhost:3000/users/register", userObject)
     //   .then(res => {
     //     console.log("Registered successfully");
-    //     //TODO: redirect to thank you page with login
+    //     //TODO: redirect to thank you page with second part of registration
     //   })
     //   .catch(error => {
     //     console.log("Registration Error");

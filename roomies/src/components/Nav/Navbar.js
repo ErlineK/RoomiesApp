@@ -27,12 +27,13 @@ function Navbar() {
       logout: true
     }
   ];
+
+  /* important! keep title one word, so side nav css wont be broken */
   const userSideNavItems = [
     { title: "Bills", path: "Bills" },
-    { title: "House Keeping", path: "HouseList" },
     { title: "Chores", path: "About" },
-    { title: "Chat", path: "GroupChat" },
-    { title: "Profile Settings", path: "Profile" }
+    { title: "Household", path: "HouseList" },
+    { title: "Chat", path: "GroupChat" }
   ];
 
   return isLoggedIn() ? (

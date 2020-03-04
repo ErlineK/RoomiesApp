@@ -56,7 +56,7 @@ function TopNav(props) {
   return (
     <div className="navbar user-nav">
       {isLoggedIn() && (
-        <NavLink key={uuid()} to={"/"}>
+        <NavLink key={uuid()} to={"/UserHome"}>
           <img
             className="navLogo"
             src={require("../../assets/Logo.svg")}

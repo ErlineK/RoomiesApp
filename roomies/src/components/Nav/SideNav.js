@@ -13,19 +13,18 @@ class SideNav extends Component {
 
   render() {
     let navArray = this.props.navItems.map(ni => (
-      <div className="navLink-holder" key={uuid()}>
-        <NavLink
-          className="nav-link"
-          activeClassName="active-page"
-          to={`/${ni.path}`}
-        >
-          {ni.title}
-        </NavLink>
-      </div>
+      <NavLink
+        key={uuid()}
+        className="side-nav-link-container"
+        activeClassName="side-nav-link-active"
+        to={`/${ni.path}`}
+      >
+        <p className="side-nav-link">{ni.title}</p>
+      </NavLink>
     ));
     return (
       <div className="side-nav">
-        <div className="nav-content-holder">{navArray}</div>
+        <section className="nav-content-holder">{navArray}</section>
       </div>
     );
   }
