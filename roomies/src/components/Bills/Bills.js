@@ -12,8 +12,8 @@ class Bills extends Component {
         {
           id: "1",
           people: [
-            { name: "Devin", owed: 250, paid: 300 },
-            { name: "Mike", owed: 250, paid: 200 },
+            { name: "Devin", owed: 250, paid: 200 },
+            { name: "Mike", owed: 250, paid: 0 },
             { name: "Nicole", owed: 250, paid: 0 },
             { name: "Erline", owed: 250, paid: 0 }
           ],
@@ -98,7 +98,7 @@ class Bills extends Component {
   };
 
   getChart = () => {
-    const colors = ["red", "blue", "yellow", "pink", "yellow"];
+    const colors = ["red", "blue", "yellow", "pink", "green", "orange", "purple"];
     let storedPercent = 0;
     const gradients = this.state.selectedBill.people.map((person, index) => {
       const percent = (person.paid / this.state.selectedBill.value) * 100;
