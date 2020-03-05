@@ -2,19 +2,53 @@ import React from "react";
 import useInputState from "../../hooks/useInputState";
 import "./auth.scss";
 
-function Registration({ handleRegistration }) {
-  const [email, handleEmailChange, resetEmail] = useInputState("");
-  const [password, handlePassChange, resetPass] = useInputState("");
+function Registration() {
+  const [email, handleEmailChange, resetEmail, validateEmail] = useInputState(
+    ""
+  );
+  const [password, handlePassChange, resetPass, validatePass] = useInputState(
+    ""
+  );
   const [
     passConfirm,
     handlePassConfirmChange,
     resetPassConfirm
   ] = useInputState("");
 
+  const handleRegistration = () => {
+    console.log("Registered successfully");
+    //TODO: handle registration
+
+    // axios
+    //   .post("http://localhost:3000/users/register", userObject)
+    //   .then(res => {
+    //     console.log("Registered successfully");
+    //     //TODO: redirect to thank you page with second part of registration
+    //   })
+    //   .catch(error => {
+    //     console.log("Registration Error");
+    //   });
+  };
+
   const validated = () => {
+    let validated = true;
     /** TODO: Consider adding validation to input state hook */
     //TODO: validate data
-    return true;
+    validated = validateEmail("EMAIL");
+    if (!validated) {
+      // TODO: dispaly email error
+    } else {
+      validated = validatePass("PASS");
+      if (!validated) {
+        // TODO: display password error
+      } else if (password !== passConfirm) {
+        validated = false;
+        if (!validated) {
+          // TODO: display pass confirm error
+        }
+      }
+    }
+    return validated;
   };
 
   const doSubmit = event => {
@@ -33,7 +67,7 @@ function Registration({ handleRegistration }) {
 
   return (
     <div className="from-container">
-      <form onSubmit={doSubmit}>
+      <form className="card" onSubmit={doSubmit}>
         <label htmlFor="email">Email</label>
         <input
           id="email"
@@ -67,7 +101,7 @@ function Registration({ handleRegistration }) {
           onChange={handlePassConfirmChange}
           required
         />
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-grad-pressed">
           Register
         </button>
       </form>

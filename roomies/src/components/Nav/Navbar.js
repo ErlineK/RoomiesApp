@@ -1,39 +1,49 @@
-import React, { Component } from "react";
-import "./Navbar.css";
-import { NavLink } from "react-router-dom";
-import uuid from "uuid";
+import React, { useContext } from "react";
+import "./side-nav.scss";
+import "./navbar.scss";
+import SideNav from "../Nav/SideNav";
+import TopNav from "./TopNav";
+import { AuthContext } from "../auth/AuthContext";
 
-class Navbar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      navItems: [this.props.cat]
-    };
-  }
+function Navbar() {
+  const { isLoggedIn } = useContext(AuthContext);
 
-  render() {
-    let navArray = this.props.cat.map(ni =>
-      ni.title === "Logo" ? (
-        <NavLink key={uuid()} to={`/${ni.path}`}>
-          <img
-            className="navLogo"
-            src={require("../../assets/london.jpg")}
-            alt="application logo"
-          />
-        </NavLink>
-      ) : (
-        <NavLink
-          key={uuid()}
-          className="nav-link"
-          activeClassName="active-page"
-          to={`/${ni.path}`}
-        >
-          {ni.title}
-        </NavLink>
-      )
-    );
-    return <div className="navbar">{navArray}</div>;
-  }
+  const guestNavItems = [{ title: "About", path: "About" }];
+  const userTopNavItems = [
+    {
+      title: "Profile Settings",
+      icon: "userCog",
+      path: "Profile"
+    },
+    {
+      title: "Notifications",
+      icon: "notifications",
+      path: "/"
+    },
+    {
+      title: "Log Out",
+      icon: "logout",
+      path: "/",
+      logout: true
+    }
+  ];
+
+  /* important! keep title one word, so side nav css wont be broken */
+  const userSideNavItems = [
+    { title: "Bills", path: "Bills" },
+    { title: "Chores", path: "About" },
+    { title: "Household", path: "HouseList" },
+    { title: "Chat", path: "GroupChat" }
+  ];
+
+  return isLoggedIn() ? (
+    <>
+      <TopNav navItems={userTopNavItems} />
+      <SideNav className="side-bar" navItems={userSideNavItems} />
+    </>
+  ) : (
+    <TopNav navItems={guestNavItems} />
+  );
 }
 
 export default Navbar;
