@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./chores.css";
+import DatePicker from 'react-date-picker';
 
 class Chores extends Component {
     constructor(props) {
@@ -7,11 +8,14 @@ class Chores extends Component {
         this.state = {
             taskItems: [],
             message: "",
-            roommates: ["Devin", "Erline", "Mike", "Nicole" ]
-
+            roommates: ["Devin", "Erline", "Mike", "Nicole" ],
+            date: new Date()
         };
 
     }
+    
+    onChange = date => this.setState({ date })
+
     addTask(evt) {
         evt.preventDefault();
         const { taskItems } = this.state;
@@ -32,17 +36,6 @@ class Chores extends Component {
         }
 
         this.addForm.reset();
-    }
-
-    removeItem(item) {
-        const newAddTask = this.state.taskItems.filter(buyItem => {
-            //getting the old state, taking each item from the original state and compare the items to the ones we want to remove while keeping those still in the state
-            return buyItem !== item;
-        });
-
-        this.setState({
-            taskItems: [...newAddTask]
-        });
     }
 
     removeAll() {
@@ -67,7 +60,7 @@ class Chores extends Component {
                         <div className="form-group">
                             <label className="sr-only" htmlFor="newItemInput">
                                 Add New Task
-              </label>
+                            </label>
                             <input
                                 ref={input => (this.newItem = input)}
                                 type="text"
@@ -78,7 +71,7 @@ class Chores extends Component {
                         </div>
                         <button type="submit" className="btn btn-primary">
                             Add
-            </button>
+                        </button>
                     </form>
                     <div>
                         {message !== "" && <p className="message text-danger">{message}</p>}
@@ -107,13 +100,10 @@ class Chores extends Component {
                                             </select>
                                         </td>
                                         <td>
-                                            <button
-                                                onClick={evt => this.removeItem(item)}
-                                                type="button"
-                                                className="btn btn-default btn-sm"
-                                            >
-                                                Remove
-                                            </button>
+                                            <DatePicker
+                                                onChange={this.onChange}
+                                                value={this.state.date}
+                                            />
                                         </td>
                                     </tr>
                                 );
