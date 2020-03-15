@@ -1,13 +1,17 @@
+$phone: 640px;
+$tablet: 768px;
+$desktop: 1024px;
+
 $primary-color: #fef430;
 $orange-color: #eaa418;
 $primary-color-dark: #ea7818;
 $accent-red-light: #f15742;
 $accent-red: #c60402;
 $accent-blue: #3c8be0;
+$accent-green: #5d993a;
 $accent-light: #fff;
 $accent-dark: #414141;
 
-@import url("https://fonts.googleapis.com/css?family=Acme|Righteous|Spartan|Teko|Varela+Round&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Bangers&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Trade+Winds&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Philosopher&display=swap");
@@ -16,10 +20,14 @@ $accent-dark: #414141;
 @import url("https://fonts.googleapis.com/css?family=Fredericka+the+Great&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Knewave&display=swap");
 
-// @font-face {
-//   font-family: "Teko", cursive;
-//   src: "https://fonts.googleapis.com/css?family=Teko&display=swap";
-// }
+$gradient: (
+  radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba(254, 244, 48, 1) 0%,
+    rgba(250, 214, 1, 1) 42%,
+    rgba(234, 171, 24, 1) 100%
+  )
+);
 
 .background-gradient {
   //   background-image: radial-gradient(
@@ -41,6 +49,14 @@ $accent-dark: #414141;
   height: 100%;
   position: relative;
   overflow: visible;
+}
+
+.user-main {
+  margin: auto;
+  display: inline-block;
+  position: relative;
+  width: 95%;
+  margin: auto;
 }
 
 #centralHolder {
@@ -119,4 +135,11 @@ $accent-dark: #414141;
   width: 98%;
   padding: 2%;
   margin: 0.5%;
+}
+
+@media (min-width: $tablet) {
+  .user-main {
+    width: 92%;
+    margin-left: 70px;
+  }
 }

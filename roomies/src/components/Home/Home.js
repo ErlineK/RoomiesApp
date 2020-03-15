@@ -1,6 +1,6 @@
 import React from "react";
 import "../GenericComponents/general.scss";
-import "./home.css";
+import "./home.scss";
 import "../GenericComponents/general.scss";
 import { Link } from "react-router-dom";
 

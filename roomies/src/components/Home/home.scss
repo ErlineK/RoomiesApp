@@ -1,3 +1,5 @@
+@import "../GenericComponents/general.scss";
+
 .homeLogo {
   border-radius: 50%;
   width: 200px;
@@ -8,6 +10,9 @@
 .home-central-holder {
   margin: auto;
   display: inline-block;
+  position: relative;
+  width: 95%;
+  margin: auto;
 }
 
 .buttonsHolder {
@@ -19,4 +24,11 @@
 
 .buttonsHolder a {
   margin: 5px;
+}
+
+@media (min-width: $tablet) {
+  .home-central-holder {
+    width: 92%;
+    margin-left: 70px;
+  }
 }

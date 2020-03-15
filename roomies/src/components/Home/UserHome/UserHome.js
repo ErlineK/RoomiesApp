@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, memo } from "react";
 import "../../GenericComponents/general.scss";
+import "../home.scss";
 import HomeMsgs from "./HomeMsgs";
 import HomeStatus from "./HomeStatus";
 import HomeBills from "./HomeBills";
@@ -7,7 +8,7 @@ import HomeBills from "./HomeBills";
 class UserHome extends Component {
   render() {
     return (
-      <div id="centralHolder" className="card">
+      <div className="card user-main">
         <h3>USER HOME</h3>
         <div className="flex-container">
           <HomeMsgs />
@@ -19,4 +20,4 @@ class UserHome extends Component {
   }
 }
 
-export default UserHome;
+export default memo(UserHome);
