@@ -1,0 +1,11 @@
+.chore-columns {
+  float: left;
+  width: 80%;
+  padding: 10px;
+  border: 1px solid black;
+  margin: 5px;
+}
+.form-inline{
+  float: right;
+  margin: 10px;
+}
