@@ -32,7 +32,7 @@ function Navbar() {
   const userSideNavItems = [
     { title: "Home", path: "UserHome", icon: "home", color: "red" },
     { title: "Bills", path: "Bills", icon: "bills", color: "orange" },
-    { title: "Chores", path: "About", icon: "chores", color: "blue" },
+    { title: "Chores", path: "Chores", icon: "chores", color: "blue" },
     {
       title: "Household",
       path: "HouseList",

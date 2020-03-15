@@ -8,7 +8,7 @@ import { FaUserCog, FaBell, FaPowerOff } from "react-icons/fa";
 import { getNavIconByName } from "./navHelper";
 
 function SideNav({ navItems }) {
-  const [collapsed, toggleMenu] = useToggle(false);
+  const [collapsed, toggleMenu] = useToggle(true);
 
   let navArray = navItems.map(ni => (
     // <div key={uuid()}>
