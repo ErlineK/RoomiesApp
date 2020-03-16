@@ -11,7 +11,6 @@ export default function HomeChores() {
   const [{ data, isLoading, isError }] = useGetRoomiesData(USER_SERVICE_URL, {
     chores: ["Do dishes", "Walk dog"]
   });
-  //   const [data, setData] = useState({ users: [], isFetching: false });
   //   const [{ data, isLoading, isError }, doFetch] = useGetRoomiesData(
   //     USER_SERVICE_URL,
   //     {

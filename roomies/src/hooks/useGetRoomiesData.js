@@ -10,7 +10,7 @@ export default (initUri, initData) => {
   });
 
   useEffect(() => {
-    let didCancel = false; //in case component was unmounted before fetch was complete
+    let didCancel = false; //to prevent state changing after component unmount
     const fetchData = async () => {
       dispatch({ type: "FETCH_INIT" });
       try {
