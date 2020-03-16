@@ -4,12 +4,14 @@ import "../home.scss";
 import HomeMsgs from "./HomeMsgs";
 import HomeStatus from "./HomeStatus";
 import HomeBills from "./HomeBills";
+import HomeChores from "./HomeChores";
 
 class UserHome extends Component {
   render() {
     return (
       <div className="card user-main">
         <h3>USER HOME</h3>
+        <HomeChores />
         <div className="flex-container">
           <HomeMsgs />
           <HomeStatus />
