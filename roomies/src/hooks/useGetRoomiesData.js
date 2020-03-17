@@ -16,7 +16,9 @@ export default (initUri, initData) => {
       try {
         const result = await axios(url);
         if (!didCancel) {
-          dispatch({ type: "FETCH_SUCCESS", payload: result.data });
+          /*** IMPORTANT! uncheck this line once server side added to project! ****/
+          // dispatch({ type: "FETCH_SUCCESS", payload: result.data });
+          dispatch({ type: "FETCH_SUCCESS", payload: initData });
         }
       } catch (error) {
         if (!didCancel) {

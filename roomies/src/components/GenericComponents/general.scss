@@ -127,7 +127,7 @@ $gradient: (
 
 .flex-container {
   display: flex;
-  justify-content: space-between;
+  // justify-content: space-between;
   align-items: stretch;
 }
 
@@ -135,6 +135,24 @@ $gradient: (
   width: 98%;
   padding: 2%;
   margin: 0.5%;
+}
+
+.toLeft {
+  float: left;
+  text-align: left;
+}
+
+.toRight {
+  float: right;
+  text-align: right;
+}
+
+.positivVal {
+  color: $accent-green;
+}
+
+.negativeVal {
+  color: $accent-red;
 }
 
 @media (min-width: $tablet) {

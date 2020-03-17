@@ -49,7 +49,8 @@ function Navbar() {
       <SideNav className="side-bar" navItems={userSideNavItems} />
     </>
   ) : (
-    <TopNav navItems={guestNavItems} />
+    // <TopNav navItems={guestNavItems} />
+    <div></div>
   );
 }
 

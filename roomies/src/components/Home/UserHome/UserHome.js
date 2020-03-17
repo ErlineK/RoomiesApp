@@ -11,9 +11,11 @@ class UserHome extends Component {
     return (
       <div className="card user-main">
         <h3>USER HOME</h3>
-        <HomeChores />
         <div className="flex-container">
-          <HomeMsgs />
+          <div className="flex-container homeColumn">
+            <HomeMsgs />
+            <HomeChores />
+          </div>
           <HomeStatus />
         </div>
         <HomeBills />

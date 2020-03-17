@@ -22,12 +22,17 @@ export default function HomeChores() {
 
   return (
     <div className="card">
+      <h3>Chores</h3>
       {isLoading && <CircleLoader />}
       {data.chores == undefined || isError || data.chores.length < 1 ? (
         <p>No current chores to display</p>
       ) : (
         // <p>Do your chores!!</p>
-        <p>{data.chores}</p>
+        data.chores.map((chore, i) => (
+          <div key={`holder${i}`}>
+            <p>{chore}</p>
+          </div>
+        ))
       )}
       <div className="navLink-holder" style={{ display: "-webkit-box" }}>
         <Link className="secondary-link underline nav-link" to="/Chores">

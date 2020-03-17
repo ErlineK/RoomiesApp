@@ -1,6 +1,8 @@
 import React from "react";
 import useInputState from "../../hooks/useInputState";
 import "./auth.scss";
+import { Link } from "react-router-dom";
+import { MdArrowBack } from "react-icons/md";
 
 function Registration() {
   const [email, handleEmailChange, resetEmail, validateEmail] = useInputState(
@@ -66,45 +68,50 @@ function Registration() {
   };
 
   return (
-    <div className="from-container">
-      <form className="card" onSubmit={doSubmit}>
-        <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          type="email"
-          name="email"
-          placeholder="Email"
-          className="form-control"
-          value={email}
-          onChange={handleEmailChange}
-          required
-        />
+    <div className="homeContainer guestBackground">
+      <div className="from-container">
+        <Link className="secondary-link toLeft" to="/">
+          <MdArrowBack className="back-icon" /> back
+        </Link>
+        <form className="card" onSubmit={doSubmit}>
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            name="email"
+            placeholder="Email"
+            className="form-control"
+            value={email}
+            onChange={handleEmailChange}
+            required
+          />
 
-        <label htmlFor="pass">Password</label>
-        <input
-          id="pass"
-          type="password"
-          name="password"
-          placeholder="Password"
-          className="form-control"
-          value={password}
-          onChange={handlePassChange}
-          required
-        />
+          <label htmlFor="pass">Password</label>
+          <input
+            id="pass"
+            type="password"
+            name="password"
+            placeholder="Password"
+            className="form-control"
+            value={password}
+            onChange={handlePassChange}
+            required
+          />
 
-        <input
-          type="password"
-          name="password_confirm"
-          placeholder="Confirm Password"
-          className="form-control input-margin"
-          value={passConfirm}
-          onChange={handlePassConfirmChange}
-          required
-        />
-        <button type="submit" className="btn btn-grad-pressed">
-          Register
-        </button>
-      </form>
+          <input
+            type="password"
+            name="password_confirm"
+            placeholder="Confirm Password"
+            className="form-control input-margin"
+            value={passConfirm}
+            onChange={handlePassConfirmChange}
+            required
+          />
+          <button type="submit" className="btn btn-grad-pressed">
+            Register
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

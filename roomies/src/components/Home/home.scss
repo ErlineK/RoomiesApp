@@ -7,6 +7,15 @@
   box-shadow: 3px 3px 5px gray;
 }
 
+.homeContainer {
+  width: 100%;
+}
+
+.homeSeparator {
+  width: 50%;
+  margin: auto;
+}
+
 .home-central-holder {
   margin: auto;
   display: inline-block;
@@ -24,6 +33,12 @@
 
 .buttonsHolder a {
   margin: 5px;
+}
+
+.homeColumn {
+  flex-direction: column;
+  width: 100%;
+  justify-content: flex-start;
 }
 
 @media (min-width: $tablet) {
