@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 
 const USER_SERVICE_URL = "https://jsonplaceholder.typicode.com/users";
 
+// TODO: create balance/bills page
+
 export default function HomeStatus() {
   const defaultData = {
     userBalance: 150,

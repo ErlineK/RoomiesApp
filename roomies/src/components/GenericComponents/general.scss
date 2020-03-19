@@ -29,20 +29,29 @@ $gradient: (
   )
 );
 
-.background-gradient {
-  //   background-image: radial-gradient(
-  //     circle farthest-corner at 10% 20%,
-  //     $primary-color 0.1%,
-  //     rgba(255, 153, 1, 1) 90%
-  //   );
-
-  background-image: radial-gradient(
+$gradient-darker: (
+  radial-gradient(
     circle farthest-corner at 10% 20%,
-    rgba(254, 244, 48, 1) 0%,
-    rgba(250, 214, 1, 1) 42%,
-    rgba(234, 171, 24, 1) 100%
-  );
-}
+    rgba(250, 214, 1, 1) 0%,
+    rgba($orange-color, 1) 42%,
+    rgba($primary-color-dark, 1) 100%
+  )
+);
+
+// .background-gradient {
+//   //   background-image: radial-gradient(
+//   //     circle farthest-corner at 10% 20%,
+//   //     $primary-color 0.1%,
+//   //     rgba(255, 153, 1, 1) 90%
+//   //   );
+
+//   background-image: radial-gradient(
+//     circle farthest-corner at 10% 20%,
+//     rgba(254, 244, 48, 1) 0%,
+//     rgba(250, 214, 1, 1) 42%,
+//     rgba(234, 171, 24, 1) 100%
+//   );
+// }
 
 .appContainer {
   width: 100%;

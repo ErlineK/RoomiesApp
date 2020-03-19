@@ -12,6 +12,9 @@
   transition: height 3s ease-out;
   z-index: 100;
 
+  // border-right: 1px solid rgb(143, 143, 143);
+  // box-shadow: 3px 3px 5px 3px rgba($color: $accent-dark, $alpha: 0.5);
+
   a:hover {
     text-decoration: none;
   }
@@ -61,6 +64,7 @@
 
     &:active {
       color: $primary-color;
+      opacity: 1;
       .snTitle {
         color: $primary-color;
       }
@@ -70,6 +74,7 @@
   .sn-link-active {
     background-color: rgba($color: $orange-color, $alpha: 0.5);
     color: $primary-color-dark;
+    opacity: 1;
 
     &.active-orange {
       color: $primary-color-dark;
@@ -105,11 +110,13 @@
   height: 100%;
   border-radius: 0;
   transition: height 0.7s ease-out 0.25s, border-radius 0.25s ease-in;
+  box-shadow: 3px 3px 5px 3px rgba($color: $accent-dark, $alpha: 0.5);
 }
 
 @media (min-width: $tablet) {
   .snHolder {
     background: $gradient;
+    box-shadow: 3px 3px 5px 3px rgba($color: $accent-dark, $alpha: 0.5);
 
     .sn-link-container {
       display: block;
