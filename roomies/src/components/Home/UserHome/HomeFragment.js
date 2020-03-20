@@ -1,5 +1,5 @@
 import React from "react";
-import "../../GenericComponents/general.scss";
+// import "../../GenericComponents/general.scss";
 import "../../GenericComponents/generic_list.scss";
 import CircleLoader from "../../GenericComponents/Loader/CircleLoader";
 

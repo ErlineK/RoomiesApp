@@ -5,6 +5,7 @@ import useGetRoomiesData from "../../../hooks/useGetRoomiesData";
 import HomeFragment from "./HomeFragment";
 import { Link } from "react-router-dom";
 import GeneralMsgItem from "../../Messages/GeneralMsgItem";
+import InvitationMsgItem from "../../Messages/InvitationMsgItem";
 
 const USER_SERVICE_URL = "https://jsonplaceholder.typicode.com/users";
 
@@ -21,10 +22,12 @@ export default function HomeMsgs() {
       },
       {
         _id: 2,
-        type: "MSG",
-        author: "Tenant Two",
+        type: "NVT",
+        author: "Some Tenant",
         date: new Date(2018, 2, 14),
-        msg: "Happy Valentines!"
+        propertyName: "Home Sweet Home",
+        propertyAddress: "123 Over the Hill Rd.",
+        propertyCity: "Wonderland"
       },
       {
         _id: 3,
@@ -44,13 +47,16 @@ export default function HomeMsgs() {
   });
 
   // TODO: create notification item
-  // TODO: create invitation item
 
   const getMsgObjByType = msg => {
     var msgObj;
     switch (msg.type) {
       case "MSG":
         msgObj = <GeneralMsgItem key={`msg${msg._id}`} item={msg} />;
+        break;
+
+      case "NVT":
+        msgObj = <InvitationMsgItem key={`msg${msg._id}`} item={msg} />;
         break;
 
       default:

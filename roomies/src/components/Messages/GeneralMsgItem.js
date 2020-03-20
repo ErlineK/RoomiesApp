@@ -22,16 +22,16 @@ function GeneralMsgItem({ item }) {
       <div className="listFlexHolder">
         <TiMessages className="listIcon" />
         <div style={{ width: "100%" }}>
-          <div className="msgRow">
+          <div className="msgRow lhShort">
             <p className="description">
               <span style={{ fontWeight: "bold" }}>{item.author}</span> sais:
             </p>
             <p className="description textLight">{formatDate(item.date)}</p>
           </div>
-          <p>{item.msg}</p>
+          <p className="lhShort">{item.msg}</p>
         </div>
       </div>
-      <div className="msgBtnBack">
+      <div className="msgBtn msgBtnBack">
         <MdReplyAll className="msgBtnIcon" />
       </div>
       <hr></hr>

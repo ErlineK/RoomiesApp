@@ -29,8 +29,10 @@
       align-items: center;
     }
 
-    p {
-      line-height: 75%;
+    .lhShort {
+      p {
+        line-height: 75%;
+      }
     }
 
     hr {
@@ -41,7 +43,7 @@
       align-self: flex-start;
       margin-right: 1rem;
       font-size: 1.5rem;
-      color: $accent-darker;
+      color: $accent-gray-light;
     }
 
     .description {
@@ -50,8 +52,9 @@
     }
 
     .textLight {
-      color: #ccc;
+      color: $accent-gray-light;
       font-weight: normal;
+      white-space: nowrap;
     }
 
     .rightBlock {
@@ -67,7 +70,7 @@
     }
 
     &:hover {
-      .msgBtnBack {
+      .msgBtn {
         display: inline;
       }
     }
@@ -79,9 +82,8 @@
     width: 100%;
   }
 
-  .msgBtnBack {
+  .msgBtn {
     cursor: pointer;
-    background: $gradient-darker;
     padding: 0.2rem;
     // display: initial;
     border-radius: 50%;
@@ -100,5 +102,31 @@
       margin: 0.25rem;
       margin-top: 0;
     }
+  }
+
+  .msgBtnBack {
+    background: $gradient-darker;
+  }
+
+  .msgBtnCancel {
+    background: $gradient-red;
+  }
+
+  .msgBtnAccept {
+    background: $gradient-green;
+    right: 3rem;
+  }
+
+  .btnAction {
+    margin-top: -0.4rem;
+    margin-right: -0.2rem;
+    margin-bottom: 0.4rem;
+    white-space: nowrap;
+  }
+
+  .accent-icon {
+    margin-bottom: 0.2rem;
+    margin-right: 0.5rem;
+    color: $accent-green;
   }
 }

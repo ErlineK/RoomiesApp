@@ -12,6 +12,7 @@ $accent-green: #5d993a;
 $accent-light: #fff;
 $accent-dark: #414141;
 $accent-darker: #6c757d;
+$accent-gray-light: #ccc;
 
 @import url("https://fonts.googleapis.com/css?family=Bangers&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Trade+Winds&display=swap");
@@ -36,6 +37,24 @@ $gradient-darker: (
     rgba(250, 214, 1, 1) 0%,
     rgba($orange-color, 1) 42%,
     rgba($primary-color-dark, 1) 100%
+  )
+);
+
+$gradient-red: (
+  radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba($orange-color, 1) 0%,
+    rgba($accent-red-light, 1) 42%,
+    rgba($accent-red, 1) 100%
+  )
+);
+
+$gradient-green: (
+  radial-gradient(
+    circle farthest-corner at 10% 20%,
+    rgba(#9ff16f, 1) 0%,
+    rgba($accent-green, 1) 42%,
+    rgba(#307c04, 1) 100%
   )
 );
 
@@ -110,6 +129,34 @@ $gradient-darker: (
   background-origin: border-box;
   background-clip: content-box, border-box;
   box-shadow: 2px 1000px 1px #fff inset;
+}
+
+.btn-grad-green {
+  border-radius: 20rem;
+  // padding: 0.75rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  // padding: 0.2rem 1.2rem;
+  color: $accent-dark;
+  box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
+  border: solid 3px transparent;
+  background-image: linear-gradient(
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0)
+    ),
+    $gradient-green;
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  box-shadow: 2px 1000px 1px #fff inset;
+
+  &:hover {
+    color: $accent-light;
+    box-shadow: none;
+
+    .accent-icon {
+      color: $accent-light;
+    }
+  }
 }
 
 .btn-grad-pressed {
