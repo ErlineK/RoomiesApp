@@ -9,6 +9,7 @@ import GeneralMsgItem from "../../Messages/GeneralMsgItem";
 const USER_SERVICE_URL = "https://jsonplaceholder.typicode.com/users";
 
 export default function HomeMsgs() {
+  //TODO: get 5 recent messages from DB ordered by date DSC
   const [{ data, isLoading, isError }] = useGetRoomiesData(USER_SERVICE_URL, {
     messages: [
       {
@@ -71,7 +72,7 @@ export default function HomeMsgs() {
         itemsName={"messages"}
       >
         <div className="listContainer">
-          <div className="titleContainer">this is title</div>
+          {/* <div className="titleContainer">this is title</div> */}
           {msgs}
           <div className="listItemHolder">List item</div>
           <div className="listItemHolder">Another item</div>

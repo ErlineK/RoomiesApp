@@ -1,10 +1,39 @@
 import React from "react";
+import { TiMessages } from "react-icons/ti";
+import { MdReplyAll } from "react-icons/md";
+
+// import "../GenericComponents/generic_list.scss";
+// import "../GenericComponents/general.scss";
+
+// TODO: on reply button click -> open quick reply module
 
 function GeneralMsgItem({ item }) {
+  function formatDate(dateBase) {
+    return new Intl.DateTimeFormat("en-CA", {
+      month: "short",
+      day: "2-digit",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: false
+    }).format(dateBase);
+  }
   return (
     <div className="listItemHolder">
-      <p>{item.author} wrote:</p>
-      <p>{item.msg}</p>
+      <div className="listFlexHolder">
+        <TiMessages className="listIcon" />
+        <div style={{ width: "100%" }}>
+          <div className="msgRow">
+            <p className="description">
+              <span style={{ fontWeight: "bold" }}>{item.author}</span> sais:
+            </p>
+            <p className="description textLight">{formatDate(item.date)}</p>
+          </div>
+          <p>{item.msg}</p>
+        </div>
+      </div>
+      <div className="msgBtnBack">
+        <MdReplyAll className="msgBtnIcon" />
+      </div>
       <hr></hr>
     </div>
   );

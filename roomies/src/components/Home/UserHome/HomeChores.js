@@ -38,7 +38,10 @@ export default function HomeChores() {
         title={"Chores"}
         itemsName={"chores"}
       >
-        {chores}
+        <div className="listContainer">
+          <div className="titleContainer">this is title</div>
+          {chores}
+        </div>
       </HomeFragment>
 
       <Link className="secondary-link underline nav-link" to="/Chores">
