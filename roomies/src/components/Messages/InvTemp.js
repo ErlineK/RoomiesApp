@@ -1,8 +1,7 @@
 import React from "react";
 import { FaAngellist, FaCheck } from "react-icons/fa";
-// import { MdRemoveCircle, MdRemoveCircleOutline } from "react-icons/md";
+import { MdRemoveCircle, MdRemoveCircleOutline } from "react-icons/md";
 import { GiHouseKeys, GiKeyring, GiKey } from "react-icons/gi";
-import { TiDeleteOutline } from "react-icons/ti";
 import { msgFormatDate } from "./messagesHelper";
 
 function InvitationMsgItem({ item }) {
@@ -23,7 +22,7 @@ function InvitationMsgItem({ item }) {
             <p className="description">
               {item.propertyAddress} , {item.propertyCity}
             </p>
-            <button className="btn msgSimpleBtn highlightGreen invitationBtnPosition">
+            <button className="btn btn-grad-green btnAction">
               <FaCheck className="accent-icon" />
               Accept
             </button>
@@ -31,8 +30,11 @@ function InvitationMsgItem({ item }) {
         </div>
       </div>
 
+      {/* <div className="msgBtn msgBtnAccept">
+          <FaAngellist className="msgBtnIcon" />
+        </div> */}
       <div className="msgBtn msgBtnCancel">
-        <TiDeleteOutline className="msgBtnIcon" />
+        <MdRemoveCircleOutline className="msgBtnIcon" />
       </div>
 
       <hr></hr>

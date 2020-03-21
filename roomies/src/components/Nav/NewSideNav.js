@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import useToggle from "../../hooks/useToggle";
 import "./navbar.scss";
 import "./new-side-nav.scss";
 import { NavLink } from "react-router-dom";
 import uuid from "uuid";
-import { FaUserCog, FaBell, FaPowerOff } from "react-icons/fa";
+// import { FaUserCog, FaBell, FaPowerOff } from "react-icons/fa";
 import { getNavIconByName } from "./navHelper";
 
 function SideNav({ navItems }) {

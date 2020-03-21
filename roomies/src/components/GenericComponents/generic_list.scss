@@ -70,8 +70,16 @@
     }
 
     &:hover {
+      box-shadow: 0px -3px 5px 3px rgba($color: $accent-dark, $alpha: 0.3),
+        0px 5px 5px 0px rgba($color: $accent-dark, $alpha: 0.3);
+      z-index: 3;
+
       .msgBtn {
         display: inline;
+      }
+
+      hr {
+        display: none;
       }
     }
   }
@@ -88,7 +96,7 @@
     // display: initial;
     border-radius: 50%;
     float: right;
-    margin-top: -1.25rem;
+    margin-top: -0.9rem;
     margin-right: 0.5rem;
     box-shadow: 0px 3px 5px 0px rgba($color: $accent-dark, $alpha: 0.3);
     position: absolute;
@@ -109,24 +117,42 @@
   }
 
   .msgBtnCancel {
-    background: $gradient-red;
+    background: $accent-light;
+
+    .msgBtnIcon {
+      color: $accent-red;
+    }
   }
 
-  .msgBtnAccept {
-    background: $gradient-green;
-    right: 3rem;
+  .msgSimpleBtn {
+    font-size: 0.75rem;
+    color: $accent-darker;
+    border: 0.5px solid $accent-gray-light;
+    font-weight: 500;
+    box-shadow: 0px 2px 4px 0px rgba($color: $accent-dark, $alpha: 0.4);
+    white-space: nowrap;
+
+    &:hover {
+      &.highlightGreen {
+        color: $accent-green;
+      }
+    }
+  }
+
+  .invitationBtnPosition {
+    margin-bottom: auto;
+    margin-top: -0.75rem;
   }
 
   .btnAction {
-    margin-top: -0.4rem;
+    margin-top: -1rem;
     margin-right: -0.2rem;
-    margin-bottom: 0.4rem;
+    margin-bottom: 1rem;
     white-space: nowrap;
   }
 
   .accent-icon {
     margin-bottom: 0.2rem;
     margin-right: 0.5rem;
-    color: $accent-green;
   }
 }

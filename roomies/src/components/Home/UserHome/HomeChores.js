@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "../../GenericComponents/general.scss";
-import CircleLoader from "../../GenericComponents/Loader/CircleLoader";
 import { Link } from "react-router-dom";
 import "../../Nav/navbar.scss";
 import useGetRoomiesData from "../../../hooks/useGetRoomiesData";
@@ -48,25 +47,5 @@ export default function HomeChores() {
         Other chores >>
       </Link>
     </div>
-
-    // <div className="card">
-    //   <h3>Chores</h3>
-    //   {isLoading && <CircleLoader />}
-    //   {data.chores == undefined || isError || data.chores.length < 1 ? (
-    //     <p>No current chores to display</p>
-    //   ) : (
-    //     // <p>Do your chores!!</p>
-    //     data.chores.map((chore, i) => (
-    //       <div key={`holder${i}`}>
-    //         <p>{chore}</p>
-    //       </div>
-    //     ))
-    //   )}
-    //   <div className="navLink-holder" style={{ display: "-webkit-box" }}>
-    //     <Link className="secondary-link underline nav-link" to="/Chores">
-    //       Other chores >>
-    //     </Link>
-    //   </div>
-    // </div>
   );
 }

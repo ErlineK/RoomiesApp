@@ -1,5 +1,4 @@
 import React from "react";
-// import "../../GenericComponents/general.scss";
 import "../../GenericComponents/generic_list.scss";
 import CircleLoader from "../../GenericComponents/Loader/CircleLoader";
 
@@ -8,7 +7,7 @@ const USER_SERVICE_URL = "https://jsonplaceholder.typicode.com/users";
 export default function HomeFragment(props) {
   return (
     <>
-      <h3>{props.title}</h3>
+      {props.title !== "" && <h3>{props.title}</h3>}
       {props.isLoading && <CircleLoader />}
 
       {props.isError || props.noData ? (

@@ -8,7 +8,7 @@ import { AuthContext } from "../auth/AuthContext";
 function Navbar() {
   const { isLoggedIn } = useContext(AuthContext);
 
-  const guestNavItems = [{ title: "About", path: "About" }];
+  // const guestNavItems = [{ title: "About", path: "About" }];
   const userTopNavItems = [
     {
       title: "Profile Settings",
