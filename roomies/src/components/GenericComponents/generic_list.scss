@@ -1,17 +1,19 @@
 @import "./general.scss";
 
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+  background: $gradient-darker;
+  color: $accent-light;
+  padding: 2%;
+  text-align: left;
+  box-shadow: 0px 3px 5px 0px rgba($color: $accent-dark, $alpha: 0.3);
+  z-index: 90; //must be below 100 so won't cover side nav
+}
+
 .listContainer {
   display: grid;
   background-color: rgba($color: $accent-dark, $alpha: 0.3);
-
-  .titleContainer {
-    background: $gradient-darker;
-    color: $accent-light;
-    padding: 2%;
-    text-align: left;
-    box-shadow: 0px 3px 5px 0px rgba($color: $accent-dark, $alpha: 0.3);
-    z-index: 90; //must be below 100 so won't cover side nav
-  }
 
   .listItemHolder {
     padding: 0.25rem;
@@ -155,4 +157,16 @@
     margin-bottom: 0.2rem;
     margin-right: 0.5rem;
   }
+}
+
+.glowIndicator {
+  width: 0.3em;
+  height: 0.3em;
+  margin-top: 0.3rem;
+  border-radius: 50%;
+  background-color: $accent-light;
+  box-shadow: 
+    /* inner white */ 0 0 5px 3px
+      rgba($color: $primary-color, $alpha: 1),
+    /* middle */ 0 0 7px 5px rgba($color: $primary-color-dark, $alpha: 0.7); /* outer */
 }

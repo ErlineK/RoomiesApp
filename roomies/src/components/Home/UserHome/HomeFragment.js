@@ -7,7 +7,9 @@ const USER_SERVICE_URL = "https://jsonplaceholder.typicode.com/users";
 export default function HomeFragment(props) {
   return (
     <>
-      {props.title !== "" && <h3>{props.title}</h3>}
+      {props.title !== "" && (
+        <div className="titleContainer">{props.title}</div>
+      )}
       {props.isLoading && <CircleLoader />}
 
       {props.isError || props.noData ? (
