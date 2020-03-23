@@ -2,63 +2,63 @@ import { useState } from "react";
 import axios from "axios";
 
 const CHORES_SERVICE_URL = "https://jsonplaceholder.typicode.com/users";
-// const CHORES_SERVICE_URL = "http://localhost:8082/api/todos"
+// const CHORES_SERVICE_URL = "http://localhost:8082/api/chores"
 
 export default initialChores => {
-  const [todos, setChores] = useState(initialChores);
+  const [chores, setChores] = useState(initialChores);
 
   const getAllChores = () => {
     axios
       .get(CHORES_SERVICE_URL)
       .then(res => {
         console.log(res.data);
-        setTodos(res.data);
+        setChores(res.data);
       })
       .catch(err => {
-        console.log("Error in getAllTodos: " + err);
+        console.log("Error in getAllChores: " + err);
       });
   };
 
-  const addTodoToDB = todo => {
+  const addChoreToDB = chore => {
     const data = {
-      task: todo,
+      task: chore,
       completed: false
     };
 
     axios
-      .post("http://localhost:8082/api/todos", data)
+      .post(CHORES_SERVICE_URL, data)
       .then(res => {
-        console.log("added todo successfully");
-        getAllTodos();
+        console.log("added chore successfully");
+        getAllChores();
       })
       .catch(err => {
-        console.log("Error in CreateTodo!");
+        console.log("Error in CreateChore!");
       });
   };
 
-  const addTodo = newTodo => {
-    // setTodos([...todos, { id: uuid(), task: newTodo, completed: false }]);
-    addTodoToDB(newTodo);
+  const addChore = newChore => {
+    // setChoress([...chores, { id: uuid(), task: newChore, completed: false }]);
+    addChoreToDB(newChore);
   };
 
-  const editTodo = (newTask, todoId) => {
-    const updatedTodos = todos.map(todo =>
-      todo.id === todoId ? { ...todo, task: newTask } : todo
+  const editChore = (newTask, choreId) => {
+    const updatedChores = chores.map(chore =>
+      chore.id === choreId ? { ...chore, task: newTask } : chore
     );
-    setTodos(updatedTodos);
+    setChores(updatedChores);
   };
 
-  const removeTodo = todoId => {
-    const updatedTodos = todos.filter(todo => todo.id !== todoId);
-    setTodos(updatedTodos);
+  const removeChore = choreId => {
+    const updatedChores = chores.filter(chore => chore._id !== choreId);
+    setChores(updatedChores);
   };
 
-  const toggleTodo = todoId => {
-    const updatedTodos = todos.map(todo =>
-      todo.id === todoId ? { ...todo, completed: !todo.completed } : todo
+  const toggleChore = choreId => {
+    const updatedChores = chores.map(chore =>
+      chore.id === choreId ? { ...chore, completed: !chore.completed } : chore
     );
-    setTodos(updatedTodos);
+    setChores(updatedChores);
   };
 
-  return [todos, addTodo, editTodo, removeTodo, toggleTodo, getAllTodos];
+  return [chores, addChore, editChore, removeChore, toggleChore, getAllChores];
 };

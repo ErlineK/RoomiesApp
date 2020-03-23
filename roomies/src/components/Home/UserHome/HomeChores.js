@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import useGetRoomiesData from "../../../hooks/useGetRoomiesData";
 import HomeFragment from "./HomeFragment";
 import HomeChoreItem from "../../Chores/HomeChoreItem";
+import useChoresState from "../../../hooks/useChoresState";
 
 const USER_SERVICE_URL = "https://jsonplaceholder.typicode.com/users";
 
@@ -45,6 +46,8 @@ export default function HomeChores() {
     ]
   });
 
+  const [chores, toggleChore] = useChoresState(data.chores);
+
   //   const [{ data, isLoading, isError }, doFetch] = useGetRoomiesData(
   //     USER_SERVICE_URL,
   //     {
@@ -54,9 +57,9 @@ export default function HomeChores() {
 
   //   doFetch();
 
-  const chores = data.chores.map(chore => (
+  const choreItems = chores.map(chore => (
     <div key={`holder${chore._id}`}>
-      <HomeChoreItem item={chore} />
+      <HomeChoreItem item={chore} toggleChore={toggleChore} />
     </div>
   ));
 
@@ -65,18 +68,18 @@ export default function HomeChores() {
       <HomeFragment
         isLoading={isLoading}
         isError={isError}
-        noData={data.chores == "undefined" || data.chores.length < 1}
+        noData={chores == "undefined" || chores.length < 1}
         title={"Your Chores"}
         itemsName={"chores"}
       >
         <div className="listContainer">
           {/* <div className="titleContainer">Your Chores</div> */}
-          {chores}
+          {choreItems}
         </div>
       </HomeFragment>
 
       <Link className="secondary-link underline nav-link" to="/Chores">
-        Other chores >>
+        All chores >>
       </Link>
     </div>
   );
