@@ -53,7 +53,6 @@ class HouseList extends Component {
     const { buyItems, message } = this.state;
     return (
       <div className="HouseList">
-        {/* <SideButton /> */}
         <div className="house-columns">
           <h2>House Items</h2>
           <form

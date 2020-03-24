@@ -115,7 +115,7 @@ class Chores extends Component {
                   <button
                     onClick={evt => this.removeAll()}
                     type="button"
-                    className="btn btn-primary btn-sm"
+                    className="btn btn-sm"
                   >
                     Clear Item List
                   </button>
