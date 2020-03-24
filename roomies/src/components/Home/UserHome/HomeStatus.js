@@ -22,8 +22,6 @@ export default function HomeStatus() {
 
   const [{ data, isLoading, isError }] = useGetRoomiesData(
     USER_STATUS_URL,
-    "get",
-    null,
     defaultData
   );
 
