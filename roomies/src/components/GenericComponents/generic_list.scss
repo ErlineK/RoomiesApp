@@ -83,6 +83,16 @@
       hr {
         display: none;
       }
+
+      .glowIndicator {
+        background-color: $orange-color;
+      }
+
+      &:active {
+        .glowIndicator {
+          background-color: $primary-color;
+        }
+      }
     }
   }
 
@@ -165,8 +175,16 @@
   margin-top: 0.3rem;
   border-radius: 50%;
   background-color: $accent-light;
-  box-shadow: 
-    /* inner white */ 0 0 5px 3px
-      rgba($color: $primary-color, $alpha: 1),
-    /* middle */ 0 0 7px 5px rgba($color: $primary-color-dark, $alpha: 0.7); /* outer */
+  box-shadow: 0 0 5px 3px rgba($color: $primary-color, $alpha: 1),
+    0 0 7px 5px rgba($color: $primary-color-dark, $alpha: 0.7);
+
+  &.indicatorActive {
+    background-color: $orange-color;
+    box-shadow: none;
+  }
+}
+
+.completeItemText {
+  text-decoration: line-through;
+  color: $accent-darker;
 }

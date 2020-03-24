@@ -5,7 +5,8 @@ import BalanceChart from "../../GenericComponents/BalanceChart";
 import CircleLoader from "../../GenericComponents/Loader/CircleLoader";
 import { Link } from "react-router-dom";
 
-const USER_SERVICE_URL = "https://jsonplaceholder.typicode.com/users";
+const USER_STATUS_URL = "https://jsonplaceholder.typicode.com/users";
+// const USER_STATUS_URL = "users/user_status"; //GET
 
 // TODO: create balance/bills page
 
@@ -20,7 +21,9 @@ export default function HomeStatus() {
   };
 
   const [{ data, isLoading, isError }] = useGetRoomiesData(
-    USER_SERVICE_URL,
+    USER_STATUS_URL,
+    "get",
+    null,
     defaultData
   );
 

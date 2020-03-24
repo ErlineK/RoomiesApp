@@ -16,12 +16,18 @@ function HomeChoreItem({ item, toggleChore }) {
     }).format(dateBase);
   }
   return (
-    <div className="listItemHolder" onClick={() => toggleChore(item._id)}>
+    <div className="listItemHolder" onClick={() => toggleChore()}>
       <div className="listFlexHolder">
-        <div className="glowIndicator listIcon"></div>
+        <div
+          className={`glowIndicator listIcon ${
+            item.complete ? "indicatorActive" : ""
+          } `}
+        ></div>
         <div style={{ width: "100%" }}>
           <div className="msgRow lhShort">
-            <p className="">{item.task}</p>
+            <p className={item.complete ? "completeItemText" : ""}>
+              {item.task}
+            </p>
             <p className="description textLight">{formatDate(item.date)}</p>
           </div>
         </div>
