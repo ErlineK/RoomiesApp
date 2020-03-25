@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-// import GenericButton from '../../GenericButton';
 import "./Bills.css";
-import SideButton from "../SideBar/sidebuttons";
 
 class Bills extends Component {
   constructor(props) {
@@ -12,8 +10,8 @@ class Bills extends Component {
         {
           id: "1",
           people: [
-            { name: "Devin", owed: 250, paid: 300 },
-            { name: "Mike", owed: 250, paid: 200 },
+            { name: "Devin", owed: 250, paid: 200 },
+            { name: "Mike", owed: 250, paid: 0 },
             { name: "Nicole", owed: 250, paid: 0 },
             { name: "Erline", owed: 250, paid: 0 }
           ],
@@ -58,6 +56,7 @@ class Bills extends Component {
     this.changeBill = this.changeBill.bind(this);
     this.payBill = this.payBill.bind(this);
     this.getChart = this.getChart.bind(this);
+    this.startBill = this.startBill.bind(this);
   }
 
   // allow users to change which bill is currently selected from the dropdown
@@ -98,7 +97,7 @@ class Bills extends Component {
   };
 
   getChart = () => {
-    const colors = ["red", "blue", "yellow", "pink", "yellow"];
+    const colors = ["red", "blue", "yellow", "pink", "green", "orange", "purple"];
     let storedPercent = 0;
     const gradients = this.state.selectedBill.people.map((person, index) => {
       const percent = (person.paid / this.state.selectedBill.value) * 100;
@@ -110,12 +109,21 @@ class Bills extends Component {
     return `linear-gradient(to top, ${gradients.toString()}, white ${storedPercent}%)`;
   };
 
+  startBill = () => {
+    let mainDoc = document.getElementsByClassName('Bills')[0]
+    mainDoc.style.visibility='hidden';
+    console.log(mainDoc);
+  }
+
+
+
   render() {
     return (
       <div className="Bills">
         <div className="Bills-mainContent">
           <h1>Bills</h1>
           <div className="Bills-columns">
+            <button onClick={this.startBill}>Add Bill</button>
             <label htmlFor="billsDropDown">Select a bill</label>
             <br />
             <select
