@@ -1,0 +1,190 @@
+@import "./general.scss";
+
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+  background: $gradient-darker;
+  color: $accent-light;
+  padding: 2%;
+  text-align: left;
+  box-shadow: 0px 3px 5px 0px rgba($color: $accent-dark, $alpha: 0.3);
+  z-index: 90; //must be below 100 so won't cover side nav
+}
+
+.listContainer {
+  display: grid;
+  background-color: rgba($color: $accent-dark, $alpha: 0.3);
+
+  .listItemHolder {
+    padding: 0.25rem;
+    background-color: $accent-light;
+    position: relative;
+
+    // box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
+
+    .listFlexHolder {
+      display: flex;
+      flex-direction: row;
+      text-align: left;
+      margin: 0.5rem;
+      margin-bottom: 0;
+      align-items: center;
+    }
+
+    .lhShort {
+      p {
+        line-height: 75%;
+      }
+    }
+
+    hr {
+      margin: 0;
+    }
+
+    .listIcon {
+      align-self: flex-start;
+      margin-right: 1rem;
+      font-size: 1.5rem;
+      color: $accent-gray-light;
+    }
+
+    .description {
+      color: $accent-darker;
+      font-size: 0.75em;
+    }
+
+    .textLight {
+      color: $accent-gray-light;
+      font-weight: normal;
+      white-space: nowrap;
+    }
+
+    .rightBlock {
+      justify-self: flex-end;
+      align-self: baseline;
+      flex-grow: 1;
+      text-align: end;
+
+      p {
+        color: #ccc;
+        font-weight: normal;
+      }
+    }
+
+    &:hover {
+      box-shadow: 0px -3px 5px 3px rgba($color: $accent-dark, $alpha: 0.3),
+        0px 5px 5px 0px rgba($color: $accent-dark, $alpha: 0.3);
+      z-index: 3;
+
+      .msgBtn {
+        display: inline;
+      }
+
+      hr {
+        display: none;
+      }
+
+      .glowIndicator {
+        background-color: $orange-color;
+      }
+
+      &:active {
+        .glowIndicator {
+          background-color: $primary-color;
+        }
+      }
+    }
+  }
+
+  .msgRow {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .msgBtn {
+    cursor: pointer;
+    padding: 0.2rem;
+    // display: initial;
+    border-radius: 50%;
+    float: right;
+    margin-top: -0.9rem;
+    margin-right: 0.5rem;
+    box-shadow: 0px 3px 5px 0px rgba($color: $accent-dark, $alpha: 0.3);
+    position: absolute;
+    right: 0;
+    z-index: 3;
+    display: none;
+
+    .msgBtnIcon {
+      color: $accent-light;
+      font-size: 1.3rem;
+      margin: 0.25rem;
+      margin-top: 0;
+    }
+  }
+
+  .msgBtnBack {
+    background: $gradient-darker;
+  }
+
+  .msgBtnCancel {
+    background: $accent-light;
+
+    .msgBtnIcon {
+      color: $accent-red;
+    }
+  }
+
+  .msgSimpleBtn {
+    font-size: 0.75rem;
+    color: $accent-darker;
+    border: 0.5px solid $accent-gray-light;
+    font-weight: 500;
+    box-shadow: 0px 2px 4px 0px rgba($color: $accent-dark, $alpha: 0.4);
+    white-space: nowrap;
+
+    &:hover {
+      &.highlightGreen {
+        color: $accent-green;
+      }
+    }
+  }
+
+  .invitationBtnPosition {
+    margin-bottom: auto;
+    margin-top: -0.75rem;
+  }
+
+  .btnAction {
+    margin-top: -1rem;
+    margin-right: -0.2rem;
+    margin-bottom: 1rem;
+    white-space: nowrap;
+  }
+
+  .accent-icon {
+    margin-bottom: 0.2rem;
+    margin-right: 0.5rem;
+  }
+}
+
+.glowIndicator {
+  width: 0.3em;
+  height: 0.3em;
+  margin-top: 0.3rem;
+  border-radius: 50%;
+  background-color: $accent-light;
+  box-shadow: 0 0 5px 3px rgba($color: $primary-color, $alpha: 1),
+    0 0 7px 5px rgba($color: $primary-color-dark, $alpha: 0.7);
+
+  &.indicatorActive {
+    background-color: $orange-color;
+    box-shadow: none;
+  }
+}
+
+.completeItemText {
+  text-decoration: line-through;
+  color: $accent-darker;
+}

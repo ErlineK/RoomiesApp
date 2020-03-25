@@ -1,0 +1,49 @@
+@import "../GenericComponents/general.scss";
+
+.homeLogo {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  box-shadow: 3px 3px 5px gray;
+}
+
+.homeContainer {
+  width: 100%;
+}
+
+.homeSeparator {
+  width: 50%;
+  margin: auto;
+}
+
+.home-central-holder {
+  margin: auto;
+  display: inline-block;
+  position: relative;
+  width: 95%;
+  margin: auto;
+}
+
+.buttonsHolder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5%;
+}
+
+.buttonsHolder a {
+  margin: 5px;
+}
+
+.homeColumn {
+  flex-direction: column;
+  width: 100%;
+  justify-content: flex-start;
+}
+
+@media (min-width: $tablet) {
+  .home-central-holder {
+    width: 92%;
+    margin-left: 70px;
+  }
+}

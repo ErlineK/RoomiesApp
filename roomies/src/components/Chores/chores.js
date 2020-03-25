@@ -1,107 +1,131 @@
 import React, { Component } from "react";
-import "./chores.css"
+import "./chores.css";
+import DatePicker from "react-date-picker";
 
 class Chores extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
+  constructor(props) {
+    super(props);
+    this.state = {
+      taskItems: [],
+      message: "",
+      roommates: ["Devin", "Erline", "Mike", "Nicole"],
+      date: new Date()
+    };
+  }
 
-        this.shuffle = this.shuffle.bind(this);
-    }
+  onChange = date => this.setState({ date });
 
-    shuffleChores(roommates) {
-        let counter = roommates.length;
-        let i;
-        let x;
+  addTask(evt) {
+    evt.preventDefault();
+    const { taskItems } = this.state;
+    const newItem = this.newItem.value;
+    const isOnTheList = taskItems.includes(newItem);
 
-        while (counter) {
-            i = Math.floor(Math.random() * counter--);
-            x = roommates[counter];
-            roommates[counter] = roommates[i];
-            roommates[i] = x;
-        }
-        return roommates;
-    }
-
-    removeAll() {
+    if (isOnTheList) {
+      this.setState({
+        message: "Item already on the list."
+      });
+    } else {
+      newItem !== "" &&
         this.setState({
-            designations: []
+          //prevention of empty sring
+          taskItems: [...this.state.taskItems, newItem], //this will be an object that updates the current state
+          message: ""
         });
     }
 
-    shuffle = (arr) => {
-        var i,
-            j,
-            temp;
-        for (i = arr.length - 1; i > 0; i--) {
-            j = Math.floor(Math.random() * (i + 1));
-            temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
-        }
-        return arr;
-    };
+    this.addForm.reset();
+  }
 
-     render() {
-        let names = ["Devin", "Erline", "Mike", "Nicole"];
-        let tasks = ["Sweeping", "Mopping", "Vaccumming", "Dusting"];
-        let designations = [];
-        let activity = [];
-        let y = 0;
-        let randomTasks = this.shuffle(tasks);
+  removeAll() {
+    this.setState({
+      taskItems: []
+    });
+  }
 
-        for (let x = 0; x < names.length; x++) {
-            if (tasks.length > y) {
-                console.log("after");
-                activity = { name: names[x], task: randomTasks[y] };
-                designations.push(activity);
-                y++;
-            }
-        };
-
-        this.shuffleChores(designations);
-
-
-        return (
-            <div className="Chores">
-                <div className="chore-columns">
-                    <h2>Chores</h2>
-                    <button onClick={this.shuffleChores(designations)}>Select Chores</button>
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Task</th>
-                                <th scope="col">Completed</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                designations.map(activity => {
-                                    return (
-                                        <tr>
-                                            <th scope="row">{activity.name}</th>
-                                            <th>{activity.task}</th>
-                                            <th><input type="checkbox" /></th>
-                                        </tr>
-                                    )
-                                })
-                            }
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colSpan="2">&nbsp;</td>
-                                <td className="text-right">
-                                    <button onClick={(e) => this.removeAll()} type="button" className="btn btn-primary btn-sm">Clear All</button>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
+  render() {
+    const { taskItems, message } = this.state;
+    return (
+      <div className="chores">
+        <div className="chore-columns">
+          <h2>House Tasks</h2>
+          <form
+            ref={input => (this.addForm = input)}
+            className="form-inline"
+            onSubmit={evt => {
+              this.addTask(evt);
+            }}
+          >
+            <div className="form-group">
+              <label className="sr-only" htmlFor="newItemInput">
+                Add New Task
+              </label>
+              <input
+                ref={input => (this.newItem = input)}
+                type="text"
+                placeholder="Sweeping"
+                className="form-control"
+                id="newItemInput"
+              />
             </div>
-        );
-    }
-};
-
-
+            <button type="submit" className="btn btn-primary">
+              Add
+            </button>
+          </form>
+          <div>
+            {message !== "" && <p className="message text-danger">{message}</p>}
+          </div>
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">Task</th>
+                <th scope="col">Leader</th>
+                <th scope="col">Complete By</th>
+              </tr>
+            </thead>
+            <tbody>
+              {taskItems.map(item => {
+                return (
+                  <tr key={item}>
+                    {/* <th scope="row">1</th> */}
+                    <td>{item}</td>
+                    <td>
+                      <select>
+                        {this.state.roommates.map(list => (
+                          <option key={list} value={list}>
+                            {list}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
+                    <td>
+                      <DatePicker
+                        onChange={this.onChange}
+                        value={this.state.date}
+                      />
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colSpan="2">&nbsp;</td>
+                <td className="text-right">
+                  <button
+                    onClick={evt => this.removeAll()}
+                    type="button"
+                    className="btn btn-sm"
+                  >
+                    Clear Item List
+                  </button>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    );
+  }
+}
 export default Chores;
