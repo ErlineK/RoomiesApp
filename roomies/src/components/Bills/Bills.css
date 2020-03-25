@@ -1,3 +1,7 @@
+.Bills {
+  width: 100%
+}
+
 .Bills-topNav {
     width: 100%;
     display: block;
@@ -28,6 +32,7 @@
 .Bills-mainContent {
     width: 100%;
     text-align: center;
+    background-color: white;
 }
 
 .Bills-columns {
@@ -50,4 +55,8 @@
 .sideButton:hover {
     background-color: #249696;
     cursor: pointer;
+}
+
+.Bills-add {
+  display: none;
 }

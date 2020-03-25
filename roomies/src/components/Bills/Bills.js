@@ -6,6 +6,7 @@ class Bills extends Component {
     super(props);
     this.state = {
       selectedBill: {},
+      tenets: ["Devin", "Mike", "Nicole", "Erline"],
       bills: [
         {
           id: "1",
@@ -57,6 +58,8 @@ class Bills extends Component {
     this.payBill = this.payBill.bind(this);
     this.getChart = this.getChart.bind(this);
     this.startBill = this.startBill.bind(this);
+    this.saveBill = this.saveBill.bind(this);
+    this.cancelBill = this.cancelBill.bind(this);
   }
 
   // allow users to change which bill is currently selected from the dropdown
@@ -97,7 +100,15 @@ class Bills extends Component {
   };
 
   getChart = () => {
-    const colors = ["red", "blue", "yellow", "pink", "green", "orange", "purple"];
+    const colors = [
+      "red",
+      "blue",
+      "yellow",
+      "pink",
+      "green",
+      "orange",
+      "purple"
+    ];
     let storedPercent = 0;
     const gradients = this.state.selectedBill.people.map((person, index) => {
       const percent = (person.paid / this.state.selectedBill.value) * 100;
@@ -110,12 +121,34 @@ class Bills extends Component {
   };
 
   startBill = () => {
-    let mainDoc = document.getElementsByClassName('Bills')[0]
-    mainDoc.style.visibility='hidden';
-    console.log(mainDoc);
-  }
+    let mainDoc = document.getElementsByClassName("Bills-mainContent")[0];
+    let addBill = document.getElementsByClassName("Bills-add")[0];
+    mainDoc.style.display = "none";
+    addBill.style.display = "block";
+  };
 
+  saveBill = () => {
+    let mainDoc = document.getElementsByClassName("Bills-mainContent")[0];
+    let addBill = document.getElementsByClassName("Bills-add")[0];
+    mainDoc.style.display = "block";
+    addBill.style.display = "none";
 
+    let addedBill = {woof: 0};
+
+    this.setState({
+      tenets: [this.state.tenets, "meow"]
+    });
+
+    console.log(this.state);
+  };
+
+  cancelBill = () => {
+    let mainDoc = document.getElementsByClassName("Bills-mainContent")[0];
+    let addBill = document.getElementsByClassName("Bills-add")[0];
+    mainDoc.style.display = "block";
+    addBill.style.display = "none";
+    console.log(this.state.tenets);
+  };
 
   render() {
     return (
@@ -203,6 +236,23 @@ class Bills extends Component {
               </>
             )}
           </div>
+        </div>
+        <div className="Bills-add">
+          <h2>Enter Billing Information</h2>
+          <label htmlFor="billName">Enter bill name:</label>
+          <input type="text" rows="1" cols="30" id="billName" />
+          <br />
+          <textarea id="billDesc" rows="4" cols="50">
+            Enter a description of the bill
+          </textarea>
+          <br />
+          <label htmlFor="billValue">Enter bill amount:</label>
+          <input type="text" rows="1" cols="30" id="billValue" />
+          <br />
+
+
+          <button onClick={this.saveBill}>Save</button>
+          <button onClick={this.cancelBill}>Cancel</button>
         </div>
       </div>
     );
