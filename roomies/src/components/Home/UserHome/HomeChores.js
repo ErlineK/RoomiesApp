@@ -1,12 +1,12 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer, useEffect, memo, useContext } from "react";
 import "../../GenericComponents/general.scss";
 import { Link } from "react-router-dom";
 import HomeFragment from "./HomeFragment";
 import HomeChoreItem from "../../Chores/HomeChoreItem";
 import choresReducer from "../../../reducers/chores.reducer.js";
+import { ChoresContext } from "../../Chores/ChoresContext";
 
 const USER_SERVICE_URL = "https://jsonplaceholder.typicode.com/users";
-
 const defaultData = {
   isLoading: true,
   isError: false,
@@ -44,32 +44,36 @@ const defaultData = {
 
 // TODO: get USER'S last 5 chores by due date
 
-export default function HomeChores() {
+function HomeChores() {
+  const { choresState, choresDispatch } = useContext(ChoresContext);
+
+  // TODO: create useChoresState
+
   // const [{ chores, isLoading, isError }, choresDispatch] = useReducer(
   //   choresReducer,
   //   defaultData
   // );
 
-  const [state, choresDispatch] = useReducer(choresReducer, defaultData);
+  // const [state, choresDispatch] = useReducer(choresReducer, defaultData);
 
-  useEffect(() => {
-    console.log("calling get all chores from home");
-    console.log(state);
-    // choresDispatch({ type: "ALL", payload: defaultData.chores });
-    // console.log(state.chores);
-  }, [state]);
+  // useEffect(() => {
+  //   console.log("calling get all chores from home");
+  //   console.log(choresState.chores);
+  //   choresDispatch({ type: "ALL" });
+  //   console.log(choresState.chores);
+  // }, []);
 
-  const choreItems = state.chores.map(chore => (
+  const choreItems = choresState.chores.map(chore => (
     <div key={`holder${chore._id}`}>
       <HomeChoreItem
         item={chore}
-        toggleChore={() =>
-          choresDispatch({
-            type: "TOGGLE",
-            id: chore._id,
-            complete: !chore.complete
-          })
-        }
+        // toggleChore={() =>
+        //   choresDispatch({
+        //     type: "TOGGLE",
+        //     id: chore._id,
+        //     complete: !chore.complete
+        //   })
+        // }
       />
     </div>
   ));
@@ -77,9 +81,11 @@ export default function HomeChores() {
   return (
     <div className="card">
       <HomeFragment
-        isLoading={state.isLoading}
-        isError={state.isError}
-        noData={state.chores == "undefined" || state.chores.length < 1}
+        isLoading={choresState.isLoading}
+        isError={choresState.isError}
+        noData={
+          choresState.chores == "undefined" || choresState.chores.length < 1
+        }
         title={"Your Chores"}
         itemsName={"chores"}
       >
@@ -95,3 +101,5 @@ export default function HomeChores() {
     </div>
   );
 }
+
+export default memo(HomeChores);

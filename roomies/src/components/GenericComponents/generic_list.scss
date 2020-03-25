@@ -31,6 +31,17 @@
       align-items: center;
     }
 
+    .listGridHolder {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      grid-template-rows: auto;
+
+      .gridItem {
+        // justify-self: stretch;
+        justify-self: center;
+      }
+    }
+
     .lhShort {
       p {
         line-height: 75%;
@@ -151,16 +162,16 @@
     }
   }
 
-  .invitationBtnPosition {
-    margin-bottom: auto;
-    margin-top: -0.75rem;
-  }
-
   .btnAction {
     margin-top: -1rem;
     margin-right: -0.2rem;
     margin-bottom: 1rem;
     white-space: nowrap;
+  }
+
+  .invitationBtnPosition {
+    margin-bottom: 0;
+    margin-top: -0.75rem;
   }
 
   .accent-icon {

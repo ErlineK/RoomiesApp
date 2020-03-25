@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { TiMessages } from "react-icons/ti";
 import { MdReplyAll } from "react-icons/md";
 import "../Home/UserHome/homeLists.scss";
+import { ChoresContext } from "./ChoresContext";
 
 // TODO: on tesk complete - change glow to complete with animation + send to DB
 
-function HomeChoreItem({ item, toggleChore }) {
+function HomeChoreItem({ item }) {
+  const { choresDispatch } = useContext(ChoresContext);
+
   function formatDate(dateBase) {
     return new Intl.DateTimeFormat("en-CA", {
       month: "short",
@@ -16,7 +19,16 @@ function HomeChoreItem({ item, toggleChore }) {
     }).format(dateBase);
   }
   return (
-    <div className="listItemHolder" onClick={() => toggleChore()}>
+    <div
+      className="listItemHolder"
+      onClick={() =>
+        choresDispatch({
+          type: "TOGGLE",
+          id: item._id,
+          complete: !item.complete
+        })
+      }
+    >
       <div className="listFlexHolder">
         <div
           className={`glowIndicator listIcon ${

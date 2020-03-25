@@ -23,10 +23,18 @@ function InvitationMsgItem({ item }) {
             <p className="description">
               {item.propertyAddress} , {item.propertyCity}
             </p>
-            <button className="btn msgSimpleBtn highlightGreen invitationBtnPosition">
+            {/* <button className="btn msgSimpleBtn highlightGreen invitationBtnPosition">
               <FaCheck className="accent-icon" />
               Accept
-            </button>
+            </button> */}
+            {item.accepted ? (
+              <p>Accepted!</p>
+            ) : (
+              <button className="btn btn-grad-green btnAction">
+                <FaCheck className="accent-icon" />
+                Accept
+              </button>
+            )}
           </div>
         </div>
       </div>

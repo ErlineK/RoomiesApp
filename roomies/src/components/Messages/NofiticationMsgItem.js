@@ -27,9 +27,13 @@ function NofiticationMsgItem({ item }) {
             <div className="msgRow" style={{ marginBottom: "0.5rem" }}>
               <p className="description"></p>
 
-              <button className="btn msgSimpleBtn highlightGreen invitationBtnPosition">
+              {/* <button className="btn msgSimpleBtn highlightGreen invitationBtnPosition">
                 <FaCheck className="accent-icon" />
                 Confirm
+              </button> */}
+              <button className="btn btn-grad-green btnAction invitationBtnPosition">
+                <FaCheck className="accent-icon" />
+                Accept
               </button>
             </div>
           )}

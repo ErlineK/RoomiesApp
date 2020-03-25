@@ -8,34 +8,40 @@ const CHORES_SERVICE_URL = "/chores";
 const choresReducer = (state, action) => {
   switch (action.type) {
     case "ALL":
-      axios
-        .get(CHORES_SERVICE_URL)
-        .then(res => {
-          console.log("got all chores");
-          return {
-            ...state,
-            chores: res.chores,
-            isLoading: false,
-            isError: false
-          };
-        })
-        .catch(err => {
-          console.log("Error in getAllChores! " + err);
-          console.log(state);
-          console.log(action.payload);
-          console.log({
-            ...state,
-            chores: action.payload,
-            isLoading: false,
-            isError: true
-          });
-          return {
-            ...state,
-            chores: action.payload,
-            isLoading: false,
-            isError: true
-          };
-        });
+      //   axios
+      //     .get(CHORES_SERVICE_URL)
+      //     .then(res => {
+      //       console.log("got all chores");
+      //       return {
+      //         ...state,
+      //         chores: res.chores,
+      //         isLoading: false,
+      //         isError: false
+      //       };
+      //     })
+      //     .catch(err => {
+      //       console.log("Error in getAllChores! " + err);
+      //       console.log(state);
+      //       console.log(action.payload);
+      //       console.log({
+      //         ...state,
+      //         chores: action.payload,
+      //         isLoading: false,
+      //         isError: true
+      //       });
+      //       return {
+      //         ...state,
+      //         chores: action.payload,
+      //         isLoading: false,
+      //         isError: true
+      //       };
+      //     });
+      console.log("getting all chores in reducer");
+      return {
+        ...state,
+        isLoading: false,
+        isError: false
+      };
 
       break;
 

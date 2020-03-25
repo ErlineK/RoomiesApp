@@ -9,9 +9,6 @@ export default function() {
 
   return (
     <div>
-      {/* <div className={isLoggedIn() ? "userBackground" : " guestBackground"}> */}
-      {/* <Navbar /> */}
-
       {isLoggedIn() ? <Redirect to="/UserHome" /> : <Redirect to="/" />}
     </div>
   );

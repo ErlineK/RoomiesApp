@@ -41,7 +41,8 @@ export default function HomeMsgs() {
         date: new Date(2018, 2, 14),
         propertyName: "Home Sweet Home",
         propertyAddress: "123 Over the Hill Rd.",
-        propertyCity: "Wonderland"
+        propertyCity: "Wonderland",
+        accepted: true
       },
       {
         _id: 3,
@@ -55,7 +56,8 @@ export default function HomeMsgs() {
         type: "NTF",
         ntfType: "transfer",
         date: new Date(2020, 1, 30),
-        msg: "Tenant 3 transfered you $200"
+        msg: "Tenant 3 transfered you $200",
+        accepted: true
       },
       {
         _id: 4,
