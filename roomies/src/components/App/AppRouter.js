@@ -9,6 +9,7 @@ import Registration from "../auth/Registration";
 import Login from "../auth/Login";
 import UserHome from "../Home/UserHome/UserHome";
 import About from "../About/About";
+import Chores from "../Chores/chores";
 
 export default function() {
   return (
@@ -32,6 +33,7 @@ export default function() {
       <Route exact path="/HouseList" component={HouseList} />
       <Route exact path="/Profile" component={Profile} />
       <Route exact path="/UserHome" component={UserHome} />
+      <Route exact path="/Chores" component={Chores} />
     </Switch>
   );
 }

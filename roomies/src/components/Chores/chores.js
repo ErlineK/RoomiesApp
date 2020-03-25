@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import SideButton from '../SideBar/sidebuttons';
 import "./chores.css"
 
 class Chores extends Component {
@@ -40,7 +39,7 @@ class Chores extends Component {
             arr[i] = arr[j];
             arr[j] = temp;
         }
-        return arr;    
+        return arr;
     };
 
      render() {
@@ -61,11 +60,10 @@ class Chores extends Component {
         };
 
         this.shuffleChores(designations);
-        
+
 
         return (
             <div className="Chores">
-                <SideButton />
                 <div className="chore-columns">
                     <h2>Chores</h2>
                     <button onClick={this.shuffleChores(designations)}>Select Chores</button>

@@ -31,7 +31,7 @@ function Navbar() {
   /* important! keep title one word, so side nav css wont be broken */
   const userSideNavItems = [
     { title: "Bills", path: "Bills" },
-    { title: "Chores", path: "About" },
+    { title: "Chores", path: "chores" },
     { title: "Household", path: "HouseList" },
     { title: "Chat", path: "GroupChat" }
   ];
