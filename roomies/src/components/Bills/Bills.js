@@ -6,7 +6,8 @@ class Bills extends Component {
     super(props);
     this.state = {
       selectedBill: {},
-      tenets: ["Devin", "Mike", "Nicole", "Erline"],
+      tenants: ["Devin", "Mike", "Nicole", "Erline"],
+      newBillTenant: [],
       bills: [
         {
           id: "1",
@@ -60,6 +61,7 @@ class Bills extends Component {
     this.startBill = this.startBill.bind(this);
     this.saveBill = this.saveBill.bind(this);
     this.cancelBill = this.cancelBill.bind(this);
+    this.newBillAddTenant = this.newBillAddTenant.bind(this);
   }
 
   // allow users to change which bill is currently selected from the dropdown
@@ -128,18 +130,42 @@ class Bills extends Component {
   };
 
   saveBill = () => {
+    if(typeof parseInt(document.getElementById("billValue")) === "number") {
+      console.log("it's a number")
+    } else {
+      console.log("not a number");
+    } //fix later, need it to only work if it's a number, if it's a number do everything below, else print a message saying
+      //to enter a number. Also need to make sure at least 1 person is on the bill
     let mainDoc = document.getElementsByClassName("Bills-mainContent")[0];
     let addBill = document.getElementsByClassName("Bills-add")[0];
     mainDoc.style.display = "block";
     addBill.style.display = "none";
+    const billValue = parseInt(document.getElementById("billValue").value);
 
-    let addedBill = {woof: 0};
+    const owedInit = billValue / this.state.newBillTenant.length;
+    const newBill = {
+      id: String(this.state.bills.length+1),
+      people: [
+        { name: "Devin", owed: owedInit, paid: 0 },
+        { name: "Mike", owed: owedInit, paid: 0 },
+        { name: "Nicole", owed: owedInit, paid: 0 },
+        { name: "Erline", owed: owedInit, paid: 0 }
+      ],
+      name: document.getElementById("billName").value,
+      desc: document.getElementById("billDesc").value,
+      value: billValue
+    };
 
-    this.setState({
-      tenets: [this.state.tenets, "meow"]
-    });
+    const newBills = [...this.state.bills];
 
-    console.log(this.state);
+    newBills.push(newBill);
+
+    this.setState(
+      {
+        bills: newBills
+      },
+      () => console.log(this.state.bills, document.getElementById("billName").value)
+    );
   };
 
   cancelBill = () => {
@@ -147,7 +173,36 @@ class Bills extends Component {
     let addBill = document.getElementsByClassName("Bills-add")[0];
     mainDoc.style.display = "block";
     addBill.style.display = "none";
-    console.log(this.state.tenets);
+    const newNewBillTenant = [];
+    this.setState(
+      {
+        newBillTenant: newNewBillTenant
+      }
+    );
+  };
+
+  newBillAddTenant = e => {
+    if (e.target.checked === true) {
+      const newNewBillTenant = [...this.state.newBillTenant];
+      newNewBillTenant.push(e.target.value);
+      this.setState(
+        {
+          newBillTenant: newNewBillTenant
+        }
+      );
+    } else {
+      const newNewBillTenant = [...this.state.newBillTenant];
+      for (let i = 0; i < newNewBillTenant.length; i++) {
+        if (newNewBillTenant[i] === e.target.value) {
+          newNewBillTenant.splice(i, 1);
+        }
+      }
+      this.setState(
+        {
+          newBillTenant: newNewBillTenant
+        }
+      );
+    }
   };
 
   render() {
@@ -249,7 +304,17 @@ class Bills extends Component {
           <label htmlFor="billValue">Enter bill amount:</label>
           <input type="text" rows="1" cols="30" id="billValue" />
           <br />
-
+          {this.state.tenants.map((tenant, index) => (
+            <li>
+              <input
+                type="checkbox"
+                id={tenant[index]}
+                onClick={this.newBillAddTenant}
+                value={tenant}
+              ></input>
+              {tenant}
+            </li>
+          ))}
 
           <button onClick={this.saveBill}>Save</button>
           <button onClick={this.cancelBill}>Cancel</button>
