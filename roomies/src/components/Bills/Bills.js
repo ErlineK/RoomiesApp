@@ -12,7 +12,7 @@ class Bills extends Component {
         {
           id: "1",
           people: [
-            { name: "Devin", owed: 250, paid: 200 },
+            { name: "Devin", owed: 250, paid: 0 },
             { name: "Mike", owed: 250, paid: 0 },
             { name: "Nicole", owed: 250, paid: 0 },
             { name: "Erline", owed: 250, paid: 0 }
@@ -53,7 +53,8 @@ class Bills extends Component {
         { name: "Erline", owed: 250, paid: 200 }
       ],
       value: "",
-      billValue: "0"
+      billValue: "0",
+      billTotalRemaining: 0
     };
     this.changeBill = this.changeBill.bind(this);
     this.payBill = this.payBill.bind(this);
@@ -92,11 +93,14 @@ class Bills extends Component {
           bill.name === newBill.name ? { ...bill, value: newBill.value } : bill
         );
 
-        this.setState({
-          value: "",
-          selectedBill: newBill,
-          bills: newBills
-        });
+        this.setState(
+          {
+            value: "",
+            selectedBill: newBill,
+            bills: newBills
+          },
+          () => console.log(this.state.bills)
+        );
       }
     }
   };
@@ -130,12 +134,12 @@ class Bills extends Component {
   };
 
   saveBill = () => {
-    if(typeof parseInt(document.getElementById("billValue")) === "number") {
-      console.log("it's a number")
+    if (typeof parseInt(document.getElementById("billValue")) === "number") {
+      console.log("it's a number");
     } else {
       console.log("not a number");
     } //fix later, need it to only work if it's a number, if it's a number do everything below, else print a message saying
-      //to enter a number. Also need to make sure at least 1 person is on the bill
+    //to enter a number. Also need to make sure at least 1 person is on the bill
     let mainDoc = document.getElementsByClassName("Bills-mainContent")[0];
     let addBill = document.getElementsByClassName("Bills-add")[0];
     mainDoc.style.display = "block";
@@ -144,7 +148,7 @@ class Bills extends Component {
 
     const owedInit = billValue / this.state.newBillTenant.length;
     const newBill = {
-      id: String(this.state.bills.length+1),
+      id: String(this.state.bills.length + 1),
       people: [
         { name: "Devin", owed: owedInit, paid: 0 },
         { name: "Mike", owed: owedInit, paid: 0 },
@@ -164,7 +168,8 @@ class Bills extends Component {
       {
         bills: newBills
       },
-      () => console.log(this.state.bills, document.getElementById("billName").value)
+      () =>
+        console.log(this.state.bills, document.getElementById("billName").value)
     );
   };
 
@@ -174,22 +179,18 @@ class Bills extends Component {
     mainDoc.style.display = "block";
     addBill.style.display = "none";
     const newNewBillTenant = [];
-    this.setState(
-      {
-        newBillTenant: newNewBillTenant
-      }
-    );
+    this.setState({
+      newBillTenant: newNewBillTenant
+    });
   };
 
   newBillAddTenant = e => {
     if (e.target.checked === true) {
       const newNewBillTenant = [...this.state.newBillTenant];
       newNewBillTenant.push(e.target.value);
-      this.setState(
-        {
-          newBillTenant: newNewBillTenant
-        }
-      );
+      this.setState({
+        newBillTenant: newNewBillTenant
+      });
     } else {
       const newNewBillTenant = [...this.state.newBillTenant];
       for (let i = 0; i < newNewBillTenant.length; i++) {
@@ -197,11 +198,9 @@ class Bills extends Component {
           newNewBillTenant.splice(i, 1);
         }
       }
-      this.setState(
-        {
-          newBillTenant: newNewBillTenant
-        }
-      );
+      this.setState({
+        newBillTenant: newNewBillTenant
+      });
     }
   };
 
@@ -209,7 +208,7 @@ class Bills extends Component {
     return (
       <div className="Bills">
         <div className="Bills-mainContent">
-          <h1>Bills</h1>
+          <h1 className="Bills-h1">Bills</h1>
           <div className="Bills-columns">
             <button onClick={this.startBill}>Add Bill</button>
             <label htmlFor="billsDropDown">Select a bill</label>
@@ -245,7 +244,7 @@ class Bills extends Component {
                   {this.state.people[3].owed}
                 </p>
                 <p>
-                  Remaining to be paid: $ADD ALL THE REMAINNG OWED TOTALS
+                  Remaining to be paid: $ADD ALL THE PEOPLES OWED TOTALS
                   TOGETHER
                 </p>
                 <p>FILEUPLOAD UNSURE</p>
@@ -262,6 +261,7 @@ class Bills extends Component {
                     border: "1px solid green",
                     height: "200px",
                     width: "200px",
+                    margin: "auto",
                     background: this.getChart()
                   }}
                 />
@@ -297,9 +297,12 @@ class Bills extends Component {
           <label htmlFor="billName">Enter bill name:</label>
           <input type="text" rows="1" cols="30" id="billName" />
           <br />
-          <textarea id="billDesc" rows="4" cols="50">
-            Enter a description of the bill
-          </textarea>
+          <textarea
+            id="billDesc"
+            defaultValue="Enter a description of the bill"
+            rows="4"
+            cols="50"
+          ></textarea>
           <br />
           <label htmlFor="billValue">Enter bill amount:</label>
           <input type="text" rows="1" cols="30" id="billValue" />
@@ -309,6 +312,7 @@ class Bills extends Component {
               <input
                 type="checkbox"
                 id={tenant[index]}
+                key={tenant[index]}
                 onClick={this.newBillAddTenant}
                 value={tenant}
               ></input>

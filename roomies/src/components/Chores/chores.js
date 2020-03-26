@@ -13,7 +13,7 @@ class Chores extends Component {
     };
   }
 
-  onChange = date => this.setState({ date });
+  onChange = date => this.setState({ date }, () => console.log(this.state));
 
   addTask(evt) {
     evt.preventDefault();

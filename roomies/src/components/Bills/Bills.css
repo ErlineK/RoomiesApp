@@ -1,5 +1,10 @@
 .Bills {
-  width: 100%
+  width: 100%;
+  margin-left: 120px;
+}
+
+.Bills-h1 {
+  margin: 0px;
 }
 
 .Bills-topNav {
@@ -30,15 +35,17 @@
 }
 
 .Bills-mainContent {
-    width: 100%;
+    width: 90%;
     text-align: center;
-    background-color: white;
+    background-color: #ffffff;
 }
 
 .Bills-columns {
     float: left;
-    width: 30%;
+    width: 33.33%;
     padding: 10px;
+    background-color: #ffffff;
+    height: 80vh;
 }
 
 .sideButton {
@@ -59,4 +66,6 @@
 
 .Bills-add {
   display: none;
+  background-color: #ffffff;
+  height: 100vh;
 }
