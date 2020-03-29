@@ -184,8 +184,10 @@ $gradient-green: (
 
 .flex-container {
   display: flex;
-  // justify-content: space-between;
   align-items: stretch;
+  // flex-direction: row;
+  // flex-wrap: wrap;
+  // align-content: flex-start;
 }
 
 .flex-item {
@@ -204,6 +206,10 @@ $gradient-green: (
   text-align: right;
 }
 
+.toCenter {
+  margin: auto;
+}
+
 .positivVal {
   color: $accent-green;
 }
@@ -217,4 +223,8 @@ $gradient-green: (
     width: 92%;
     margin-left: 70px;
   }
+
+  // .flex-container {
+  //   align-content: space-around;
+  // }
 }

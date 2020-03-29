@@ -1,0 +1,29 @@
+@import "../GenericComponents/general.scss";
+
+.housesHolder {
+  width: 100%;
+  float: left;
+  padding: 0.5rem;
+  text-align: left;
+
+  .flex-container {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+}
+
+.sectionIcon {
+  float: right;
+  color: $accent-darker;
+  opacity: 0.3;
+}
+
+@media (min-width: $tablet) {
+  .housesHolder {
+    width: 100%;
+
+    .flex-container {
+      flex-direction: row;
+    }
+  }
+}

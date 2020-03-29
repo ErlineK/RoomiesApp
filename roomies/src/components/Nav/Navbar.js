@@ -13,7 +13,7 @@ function Navbar() {
     {
       title: "Profile Settings",
       icon: "userCog",
-      path: "Profile"
+      path: "Settings"
     },
     {
       title: "Notifications",

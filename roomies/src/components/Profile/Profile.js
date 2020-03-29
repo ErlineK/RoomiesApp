@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import "./Profile.css";
+import "./profile.scss";
 
 class Profile extends Component {
   constructor(props) {
     super(props);
-    this.state = { firstName: "", city: "", about: "", occupation: ""};
+    this.state = { firstName: "", city: "", about: "", occupation: "" };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -18,45 +19,49 @@ class Profile extends Component {
   }
   render() {
     return (
-      <div className='Profile'>
+      <div className="card user-main">
         <h1>Profile Information</h1>
         <form onSubmit={this.handleSubmit}>
-        <label htmlFor="firstName">First Name </label>
+          <label htmlFor="firstName">First Name </label>
           <input
-            id='firstName'
-            type='text'
-            name='firstName'
+            id="firstName"
+            type="text"
+            name="firstName"
             value={this.state.firstName}
             onChange={this.handleChange}
           />
-          <br /><br />
+          <br />
+          <br />
           <label htmlFor="city">City </label>
           <input
             id="city"
-            type='text'
-            name='city'
+            type="text"
+            name="city"
             value={this.state.city}
             onChange={this.handleChange}
           />
-          <br /><br />
+          <br />
+          <br />
           <label htmlFor="about">About </label>
           <input
             id="about"
-            type='text'
-            name='about'
+            type="text"
+            name="about"
             value={this.state.about}
             onChange={this.handleChange}
           />
-          <br /><br />
+          <br />
+          <br />
           <label htmlFor="occupation">Occupation </label>
           <input
             id="occupation"
-            type='occupation'
-            name='occupation'
+            type="occupation"
+            name="occupation"
             value={this.state.occupation}
             onChange={this.handleChange}
           />
-          <br /><br />
+          <br />
+          <br />
           <button>Save</button>
         </form>
       </div>

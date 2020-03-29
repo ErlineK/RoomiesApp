@@ -1,0 +1,19 @@
+@import "../GenericComponents/general.scss";
+
+.userDataItem {
+  padding: 0.5rem;
+  color: $accent-darker;
+
+  .item {
+    margin: 0.5rem;
+  }
+}
+.userDataIcon {
+  margin: 0.5rem;
+  color: $accent-darker;
+  margin-top: 0.75rem;
+}
+
+.itemData {
+  color: $accent-dark;
+}
