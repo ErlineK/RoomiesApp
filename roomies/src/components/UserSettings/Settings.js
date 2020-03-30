@@ -1,16 +1,15 @@
-import React, { Component, memo, useState } from "react";
+import React from "react";
 import "./settings.scss";
 import HouseCard from "./House/HouseCard";
-import UserDataItem from "../Profile/UserDataItem";
 import useToggle from "../../hooks/useToggle";
-import { FaUserEdit } from "react-icons/fa";
+import SettingsProfile from "../Profile/SettingsProfile";
 
 export default function UserSettings() {
-  const [editMode, toggleEdit] = useToggle(false);
   // TODO: get houses list by user id from db
   const defaultProps = {
     houses: [
       {
+        active: true,
         houseId: "123434",
         houseName: "My house",
         opened: new Date(2019, 3, 4),
@@ -48,6 +47,7 @@ export default function UserSettings() {
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et diam eu eros dictum tincidunt sed dignissim turpis."
       },
       {
+        active: false,
         houseId: "22222243",
         houseName: "Another cool house",
         opened: new Date(2020, 1, 1),
@@ -68,7 +68,7 @@ export default function UserSettings() {
           },
           {
             _id: "2333",
-            name: "John Doe",
+            name: "Janne Doe",
             avatar: "",
             added: new Date(2020, 1, 12),
             admin: false
@@ -88,6 +88,14 @@ export default function UserSettings() {
     userData: {}
   };
   // TODO: get user data by id from db
+  const defaultUser = {
+    _id: "111",
+    name: "John Doe",
+    img: "",
+    birthD: new Date(1988, 1, 30),
+    email: "john@doe.com",
+    phone: "555-555-5555"
+  };
 
   const houses = defaultProps.houses.map(house => (
     <HouseCard key={house.houseId} house={house} />
@@ -95,45 +103,9 @@ export default function UserSettings() {
 
   return (
     <div className="card user-main">
-      <div className="userDataHolder">
-        <h3>Profile</h3>
-        <div className="toLeft">
-          <FaUserEdit className="sectionIcon" onClick={() => toggleEdit()} />
-          <div>
-            <UserDataItem
-              edit={editMode}
-              item={{ title: "Email", data: "John@Doe.ca", icon: "email" }}
-            />
-            <UserDataItem
-              edit={editMode}
-              item={{ title: "Name", data: "John Doe", icon: "name" }}
-            />
-            <UserDataItem
-              edit={editMode}
-              item={{ title: "Phone", data: "555-555-5555", icon: "phone" }}
-            />
-          </div>
-        </div>
-        <div className="toLeft">
-          <FaUserEdit className="sectionIcon" onClick={() => toggleEdit()} />
-          <div>
-            <UserDataItem
-              edit={editMode}
-              item={{ title: "Email", data: "John@Doe.ca", icon: "email" }}
-            />
-            <UserDataItem
-              edit={editMode}
-              item={{ title: "Name", data: "John Doe", icon: "name" }}
-            />
-            <UserDataItem
-              edit={editMode}
-              item={{ title: "Phone", data: "555-555-5555", icon: "phone" }}
-            />
-          </div>
-        </div>
-      </div>
+      <SettingsProfile user={defaultUser} />
       <div className="housesHolder">
-        <h4>Houses</h4>
+        {/* <h4>Houses</h4> */}
         <div className="flex-container">
           {houses}
           <HouseCard />

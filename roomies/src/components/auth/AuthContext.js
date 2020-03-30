@@ -4,6 +4,7 @@ export const AuthContext = createContext();
 
 export function AuthProvider(props) {
   const [userId, setUserId] = useState("111");
+  const [houseId, setHouseId] = useState("123434");
 
   const isLoggedIn = () => {
     return userId > 0;
@@ -14,7 +15,9 @@ export function AuthProvider(props) {
       value={{
         isLoggedIn: isLoggedIn,
         userId: userId,
-        setUserId: setUserId
+        setUserId: setUserId,
+        houseId: houseId,
+        setHouseId: setHouseId
       }}
     >
       {props.children}

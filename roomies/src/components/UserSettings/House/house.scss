@@ -2,7 +2,7 @@
 
 .houseCardHolder {
   width: 100%;
-  margin: 0.1rem;
+  margin: 0.2rem;
   padding: 0.3rem;
   color: $accent-dark;
   align-items: center;
@@ -43,6 +43,14 @@
   color: $accent-darker;
   opacity: 0.3;
   margin: auto;
+}
+
+.activeCard {
+  box-shadow: $shadow-primary;
+
+  &.card {
+    border-color: $primary-color-dark;
+  }
 }
 
 @media (min-width: $tablet) {

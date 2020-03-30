@@ -2,29 +2,13 @@ import React, { useContext } from "react";
 import { GiPayMoney } from "react-icons/gi";
 import { MdReplyAll } from "react-icons/md";
 import "../Home/UserHome/homeLists.scss";
+import { formatDate, formatCurrency } from "../GenericComponents/formatHelper";
 
 // TODO: change bill background according to due date
 // TODO: set Icon by bill type
 // TODO: on bill click go to bill page
 
 function HomeBillItem({ item }) {
-  function formatDate(dateBase) {
-    return new Intl.DateTimeFormat("en-CA", {
-      month: "short",
-      day: "2-digit",
-      hour: "numeric",
-      minute: "numeric",
-      hour12: false
-    }).format(dateBase);
-  }
-
-  function formatCurrency(amount) {
-    return new Intl.NumberFormat("en-CA", {
-      style: "currency",
-      currencyDisplay: "symbol",
-      currency: "CAD"
-    }).format(amount);
-  }
   return (
     <div
       className="listItemHolder"

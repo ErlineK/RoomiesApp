@@ -12,7 +12,7 @@ export default function UserDataItem({ editMode, item }) {
         ""
       ) : (
         <div className="flex-container">
-          {getIcon(item.icon, "item userDataIcon")}
+          {getIcon(item.icon, " item userDataIcon")}
           <p className="item itemTitle">{item.title}:</p>
           <p className=" item itemData">{item.data}</p>
         </div>
