@@ -11,7 +11,7 @@ export function formatDate(dateBase) {
 export function formatDateOnly(dateBase) {
   return new Intl.DateTimeFormat("en-CA", {
     month: "short",
-    day: "2-digit",
+    day: "numeric",
     year: "numeric",
     hour12: false
   }).format(dateBase);

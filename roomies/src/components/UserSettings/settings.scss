@@ -25,6 +25,14 @@
     color: $primary-color-dark;
     cursor: pointer;
     opacity: 1;
+
+    &.success {
+      color: $accent-green;
+    }
+
+    &.abort {
+      color: $accent-red;
+    }
   }
 }
 

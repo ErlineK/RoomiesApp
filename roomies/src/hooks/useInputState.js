@@ -6,7 +6,7 @@ export default initialVal => {
   const [value, setValue] = useState(initialVal);
   // value change callback
   const handleChange = e => {
-    setValue(e.target.value.trim());
+    setValue(e.target.value);
   };
 
   // value reset callback

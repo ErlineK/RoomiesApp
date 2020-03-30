@@ -10,7 +10,7 @@ export default function HouseCard({ house }) {
 
   const tenants = house
     ? house.tenants.map(tenant =>
-        userId == tenant._id ? (
+        userId === tenant._id ? (
           ""
         ) : (
           <li key={tenant._id}>
@@ -25,11 +25,8 @@ export default function HouseCard({ house }) {
 
   function amAdmin() {
     let me = house.tenants.find(tenant => tenant._id === userId);
-    console.log(me);
     return me.admin;
   }
-
-  console.log(house);
 
   return (
     <div
@@ -37,7 +34,7 @@ export default function HouseCard({ house }) {
         house && house.houseId === houseId ? "activeCard" : ""
       } card houseCardHolder`}
     >
-      {house == undefined ? (
+      {house === undefined ? (
         <Link className="toCenter" to={"/AddHouse"}>
           <GoPlus className="fullCardIcon" />
         </Link>

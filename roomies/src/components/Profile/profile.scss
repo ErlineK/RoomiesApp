@@ -1,8 +1,15 @@
 @import "../GenericComponents/general.scss";
 
+.userDataHolder {
+}
+
 .userDataItem {
   padding: 0.5rem;
   color: $accent-darker;
+
+  .hiddenIcon {
+    visibility: hidden;
+  }
 
   .item {
     margin: 0.5rem;
@@ -15,6 +22,12 @@
 
   .itemData {
     color: $accent-dark;
+  }
+
+  &:hover {
+    .hiddenIcon {
+      visibility: visible;
+    }
   }
 }
 

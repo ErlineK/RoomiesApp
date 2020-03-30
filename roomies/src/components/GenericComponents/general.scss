@@ -201,13 +201,16 @@ $shadow-primary: (
 .flex-container {
   display: flex;
   align-items: stretch;
-  // flex-direction: row;
-  // flex-wrap: wrap;
-  // align-content: flex-start;
 
   &.flex-center {
     flex-wrap: wrap;
     justify-content: space-evenly;
+    align-items: flex-start;
+  }
+
+  &.flex-between {
+    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: flex-start;
   }
 }
@@ -249,6 +252,27 @@ $shadow-primary: (
 
 .success {
   color: $accent-green;
+}
+
+.actionIcon {
+  margin-top: 0.5rem;
+  margin-right: 1rem;
+  font-size: 1.5rem;
+  // color: $accent-dark;
+
+  &:hover {
+    &.edit {
+      color: $primary-color-dark;
+    }
+
+    &.success_hov {
+      color: $accent-green;
+    }
+
+    &.abort {
+      color: $accent-red;
+    }
+  }
 }
 
 @media (min-width: $tablet) {

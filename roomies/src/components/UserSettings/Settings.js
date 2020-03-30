@@ -92,7 +92,7 @@ export default function UserSettings() {
     _id: "111",
     name: "John Doe",
     img: "",
-    birthD: new Date(1988, 1, 30),
+    brthDate: new Date(1988, 0, 30),
     email: "john@doe.com",
     phone: "555-555-5555"
   };
