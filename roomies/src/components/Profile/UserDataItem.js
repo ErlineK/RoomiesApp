@@ -5,31 +5,30 @@ import useInputState from "../../hooks/useInputState";
 import { FaUserEdit, FaUserCheck, FaUserTimes } from "react-icons/fa";
 import { getIcon } from "../GenericComponents/iconManager";
 
-// TODO: get icon by  icon type
-
-export default function UserDataItem({ item, saveUpdate }) {
+export default function UserDataItem({ item, handleUpdate }) {
   const [editMode, toggleEdit] = useToggle(false);
   const [data, handleDataChange] = useInputState(item.data);
 
-  const updateUser = event => {
-    event.preventDefault();
+  const updateUser = e => {
+    e.preventDefault();
+    console.log("saving update");
 
-    saveUpdate(item.name, data);
+    handleUpdate(item.title, data);
 
-    // TODO: handle avatar change
+    // // TODO: handle avatar change
     toggleEdit();
   };
 
   return (
     <div>
-      {editMode && item.saveUpdate ? (
+      {editMode && handleUpdate ? (
         <div>
           <div className="flex-container flex-between">
             <label htmlFor={item.title}>{item.title}</label>
             <div className="toRight">
               <FaUserCheck
                 className="actionIcon success_hov"
-                // onClick={() => updateUser()}
+                onClick={e => updateUser(e)}
               />
               <FaUserTimes
                 className="actionIcon abort"

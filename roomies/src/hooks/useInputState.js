@@ -6,6 +6,7 @@ export default initialVal => {
   const [value, setValue] = useState(initialVal);
   // value change callback
   const handleChange = e => {
+    console.log("e: " + e);
     setValue(e.target.value);
   };
 
@@ -44,5 +45,5 @@ export default initialVal => {
     return valid;
   };
 
-  return [value, handleChange, reset, validate];
+  return [value, handleChange, setValue, reset, validate];
 };

@@ -1,22 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import "./profile.scss";
 import "../auth/auth.scss";
 import UserDataItem from "./UserDataItem";
-import { FaUserEdit, FaUserCheck, FaUserTimes } from "react-icons/fa";
 import { formatDateOnly } from "../GenericComponents/formatHelper";
 import { getIcon } from "../GenericComponents/iconManager";
-import useToggle from "../../hooks/useToggle";
-import useInputState from "../../hooks/useInputState";
+import UserAvatarSettings from "./UserAvatarSettings";
 
 export default function SettingsProfile({ user }) {
-  const [editMode, toggleEdit] = useToggle(false);
-  const [name, handleNameChange] = useInputState(user.name);
-  const [brthDate, handleBDayChange] = useInputState(user.brthDate);
-  const [phone, handlePhoneChange] = useInputState(user.phone);
-  const [avatar, handleavatarChange] = useInputState(user.img);
+  const [name, handleNameChange] = useState(user.name);
+  const [brthDate, handleBDayChange] = useState(user.brthDate);
+  const [phone, handlePhoneChange] = useState(user.phone);
+  const [avatar, handleAvatarChange] = useState(user.img);
 
-  const saveUpdate = (item, newVal) => {
-    console.log(`changing user ${item} to ${newVal}`);
+  const saveUpdate = (itemTitle, newVal) => {
+    console.log(`changing user ${itemTitle} to ${newVal}`);
+
+    switch (itemTitle) {
+      case "Name":
+        handleNameChange(newVal);
+        break;
+
+      case "Birth Date":
+        handleBDayChange(newVal);
+        break;
+
+      case "Phone":
+        handlePhoneChange(newVal);
+        break;
+
+      case "avatar":
+        handleAvatarChange(newVal);
+        break;
+    }
     // TODO: send user profile change to db
   };
 
@@ -39,7 +54,8 @@ export default function SettingsProfile({ user }) {
       )} */}
 
       <div className="flex-container flex-center from-container">
-        <div>
+        <UserAvatarSettings avatar={user.avatar} />
+        {/* <div>
           {user & (user.avatar !== "") ? (
             <img
               className="homeLogo avatar"
@@ -49,21 +65,19 @@ export default function SettingsProfile({ user }) {
           ) : (
             getIcon("user", "homeLogo avatar")
           )}
-        </div>
+        </div> */}
 
         <div className="">
           <UserDataItem
-            edit={editMode}
             item={{
               title: "Name",
               data: name,
               icon: "name",
-              type: "text",
-              saveUpdate: saveUpdate
+              type: "text"
             }}
+            handleUpdate={saveUpdate}
           />
           <UserDataItem
-            edit={editMode}
             item={{
               title: "Email",
               data: user.email,
@@ -73,24 +87,22 @@ export default function SettingsProfile({ user }) {
         </div>
         <div className="">
           <UserDataItem
-            edit={editMode}
             item={{
               title: "Birth Date",
               data: formatDateOnly(brthDate),
               icon: "bday",
-              type: "date",
-              saveUpdate: saveUpdate
+              type: "date"
             }}
+            handleUpdate={saveUpdate}
           />
           <UserDataItem
-            edit={editMode}
             item={{
               title: "Phone",
               data: phone,
               icon: "phone",
-              type: "phone",
-              saveUpdate: saveUpdate
+              type: "phone"
             }}
+            handleUpdate={saveUpdate}
           />
         </div>
       </div>

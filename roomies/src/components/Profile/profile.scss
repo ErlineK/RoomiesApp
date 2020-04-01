@@ -1,8 +1,5 @@
 @import "../GenericComponents/general.scss";
 
-.userDataHolder {
-}
-
 .userDataItem {
   padding: 0.5rem;
   color: $accent-darker;
@@ -31,9 +28,26 @@
   }
 }
 
+.avatarHolder {
+  position: relative;
+
+  .actionIcon {
+    position: absolute;
+    right: 0;
+    margin: 0;
+    margin-top: -0.8rem;
+    margin-right: -0.5rem;
+  }
+}
+
 .avatar {
   color: $accent-darker;
   margin: auto;
+
+  .actionIcon {
+    position: absolute;
+    right: 0;
+  }
 }
 
 @media (min-width: $tablet) {

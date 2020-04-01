@@ -49,7 +49,7 @@ export default function UserSettings() {
       {
         active: false,
         houseId: "22222243",
-        houseName: "Another cool house",
+        houseName: "Home sweet home",
         opened: new Date(2020, 1, 1),
         tenants: [
           {
@@ -91,7 +91,7 @@ export default function UserSettings() {
   const defaultUser = {
     _id: "111",
     name: "John Doe",
-    img: "",
+    img: "../../ assets / Logo.svg",
     brthDate: new Date(1988, 0, 30),
     email: "john@doe.com",
     phone: "555-555-5555"
