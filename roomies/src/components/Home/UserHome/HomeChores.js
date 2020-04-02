@@ -5,6 +5,7 @@ import HomeFragment from "./HomeFragment";
 import HomeChoreItem from "../../Chores/HomeChoreItem";
 import choresReducer from "../../../reducers/chores.reducer.js";
 import { ChoresContext } from "../../Chores/ChoresContext";
+import useChoresState from "../../../hooks/useChoresState";
 
 const USER_SERVICE_URL = "https://jsonplaceholder.typicode.com/users";
 const defaultData = {
@@ -45,47 +46,47 @@ const defaultData = {
 // TODO: get USER'S last 5 chores by due date
 
 function HomeChores() {
-  const { choresState, choresDispatch } = useContext(ChoresContext);
+  // const { choresState, choresDispatch } = useContext(ChoresContext);
+  const { chores, choresActions, requestStatus } = useChoresState(
+    defaultData.chores
+  );
 
-  // TODO: create useChoresState
+  useEffect(() => {
+    console.log(requestStatus);
 
-  // const [{ chores, isLoading, isError }, choresDispatch] = useReducer(
-  //   choresReducer,
-  //   defaultData
-  // );
+    console.log("calling get all chores from home");
+    console.log(chores);
+    // choresActions.getAllChores();
+    console.log(chores);
+  }, []);
 
-  // const [state, choresDispatch] = useReducer(choresReducer, defaultData);
-
-  // useEffect(() => {
-  //   console.log("calling get all chores from home");
-  //   console.log(choresState.chores);
-  //   choresDispatch({ type: "ALL" });
-  //   console.log(choresState.chores);
-  // }, []);
-
-  const choreItems = choresState.chores.map(chore => (
-    <div key={`holder${chore._id}`}>
-      <HomeChoreItem
-        item={chore}
-        // toggleChore={() =>
-        //   choresDispatch({
-        //     type: "TOGGLE",
-        //     id: chore._id,
-        //     complete: !chore.complete
-        //   })
-        // }
-      />
-    </div>
-  ));
+  const choreItems =
+    chores !== undefined
+      ? chores.map(chore => (
+          <div key={`holder${chore._id}`}>
+            <HomeChoreItem
+              item={chore}
+              // toggleChore={() =>
+              //   choresDispatch({
+              //     type: "TOGGLE",
+              //     id: chore._id,
+              //     complete: !chore.complete
+              //   })
+              // }
+            />
+          </div>
+        ))
+      : "";
 
   return (
     <div className="card">
       <HomeFragment
-        isLoading={choresState.isLoading}
-        isError={choresState.isError}
-        noData={
-          choresState.chores == "undefined" || choresState.chores.length < 1
-        }
+        // isLoading={requestStatus.isLoading}
+        // isError={requestStatus.isError}
+        isLoading={false}
+        isError={false}
+        // noData={chores == "undefined" || chores.length < 1}
+        noData={true}
         title={"Your Chores"}
         itemsName={"chores"}
       >
