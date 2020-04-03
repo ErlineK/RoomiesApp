@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../../GenericComponents/general.scss";
 import useGetRoomiesData from "../../../hooks/useGetRoomiesData";
 import BalanceChart from "../../GenericComponents/BalanceChart";
@@ -29,7 +29,7 @@ export default function HomeStatus() {
     <div className="card" style={{ width: "100%" }}>
       <h3>House balance</h3>
       {isLoading && <CircleLoader />}
-      {data.userBalance == undefined || isError ? (
+      {data.userBalance === undefined || isError ? (
         <p>No current chores to display</p>
       ) : (
         <>

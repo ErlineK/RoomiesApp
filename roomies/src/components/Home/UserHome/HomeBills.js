@@ -53,7 +53,7 @@ export default function HomeBills() {
       <HomeFragment
         isLoading={isLoading}
         isError={isError}
-        noData={data.bills == "undefined" || data.bills.length < 1}
+        noData={data.bills === "undefined" || data.bills.length < 1}
         title={"Bills pending/ latest bills"}
         itemsName={"bills"}
       >

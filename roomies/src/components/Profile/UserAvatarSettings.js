@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./profile.scss";
-import { FaUserEdit, FaUserCheck, FaUserTimes } from "react-icons/fa";
+import { FaUserEdit } from "react-icons/fa";
 import { getIcon } from "../GenericComponents/iconManager";
 
 export default function UserAvatarSettings({ avatar }) {
@@ -26,6 +26,7 @@ export default function UserAvatarSettings({ avatar }) {
       const formData = new FormData();
       formData.append("image", file.raw);
       const config = { headers: { "content-type": "multipart/form-data" } };
+      console.log(config);
 
       //   TODO: upload image to server
       // await uploadToBackend('endpoint', { image: file.raw }, config)
@@ -51,7 +52,12 @@ export default function UserAvatarSettings({ avatar }) {
       {uploadButton}
       <div>
         {userImage !== undefined ? (
-          <img className="homeLogo avatar" src={userImage} alt="avatar image" />
+          <img
+            className="homeLogo avatar"
+            src={userImage}
+            alt="user avatar"
+            aria-label="User avatar"
+          />
         ) : (
           getIcon("user", "homeLogo avatar")
         )}

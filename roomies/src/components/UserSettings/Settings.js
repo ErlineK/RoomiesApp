@@ -1,7 +1,6 @@
 import React from "react";
 import "./settings.scss";
 import HouseCard from "./House/HouseCard";
-import useToggle from "../../hooks/useToggle";
 import SettingsProfile from "../Profile/SettingsProfile";
 
 export default function UserSettings() {
@@ -91,7 +90,7 @@ export default function UserSettings() {
   const defaultUser = {
     _id: "111",
     name: "John Doe",
-    img: "../../ assets / Logo.svg",
+    avatar: "../../ assets / Logo.svg",
     brthDate: new Date(1988, 0, 30),
     email: "john@doe.com",
     phone: "555-555-5555"

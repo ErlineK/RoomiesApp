@@ -1,18 +1,11 @@
 import React from "react";
-import {
-  FaUserCog,
-  FaBell,
-  FaHome,
-  FaMoneyCheckAlt,
-  FaShoppingBag,
-  FaShoppingBasket
-} from "react-icons/fa";
+import { FaUserCog, FaBell } from "react-icons/fa";
 import { AiOutlineLogout, AiFillWechat } from "react-icons/ai";
 import {
   GiTakeMyMoney,
   GiVacuumCleaner,
   GiMushroomHouse,
-  GiSpookyHouse,
+  // GiSpookyHouse,
   GiMilkCarton
 } from "react-icons/gi";
 
