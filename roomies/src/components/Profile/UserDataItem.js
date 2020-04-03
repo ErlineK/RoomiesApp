@@ -4,6 +4,7 @@ import useToggle from "../../hooks/useToggle";
 import useInputState from "../../hooks/useInputState";
 import { FaUserEdit, FaUserCheck, FaUserTimes } from "react-icons/fa";
 import { getIcon } from "../GenericComponents/iconManager";
+import DatePicker from "react-date-picker";
 
 export default function UserDataItem({ item, handleUpdate }) {
   const [editMode, toggleEdit] = useToggle(false);

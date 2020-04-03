@@ -27,7 +27,7 @@ function InvitationMsgItem({ item }) {
               Accept
             </button> */}
             {item.accepted ? (
-              <p>Accepted!</p>
+              <p className="success">Accepted!</p>
             ) : (
               <button className="btn btn-grad-green btnAction">
                 <FaCheck className="accent-icon" />

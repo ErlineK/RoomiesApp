@@ -90,7 +90,7 @@ export default function UserSettings() {
   const defaultUser = {
     _id: "111",
     name: "John Doe",
-    avatar: "../../ assets / Logo.svg",
+    avatar: "",
     brthDate: new Date(1988, 0, 30),
     email: "john@doe.com",
     phone: "555-555-5555"

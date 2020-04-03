@@ -35,23 +35,6 @@ export default function HomeMsgs() {
         msg: "Forgot to walk the cow. Beers on me"
       },
       {
-        _id: 2,
-        type: "NVT",
-        author: "Some Tenant",
-        date: new Date(2018, 2, 14),
-        propertyName: "Home Sweet Home",
-        propertyAddress: "123 Over the Hill Rd.",
-        propertyCity: "Wonderland",
-        accepted: true
-      },
-      {
-        _id: 3,
-        type: "MSG",
-        author: "Tenant Three",
-        date: new Date(2019, 3, 18),
-        msg: "Blah!"
-      },
-      {
         _id: 6,
         type: "NTF",
         ntfType: "transfer",
@@ -65,6 +48,16 @@ export default function HomeMsgs() {
         ntfType: "general",
         date: new Date(2020, 2, 22),
         msg: "Welcome Tenant 2 to Home Sweet Home"
+      },
+      {
+        _id: 2,
+        type: "NVT",
+        author: "Some Tenant",
+        date: new Date(2018, 2, 14),
+        propertyName: "Home Sweet Home",
+        propertyAddress: "123 Over the Hill Rd.",
+        propertyCity: "Wonderland",
+        accepted: true
       }
     ]
   });

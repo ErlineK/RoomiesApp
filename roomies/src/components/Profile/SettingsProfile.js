@@ -20,7 +20,10 @@ export default function SettingsProfile({ user }) {
         break;
 
       case "Birth Date":
-        handleBDayChange(newVal);
+        let newDate = new Date(newVal);
+        // add a day
+        newDate.setDate(newDate.getDate() + 1);
+        handleBDayChange(newDate);
         break;
 
       case "Phone":

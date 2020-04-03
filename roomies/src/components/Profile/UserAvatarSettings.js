@@ -51,7 +51,7 @@ export default function UserAvatarSettings({ avatar }) {
     <div className="userDataItem avatarHolder">
       {uploadButton}
       <div>
-        {userImage !== undefined ? (
+        {(userImage !== undefined) & (userImage !== "") ? (
           <img
             className="homeLogo avatar"
             src={userImage}
