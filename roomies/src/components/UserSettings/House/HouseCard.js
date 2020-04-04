@@ -5,7 +5,7 @@ import { GoPlus } from "react-icons/go";
 import { FaEdit, FaEye } from "react-icons/fa";
 import { AuthContext } from "../../auth/AuthContext";
 
-export default function HouseCard({ house }) {
+export default function HouseCard({ house, handleClick }) {
   const { userId, houseId } = useContext(AuthContext);
 
   const tenants = house
@@ -33,12 +33,13 @@ export default function HouseCard({ house }) {
       className={`${
         house && house.houseId === houseId ? "activeCard" : ""
       } card houseCardHolder`}
+      onClick={handleClick ? handleClick : null}
     >
       {house === undefined ? (
-        <Link className="toCenter" to={"/AddHouse"}>
-          <GoPlus className="fullCardIcon" />
-        </Link>
+        // <Link className="toCenter" to={"/AddHouse"}>
+        <GoPlus className=" toCenter fullCardIcon" />
       ) : (
+        // </Link>
         <>
           <Link className="" to={`/House/${house.houseId}`}>
             {house && house.houseId === houseId ? (

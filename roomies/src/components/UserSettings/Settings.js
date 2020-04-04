@@ -2,8 +2,11 @@ import React from "react";
 import "./settings.scss";
 import HouseCard from "./House/HouseCard";
 import SettingsProfile from "../Profile/SettingsProfile";
+import useToggle from "../../hooks/useToggle";
+import AddHousePop from "./House/AddHouse";
 
 export default function UserSettings() {
+  const [showNewHouse, toggleNewHouse] = useToggle(false);
   // TODO: get houses list by user id from db
   const defaultProps = {
     houses: [
@@ -107,9 +110,10 @@ export default function UserSettings() {
         {/* <h4>Houses</h4> */}
         <div className="flex-container">
           {houses}
-          <HouseCard />
+          <HouseCard key="0" handleClick={() => toggleNewHouse()} />
         </div>
       </div>
+      {showNewHouse && <AddHousePop togglePop={toggleNewHouse} />}
     </div>
   );
 }

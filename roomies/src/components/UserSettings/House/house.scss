@@ -38,10 +38,12 @@
 }
 
 .fullCardIcon {
+  cursor: pointer;
   width: 100%;
   height: 100%;
   color: $accent-darker;
   opacity: 0.3;
+  padding: 0.5rem;
   margin: auto;
 }
 
@@ -50,6 +52,36 @@
 
   &.card {
     border-color: $primary-color-dark;
+  }
+}
+
+.houseForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  padding: 4%;
+  margin: auto;
+
+  label {
+    display: inline;
+    word-wrap: normal;
+  }
+
+  input {
+    display: inline;
+    flex: 1;
+  }
+
+  textarea {
+    border-radius: 1rem;
+    display: inline;
+    flex: 1;
+  }
+
+  select {
+    width: fit-content;
+    flex: 1;
   }
 }
 

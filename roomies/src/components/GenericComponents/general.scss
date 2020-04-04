@@ -213,6 +213,10 @@ $shadow-primary: (
     justify-content: space-between;
     align-items: flex-start;
   }
+
+  &.align-base {
+    align-items: baseline;
+  }
 }
 
 .flex-item {
@@ -275,10 +279,36 @@ $shadow-primary: (
   }
 }
 
+.popup {
+  position: fixed;
+  margin: auto;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  padding: 0.5rem;
+  align-items: center;
+  background-color: rgba($color: $accent-dark, $alpha: 0.75);
+
+  .popupContent {
+    min-width: 400px;
+    width: 80%;
+  }
+}
+
 @media (min-width: $tablet) {
   .user-main {
     width: 92%;
     margin-left: 70px;
+  }
+
+  .popup {
+    padding-left: 75px;
+
+    .popupContent {
+      padding: 0.5rem;
+      width: 50%;
+    }
   }
 
   // .flex-container {

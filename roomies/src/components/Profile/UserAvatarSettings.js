@@ -28,7 +28,7 @@ export default function UserAvatarSettings({ avatar }) {
       const config = { headers: { "content-type": "multipart/form-data" } };
       console.log(config);
 
-      //   TODO: upload image to server
+      //   TODO: upload image to server as user avatar or as house avatar
       // await uploadToBackend('endpoint', { image: file.raw }, config)
     }
   };
