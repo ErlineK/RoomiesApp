@@ -5,6 +5,9 @@ import { GoPlus } from "react-icons/go";
 import { FaEdit, FaEye } from "react-icons/fa";
 import { AuthContext } from "../../auth/AuthContext";
 
+// TODO: set active card by data from server
+// TODO: handle change active house in DB
+
 export default function HouseCard({ house, handleClick }) {
   const { userId, houseId } = useContext(AuthContext);
 
@@ -30,8 +33,11 @@ export default function HouseCard({ house, handleClick }) {
 
   return (
     <div
+      // className={`${
+      //   house && house.houseId === houseId ? "activeCard" : ""
+      // } card houseCardHolder`}
       className={`${
-        house && house.houseId === houseId ? "activeCard" : ""
+        house && house.active ? "activeCard" : ""
       } card houseCardHolder`}
       onClick={handleClick ? handleClick : null}
     >
@@ -48,8 +54,12 @@ export default function HouseCard({ house, handleClick }) {
               <FaEye className="sectionIcon" />
             )}
           </Link>
-
-          {house.houseId === houseId ? (
+          {/* {house.houseId === houseId ? (
+            <span className="small-note sectionNote">Active</span>
+          ) : (
+            ""
+          )} */}
+          {house && house.active ? (
             <span className="small-note sectionNote">Active</span>
           ) : (
             ""
@@ -61,7 +71,7 @@ export default function HouseCard({ house, handleClick }) {
             alt="house avatar"
           />
           <h5>{house.houseName}</h5>
-
+          <p>{`${house.address} ${house.city}, ${house.province}`}</p>
           <ul>
             <li>
               You
@@ -71,7 +81,6 @@ export default function HouseCard({ house, handleClick }) {
             </li>
             {tenants}
           </ul>
-
           <p>{house.description}</p>
         </>
       )}

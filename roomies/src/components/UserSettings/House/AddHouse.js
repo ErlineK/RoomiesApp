@@ -3,10 +3,11 @@ import useInputState from "../../../hooks/useInputState";
 import "../../auth/auth.scss";
 import { AiFillCloseCircle } from "react-icons/ai";
 import HouseAvatar from "./HouseAvatar";
+import uuid from "uuid";
 
 const provinces = ["ON", "QC", "NS", "NB", "MB", "BC", "PE", "SK", "AB", "NL"];
 
-function AddHousePop({ togglePop }) {
+function AddHousePop({ togglePop, handleNewHouse }) {
   const [hName, handleHNameChange] = useInputState("");
   const [hDescription, handleHDescriptionChange] = useInputState("");
   const [hStreet, handleHStreetChange] = useInputState("");
@@ -15,8 +16,28 @@ function AddHousePop({ togglePop }) {
   const [houseAvatar, setHouseAvatar] = useState("");
 
   const handleAddHouse = () => {
-    console.log("house saved successfully");
+    console.log("saving house");
     //TODO: handle add house
+    let house = {
+      houseId: uuid(), //do that on server
+      active: true, //do that on server
+      opened: new Date(), //do that on server
+      houseName: hName,
+      address: hStreet,
+      city: hCity,
+      province: hProvince,
+      description: hDescription,
+      avatar: houseAvatar,
+      tenants: [
+        {
+          _id: "111",
+          added: new Date(), //do that on server
+          admin: true //do that on server
+        }
+      ]
+    };
+
+    handleNewHouse(house);
 
     // axios
     //   .post("http://localhost:3000/users/register", userObject)
@@ -43,7 +64,7 @@ function AddHousePop({ togglePop }) {
     event.preventDefault();
 
     console.log(
-      `saving data: \n hName: ${hName}, \n hDescription: ${hDescription} \n hStreet: ${hStreet} \n hCity: ${hCity} \n hProvince: ${hProvince} \n $houseAvatar: ${houseAvatar}`
+      `saving data: \n hName: ${hName}, \n hDescription: ${hDescription} \n hStreet: ${hStreet} \n hCity: ${hCity} \n hProvince: ${hProvince} \n houseAvatar: ${houseAvatar}`
     );
 
     if (validate()) {
