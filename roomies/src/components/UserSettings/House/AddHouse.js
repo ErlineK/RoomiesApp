@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import useInputState from "../../../hooks/useInputState";
 import "../../auth/auth.scss";
-import { AiFillCloseCircle } from "react-icons/ai";
 import HouseAvatar from "./HouseAvatar";
 import uuid from "uuid";
+import PopUpCard from "../../GenericComponents/PopUpCard";
+import { HouseContext } from "./HouseContext";
 
 const provinces = ["ON", "QC", "NS", "NB", "MB", "BC", "PE", "SK", "AB", "NL"];
 
-function AddHousePop({ togglePop, handleNewHouse }) {
+function AddHousePop() {
+  const { toggleNewHouse, handleNewHouse } = useContext(HouseContext);
+
   const [hName, handleHNameChange] = useInputState("");
   const [hDescription, handleHDescriptionChange] = useInputState("");
   const [hStreet, handleHStreetChange] = useInputState("");
@@ -48,6 +51,7 @@ function AddHousePop({ togglePop, handleNewHouse }) {
     //   .catch(error => {
     //     console.log("Registration Error");
     //   });
+    toggleNewHouse();
   };
 
   function validate() {
@@ -63,27 +67,16 @@ function AddHousePop({ togglePop, handleNewHouse }) {
   const doSubmit = event => {
     event.preventDefault();
 
-    console.log(
-      `saving data: \n hName: ${hName}, \n hDescription: ${hDescription} \n hStreet: ${hStreet} \n hCity: ${hCity} \n hProvince: ${hProvince} \n houseAvatar: ${houseAvatar}`
-    );
-
     if (validate()) {
       handleAddHouse();
-      togglePop();
+      toggleNewHouse();
     }
   };
 
   return (
-    <div className="card popup">
-      <div className="toCenter card popupContent">
-        <div
-          className="secondary-link toRight"
-          style={{ margin: 0 }}
-          onClick={() => togglePop()}
-        >
-          <AiFillCloseCircle className="back-icon" />
-        </div>
-        <div>
+    <PopUpCard togglePop={toggleNewHouse}>
+      <div>
+        <div className="newHouseAvatar">
           <HouseAvatar avatar={houseAvatar} addAvatarToForm={setHouseAvatar} />
         </div>
 
@@ -165,7 +158,7 @@ function AddHousePop({ togglePop, handleNewHouse }) {
           </div>
         </form>
       </div>
-    </div>
+    </PopUpCard>
   );
 }
 

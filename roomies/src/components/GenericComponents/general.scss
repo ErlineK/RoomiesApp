@@ -258,6 +258,10 @@ $shadow-primary: (
   color: $accent-green;
 }
 
+.abort {
+  color: $accent-red;
+}
+
 .actionIcon {
   margin-top: 0.5rem;
   margin-right: 1rem;
@@ -293,6 +297,7 @@ $shadow-primary: (
   .popupContent {
     min-width: 400px;
     width: 80%;
+    overflow-y: auto;
   }
 }
 

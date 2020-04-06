@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./profile.scss";
 import "../auth/auth.scss";
 import UserDataItem from "./UserDataItem";
 import { formatDateOnly } from "../GenericComponents/formatHelper";
 import UserAvatarSettings from "./UserAvatarSettings";
+import { AuthContext } from "../auth/AuthContext";
 
-export default function SettingsProfile({ user }) {
+export default function SettingsProfile() {
+  const { user } = useContext(AuthContext);
+
   const [name, handleNameChange] = useState(user.name);
   const [brthDate, handleBDayChange] = useState(user.brthDate);
   const [phone, handlePhoneChange] = useState(user.phone);
