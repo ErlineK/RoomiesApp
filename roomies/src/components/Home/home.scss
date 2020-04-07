@@ -35,15 +35,46 @@
   margin: 5px;
 }
 
-.homeColumn {
+.homeRow {
   flex-direction: column;
+}
+
+.homeItem {
   width: 100%;
-  justify-content: flex-start;
+  text-align: right;
+}
+
+.balanceItem {
+  margin-top: 0.5rem;
+
+  .underline {
+    padding: 0.3rem;
+    padding-bottom: 0;
+    border-bottom: 0.2rem solid $accent-green;
+
+    &.red {
+      border-bottom-color: $accent-red;
+    }
+  }
+
+  .balance-text {
+    font-size: 150%;
+    margin-top: -1rem;
+    font-weight: bold;
+  }
 }
 
 @media (min-width: $tablet) {
   .home-central-holder {
     width: 92%;
     margin-left: 70px;
+  }
+
+  .homeItem {
+    flex: 1;
+  }
+
+  .homeRow {
+    flex-direction: row;
   }
 }

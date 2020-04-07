@@ -9,7 +9,7 @@ function AddTenantsPop() {
   const { toggleAddTenants, handleNewTenant } = useContext(HouseContext);
 
   const [name, handleNameChange] = useInputState("");
-  const [email, handleEmailChange] = useInputState("");
+  const [email, handleEmailChange, validateEmail] = useInputState("");
 
   const handleAddTenant = () => {
     console.log("saving tenant");
@@ -33,6 +33,10 @@ function AddTenantsPop() {
 
     if (name === undefined || name.trim() === "" || name.length < 2) {
       validated = false;
+    }
+
+    if (validated) {
+      validated = validated = validateEmail("EMAIL");
     }
 
     return validated;

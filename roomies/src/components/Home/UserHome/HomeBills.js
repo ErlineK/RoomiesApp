@@ -49,7 +49,7 @@ export default function HomeBills() {
     //   <p>No current bills to display</p>
     //   <p>Link to bills...</p>
     // </div>
-    <div className="card">
+    <div className="card homeItem">
       <HomeFragment
         isLoading={isLoading}
         isError={isError}

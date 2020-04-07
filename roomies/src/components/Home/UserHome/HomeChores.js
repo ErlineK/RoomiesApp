@@ -56,7 +56,7 @@ function HomeChores() {
       : "";
 
   return (
-    <div className="card">
+    <div className="card homeItem">
       <HomeFragment
         isLoading={requestStatus.isLoading}
         isError={requestStatus.isError}

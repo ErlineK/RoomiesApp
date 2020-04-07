@@ -21,13 +21,6 @@ export default function HomeMsgs() {
   const [{ data, isLoading, isError }] = useGetRoomiesData(USER_SERVICE_URL, {
     messages: [
       {
-        _id: 5,
-        type: "NTF",
-        ntfType: "bill",
-        date: new Date(2020, 1, 30),
-        msg: "Hydro bill was payed"
-      },
-      {
         _id: 1,
         type: "MSG",
         author: "Tenant One",
@@ -89,7 +82,7 @@ export default function HomeMsgs() {
   const msgs = data.messages.map((msg, i) => getMsgObjByType(msg));
 
   return (
-    <div className="card">
+    <div className="card homeItem">
       <HomeFragment
         isLoading={isLoading}
         isError={isError}

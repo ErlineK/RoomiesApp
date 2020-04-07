@@ -208,9 +208,20 @@ $shadow-primary: (
     align-items: stretch;
   }
 
+  &.flex-fill {
+    justify-content: stretch;
+    align-items: flex-start;
+  }
+
   &.flex-between {
     flex-wrap: wrap;
     justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  &.flex-around {
+    flex-wrap: wrap;
+    justify-content: space-around;
     align-items: flex-start;
   }
 

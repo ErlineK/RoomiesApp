@@ -1,5 +1,5 @@
 import React, { Component, memo } from "react";
-import "../../GenericComponents/general.scss";
+// import "../../GenericComponents/general.scss";
 import "../home.scss";
 import HomeMsgs from "./HomeMsgs";
 import HomeStatus from "./HomeStatus";
@@ -11,15 +11,13 @@ class UserHome extends Component {
   render() {
     return (
       <div className="card user-main">
-        {/* <h3>USER HOME</h3> */}
-        <div className="flex-container">
-          <div className="flex-container homeColumn">
-            <HomeMsgs />
-            <ChoresProvider>
-              <HomeChores />
-            </ChoresProvider>
-          </div>
-          <HomeStatus />
+        <HomeStatus />
+
+        <div className="flex-container flex-fill homeRow">
+          <HomeMsgs />
+          <ChoresProvider>
+            <HomeChores />
+          </ChoresProvider>
         </div>
         <HomeBills />
       </div>
