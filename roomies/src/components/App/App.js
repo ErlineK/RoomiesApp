@@ -3,6 +3,7 @@ import "./app.scss";
 import RoomiesApp from "./RoomiesApp";
 import AppRouter from "./AppRouter";
 import { AuthProvider } from "../auth/AuthContext";
+import { HouseProvider } from "../UserSettings/House/HouseContext";
 import Navbar from "../Nav/Navbar";
 
 class App extends Component {
@@ -10,9 +11,11 @@ class App extends Component {
     return (
       <div className="App">
         <AuthProvider>
-          <Navbar />
-          <RoomiesApp />
-          <AppRouter />
+          <HouseProvider>
+            <Navbar />
+            <RoomiesApp />
+            <AppRouter />
+          </HouseProvider>
         </AuthProvider>
       </div>
     );

@@ -56,10 +56,14 @@ export default function UserDataItem({ item, handleUpdate }) {
               <p className=" item itemData">{item.data}</p>
             </div>
             <div className="toRight">
-              <FaUserEdit
-                className=" actionIcon hiddenIcon edit"
-                onClick={() => toggleEdit()}
-              />
+              {handleUpdate ? (
+                <FaUserEdit
+                  className=" actionIcon hiddenIcon edit"
+                  onClick={() => toggleEdit()}
+                />
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>

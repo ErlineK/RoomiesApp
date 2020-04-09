@@ -1,7 +1,7 @@
 import React, { useContext, memo } from "react";
 import "./side-nav.scss";
 import "./navbar.scss";
-import { NavLink, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import uuid from "uuid";
 import { AiOutlineLogout } from "react-icons/ai";
 import { AuthContext } from "../auth/AuthContext";

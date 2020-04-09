@@ -24,7 +24,8 @@ export default initialVal => {
     switch (valueType) {
       case "EMAIL":
         // check for email pattern
-        const mailPtrn = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        // const mailPtrn = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        const mailPtrn = /^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/;
         valid = mailPtrn.test(value);
         break;
 

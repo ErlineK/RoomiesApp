@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { GiPayMoney } from "react-icons/gi";
-import { MdReplyAll } from "react-icons/md";
 import "../Home/UserHome/homeLists.scss";
 import { formatDate, formatCurrency } from "../GenericComponents/formatHelper";
+import { getBackgroundByDue } from "../Home/UserHome/homeHelper";
 
 // TODO: change bill background according to due date
 // TODO: set Icon by bill type
@@ -11,32 +11,45 @@ import { formatDate, formatCurrency } from "../GenericComponents/formatHelper";
 function HomeBillItem({ item }) {
   return (
     <div
-      className="listItemHolder"
+      className={`${getBackgroundByDue(item.dueDate)} listItemHolder`}
       onClick={() => {
         console.log("clicked on bill");
       }}
     >
       <div className="listFlexHolder">
-        <GiPayMoney className="listIcon" />
-        <div style={{ width: "100%" }}>
-          <div className="msgRow lhShort listGridHolder">
-            <div className="gridItem">
-              <p>{item.type}</p>
-            </div>
-            <div className="gridItem">
-              <p>
-                {item.payed
-                  ? `${formatCurrency(item.total - item.payed)}/`
-                  : ""}
-                {formatCurrency(item.total)}
-              </p>
-            </div>
-            <p className="description textLight gridItem">
-              {formatDate(item.dueDate)}
+        <GiPayMoney
+          className={`${item.total === item.payed ? "success" : ""} listIcon`}
+        />
+
+        <div
+          className="msgRow lhShort listGridHolder"
+          style={{ width: "100%" }}
+        >
+          <div className="gridItem">
+            <p>{item.refNum}</p>
+          </div>
+          <div className="gridItem">
+            <p>{item.type}</p>
+          </div>
+
+          <div className="gridItem">
+            <p
+              className={`${
+                Math.abs(item.payed) >= Math.abs(item.total) ? "success" : ""
+              }`}
+            >
+              {item.payed && item.payed !== item.total
+                ? `${formatCurrency(item.total - item.payed)}/`
+                : ""}
+              {formatCurrency(item.total)}
             </p>
+          </div>
+          <div className="gridItem">
+            <p className="description textLight">{formatDate(item.dueDate)}</p>
           </div>
         </div>
       </div>
+
       <hr></hr>
     </div>
   );

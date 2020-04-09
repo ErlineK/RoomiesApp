@@ -1,9 +1,9 @@
 import { useReducer, useState, useEffect } from "react";
 import axios from "axios";
-import useGetRoomiesData from "./useGetRoomiesData";
+import dataFetchReducer from "../reducers/dataFetch.reducer";
 
 // const BASE_URL = "http://localhost:8082/api";
-const BASE_URL = "https://jsonplaceholder.typicode.com/users";
+// const BASE_URL = "https://jsonplaceholder.typicode.com/users";
 
 export default ({ reqUri, reqType, reqData }, initData) => {
   const [requst, setRequest] = useState({
@@ -26,10 +26,11 @@ export default ({ reqUri, reqType, reqData }, initData) => {
       fetchDispatch({ type: "FETCH_INIT" });
       try {
         const result = await axios[requst.reqType](requst.url, requst.reqData);
+        console.log(result);
 
         if (!didCancel) {
           /*** IMPORTANT! uncheck this line once server side added to project! ****/
-          // dispatch({ type: "FETCH_SUCCESS", payload: result.data });
+          // fetchDispatch({ type: "FETCH_SUCCESS", payload: result.data });
           fetchDispatch({ type: "FETCH_SUCCESS", payload: initData });
         }
       } catch (error) {
@@ -45,30 +46,4 @@ export default ({ reqUri, reqType, reqData }, initData) => {
   }, [requst]);
 
   return [state, setRequest];
-};
-
-const dataFetchReducer = (state, action) => {
-  switch (action.type) {
-    case "FETCH_INIT":
-      return {
-        ...state,
-        isLoading: true,
-        isError: false
-      };
-    case "FETCH_SUCCESS":
-      return {
-        ...state,
-        isLoading: false,
-        isError: false,
-        data: action.payload
-      };
-    case "FETCH_FAILURE":
-      return {
-        ...state,
-        isLoading: false,
-        isError: true
-      };
-    default:
-      throw new Error();
-  }
 };

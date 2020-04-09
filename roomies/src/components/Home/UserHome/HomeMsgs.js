@@ -21,35 +21,11 @@ export default function HomeMsgs() {
   const [{ data, isLoading, isError }] = useGetRoomiesData(USER_SERVICE_URL, {
     messages: [
       {
-        _id: 5,
-        type: "NTF",
-        ntfType: "bill",
-        date: new Date(2020, 1, 30),
-        msg: "Hydro bill was payed"
-      },
-      {
         _id: 1,
         type: "MSG",
         author: "Tenant One",
         date: new Date(2017, 11, 17),
         msg: "Forgot to walk the cow. Beers on me"
-      },
-      {
-        _id: 2,
-        type: "NVT",
-        author: "Some Tenant",
-        date: new Date(2018, 2, 14),
-        propertyName: "Home Sweet Home",
-        propertyAddress: "123 Over the Hill Rd.",
-        propertyCity: "Wonderland",
-        accepted: true
-      },
-      {
-        _id: 3,
-        type: "MSG",
-        author: "Tenant Three",
-        date: new Date(2019, 3, 18),
-        msg: "Blah!"
       },
       {
         _id: 6,
@@ -65,6 +41,16 @@ export default function HomeMsgs() {
         ntfType: "general",
         date: new Date(2020, 2, 22),
         msg: "Welcome Tenant 2 to Home Sweet Home"
+      },
+      {
+        _id: 2,
+        type: "NVT",
+        author: "Some Tenant",
+        date: new Date(2018, 2, 14),
+        propertyName: "Home Sweet Home",
+        propertyAddress: "123 Over the Hill Rd.",
+        propertyCity: "Wonderland",
+        accepted: true
       }
     ]
   });
@@ -96,22 +82,21 @@ export default function HomeMsgs() {
   const msgs = data.messages.map((msg, i) => getMsgObjByType(msg));
 
   return (
-    <div className="card">
-      <HomeFragment
-        isLoading={isLoading}
-        isError={isError}
-        noData={data.messages === "undefined" || data.messages.length < 1}
-        title={""}
-        itemsName={"messages"}
-      >
-        <div className="listContainer">
-          {/* <div className="titleContainer">this is title</div> */}
-          {msgs}
-        </div>
-      </HomeFragment>
-      <Link className="secondary-link underline nav-link" to="/Chat">
-        Leave a message >>
-      </Link>
+    <div className="homeHolder homeItem">
+      <div className="card ">
+        <HomeFragment
+          isLoading={isLoading}
+          isError={isError}
+          noData={data.messages === "undefined" || data.messages.length < 1}
+          title={""}
+          itemsName={"messages"}
+        >
+          <div className="listContainer">
+            {/* <div className="titleContainer">this is title</div> */}
+            {msgs}
+          </div>
+        </HomeFragment>
+      </div>
     </div>
   );
 }

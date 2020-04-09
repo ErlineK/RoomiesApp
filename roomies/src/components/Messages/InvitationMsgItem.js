@@ -1,9 +1,8 @@
 import React from "react";
-import { FaAngellist, FaCheck } from "react-icons/fa";
-// import { MdRemoveCircle, MdRemoveCircleOutline } from "react-icons/md";
-import { GiHouseKeys, GiKeyring, GiKey } from "react-icons/gi";
+import { FaCheck } from "react-icons/fa";
+import { GiKeyring } from "react-icons/gi";
 import { TiDeleteOutline } from "react-icons/ti";
-import { msgFormatDate } from "./messagesHelper";
+import { formatDate } from "../GenericComponents/formatHelper";
 
 function InvitationMsgItem({ item }) {
   return (
@@ -17,7 +16,7 @@ function InvitationMsgItem({ item }) {
               you to join{" "}
               <span style={{ fontWeight: "bold" }}>{item.propertyName}</span>
             </p>
-            <p className="description textLight">{msgFormatDate(item.date)}</p>
+            <p className="description textLight">{formatDate(item.date)}</p>
           </div>
           <div className="msgRow">
             <p className="description">
@@ -28,7 +27,7 @@ function InvitationMsgItem({ item }) {
               Accept
             </button> */}
             {item.accepted ? (
-              <p>Accepted!</p>
+              <p className="success">Accepted!</p>
             ) : (
               <button className="btn btn-grad-green btnAction">
                 <FaCheck className="accent-icon" />

@@ -11,7 +11,6 @@ import UserHome from "../Home/UserHome/UserHome";
 import About from "../About/About";
 import Chores from "../Chores/chores";
 import UserSettings from "../UserSettings/Settings";
-import AddHouse from "../UserSettings/House/AddHouse";
 
 export default function() {
   return (
@@ -37,7 +36,6 @@ export default function() {
       <Route exact path="/UserHome" component={UserHome} />
       <Route exact path="/Settings" component={UserSettings} />
       <Route exact path="/Chores" component={Chores} />
-      <Route exact path="/AddHouse" component={AddHouse} />
     </Switch>
   );
 }

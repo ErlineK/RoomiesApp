@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./profile.scss";
 import "../auth/auth.scss";
 import UserDataItem from "./UserDataItem";
 import { formatDateOnly } from "../GenericComponents/formatHelper";
-import { getIcon } from "../GenericComponents/iconManager";
 import UserAvatarSettings from "./UserAvatarSettings";
+import { AuthContext } from "../auth/AuthContext";
 
-export default function SettingsProfile({ user }) {
+export default function SettingsProfile() {
+  const { user } = useContext(AuthContext);
+
   const [name, handleNameChange] = useState(user.name);
   const [brthDate, handleBDayChange] = useState(user.brthDate);
   const [phone, handlePhoneChange] = useState(user.phone);
-  const [avatar, handleAvatarChange] = useState(user.img);
+  const [avatar, handleAvatarChange] = useState(user.avatar);
 
   const saveUpdate = (itemTitle, newVal) => {
     console.log(`changing user ${itemTitle} to ${newVal}`);
@@ -21,7 +23,10 @@ export default function SettingsProfile({ user }) {
         break;
 
       case "Birth Date":
-        handleBDayChange(newVal);
+        let newDate = new Date(newVal);
+        // add a day
+        newDate.setDate(newDate.getDate() + 1);
+        handleBDayChange(newDate);
         break;
 
       case "Phone":
@@ -31,6 +36,9 @@ export default function SettingsProfile({ user }) {
       case "avatar":
         handleAvatarChange(newVal);
         break;
+
+      default:
+        break;
     }
     // TODO: send user profile change to db
   };
@@ -38,34 +46,9 @@ export default function SettingsProfile({ user }) {
   return (
     <div className="userDataHolder">
       <h3>Profile</h3>
-      {/* {editMode ? (
-        <div className="flex-container flex-center">
-          <FaUserCheck
-            className="sectionIcon success margRight"
-            onClick={updateUser}
-          />
-          <FaUserTimes
-            className="sectionIcon abort"
-            onClick={() => toggleEdit()}
-          />
-        </div>
-      ) : (
-        <FaUserEdit className="sectionIcon" onClick={() => toggleEdit()} />
-      )} */}
 
       <div className="flex-container flex-center from-container">
-        <UserAvatarSettings avatar={user.avatar} />
-        {/* <div>
-          {user & (user.avatar !== "") ? (
-            <img
-              className="homeLogo avatar"
-              src={require("../../assets/Logo.svg")}
-              alt={"John doe"}
-            />
-          ) : (
-            getIcon("user", "homeLogo avatar")
-          )}
-        </div> */}
+        <UserAvatarSettings avatar={avatar} />
 
         <div className="">
           <UserDataItem

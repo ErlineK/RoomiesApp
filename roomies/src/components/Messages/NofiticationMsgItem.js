@@ -1,9 +1,7 @@
 import React from "react";
 import { FaCheck } from "react-icons/fa";
 import { GoMegaphone } from "react-icons/go";
-// import { AiOutlineNotification } from "react-icons/ai";
-// import { GiAcousticMegaphone, GiPin } from "react-icons/gi";
-import { msgFormatDate } from "./messagesHelper";
+import { formatDate } from "../GenericComponents/formatHelper";
 
 /**
  * types of notifications:
@@ -21,9 +19,9 @@ function NofiticationMsgItem({ item }) {
         <div style={{ width: "100%" }}>
           <div className="msgRow">
             <p>{item.msg}</p>
-            <p className="description textLight">{msgFormatDate(item.date)}</p>
+            <p className="description textLight">{formatDate(item.date)}</p>
           </div>
-          {item.ntfType == TRNSFR && (
+          {item.ntfType === TRNSFR && (
             <div className="msgRow" style={{ marginBottom: "0.5rem" }}>
               <p className="description"></p>
 

@@ -2,9 +2,6 @@ import React from "react";
 import { TiMessages } from "react-icons/ti";
 import { MdReplyAll } from "react-icons/md";
 
-// import "../GenericComponents/generic_list.scss";
-// import "../GenericComponents/general.scss";
-
 // TODO: on reply button click -> open quick reply module
 
 function GeneralMsgItem({ item }) {

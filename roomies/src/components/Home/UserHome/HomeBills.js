@@ -1,5 +1,6 @@
 import React from "react";
 import "../../GenericComponents/general.scss";
+import "./homeLists.scss";
 import useGetRoomiesData from "../../../hooks/useGetRoomiesData";
 import HomeFragment from "./HomeFragment";
 import { Link } from "react-router-dom";
@@ -12,57 +13,54 @@ export default function HomeBills() {
     bills: [
       {
         type: "Hydro",
+        refNum: "9435897",
         total: "120",
         payed: "20",
         dueDate: new Date(2020, 1, 30)
       },
       {
         type: "Gas",
+        refNum: "0076435345",
         total: "45",
         payed: "",
         dueDate: new Date(2020, 3, 15)
       },
       {
         type: "Internet",
+        refNum: "7632432",
         total: "65",
         payed: "10",
         dueDate: new Date(2020, 3, 15)
       },
       {
         type: "Grocerys",
+        refNum: "",
         total: "230",
-        payed: "80",
+        payed: "230",
         dueDate: new Date(2020, 5, 2)
       }
     ]
   });
 
   const bills = data.bills.map((bill, i) => (
-    <div key={`holder${i}`}>
-      <HomeBillItem item={bill} />
-    </div>
+    <HomeBillItem key={`bill${i}`} item={bill} />
   ));
 
   return (
-    // <div className="card">
-    //   <h3>Bills pending/ latest bills</h3>
-    //   <p>No current bills to display</p>
-    //   <p>Link to bills...</p>
-    // </div>
-    <div className="card">
-      <HomeFragment
-        isLoading={isLoading}
-        isError={isError}
-        noData={data.bills == "undefined" || data.bills.length < 1}
-        title={"Bills pending/ latest bills"}
-        itemsName={"bills"}
-      >
-        {bills}
-      </HomeFragment>
-
-      <Link className="secondary-link underline nav-link" to="/Chores">
-        Bills >>
-      </Link>
+    <div className="homeItem">
+      <div className="card ">
+        <HomeFragment
+          isLoading={isLoading}
+          isError={isError}
+          noData={data.bills === "undefined" || data.bills.length < 1}
+          title={"Bills pending/ latest bills"}
+          itemsName={"bills"}
+          linkTitle={"All bills"}
+          linkPath={"Bills"}
+        >
+          {bills}
+        </HomeFragment>
+      </div>
     </div>
   );
 }
