@@ -1,7 +1,6 @@
 import React from "react";
 // import "../../GenericComponents/general.scss";
 import useGetRoomiesData from "../../../hooks/useGetRoomiesData";
-import { Link } from "react-router-dom";
 import HomeFragment from "./HomeFragment";
 import { formatCurrency } from "../../GenericComponents/formatHelper";
 
@@ -27,15 +26,15 @@ export default function HomeStatus() {
 
   const balance = `$${Math.abs(data.userBalance)}`;
   const balanceSum = (
-    <p
+    <h6
       className={` ${
         data.userBalance > 0 ? "positivVal" : "negativeVal"
-      } nav-link toLeft`}
+      } nav-link`}
     >
       {data.userBalance > 0
         ? `Tenants owe you ${balance}`
         : `You owe ${balance} total`}
-    </p>
+    </h6>
   );
 
   const tenants = data.roomiesBalance.map(roomie => (
@@ -48,27 +47,21 @@ export default function HomeStatus() {
   ));
 
   return (
-    <div className="card">
-      <HomeFragment
-        isLoading={isLoading}
-        isError={isError}
-        noData={data === undefined || data.roomiesBalance.length < 1}
-        title={"Home Balance"}
-        itemsName={"data"}
-      >
-        <div className="flex-container flex-around listItemHolder ">
-          {tenants}
-        </div>
-      </HomeFragment>
-
-      <div className="navLink-holder">
-        {balanceSum}
-        <Link
-          className="secondary-link underline nav-link toRight"
-          to="/Balance"
+    <div className="homeItem">
+      <div className="card">
+        <HomeFragment
+          isLoading={isLoading}
+          isError={isError}
+          noData={data === undefined || data.roomiesBalance.length < 1}
+          title={`Your total balance: ${formatCurrency(data.userBalance)}`}
+          itemsName={"data"}
+          linkTitle={"Break even"}
+          linkPath={"Balance"}
         >
-          Break even >>
-        </Link>
+          <div className="listItemHolder">
+            <div className="flex-container flex-around  ">{tenants}</div>
+          </div>
+        </HomeFragment>
       </div>
     </div>
   );

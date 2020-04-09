@@ -10,7 +10,7 @@ import { ChoresProvider } from "../../Chores/ChoresContext";
 class UserHome extends Component {
   render() {
     return (
-      <div className="card user-main">
+      <div className=" user-main">
         <HomeStatus />
 
         <div className="flex-container flex-fill homeRow">

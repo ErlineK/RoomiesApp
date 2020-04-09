@@ -1,12 +1,20 @@
 import React from "react";
 import "../../GenericComponents/generic_list.scss";
 import CircleLoader from "../../GenericComponents/Loader/CircleLoader";
+import { Link } from "react-router-dom";
 
 export default function HomeFragment(props) {
   return (
     <>
       {props.title !== "" && (
-        <div className="titleContainer">{props.title}</div>
+        <div className="titleContainer">
+          {props.title}
+          {props.linkPath && props.linkTitle && (
+            <Link className="secondary-link " to={`/${props.linkPath}`}>
+              {props.linkTitle} >>
+            </Link>
+          )}
+        </div>
       )}
       {props.isLoading && <CircleLoader />}
 

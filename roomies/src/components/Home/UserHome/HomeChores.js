@@ -11,7 +11,22 @@ const defaultData = {
       _id: 1,
       leader: "Tenant 1",
       task: "Do dishes",
-      dueDate: new Date(2020, 4, 30),
+      dueDate: new Date(2020, 3, 9),
+      complete: false
+    },
+    {
+      _id: 3,
+      leader: "Tenant 1",
+      task: "Save the world",
+      dueDate: new Date(2020, 3, 10),
+      complete: false
+    },
+
+    {
+      _id: 4,
+      leader: "Tenant 1",
+      task: "Sweep floor",
+      dueDate: new Date(2020, 3, 25),
       complete: false
     },
     {
@@ -20,20 +35,6 @@ const defaultData = {
       task: "Get toilet paper",
       dueDate: new Date(2020, 4, 16),
       complete: true
-    },
-    {
-      _id: 3,
-      leader: "Tenant 1",
-      task: "Save the world",
-      dueDate: new Date(2020, 4, 1),
-      complete: false
-    },
-    {
-      _id: 4,
-      leader: "Tenant 1",
-      task: "Sweep floor",
-      dueDate: new Date(2020, 3, 25),
-      complete: false
     }
   ]
 };
@@ -56,20 +57,20 @@ function HomeChores() {
       : "";
 
   return (
-    <div className="card homeItem">
-      <HomeFragment
-        isLoading={requestStatus.isLoading}
-        isError={requestStatus.isError}
-        noData={chores === undefined || chores.length < 1}
-        title={"Your Chores"}
-        itemsName={"chores"}
-      >
-        <div className="listContainer">{choreItems}</div>
-      </HomeFragment>
-
-      <Link className="secondary-link underline nav-link" to="/Chores">
-        All chores >>
-      </Link>
+    <div className="homeItem">
+      <div className="card ">
+        <HomeFragment
+          isLoading={requestStatus.isLoading}
+          isError={requestStatus.isError}
+          noData={chores === undefined || chores.length < 1}
+          title={"Your Chores"}
+          itemsName={"chores"}
+          linkTitle={"All chores"}
+          linkPath={"Chores"}
+        >
+          <div className="listContainer">{choreItems}</div>
+        </HomeFragment>
+      </div>
     </div>
   );
 }

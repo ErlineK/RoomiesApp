@@ -82,22 +82,21 @@ export default function HomeMsgs() {
   const msgs = data.messages.map((msg, i) => getMsgObjByType(msg));
 
   return (
-    <div className="card homeItem">
-      <HomeFragment
-        isLoading={isLoading}
-        isError={isError}
-        noData={data.messages === "undefined" || data.messages.length < 1}
-        title={""}
-        itemsName={"messages"}
-      >
-        <div className="listContainer">
-          {/* <div className="titleContainer">this is title</div> */}
-          {msgs}
-        </div>
-      </HomeFragment>
-      <Link className="secondary-link underline nav-link" to="/Chat">
-        Leave a message >>
-      </Link>
+    <div className="homeHolder homeItem">
+      <div className="card ">
+        <HomeFragment
+          isLoading={isLoading}
+          isError={isError}
+          noData={data.messages === "undefined" || data.messages.length < 1}
+          title={""}
+          itemsName={"messages"}
+        >
+          <div className="listContainer">
+            {/* <div className="titleContainer">this is title</div> */}
+            {msgs}
+          </div>
+        </HomeFragment>
+      </div>
     </div>
   );
 }

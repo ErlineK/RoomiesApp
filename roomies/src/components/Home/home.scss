@@ -42,6 +42,7 @@
 .homeItem {
   width: 100%;
   text-align: right;
+  padding: 0.1rem;
 }
 
 .balanceItem {
@@ -62,6 +63,10 @@
     margin-top: -1rem;
     font-weight: bold;
   }
+}
+
+.subTitle {
+  font-size: 1.5rem;
 }
 
 @media (min-width: $tablet) {

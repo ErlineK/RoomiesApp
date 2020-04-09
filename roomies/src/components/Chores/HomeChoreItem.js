@@ -1,12 +1,17 @@
 import React from "react";
 import "../Home/UserHome/homeLists.scss";
 import { formatDateOnly } from "../GenericComponents/formatHelper";
+// import { getBackgroundByDue } from "../Home/UserHome/homeHelper";
 
 // TODO: on tesk complete - change glow to complete with animation + send to DB
 
 function HomeChoreItem({ item, toggleChore }) {
   return (
-    <div className="listItemHolder" onClick={() => toggleChore(item._id)}>
+    <div
+      // className={`${getBackgroundByDue(item.dueDate)} listItemHolder`}
+      className="listItemHolder"
+      onClick={() => toggleChore(item._id)}
+    >
       <div className="listFlexHolder">
         <div
           className={`glowIndicator listIcon ${
@@ -18,7 +23,9 @@ function HomeChoreItem({ item, toggleChore }) {
             <p className={item.complete ? "completeItemText" : ""}>
               {item.task}
             </p>
-            <p className="description textLight">{formatDateOnly(item.date)}</p>
+            <p className="description textLight">
+              {formatDateOnly(item.dueDate)}
+            </p>
           </div>
         </div>
       </div>
