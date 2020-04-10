@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const ChoreSchema = new mongoose.Schema({
+  houseId: {
+    type: String,
+    required: true
+  },
   task: {
     type: String,
     required: true
