@@ -1,7 +1,7 @@
 import React from "react";
 import { GiPayMoney } from "react-icons/gi";
 import "../Home/UserHome/homeLists.scss";
-import { formatDate, formatCurrency } from "../GenericComponents/formatHelper";
+import { formatDate, formatCurrency } from "../../utils/formatHelper";
 import { getBackgroundByDue } from "../Home/UserHome/homeHelper";
 
 // TODO: change bill background according to due date

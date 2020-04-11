@@ -1,11 +1,14 @@
-import { useReducer, useState, useEffect } from "react";
+import { useReducer, useState, useEffect, useContext } from "react";
 import axios from "axios";
 import dataFetchReducer from "../reducers/dataFetch.reducer";
+import { BASE_URL } from "../utils/AppParams";
+import { AuthContext } from "../components/auth/AuthContext";
 
-const BASE_URL = "http://localhost:5000/api";
+// const BASE_URL = "http://localhost:5000/api";
 // const BASE_URL = "https://jsonplaceholder.typicode.com/users";
 
 export default ({ reqUri, reqType, reqData }, initData) => {
+  const { token } = useContext(AuthContext);
   const [requst, setRequest] = useState({
     url: `${BASE_URL}/${reqUri}`,
     // url: reqUri,
@@ -26,7 +29,9 @@ export default ({ reqUri, reqType, reqData }, initData) => {
     const fetchData = async () => {
       fetchDispatch({ type: "FETCH_INIT" });
       try {
-        const result = await axios[requst.reqType](requst.url, requst.reqData);
+        const result = await axios[requst.reqType](requst.url, requst.reqData, {
+          headers: { "Content-Type": "application/json", "x-auth-token": token }
+        });
         console.log(result);
 
         if (!didCancel) {

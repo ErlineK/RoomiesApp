@@ -3,9 +3,6 @@ var cors = require("cors");
 const bodyParser = require("body-parser");
 const connectDB = require("./config/db");
 
-const chores = require("./routes/api/chores");
-const houses = require("./routes/api/houses");
-
 const app = express();
 
 //body parser
@@ -21,8 +18,11 @@ app.use(cors({ origin: true, credentials: true }));
 // Init Middleware
 app.use(express.json({ extended: false }));
 
-app.use("/api/chores", chores);
-app.use("/api/houses", houses);
+// Use routes
+app.use("/api/users", require("./routes/api/users"));
+app.use("/api/auth", require("./routes/api/auth"));
+app.use("/api/chores", require("./routes/api/chores"));
+app.use("/api/houses", require("./routes/api/houses"));
 
 const port = process.env.PORT || 5000;
 

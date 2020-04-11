@@ -8,14 +8,14 @@ import { AuthContext } from "../auth/AuthContext";
 import { getNavIconByName } from "./navHelper";
 
 function TopNav(props) {
-  const { isLoggedIn, setUserId } = useContext(AuthContext);
+  const { isLoggedIn, logoutUser } = useContext(AuthContext);
 
   let navArray = props.navItems.map(ni =>
     ni.logout ? (
       <div className="navLink-holder" key={uuid()}>
         <AiOutlineLogout
           className="top-nav-icon nav-icon-margin-fix"
-          onClick={() => setUserId("")}
+          onClick={() => logoutUser()}
         />
       </div>
     ) : (

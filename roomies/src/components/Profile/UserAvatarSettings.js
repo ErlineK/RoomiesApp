@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./profile.scss";
 import { FaUserEdit } from "react-icons/fa";
-import { getIcon } from "../GenericComponents/iconManager";
+import { getIcon } from "../../utils/iconManager";
 
 export default function UserAvatarSettings({ avatar }) {
   const [userImage, setUserImage] = useState(avatar);

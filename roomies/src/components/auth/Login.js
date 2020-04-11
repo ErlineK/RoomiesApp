@@ -1,18 +1,26 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import useInputState from "../../hooks/useInputState";
 import "./auth.scss";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../auth/AuthContext";
 import { MdArrowBack } from "react-icons/md";
+import { BASE_URL } from "../../utils/AppParams";
+import axios from "axios";
+
+// TODO: add loader
 
 function Login() {
+  const history = useHistory();
+  const [isLoading, setLoading] = useState(false);
   const [email, handleEmailChange, resetEmail, validateEmail] = useInputState(
-    "me@roomies.ca"
+    "me@roomies.ca",
+    "EMAIL"
   );
   const [password, handlePassChange, resetPass, validatePass] = useInputState(
-    "111111"
+    "111111",
+    "PASS"
   );
-  const { setUserId } = useContext(AuthContext);
+  const { loginUser } = useContext(AuthContext);
 
   const validated = () => {
     let validated = false;
@@ -36,23 +44,25 @@ function Login() {
   };
 
   const handleLogin = () => {
-    // TODO: call Login WSH, get userId in return.
-    // axios
-    //   .post("http://localhost:3000/users/login", userObject)
-    //   .then(res => {
-    console.log("Logged In successfully");
-    //    save userId to global context
-    setUserId("1111");
-    //    window.localStorage.setItem("userId", { res.data.userId });
-    //     //TODO: redirect to thank you page with login
-    // <Redirect to={"/UserHome"} />;
-    //   })
-    //   .catch(error => {
-    //     console.log("Login Error");
-    // TODO: display errors
-    // resetEmail();
-    // resetPass();
-    //   });
+    // call Login WSH, get user and token in return.
+    setLoading(true);
+
+    axios
+      .post(`${BASE_URL}/auth/user`, { email, password })
+      .then(res => {
+        console.log("Logged In successfully");
+        //  save user and token to context
+        loginUser(res.user, res.token);
+
+        // redirect home
+        history.push("/UserHome");
+        // <Redirect to={"/UserHome"} />;
+      })
+      .catch(error => {
+        setLoading(false);
+        console.log("Login Error: " + error);
+        // TODO: display errors
+      });
   };
 
   return (
@@ -61,35 +71,40 @@ function Login() {
         <Link className="secondary-link toLeft" to="/">
           <MdArrowBack className="back-icon" /> back
         </Link>
-        <form className="card" onSubmit={doSubmit}>
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            name="email"
-            placeholder="Email"
-            className="form-control"
-            value={email}
-            onChange={handleEmailChange}
-            required
-          />
 
-          <label htmlFor="pass">Password</label>
-          <input
-            id="pass"
-            type="password"
-            name="password"
-            placeholder="Password"
-            className="form-control"
-            value={password}
-            onChange={handlePassChange}
-            required
-          />
+        {isLoading ? (
+          "Loading..."
+        ) : (
+          <form className="card" onSubmit={doSubmit}>
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              type="email"
+              name="email"
+              placeholder="Email"
+              className="form-control"
+              value={email}
+              onChange={handleEmailChange}
+              required
+            />
 
-          <button type="submit" className="btn btn-grad-pressed">
-            Log In
-          </button>
-        </form>
+            <label htmlFor="pass">Password</label>
+            <input
+              id="pass"
+              type="password"
+              name="password"
+              placeholder="Password"
+              className="form-control"
+              value={password}
+              onChange={handlePassChange}
+              required
+            />
+
+            <button type="submit" className="btn btn-grad-pressed">
+              Log In
+            </button>
+          </form>
+        )}
         <Link className="secondary-link" to="/Registration">
           New here? Create account
         </Link>

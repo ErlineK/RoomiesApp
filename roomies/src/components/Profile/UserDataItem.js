@@ -3,7 +3,7 @@ import "./profile.scss";
 import useToggle from "../../hooks/useToggle";
 import useInputState from "../../hooks/useInputState";
 import { FaUserEdit, FaUserCheck, FaUserTimes } from "react-icons/fa";
-import { getIcon } from "../GenericComponents/iconManager";
+import { getIcon } from "../../utils/iconManager";
 
 export default function UserDataItem({ item, handleUpdate }) {
   const [editMode, toggleEdit] = useToggle(false);

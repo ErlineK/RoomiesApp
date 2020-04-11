@@ -1,7 +1,7 @@
 import React from "react";
 import { FaCheck } from "react-icons/fa";
 import { GoMegaphone } from "react-icons/go";
-import { formatDate } from "../GenericComponents/formatHelper";
+import { formatDate } from "../../utils/formatHelper";
 
 /**
  * types of notifications:

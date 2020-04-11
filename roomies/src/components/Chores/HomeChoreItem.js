@@ -1,6 +1,6 @@
 import React from "react";
 import "../Home/UserHome/homeLists.scss";
-import { formatDateOnly } from "../GenericComponents/formatHelper";
+import { formatDateOnly } from "../../utils/formatHelper";
 
 // TODO: on tesk complete - change glow to complete with animation + send to DB
 

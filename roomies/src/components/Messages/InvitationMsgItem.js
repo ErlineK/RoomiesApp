@@ -2,7 +2,7 @@ import React from "react";
 import { FaCheck } from "react-icons/fa";
 import { GiKeyring } from "react-icons/gi";
 import { TiDeleteOutline } from "react-icons/ti";
-import { formatDate } from "../GenericComponents/formatHelper";
+import { formatDate } from "../../utils/formatHelper";
 
 function InvitationMsgItem({ item }) {
   return (

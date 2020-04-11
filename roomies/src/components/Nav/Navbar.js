@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import "./side-nav.scss";
 import "./navbar.scss";
-import SideNav from "../Nav/NewSideNav";
+import SideNav from "../Nav/SideNav";
 import TopNav from "./TopNav";
 import { AuthContext } from "../auth/AuthContext";
 

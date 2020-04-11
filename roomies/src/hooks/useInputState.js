@@ -1,8 +1,10 @@
 import { useState } from "react";
 
+// TODO: rewrite validation function and return an error field
+
 /** Hook manages input state, state change and reset
  */
-export default initialVal => {
+export default (initialVal, valueType) => {
   const [value, setValue] = useState(initialVal);
   // value change callback
   const handleChange = e => {
@@ -19,14 +21,15 @@ export default initialVal => {
       input:String: EMAIL, PASS 
       output:Boolean
    */
-  const validate = valueType => {
+  const validate = () => {
     let valid = true;
     switch (valueType) {
       case "EMAIL":
         // check for email pattern
-        // const mailPtrn = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        const mailPtrn = /^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/;
+        const mailPtrn = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
+        // const mailPtrn = /^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/;
         valid = mailPtrn.test(value);
+        console.log("email valid: " + valid);
         break;
 
       case "PASS":
@@ -36,6 +39,15 @@ export default initialVal => {
         }
         // check for strong password: at least one capital letter, one small latter
         console.log("pass validation: " + valid);
+        break;
+
+      case "NAME":
+        //min 2 chars, max 20
+        if (value.trim().length < 2 || value.length > 20) {
+          valid = false;
+        }
+        // check for strong password: at least one capital letter, one small latter
+        console.log("name validation: " + valid);
         break;
 
       default:

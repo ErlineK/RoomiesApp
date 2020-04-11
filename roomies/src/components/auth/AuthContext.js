@@ -13,11 +13,22 @@ const defaultUser = {
 
 export function AuthProvider(props) {
   const [user, setUser] = useState(defaultUser);
-  // const [userId, setUserId] = useState("111");
+  const [token, setToken] = useState("");
   const [houseId, setHouseId] = useState("111");
 
   const isLoggedIn = () => {
-    return user && user._id > 0;
+    // return user && user._id > 0;
+    return token && user;
+  };
+
+  const loginUser = (user, token) => {
+    setToken(token);
+    setUser(user);
+  };
+
+  const logoutUser = (user, token) => {
+    setToken(null);
+    setUser(null);
   };
 
   const userId = () => {
@@ -27,11 +38,12 @@ export function AuthProvider(props) {
   return (
     <AuthContext.Provider
       value={{
-        isLoggedIn: isLoggedIn,
         user: user,
-        setUser: setUser,
+        token: token,
         userId: userId(),
-        // setUserId: setUserId,
+        loginUser: loginUser,
+        logoutUser: logoutUser,
+        isLoggedIn: isLoggedIn,
         houseId: houseId,
         setHouseId: setHouseId
       }}

@@ -2,7 +2,7 @@ import React from "react";
 // import "../../GenericComponents/general.scss";
 import useGetRoomiesData from "../../../hooks/useGetRoomiesData";
 import HomeFragment from "./HomeFragment";
-import { formatCurrency } from "../../GenericComponents/formatHelper";
+import { formatCurrency } from "../../../utils/formatHelper";
 
 const USER_STATUS_URL = "https://jsonplaceholder.typicode.com/users";
 // const USER_STATUS_URL = "users/user_status"; //GET
