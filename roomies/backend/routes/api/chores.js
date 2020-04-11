@@ -26,7 +26,7 @@ router.get("/:houseId", (req, res) => {
   Chore.find({ houseID: req.params.houseID })
     .sort({ dueDate: -1 })
     .then(chores => res.json(chores))
-    .catch(err => res.status(404).json({ nochoresfound: "No Chores found" }));
+    .catch(err => res.status(404).json({ nochoresfound: "No chores found" }));
 });
 
 // @route GET api/chores/:id
@@ -62,7 +62,7 @@ router.put("/:id", (req, res) => {
 // @description Delete chore by id
 // @access Public
 router.delete("/:id", (req, res) => {
-  Todo.findByIdAndRemove(req.params.id, req.body)
+  Chore.findByIdAndRemove(req.params.id, req.body)
     .then(chore => res.json({ mgs: "Chore entry deleted successfully" }))
     .catch(err => res.status(404).json({ error: "No such a chore" }));
 });

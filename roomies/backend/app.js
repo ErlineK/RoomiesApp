@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const connectDB = require("./config/db");
 
 const chores = require("./routes/api/chores");
+const houses = require("./routes/api/houses");
 
 const app = express();
 
@@ -20,8 +21,8 @@ app.use(cors({ origin: true, credentials: true }));
 // Init Middleware
 app.use(express.json({ extended: false }));
 
-app.get("/", (req, res) => res.send("Hello world!"));
 app.use("/api/chores", chores);
+app.use("/api/houses", houses);
 
 const port = process.env.PORT || 5000;
 

@@ -10,17 +10,16 @@ const ChoreSchema = new mongoose.Schema({
     required: true
   },
   leader: {
+    // userID of leader
     type: String,
     required: true
   },
   dueDate: {
-    type: Date,
-    required: false
+    type: Date
   },
   complete: {
     type: Boolean,
-    default: true,
-    required: false
+    default: false
   },
   updated_date: {
     type: Date,

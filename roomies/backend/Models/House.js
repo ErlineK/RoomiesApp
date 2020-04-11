@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const UserSchema = require("./User");
 
 const HouseSchema = new mongoose.Schema({
   admin: {
@@ -13,7 +14,7 @@ const HouseSchema = new mongoose.Schema({
   opened: {
     type: Date,
     default: Date.now,
-    required: false
+    required: true
   },
   houseName: {
     type: String,
@@ -38,7 +39,9 @@ const HouseSchema = new mongoose.Schema({
     type: String
   },
   tenants: {
-    type: String
+    //holds users
+    type: [UserSchema],
+    required: true
   }
 });
 
