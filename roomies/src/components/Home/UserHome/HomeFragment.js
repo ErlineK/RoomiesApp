@@ -19,7 +19,7 @@ export default function HomeFragment(props) {
       {props.isLoading && <CircleLoader />}
 
       {props.isError || props.noData ? (
-        <p>Sorry! No {props.itemsName} to display</p>
+        <p className="toCenter">Sorry! No {props.itemsName} to display</p>
       ) : (
         <div className="listContainer">{props.children}</div>
       )}

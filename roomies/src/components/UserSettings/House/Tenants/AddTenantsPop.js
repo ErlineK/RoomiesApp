@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import useInputState from "../../../../hooks/useInputState";
 import "../../../auth/auth.scss";
 import PopUpCard from "../../../GenericComponents/PopUpCard";

@@ -11,9 +11,7 @@ import { HouseContext } from "./HouseContext";
 
 export default function HouseCard({ house }) {
   const { userId, houseId } = useContext(AuthContext);
-  const { handleAddTenants, showNewHouse, toggleNewHouse } = useContext(
-    HouseContext
-  );
+  const { handleAddTenants, toggleNewHouse } = useContext(HouseContext);
 
   const tenants = house
     ? house.tenants.map(tenant =>

@@ -14,7 +14,7 @@ const defaultUser = {
 export function AuthProvider(props) {
   const [user, setUser] = useState(defaultUser);
   // const [userId, setUserId] = useState("111");
-  const [houseId, setHouseId] = useState("123434");
+  const [houseId, setHouseId] = useState("111");
 
   const isLoggedIn = () => {
     return user && user._id > 0;

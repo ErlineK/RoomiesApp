@@ -1,19 +1,43 @@
+import React, { useContext } from "react";
 import axios from "axios";
 import useGetData from "./useGetData";
+import { AuthContext } from "../components/auth/AuthContext";
 
-// const BASE_URI_CHORES = "http://localhost:8082/api/Chores";
-const BASE_URI_CHORES = "https://jsonplaceholder.typicode.com/users";
+const BASE_URI_CHORES = "http://localhost:5000/api/chores";
+// const BASE_URI_CHORES = "https://jsonplaceholder.typicode.com/users";
 
-export default initialChores => {
-  // const [chores, setChores] = useState(initialChores);
+const choresMode = { HOME: "HOME", NONE: undefined };
+
+export default (initialChores, mode) => {
+  const { houseId, userId } = useContext(AuthContext);
+  // const [{ data, isLoading, isError }, setRequest] = useGetData(
+  //   { reqUri: "chores", reqType: "get", reqData: null },
+  //   initialChores
+  // );
   const [{ data, isLoading, isError }, setRequest] = useGetData(
-    { reqUri: BASE_URI_CHORES, reqType: "get", reqData: null },
+    {
+      reqUri: `chores/${houseId}`,
+      reqType: "get",
+      reqData: { leader: userId }
+    },
     initialChores
   );
 
   const getAllChores = () => {
-    console.log("calling getAllChores from useChoresState");
-    setRequest({ reqUri: BASE_URI_CHORES, reqType: "get", reqData: null });
+    console.log("calling getAllChores from useChoresState for mode: " + mode);
+    if (mode == choresMode.HOME) {
+      setRequest({
+        reqUri: `${houseId}`,
+        reqType: "get",
+        reqData: { leader: userId }
+      });
+    } else {
+      setRequest({
+        reqUri: `${houseId}`,
+        reqType: "get",
+        reqData: null
+      });
+    }
     // axios
     //   .get(BASE_URI_CHORES)
     //   .then(res => {
@@ -79,5 +103,5 @@ export default initialChores => {
   // const requestStatus = [isLoading, isError];
   const requestStatus = { isLoading: isLoading, isError: isError };
 
-  return [data.chores, choresActions, requestStatus];
+  return [data, choresActions, requestStatus];
 };

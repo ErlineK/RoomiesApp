@@ -2,13 +2,13 @@ import { useReducer, useState, useEffect } from "react";
 import axios from "axios";
 import dataFetchReducer from "../reducers/dataFetch.reducer";
 
-// const BASE_URL = "http://localhost:8082/api";
+const BASE_URL = "http://localhost:5000/api";
 // const BASE_URL = "https://jsonplaceholder.typicode.com/users";
 
 export default ({ reqUri, reqType, reqData }, initData) => {
   const [requst, setRequest] = useState({
-    // url: `${BASE_URL}/${reqUri}`,
-    url: reqUri,
+    url: `${BASE_URL}/${reqUri}`,
+    // url: reqUri,
     reqType: reqType,
     reqData: reqData
   });
@@ -20,6 +20,7 @@ export default ({ reqUri, reqType, reqData }, initData) => {
 
   useEffect(() => {
     console.log("entered use effect on useGetData");
+    console.log("useGetData url: " + requst.url);
 
     let didCancel = false; //to prevent state changing after component unmount
     const fetchData = async () => {
@@ -30,8 +31,8 @@ export default ({ reqUri, reqType, reqData }, initData) => {
 
         if (!didCancel) {
           /*** IMPORTANT! uncheck this line once server side added to project! ****/
-          // fetchDispatch({ type: "FETCH_SUCCESS", payload: result.data });
-          fetchDispatch({ type: "FETCH_SUCCESS", payload: initData });
+          fetchDispatch({ type: "FETCH_SUCCESS", payload: result.data });
+          // fetchDispatch({ type: "FETCH_SUCCESS", payload: initData });
         }
       } catch (error) {
         if (!didCancel) {
