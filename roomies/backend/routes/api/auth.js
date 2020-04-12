@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const auth = require("../../helpers/auth");
 
 // User Model
-import User from "../../models/User";
+const User = require("../../models/User");
 
 /**
  * @route   POST api/auth
@@ -15,6 +15,8 @@ import User from "../../models/User";
  */
 
 router.post("/", (req, res) => {
+  console.log("request: \n");
+  console.log(req.body);
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -24,6 +26,8 @@ router.post("/", (req, res) => {
   // get user by email
   User.findOne({ email }).then(user => {
     if (!user) {
+      console.log("Couldnt find user with email " + email);
+      console.log(user);
       return res.status(400).json({ error: "User not found" });
     }
 
@@ -41,11 +45,20 @@ router.post("/", (req, res) => {
         (err, token) => {
           if (err) throw err;
 
-          res.json({
-            msg: "User was added successfully",
-            token,
-            user: user
-          });
+          //get user without password
+          User.findById(user.id)
+            .select("-password")
+            .then(safeUser =>
+              res.json({
+                msg: "User logged in successfully",
+                token,
+                user: safeUser
+              })
+            )
+            .catch(err => {
+              console.log(err);
+              return res.status(400).json({ error: "Error getting user" });
+            });
         }
       );
     });
@@ -64,4 +77,4 @@ router.get("/user", auth, (req, res) => {
     .then(user => res.json(user));
 });
 
-export default router;
+module.exports = router;

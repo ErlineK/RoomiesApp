@@ -11,6 +11,7 @@ import UserHome from "../Home/UserHome/UserHome";
 import About from "../About/About";
 import Chores from "../Chores/chores";
 import UserSettings from "../UserSettings/Settings";
+import CreateProfile from "../Profile/CreateProfile";
 
 export default function() {
   return (
@@ -22,12 +23,13 @@ export default function() {
         render={() => <Home />}
       />
 
-      <Route
+      {/* <Route
         exact
         path="/About"
         render={() => <About name="Pugsy" city="London" />}
-      />
+      /> */}
       <Route exact path="/Registration" render={() => <Registration />} />
+      <Route exact path="/CreateProfile" render={() => <CreateProfile />} />
       <Route exact path="/Login" render={() => <Login />} />
       <Route exact path="/Bills" component={Bills} />
       <Route exact path="/GroupChat" component={GroupChat} />

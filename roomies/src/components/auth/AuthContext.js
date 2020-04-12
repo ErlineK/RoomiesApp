@@ -4,17 +4,17 @@ export const AuthContext = createContext();
 
 const defaultUser = {
   _id: "111",
-  name: "John Doe",
+  name: "Master of Puppets",
   avatar: "",
   brthDate: new Date(1988, 0, 30),
-  email: "john@doe.com",
+  email: "master@puppets.com",
   phone: "555-555-5555"
 };
 
 export function AuthProvider(props) {
-  const [user, setUser] = useState(defaultUser);
+  const [user, setUser] = useState("");
   const [token, setToken] = useState("");
-  const [houseId, setHouseId] = useState("111");
+  const [houseId, setHouseId] = useState("");
 
   const isLoggedIn = () => {
     // return user && user._id > 0;
@@ -32,7 +32,7 @@ export function AuthProvider(props) {
   };
 
   const userId = () => {
-    return user._id;
+    return user ? user._id : "";
   };
 
   return (

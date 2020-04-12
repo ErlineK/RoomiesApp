@@ -5,32 +5,37 @@ import { Link, useHistory } from "react-router-dom";
 import { MdArrowBack } from "react-icons/md";
 import { AuthContext } from "../auth/AuthContext";
 import { BASE_URL } from "../../utils/AppParams";
+import CircleLoader from "../GenericComponents/Loader/CircleLoader";
 import axios from "axios";
 
 function Registration() {
   const history = useHistory();
   const { loginUser } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
+  const [srvError, setSrvError] = useState();
   const [
     name,
     handleNameChange,
     setName,
     resetName,
-    validateName
+    validateName,
+    nameError
   ] = useInputState("", "NAME");
   const [
     email,
     handleEmailChange,
     setEmail,
     resetEmail,
-    validateEmail
+    validateEmail,
+    emailError
   ] = useInputState("", "EMAIL");
   const [
     password,
     handlePassChange,
     setPass,
     resetPass,
-    validatePass
+    validatePass,
+    passError
   ] = useInputState("", "PASS");
   const [
     passConfirm,
@@ -38,58 +43,70 @@ function Registration() {
     setPassConfirm,
     resetPassConfirm
   ] = useInputState("", "PASS");
+  const [passConfirmError, setPassConfirmError] = useState("");
 
   const handleRegistration = () => {
     setLoading(true);
+    setSrvError(undefined);
 
     axios
-      .post(`${BASE_URL}/users`, { email, password })
+      .post(`${BASE_URL}/users`, { name, email, password })
       .then(res => {
         console.log("Registered successfully");
+        console.log(res);
         //  save user and token to context
-        loginUser(res.user, res.token);
+        loginUser(res.data.user, res.data.token);
+
+        //reset fields
+        resetName();
+        resetEmail();
+        resetPass();
+        resetPassConfirm();
 
         // redirect home
-        // TODO: redirect to CreateProfile
-        history.push("/UserHome");
-        // <Redirect to={"/UserHome"} />;
+        history.push("/CreateProfile");
       })
       .catch(error => {
         setLoading(false);
-        console.log("Login Error: " + error);
-        // TODO: display errors
+        console.log("Registration Error: ");
+        console.log(error.response.data.error);
+        setSrvError(error.response.data.error);
       });
   };
 
   const validated = () => {
-    let validated = true;
-    /** TODO: Consider adding validation to input state hook */
-    //TODO: validate data
-    validated = validateEmail();
-    if (!validated) {
-      // TODO: dispaly email error
-      console.log("email validation fail");
+    let valid = true;
+    valid = validateName();
+    if (!valid) {
+      console.log("name validation fail");
     } else {
-      validated = validateName();
-      if (!validated) {
-        // TODO: display name errors
-        console.log("name validation fail");
+      valid = validateEmail();
+      if (!valid) {
+        console.log("email validation fail");
       } else {
-        validated = validatePass();
-        if (!validated) {
-          // TODO: display password error
+        valid = validatePass();
+        if (!valid) {
           console.log("passwors validation fail");
         } else if (password !== passConfirm) {
-          validated = false;
-          if (!validated) {
+          valid = false;
+          if (!valid) {
             console.log("pass confirm validation fail");
-            // TODO: display pass confirm error
+            setPassConfirmError("Passwords do not match");
           }
         }
       }
     }
-    return validated;
+
+    return valid;
   };
+
+  const serverError = srvError ? (
+    <div className="alert alert-danger" role="alert">
+      {srvError}
+    </div>
+  ) : (
+    ""
+  );
 
   const doSubmit = event => {
     //This will handle the form data
@@ -99,10 +116,6 @@ function Registration() {
     /** TODO: Consider adding validation to input state hook */
     if (validated()) {
       handleRegistration();
-      resetName();
-      resetEmail();
-      resetPass();
-      resetPassConfirm();
     } else {
       console.log("validation fail");
     }
@@ -115,60 +128,68 @@ function Registration() {
           <MdArrowBack className="back-icon" /> back
         </Link>
 
-        {isLoading ? (
-          "Loading..."
-        ) : (
-          <form className="card" onSubmit={doSubmit}>
-            <label htmlFor="name">Name</label>
-            <input
-              id="name"
-              type="text"
-              name="name"
-              placeholder="Name"
-              className="form-control"
-              value={name}
-              onChange={handleNameChange}
-              required
-            />
+        <form className="card" onSubmit={doSubmit}>
+          {serverError}
+          <label htmlFor="name">Name</label>
+          <input
+            id="name"
+            type="text"
+            name="name"
+            placeholder="Name"
+            className="form-control"
+            value={name}
+            onChange={handleNameChange}
+            required
+          />
+          <div className="invalid-feedback">{nameError}</div>
 
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              type="email"
-              name="email"
-              placeholder="Email"
-              className="form-control"
-              value={email}
-              onChange={handleEmailChange}
-              required
-            />
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            name="email"
+            placeholder="Email"
+            className="form-control"
+            value={email}
+            onChange={handleEmailChange}
+            required
+          />
+          <div className="invalid-feedback">{emailError}</div>
 
-            <label htmlFor="pass">Password</label>
-            <input
-              id="pass"
-              type="password"
-              name="password"
-              placeholder="Password"
-              className="form-control"
-              value={password}
-              onChange={handlePassChange}
-              required
-            />
+          <label htmlFor="pass">Password</label>
+          <input
+            id="pass"
+            type="password"
+            name="password"
+            placeholder="Password"
+            className="form-control"
+            value={password}
+            onChange={handlePassChange}
+            required
+          />
 
-            <input
-              type="password"
-              name="password_confirm"
-              placeholder="Confirm Password"
-              className="form-control input-margin"
-              value={passConfirm}
-              onChange={handlePassConfirmChange}
-              required
-            />
+          <input
+            type="password"
+            name="password_confirm"
+            placeholder="Confirm Password"
+            className="form-control input-margin"
+            value={passConfirm}
+            onChange={handlePassConfirmChange}
+            required
+          />
+          <div className="invalid-feedback">
+            {passError ? passError : ""}
+            {passConfirmError ? passConfirmError : ""}
+          </div>
+
+          {isLoading ? (
+            <CircleLoader />
+          ) : (
             <button type="submit" className="btn btn-grad-pressed">
               Register
             </button>
-          </form>
-        )}
+          )}
+        </form>
       </div>
     </div>
   );

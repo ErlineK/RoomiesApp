@@ -5,6 +5,7 @@ import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../auth/AuthContext";
 import { MdArrowBack } from "react-icons/md";
 import { BASE_URL } from "../../utils/AppParams";
+import CircleLoader from "../GenericComponents/Loader/CircleLoader";
 import axios from "axios";
 
 // TODO: add loader
@@ -12,21 +13,30 @@ import axios from "axios";
 function Login() {
   const history = useHistory();
   const [isLoading, setLoading] = useState(false);
-  const [email, handleEmailChange, resetEmail, validateEmail] = useInputState(
-    "me@roomies.ca",
-    "EMAIL"
-  );
-  const [password, handlePassChange, resetPass, validatePass] = useInputState(
-    "111111",
-    "PASS"
-  );
+  const [srvError, setSrvError] = useState("server error");
+  const [
+    email,
+    handleEmailChange,
+    setEmail,
+    resetEmail,
+    validateEmail,
+    emailError
+  ] = useInputState("master@puppets.com", "EMAIL");
+  const [
+    password,
+    handlePassChange,
+    setPass,
+    resetPass,
+    validatePass,
+    passError
+  ] = useInputState("Qwer1234", "PASS");
   const { loginUser } = useContext(AuthContext);
 
   const validated = () => {
     let validated = false;
     validated = validateEmail();
     if (validated) {
-      validated = validatePass;
+      validated = validatePass();
     }
     return true;
   };
@@ -36,23 +46,25 @@ function Login() {
 
     if (validated()) {
       handleLogin();
-
-      // TODO: remove these after WS implementation
-      resetEmail();
-      resetPass();
     }
   };
 
   const handleLogin = () => {
     // call Login WSH, get user and token in return.
     setLoading(true);
+    setSrvError(undefined);
 
     axios
-      .post(`${BASE_URL}/auth/user`, { email, password })
+      .post(`${BASE_URL}/auth`, { email: email, password: password })
       .then(res => {
         console.log("Logged In successfully");
+        console.log(res);
         //  save user and token to context
-        loginUser(res.user, res.token);
+        loginUser(res.data.user, res.data.token);
+
+        // reset fields
+        resetEmail();
+        resetPass();
 
         // redirect home
         history.push("/UserHome");
@@ -60,10 +72,19 @@ function Login() {
       })
       .catch(error => {
         setLoading(false);
-        console.log("Login Error: " + error);
-        // TODO: display errors
+        console.log("Login Error: ");
+        console.log(error.response.data.error);
+        setSrvError(error.response.data.error);
       });
   };
+
+  const serverError = srvError ? (
+    <div className="alert alert-danger" role="alert">
+      {srvError}
+    </div>
+  ) : (
+    ""
+  );
 
   return (
     <div className="homeContainer guestBackground">
@@ -72,39 +93,43 @@ function Login() {
           <MdArrowBack className="back-icon" /> back
         </Link>
 
-        {isLoading ? (
-          "Loading..."
-        ) : (
-          <form className="card" onSubmit={doSubmit}>
-            <label htmlFor="email">Email</label>
-            <input
-              id="email"
-              type="email"
-              name="email"
-              placeholder="Email"
-              className="form-control"
-              value={email}
-              onChange={handleEmailChange}
-              required
-            />
+        <form className="card" onSubmit={doSubmit}>
+          {serverError}
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            name="email"
+            placeholder="Email"
+            className="form-control"
+            value={email}
+            onChange={handleEmailChange}
+            required
+          />
+          <div className="invalid-feedback">{emailError}</div>
 
-            <label htmlFor="pass">Password</label>
-            <input
-              id="pass"
-              type="password"
-              name="password"
-              placeholder="Password"
-              className="form-control"
-              value={password}
-              onChange={handlePassChange}
-              required
-            />
+          <label htmlFor="pass">Password</label>
+          <input
+            id="pass"
+            type="password"
+            name="password"
+            placeholder="Password"
+            className="form-control"
+            value={password}
+            onChange={handlePassChange}
+            required
+          />
+          <div className="invalid-feedback">{passError}</div>
 
+          {isLoading ? (
+            <CircleLoader />
+          ) : (
             <button type="submit" className="btn btn-grad-pressed">
               Log In
             </button>
-          </form>
-        )}
+          )}
+        </form>
+
         <Link className="secondary-link" to="/Registration">
           New here? Create account
         </Link>

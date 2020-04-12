@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 require("mongoose-type-email");
 mongoose.SchemaTypes.Email.defaults.message = "Email address is invalid";
 
-const HouseSchema = new mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   email: {
     type: mongoose.SchemaTypes.Email,
     unique: true,
@@ -27,7 +27,10 @@ const HouseSchema = new mongoose.Schema({
   register_date: {
     type: Date,
     default: Date.now
+  },
+  active_house: {
+    type: mongoose.Types.ObjectId
   }
 });
 
-module.exports = House = mongoose.model("house", HouseSchema);
+module.exports = User = mongoose.model("user", UserSchema);

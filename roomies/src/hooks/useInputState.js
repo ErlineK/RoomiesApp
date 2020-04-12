@@ -6,6 +6,7 @@ import { useState } from "react";
  */
 export default (initialVal, valueType) => {
   const [value, setValue] = useState(initialVal);
+  const [errorMsg, setError] = useState("");
   // value change callback
   const handleChange = e => {
     console.log("e: " + e);
@@ -22,6 +23,7 @@ export default (initialVal, valueType) => {
       output:Boolean
    */
   const validate = () => {
+    setError(null);
     let valid = true;
     switch (valueType) {
       case "EMAIL":
@@ -29,13 +31,18 @@ export default (initialVal, valueType) => {
         const mailPtrn = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
         // const mailPtrn = /^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/;
         valid = mailPtrn.test(value);
+        if (!valid) {
+          setError("Invalid email");
+        }
         console.log("email valid: " + valid);
+        console.log("setting email error: " + errorMsg);
         break;
 
       case "PASS":
         //check for at least 6 digit, no spaces
-        if (value.length < 6) {
+        if (value.trim().length < 6) {
           valid = false;
+          setError("Password must be at least 6 characters long");
         }
         // check for strong password: at least one capital letter, one small latter
         console.log("pass validation: " + valid);
@@ -45,18 +52,18 @@ export default (initialVal, valueType) => {
         //min 2 chars, max 20
         if (value.trim().length < 2 || value.length > 20) {
           valid = false;
+          setError("Invalid name");
         }
-        // check for strong password: at least one capital letter, one small latter
-        console.log("name validation: " + valid);
         break;
 
       default:
         valid = false;
+        setError("Invalid input");
         break;
     }
 
     return valid;
   };
 
-  return [value, handleChange, setValue, reset, validate];
+  return [value, handleChange, setValue, reset, validate, errorMsg];
 };

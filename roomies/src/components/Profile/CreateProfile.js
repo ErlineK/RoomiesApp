@@ -1,9 +1,12 @@
 import React, { useState, useContext } from "react";
 import useInputState from "../../hooks/useInputState";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "./profile.scss";
 import { AuthContext } from "../auth/AuthContext";
 import { MdArrowForward } from "react-icons/md";
+import axios from "axios";
+import { BASE_URL } from "../../utils/AppParams";
+import UserAvatarSettings from "./UserAvatarSettings";
 
 // TODO: add loader
 
@@ -19,6 +22,8 @@ export default function CreateProfile() {
     "B_DATE"
   );
   const [avatar, handleAvatarChange] = useState(user.avatar);
+
+  const history = useHistory();
 
   const doSubmit = () => {
     // TODO: Validate
@@ -39,7 +44,7 @@ export default function CreateProfile() {
         loginUser(res.user, res.token);
 
         // redirect home
-        <Redirect to={"/UserHome"} />;
+        history.push("/UserHome");
       })
       .catch(error => {
         setLoading(false);
@@ -52,19 +57,19 @@ export default function CreateProfile() {
     <div>
       <div className="homeContainer guestBackground">
         <div className="from-container">
-          <Link className="secondary-link toRight" to="/">
-            <MdArrowForward className="back-icon" /> skip
-          </Link>
-
-          <h4>{`Hi! ${user.name}! Welcome home.`}</h4>
+          <h4>{`Hi! ${user.name}! Welcome home`}</h4>
           <p> Would you like share few details with your roomies?</p>
 
           {isLoading ? (
             "Loading..."
           ) : (
             <>
-              <UserAvatarSettings avatar={avatar} />
               <form className="card" onSubmit={doSubmit}>
+                <Link className="secondary-link toRight" to="/UserHome">
+                  <MdArrowForward className="back-icon" /> skip
+                </Link>
+                <UserAvatarSettings avatar={avatar} />
+
                 <label htmlFor="phone">Phone</label>
                 <input
                   id="phone"

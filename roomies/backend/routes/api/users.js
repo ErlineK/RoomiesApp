@@ -5,7 +5,7 @@ const config = require("config");
 const jwt = require("jsonwebtoken");
 
 // User Model
-import User from "../../models/User";
+const User = require("../../models/User");
 
 /**
  * @route   GET api/users
@@ -38,16 +38,17 @@ router.post("/", (req, res) => {
       return res.status(400).json({ error: "User already exist" });
     }
 
-    const newUser = new User({ name, email, password });
+    // const newUser = new User({ name, email, password });
 
     // Salt & Hash
     bcrypt.genSalt(10, (err, salt) => {
-      bcrypt.hash(newUser.password, salt, (err, hash) => {
+      if (err) throw err;
+      bcrypt.hash(password, salt, (err, passHash) => {
         if (err) throw err;
-        newUser.password = hash;
+        // newUser.password = hash;
 
         // create new user and return user token valid for 1 hour
-        newUser.save
+        User.create({ name, email, password: passHash })
           .then(user => {
             jwt.sign(
               {
@@ -62,8 +63,7 @@ router.post("/", (req, res) => {
                   msg: "User was added successfully",
                   token,
                   user: {
-                    token: token,
-                    id: user._id,
+                    _id: user._id,
                     name,
                     email
                   }
@@ -71,12 +71,13 @@ router.post("/", (req, res) => {
               }
             );
           })
-          .catch(err =>
-            res.status(400).json({ error: "Unable to add new user" })
-          );
+          .catch(err => {
+            console.log("registration err: " + err);
+            res.status(400).json({ error: "Unable to add new user" });
+          });
       });
     });
   });
 });
 
-export default router;
+module.exports = router;

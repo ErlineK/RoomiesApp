@@ -3,7 +3,7 @@ const UserSchema = require("./User");
 
 const HouseSchema = new mongoose.Schema({
   admin: {
-    type: ObjectId,
+    type: mongoose.Types.ObjectId,
     required: true
   },
   active: {
@@ -39,8 +39,8 @@ const HouseSchema = new mongoose.Schema({
     type: String
   },
   tenants: {
-    //holds users
-    type: [UserSchema],
+    //holds user ids
+    type: [mongoose.Types.ObjectId],
     required: true
   }
 });
