@@ -13,7 +13,7 @@ import axios from "axios";
 function Login() {
   const history = useHistory();
   const [isLoading, setLoading] = useState(false);
-  const [srvError, setSrvError] = useState("server error");
+  const [srvError, setSrvError] = useState();
   const [
     email,
     handleEmailChange,

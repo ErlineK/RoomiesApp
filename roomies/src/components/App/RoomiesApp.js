@@ -8,7 +8,7 @@ export default function() {
 
   return (
     <div>
-      {isLoggedIn() ? <Redirect to="/UserHome" /> : <Redirect to="/" />}
+      {/* {isLoggedIn() ? <Redirect to="/UserHome" /> : <Redirect to="/" />} */}
     </div>
   );
 }

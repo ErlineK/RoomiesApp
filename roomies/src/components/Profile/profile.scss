@@ -44,6 +44,17 @@
   }
 }
 
+.avatarContainer {
+  display: flex;
+  margin: auto;
+}
+
+.actionBtn {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+
 .avatar {
   color: $accent-darker;
   margin: auto;

@@ -56,6 +56,24 @@ export default (initialVal, valueType) => {
         }
         break;
 
+      case "PHONE":
+        var phonrPtrn = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+        valid = phonrPtrn.test(value);
+        if (!valid) {
+          setError("Invalid phone number");
+        }
+        break;
+
+      case "B_DATE":
+        var valDate = new Date(value);
+        var today = new Date(); //current Date
+        if (today.getFullYear() - valDate.getFullYear() < 16) {
+          valid = false;
+          setError("Invalid date. User must be at least 16 years old");
+        }
+
+        break;
+
       default:
         valid = false;
         setError("Invalid input");
@@ -65,5 +83,6 @@ export default (initialVal, valueType) => {
     return valid;
   };
 
-  return [value, handleChange, setValue, reset, validate, errorMsg];
+  // return [value, handleChange, setValue, reset, validate, errorMsg];
+  return [value, handleChange, reset, validate, errorMsg];
 };
