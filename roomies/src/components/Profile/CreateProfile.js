@@ -50,9 +50,10 @@ export default function CreateProfile() {
     // TODO: upload avatar
 
     axios
-      .post(`${BASE_URL}/users/profile`, { phone, brthDate, avatar })
+      .put(`${BASE_URL}/users/profile`, { phone, birth_date: brthDate })
       .then(res => {
         console.log("Profile updated successfully");
+        console.log(res);
 
         resetPhone();
         resetBDate();

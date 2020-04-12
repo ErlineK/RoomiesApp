@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
+const auth = require("../../helpers/auth");
 
 // User Model
 const User = require("../../models/User");
@@ -78,6 +79,18 @@ router.post("/", (req, res) => {
       });
     });
   });
+});
+
+/**
+ * @route       PUT api/users/profile
+ * @description Update user
+ * @access      Public
+ */
+router.put("/profile", auth, (req, res) => {
+  User.findByIdAndUpdate(req.params.id, req.body)
+    .select("-password")
+    .then(user => res.json({ msg: "Updated successfully", user }))
+    .catch(err => res.status(400).json({ error: "Unable to update user" }));
 });
 
 module.exports = router;

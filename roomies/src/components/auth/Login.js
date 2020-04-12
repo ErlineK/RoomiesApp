@@ -17,7 +17,6 @@ function Login() {
   const [
     email,
     handleEmailChange,
-    setEmail,
     resetEmail,
     validateEmail,
     emailError
@@ -25,7 +24,6 @@ function Login() {
   const [
     password,
     handlePassChange,
-    setPass,
     resetPass,
     validatePass,
     passError
@@ -63,8 +61,8 @@ function Login() {
         loginUser(res.data.user, res.data.token);
 
         // reset fields
-        resetEmail();
-        resetPass();
+        // resetEmail();
+        // resetPass();
 
         // redirect home
         history.push("/UserHome");

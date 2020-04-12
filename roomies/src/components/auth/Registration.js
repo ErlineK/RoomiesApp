@@ -16,7 +16,6 @@ function Registration() {
   const [
     name,
     handleNameChange,
-    setName,
     resetName,
     validateName,
     nameError
@@ -24,7 +23,6 @@ function Registration() {
   const [
     email,
     handleEmailChange,
-    setEmail,
     resetEmail,
     validateEmail,
     emailError
@@ -32,7 +30,6 @@ function Registration() {
   const [
     password,
     handlePassChange,
-    setPass,
     resetPass,
     validatePass,
     passError
@@ -40,7 +37,6 @@ function Registration() {
   const [
     passConfirm,
     handlePassConfirmChange,
-    setPassConfirm,
     resetPassConfirm
   ] = useInputState("", "PASS");
   const [passConfirmError, setPassConfirmError] = useState("");
@@ -58,10 +54,10 @@ function Registration() {
         loginUser(res.data.user, res.data.token);
 
         //reset fields
-        resetName();
-        resetEmail();
-        resetPass();
-        resetPassConfirm();
+        // resetName();
+        // resetEmail();
+        // resetPass();
+        // resetPassConfirm();
 
         // redirect home
         history.push("/CreateProfile");
