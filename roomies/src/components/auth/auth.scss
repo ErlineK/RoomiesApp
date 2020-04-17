@@ -1,6 +1,7 @@
 @import "../GenericComponents/general.scss";
 
 .from-container {
+  display: grid;
   padding: 2%;
   text-align: center;
 
@@ -10,10 +11,10 @@
 
   form {
     display: flex;
+    width: 95%;
     flex-direction: column;
     justify-content: left;
     padding: 4%;
-    max-width: 50%;
     margin: auto;
 
     label {
@@ -53,5 +54,21 @@
 
   a {
     text-decoration: none;
+  }
+}
+
+@media (min-width: $tablet) {
+  .from-container {
+    padding: 2%;
+    text-align: center;
+
+    button {
+      margin-top: 10%;
+    }
+
+    form {
+      padding: 4%;
+      width: 50%;
+    }
   }
 }

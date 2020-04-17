@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const user = require("./User").model("user");
 
 const ChoreSchema = new mongoose.Schema({
   houseId: {
@@ -11,7 +12,8 @@ const ChoreSchema = new mongoose.Schema({
   },
   leader: {
     // userID of leader
-    type: String,
+    type: mongoose.Types.ObjectId,
+    ref: user,
     required: true
   },
   dueDate: {

@@ -1,5 +1,4 @@
 import React from "react";
-// import "../../GenericComponents/general.scss";
 import useGetRoomiesData from "../../../hooks/useGetRoomiesData";
 import HomeFragment from "./HomeFragment";
 import { formatCurrency } from "../../../utils/formatHelper";

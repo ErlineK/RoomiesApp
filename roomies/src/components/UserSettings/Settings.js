@@ -93,13 +93,13 @@ export default function UserSettings() {
     HouseContext
   );
 
-  useEffect(() => {
-    // TODO: get houses from DB
-    setHouses(defaultProps.houses);
-  }, []);
+  // useEffect(() => {
+  //   // TODO: get houses from DB
+  //   // setHouses(defaultProps.houses);
+  // }, []);
 
   const houseItems = houses
-    ? houses.map(house => <HouseCard key={house.houseId} house={house} />)
+    ? houses.map(house => <HouseCard key={house._id} house={house} />)
     : "";
 
   return (
@@ -107,9 +107,12 @@ export default function UserSettings() {
       <SettingsProfile />
       <div className="housesHolder">
         {/* <h4>Houses</h4> */}
+        {!houses && (
+          <p className="toCenter">Add new house and invite Roomies</p>
+        )}
         <div className="flex-container flex-center">
           {houseItems}
-          <HouseCard key="0" />
+          <HouseCard key="house0" />
         </div>
       </div>
       {showNewHouse && <AddHousePop />}

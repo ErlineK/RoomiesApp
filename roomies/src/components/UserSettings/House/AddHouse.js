@@ -19,25 +19,14 @@ function AddHousePop() {
   const [houseAvatar, setHouseAvatar] = useState("");
 
   const handleAddHouse = () => {
-    console.log("saving house");
-    //TODO: handle add house
     let house = {
-      houseId: uuid(), //do that on server
-      active: true, //do that on server
-      opened: new Date(), //do that on server
       houseName: hName,
       address: hStreet,
       city: hCity,
       province: hProvince,
       description: hDescription,
       avatar: houseAvatar,
-      tenants: [
-        {
-          _id: "111",
-          added: new Date(), //do that on server
-          admin: true //do that on server
-        }
-      ]
+      tenants: []
     };
 
     handleNewHouse(house);

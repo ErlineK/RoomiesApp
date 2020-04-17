@@ -2,23 +2,13 @@ import React, { createContext, useState } from "react";
 
 export const AuthContext = createContext();
 
-const defaultUser = {
-  _id: "111",
-  name: "Master of Puppets",
-  avatar: "",
-  brthDate: new Date(1988, 0, 30),
-  email: "master@puppets.com",
-  phone: "555-555-5555"
-};
-
 export function AuthProvider(props) {
-  const [user, setUser] = useState("");
-  const [token, setToken] = useState("");
-  const [houseId, setHouseId] = useState("");
+  const [user, setUser] = useState();
+  const [token, setToken] = useState();
+  // const [houseId, setHouseId] = useState();
 
   const isLoggedIn = () => {
-    // return user && user._id > 0;
-    return token && user;
+    return user !== undefined && token != undefined;
   };
 
   const loginUser = (user, token) => {
@@ -26,13 +16,20 @@ export function AuthProvider(props) {
     setUser(user);
   };
 
-  const logoutUser = (user, token) => {
-    setToken(null);
-    setUser(null);
+  const logoutUser = () => {
+    console.log("logging out user in Auth Context");
+    setToken(undefined);
+    setUser(undefined);
   };
 
   const userId = () => {
     return user ? user._id : "";
+  };
+
+  const requestHeader = () => {
+    return {
+      headers: { "Content-Type": "application/json", "x-auth-token": token }
+    };
   };
 
   return (
@@ -40,12 +37,13 @@ export function AuthProvider(props) {
       value={{
         user: user,
         token: token,
+        requestHeader: requestHeader(),
         userId: userId(),
         loginUser: loginUser,
         logoutUser: logoutUser,
-        isLoggedIn: isLoggedIn,
-        houseId: houseId,
-        setHouseId: setHouseId
+        isLoggedIn: isLoggedIn
+        // houseId: houseId,
+        // setHouseId: setHouseId
       }}
     >
       {props.children}

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import axios from "axios";
 import useGetData from "./useGetData";
 import { AuthContext } from "../components/auth/AuthContext";
@@ -25,7 +25,7 @@ export default (initialChores, mode) => {
 
   const getAllChores = () => {
     console.log("calling getAllChores from useChoresState for mode: " + mode);
-    if (mode == choresMode.HOME) {
+    if (mode === choresMode.HOME) {
       setRequest({
         reqUri: `${houseId}`,
         reqType: "get",

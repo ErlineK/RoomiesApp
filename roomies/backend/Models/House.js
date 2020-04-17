@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const UserSchema = require("./User");
+const user = require("./User").model("user");
 
 const HouseSchema = new mongoose.Schema({
   admin: {
@@ -8,13 +8,11 @@ const HouseSchema = new mongoose.Schema({
   },
   active: {
     type: Boolean,
-    default: true,
-    required: true
+    default: true
   },
   opened: {
     type: Date,
-    default: Date.now,
-    required: true
+    default: Date.now
   },
   houseName: {
     type: String,
@@ -38,11 +36,13 @@ const HouseSchema = new mongoose.Schema({
   avatar: {
     type: String
   },
-  tenants: {
-    //holds user ids
-    type: [mongoose.Types.ObjectId],
-    required: true
-  }
+  tenants: [
+    {
+      //holds user ids
+      type: mongoose.Types.ObjectId,
+      ref: user
+    }
+  ]
 });
 
 module.exports = House = mongoose.model("house", HouseSchema);

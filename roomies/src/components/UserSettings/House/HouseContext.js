@@ -1,16 +1,39 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useContext, useState } from "react";
 import useToggle from "../../../hooks/useToggle";
+import { BASE_URL } from "../../../utils/AppParams";
+import { AuthContext } from "../../auth/AuthContext";
+import axios from "axios";
 
 export const HouseContext = createContext();
 
-// TODO: create house state manager
-
 export function HouseProvider(props) {
+  const { requestHeader, userId } = useContext(AuthContext);
   const [houses, setHousesState] = useState();
   const [houseTenants, setHouseTenants] = useState();
   const [showAddTenants, toggleAddTenants] = useToggle(false);
   const [showNewHouse, toggleNewHouse] = useToggle(false);
   const [selectedHouseId, setSelectedHouseId] = useState("");
+
+  useEffect(() => {
+    if (userId !== undefined && userId !== "") {
+      console.log("Trying to he houses for user " + userId);
+
+      // get houses from DB
+      axios
+        .get(`${BASE_URL}/houses/${userId}`, requestHeader)
+        .then(res => {
+          console.log("got houses successfully");
+          console.log(res);
+
+          setHouses(res.data.houses);
+        })
+        .catch(error => {
+          console.log("Get houses Error: ");
+          console.log(error);
+          // console.log(error.response.data.error);
+        });
+    }
+  }, [userId]);
 
   const setSelectedHouse = houseId => {
     setSelectedHouseId(houseId);
@@ -20,14 +43,16 @@ export function HouseProvider(props) {
 
   const setHouses = houses => {
     // save currently active house id (later get it from Auth context)
-    const activeHouseId = houses.map(house =>
-      house.active ? house.houseId : null
-    );
+    let activeHouseId = undefined;
+    houses.map(house => {
+      if (house.active) {
+        activeHouseId = house._id;
+      }
+    });
 
-    console.log("active house id:");
-    console.log(activeHouseId[0]);
+    console.log("active house id:" + activeHouseId);
 
-    setSelectedHouseId(activeHouseId[0]);
+    setSelectedHouseId(activeHouseId);
     setHousesState(houses);
   };
 
@@ -37,20 +62,37 @@ export function HouseProvider(props) {
   };
 
   const handleNewHouse = newHouse => {
-    // axios
-    //   .post("http://localhost:3000/users/register", userObject)
-    //   .then(res => {
-    //     console.log("Registered successfully");
-    //     //TODO: redirect to thank you page with second part of registration
-    //   })
-    //   .catch(error => {
-    //     console.log("Registration Error");
-    //   });
+    if (userId !== undefined && userId !== "") {
+      console.log("Trying to add house for user " + userId);
 
+      // add curent user as house tenant
+      newHouse.tenants.push(userId);
+
+      console.log(newHouse);
+
+      // add new house to DB
+      axios
+        .post(
+          `${BASE_URL}/houses`,
+          { userId: userId, newHouse: newHouse },
+          requestHeader
+        )
+        .then(res => {
+          console.log("got houses successfully");
+          console.log(res);
+
+          setHouses(res.data.houses);
+        })
+        .catch(error => {
+          console.log("Get houses Error: ");
+          // console.log(error);
+          console.log(error.response.data.error);
+        });
+    }
     // set all other houses to be not active
-    const existingHouses = houses.map(house => ({ ...house, active: false }));
+    // const existingHouses = houses.map(house => ({ ...house, active: false }));
 
-    setHouses([...existingHouses, newHouse]);
+    // setHouses([...existingHouses, newHouse]);
   };
 
   const handleNewTenant = newTenant => {
@@ -110,7 +152,7 @@ export function HouseProvider(props) {
         toggleAddTenants: toggleAddTenants,
         handleNewTenant: handleNewTenant,
         handleAddTenants: handleAddTenants,
-        selectedHouseId: selectedHouseId,
+        activeHouseId: selectedHouseId,
         setSelectedHouse: setSelectedHouse
       }}
     >

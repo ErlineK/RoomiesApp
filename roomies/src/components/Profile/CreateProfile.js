@@ -12,7 +12,7 @@ import CircleLoader from "../GenericComponents/Loader/CircleLoader";
 // TODO: add loader
 
 export default function CreateProfile() {
-  const { user, loginUser } = useContext(AuthContext);
+  const { user, requestHeader, loginUser } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
   const [srvError, setSrvError] = useState();
   const [
@@ -50,7 +50,11 @@ export default function CreateProfile() {
     // TODO: upload avatar
 
     axios
-      .put(`${BASE_URL}/users/profile`, { phone, birth_date: brthDate })
+      .put(
+        `${BASE_URL}/users/profile`,
+        { phone, birth_date: brthDate },
+        requestHeader()
+      )
       .then(res => {
         console.log("Profile updated successfully");
         console.log(res);

@@ -1,9 +1,7 @@
 import React from "react";
-// import "../../GenericComponents/general.scss";
 import "../../GenericComponents/generic_list.scss";
 import useGetRoomiesData from "../../../hooks/useGetRoomiesData";
 import HomeFragment from "./HomeFragment";
-import { Link } from "react-router-dom";
 import {
   InvitationMsgItem,
   NofiticationMsgItem,

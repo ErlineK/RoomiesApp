@@ -16,18 +16,8 @@ import CreateProfile from "../Profile/CreateProfile";
 export default function() {
   return (
     <Switch>
-      <Route
-        exact
-        path="/"
-        // render={() => <Home handleLogin={this.handleLogin} />}
-        render={() => <Home />}
-      />
-
-      {/* <Route
-        exact
-        path="/About"
-        render={() => <About name="Pugsy" city="London" />}
-      /> */}
+      <Route exact path="/" render={() => <Home />} />
+      <Route exact path="/Home" render={() => <Home />} />
       <Route exact path="/Registration" render={() => <Registration />} />
       <Route exact path="/CreateProfile" render={() => <CreateProfile />} />
       <Route exact path="/Login" render={() => <Login />} />

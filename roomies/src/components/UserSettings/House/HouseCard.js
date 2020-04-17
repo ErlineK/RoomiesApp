@@ -6,12 +6,13 @@ import { FaEdit, FaEye, FaUserPlus } from "react-icons/fa";
 import { AuthContext } from "../../auth/AuthContext";
 import { HouseContext } from "./HouseContext";
 
-// TODO: set active card by data from server
 // TODO: handle change active house in DB
 
 export default function HouseCard({ house }) {
-  const { userId, houseId } = useContext(AuthContext);
-  const { handleAddTenants, toggleNewHouse } = useContext(HouseContext);
+  const { userId } = useContext(AuthContext);
+  const { activeHouseId, handleAddTenants, toggleNewHouse } = useContext(
+    HouseContext
+  );
 
   const tenants = house
     ? house.tenants.map(tenant =>
@@ -36,7 +37,9 @@ export default function HouseCard({ house }) {
 
   function amAdmin() {
     let me = house.tenants.find(tenant => tenant._id === userId);
-    return me.admin;
+    if (me) {
+      return me.admin;
+    } else return false;
   }
 
   return (
@@ -50,18 +53,14 @@ export default function HouseCard({ house }) {
         <GoPlus className=" toCenter fullCardIcon" />
       ) : (
         <>
-          <Link className="" to={`/House/${house.houseId}`}>
-            {house && house.houseId === houseId ? (
+          <Link className="" to={`/House/${house._id}`}>
+            {house && house._id === activeHouseId ? (
               <FaEdit className="sectionIcon" />
             ) : (
               <FaEye className="sectionIcon" />
             )}
           </Link>
-          {/* {house.houseId === houseId ? (
-            <span className="small-note sectionNote">Active</span>
-          ) : (
-            ""
-          )} */}
+
           {house && house.active ? (
             <span className="small-note sectionNote">Active</span>
           ) : (
@@ -80,7 +79,7 @@ export default function HouseCard({ house }) {
             {house && house.active && (
               <FaUserPlus
                 className="sectionIcon"
-                onClick={() => handleAddTenants(houseId)}
+                onClick={() => handleAddTenants(activeHouseId)}
               />
             )}
             <ul>

@@ -4,7 +4,7 @@ import dataFetchReducer from "../reducers/dataFetch.reducer";
 import { AuthContext } from "../components/auth/AuthContext";
 
 export default (initUri, initData) => {
-  const { token } = useContext(AuthContext);
+  const { requestHeader } = useContext(AuthContext);
   const [url, setUrl] = useState(initUri);
   const [state, dispatch] = useReducer(dataFetchReducer, {
     isLoading: false,
@@ -17,12 +17,7 @@ export default (initUri, initData) => {
     const fetchData = async () => {
       dispatch({ type: "FETCH_INIT" });
       try {
-        const result = await axios(url, null, {
-          headers: {
-            "Content-Type": "application/json",
-            "x-auth-token": token
-          }
-        });
+        const result = await axios(url, null, requestHeader());
         if (!didCancel) {
           /*** IMPORTANT! uncheck this line once server side added to project! ****/
           // dispatch({ type: "FETCH_SUCCESS", payload: result.data });

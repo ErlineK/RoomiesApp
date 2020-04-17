@@ -9,7 +9,6 @@ export default (initialVal, valueType) => {
   const [errorMsg, setError] = useState("");
   // value change callback
   const handleChange = e => {
-    console.log("e: " + e);
     setValue(e.target.value);
   };
 
@@ -34,8 +33,6 @@ export default (initialVal, valueType) => {
         if (!valid) {
           setError("Invalid email");
         }
-        console.log("email valid: " + valid);
-        console.log("setting email error: " + errorMsg);
         break;
 
       case "PASS":
@@ -44,8 +41,7 @@ export default (initialVal, valueType) => {
           valid = false;
           setError("Password must be at least 6 characters long");
         }
-        // check for strong password: at least one capital letter, one small latter
-        console.log("pass validation: " + valid);
+        // TODO: check for strong password: at least one capital letter, one small latter
         break;
 
       case "NAME":

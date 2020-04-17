@@ -8,7 +8,12 @@ import { BASE_URL } from "../../utils/AppParams";
 import CircleLoader from "../GenericComponents/Loader/CircleLoader";
 import axios from "axios";
 
-// TODO: add loader
+const test_user = {
+  // email: "master@puppets.com",
+  // pass: "Qwer1234"
+  email: "test@test.com",
+  pass: "Test1234"
+};
 
 function Login() {
   const history = useHistory();
@@ -20,14 +25,14 @@ function Login() {
     resetEmail,
     validateEmail,
     emailError
-  ] = useInputState("master@puppets.com", "EMAIL");
+  ] = useInputState(test_user.email, "EMAIL");
   const [
     password,
     handlePassChange,
     resetPass,
     validatePass,
     passError
-  ] = useInputState("Qwer1234", "PASS");
+  ] = useInputState(test_user.pass, "PASS");
   const { loginUser } = useContext(AuthContext);
 
   const validated = () => {

@@ -3,7 +3,6 @@ import "../../GenericComponents/general.scss";
 import "./homeLists.scss";
 import useGetRoomiesData from "../../../hooks/useGetRoomiesData";
 import HomeFragment from "./HomeFragment";
-import { Link } from "react-router-dom";
 import HomeBillItem from "../../Bills/HomeBillItem";
 
 const USER_SERVICE_URL = "https://jsonplaceholder.typicode.com/users";

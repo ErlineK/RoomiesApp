@@ -8,7 +8,7 @@ import { AuthContext } from "../components/auth/AuthContext";
 // const BASE_URL = "https://jsonplaceholder.typicode.com/users";
 
 export default ({ reqUri, reqType, reqData }, initData) => {
-  const { token } = useContext(AuthContext);
+  const { requestHeader } = useContext(AuthContext);
   const [requst, setRequest] = useState({
     url: `${BASE_URL}/${reqUri}`,
     // url: reqUri,
@@ -29,9 +29,11 @@ export default ({ reqUri, reqType, reqData }, initData) => {
     const fetchData = async () => {
       fetchDispatch({ type: "FETCH_INIT" });
       try {
-        const result = await axios[requst.reqType](requst.url, requst.reqData, {
-          headers: { "Content-Type": "application/json", "x-auth-token": token }
-        });
+        const result = await axios[requst.reqType](
+          requst.url,
+          requst.reqData,
+          requestHeader()
+        );
         console.log(result);
 
         if (!didCancel) {

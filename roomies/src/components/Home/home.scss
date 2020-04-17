@@ -11,9 +11,32 @@
   width: 100%;
 }
 
+.homeContent {
+  padding-top: 3rem;
+}
+
 .homeSeparator {
   width: 50%;
   margin: auto;
+}
+
+.homePersonalContainer {
+  text-align: center;
+  padding: 0.5rem;
+  margin: 0.1rem;
+  background-color: rgba($color: $accent-light, $alpha: 0.9);
+
+  h2 {
+    color: $primary-color-dark;
+  }
+
+  a {
+    text-decoration: none;
+
+    &:hover {
+      color: $accent-red;
+    }
+  }
 }
 
 .home-central-holder {

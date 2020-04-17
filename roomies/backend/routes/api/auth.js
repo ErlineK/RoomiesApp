@@ -10,13 +10,11 @@ const User = require("../../models/User");
 
 /**
  * @route   POST api/auth
- * @desc    Auth user
+ * @desc    Auth user (Login)
  * @access  Public
  */
 
 router.post("/", (req, res) => {
-  console.log("request: \n");
-  console.log(req.body);
   const { email, password } = req.body;
 
   if (!email || !password) {
