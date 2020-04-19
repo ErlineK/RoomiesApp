@@ -9,10 +9,10 @@ import { AuthContext } from "../auth/AuthContext";
 export default function SettingsProfile() {
   const { user } = useContext(AuthContext);
 
-  const [name, handleNameChange] = useState(user.name);
-  const [brthDate, handleBDayChange] = useState(user.brthDate);
-  const [phone, handlePhoneChange] = useState(user.phone);
-  const [avatar, handleAvatarChange] = useState(user.user_avatar);
+  const [name, handleNameChange] = useState(user ? user.name : "");
+  const [brthDate, handleBDayChange] = useState(user ? user.brthDate : "");
+  const [phone, handlePhoneChange] = useState(user ? user.phone : "");
+  const [avatar, handleAvatarChange] = useState(user ? user.user_avatar : "");
 
   const saveUpdate = (itemTitle, newVal) => {
     switch (itemTitle) {
@@ -61,7 +61,7 @@ export default function SettingsProfile() {
           <UserDataItem
             item={{
               title: "Email",
-              data: user.email,
+              data: user ? user.email : "",
               icon: "email"
             }}
           />

@@ -99,9 +99,17 @@ router.put("/profile", auth, (req, res) => {
  * @access      Public
  */
 router.put("/avatar", auth, (req, res) => {
-  User.findByIdAndUpdate(req.body.userId, { user_avatar: req.body.avatar })
+  console.log("updating avatar for user " + req.body.userId);
+  User.findByIdAndUpdate(
+    { _id: req.body.userId },
+    { user_avatar: req.body.avatar },
+    { new: true }
+  )
     .select("-password")
-    .then(user => res.json({ msg: "Avatar updated successfully", user }))
+    .then(user => {
+      console.log("updated avatar for ");
+      res.json({ msg: "Avatar updated successfully", user });
+    })
     .catch(err => {
       console.log(err);
       res.status(400).json({ error: "Unable to update avatar" });

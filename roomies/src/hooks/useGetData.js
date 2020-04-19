@@ -37,9 +37,7 @@ export default ({ reqUri, reqType, reqData }, initData) => {
         console.log(result);
 
         if (!didCancel) {
-          /*** IMPORTANT! uncheck this line once server side added to project! ****/
           fetchDispatch({ type: "FETCH_SUCCESS", payload: result.data });
-          // fetchDispatch({ type: "FETCH_SUCCESS", payload: initData });
         }
       } catch (error) {
         if (!didCancel) {

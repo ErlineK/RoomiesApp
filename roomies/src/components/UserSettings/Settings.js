@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import "./settings.scss";
 import HouseCard from "./House/HouseCard";
 import SettingsProfile from "../Profile/SettingsProfile";
@@ -92,11 +92,6 @@ export default function UserSettings() {
   const { houses, setHouses, showNewHouse, showAddTenants } = useContext(
     HouseContext
   );
-
-  // useEffect(() => {
-  //   // TODO: get houses from DB
-  //   // setHouses(defaultProps.houses);
-  // }, []);
 
   const houseItems = houses
     ? houses.map(house => <HouseCard key={house._id} house={house} />)

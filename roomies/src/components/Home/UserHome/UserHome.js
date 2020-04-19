@@ -5,7 +5,7 @@ import HomeMsgs from "./HomeMsgs";
 import HomeStatus from "./HomeStatus";
 import HomeBills from "./HomeBills";
 import HomeChores from "./HomeChores";
-import { ChoresProvider } from "../../Chores/ChoresContext";
+// import { ChoresProvider } from "../../Chores/ChoresContext";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../auth/AuthContext";
 import { HouseContext } from "../../UserSettings/House/HouseContext";
@@ -32,9 +32,9 @@ function UserHome() {
       )}
       <div className="flex-container flex-fill homeRow">
         <HomeMsgs />
-        <ChoresProvider>
-          <HomeChores />
-        </ChoresProvider>
+        {/* <ChoresProvider> */}
+        <HomeChores />
+        {/* </ChoresProvider> */}
       </div>
       {isLoggedIn() && activeHouseId && <HomeBills />}
     </div>

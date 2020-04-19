@@ -8,7 +8,7 @@ export function AuthProvider(props) {
   // const [houseId, setHouseId] = useState();
 
   const isLoggedIn = () => {
-    return user !== undefined && token != undefined;
+    return user !== undefined && token !== undefined;
   };
 
   const loginUser = (user, token) => {

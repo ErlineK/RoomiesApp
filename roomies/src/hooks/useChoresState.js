@@ -4,16 +4,11 @@ import useGetData from "./useGetData";
 import { AuthContext } from "../components/auth/AuthContext";
 
 const BASE_URI_CHORES = "http://localhost:5000/api/chores";
-// const BASE_URI_CHORES = "https://jsonplaceholder.typicode.com/users";
 
 const choresMode = { HOME: "HOME", NONE: undefined };
 
 export default (initialChores, mode) => {
   const { houseId, userId } = useContext(AuthContext);
-  // const [{ data, isLoading, isError }, setRequest] = useGetData(
-  //   { reqUri: "chores", reqType: "get", reqData: null },
-  //   initialChores
-  // );
   const [{ data, isLoading, isError }, setRequest] = useGetData(
     {
       reqUri: `chores/${houseId}`,
@@ -38,16 +33,6 @@ export default (initialChores, mode) => {
         reqData: null
       });
     }
-    // axios
-    //   .get(BASE_URI_CHORES)
-    //   .then(res => {
-    //     console.log("got resonse: " + res.data);
-    //     // setChores(res.data);
-    //     // setChores(initialChores);
-    //   })
-    //   .catch(err => {
-    //     console.log("Error in getAllChores: " + err);
-    //   });
   };
 
   const addChoreToDB = chore => {
