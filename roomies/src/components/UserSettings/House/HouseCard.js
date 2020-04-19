@@ -35,13 +35,6 @@ export default function HouseCard({ house }) {
       )
     : "";
 
-  function amAdmin() {
-    let me = house.tenants.find(tenant => tenant._id === userId);
-    if (me) {
-      return me.admin;
-    } else return false;
-  }
-
   return (
     <div
       className={`${
@@ -68,10 +61,17 @@ export default function HouseCard({ house }) {
           )}
 
           <img
-            className="homeLogo houseAvatar"
-            src={require("../../../assets/Logo.svg")}
+            className={`homeLogo houseAvatar ${
+              house.avatar && house.avatar !== "" ? "houseAvatarImg" : ""
+            }`}
+            src={
+              house.avatar && house.avatar !== ""
+                ? house.avatar
+                : require("../../../assets/Logo.svg")
+            }
             alt="house avatar"
           />
+
           <h5>{house.houseName}</h5>
           <p>{`${house.address} ${house.city}, ${house.province}`}</p>
           <div className="tenantsHolder">
@@ -86,7 +86,7 @@ export default function HouseCard({ house }) {
               <li>
                 You
                 <span className="small-note success">
-                  {amAdmin() ? "admin" : ""}
+                  {house.admin === userId ? "admin" : ""}
                 </span>
               </li>
               {tenants}

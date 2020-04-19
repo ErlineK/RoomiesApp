@@ -43,25 +43,38 @@ export default (initImage, imgSource) => {
 
     imgUploadDispatch({ type: "UPLOAD_INIT" });
 
+    const uploadImgUrl = `${BASE_URL}/${
+      imgSource == "USER" ? "users" : "houses"
+    }/avatar`;
+
+    const uploadData =
+      imgSource === "USER"
+        ? { userId: userId, avatar: imgState.displayImg }
+        : "";
+
     axios
-      .put(
-        `${BASE_URL}/users/avatar`,
-        { userId: userId, avatar: imgState.displayImg },
-        requestHeader
-      )
+      .put(uploadImgUrl, uploadData, requestHeader)
       .then(res => {
         console.log("Saved avatar successfully");
         console.log(res);
 
-        // update user in AuthContext
-        loginUser(res.data.user, res.config.headers["x-auth-token"]);
+        let newImgLink = "";
+
+        switch (imgSource) {
+          case "USER":
+            newImgLink = res.data.user.user_avatar;
+            // update user in AuthContext
+            loginUser(res.data.user, res.config.headers["x-auth-token"]);
+
+            break;
+        }
 
         // update original image
-        setOriginalImg(res.data.user.user_avatar);
+        setOriginalImg(newImgLink);
 
         imgUploadDispatch({
           type: "UPLOAD_SUCCESS",
-          payload: res.data.user.user_avatar
+          payload: newImgLink
         });
       })
       .catch(error => {

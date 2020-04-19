@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import useInputState from "../../../hooks/useInputState";
 import "../../auth/auth.scss";
 import HouseAvatar from "./HouseAvatar";
-import uuid from "uuid";
 import PopUpCard from "../../GenericComponents/PopUpCard";
 import { HouseContext } from "./HouseContext";
 

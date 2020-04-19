@@ -13,7 +13,7 @@ export default function UserAvatarSettings({ avatar }) {
     handleSaveImage,
     handleDismissImage,
     handleImageUpload
-  ] = useImageUploadState(avatar);
+  ] = useImageUploadState(avatar, "USER");
 
   const uploadButton = (
     <div className=" actionIcon hiddenIcon edit">

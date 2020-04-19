@@ -23,7 +23,6 @@ const House = require("../../models/House");
  * @access      Public
  */
 router.get("/:userId", auth, (req, res) => {
-  console.log("fetching houses for user id " + req.params.userId);
   House.find({ tenants: req.params.userId })
     .populate({ path: "tenants" })
     .sort({ active: -1, opened: -1 })
@@ -59,7 +58,8 @@ router.post("/", auth, (req, res) => {
     city: reqDataHouse.city,
     province: reqDataHouse.province,
     description: reqDataHouse.description,
-    tenants: reqDataHouse.tenants
+    tenants: reqDataHouse.tenants,
+    avatar: reqDataHouse.avatar
   });
 
   console.log(newHouse);
@@ -68,46 +68,35 @@ router.post("/", auth, (req, res) => {
     .save()
     .then(house => {
       // set all other houses of that user to active: false
-      setAllHousesNotActive(req.body.userId, house.id);
-
-      // return entire user houses list
-      House.find({ tenants: [req.body.userId] })
-        .populate({ path: "tenants" })
-        .sort({ active: -1 })
-        .then(houses => res.json({ msg: "House added successfully", houses }))
-        .catch(err =>
-          res.status(404).json({ error: "Error getting houses list" })
-        );
+      House.updateMany(
+        {
+          _id: { $ne: house.id },
+          tenants: req.body.userId,
+          active: true
+        },
+        { $set: { active: false } }
+      )
+        .then(houses =>
+          // return entire user houses list
+          House.find({ tenants: [req.body.userId] })
+            .populate({ path: "tenants" })
+            .sort({ active: -1 })
+            .then(houses =>
+              res.json({ msg: "House added successfully", houses })
+            )
+            .catch(err =>
+              res.status(404).json({ error: "Error getting houses list" })
+            )
+        )
+        .catch(err => {
+          console.log(err);
+        });
     })
     .catch(err => {
       console.log(err);
       res.status(400).json({ error: "Unable to add this house" });
     });
 });
-
-/**
- * update all user's houses to be not active except one
- */
-function setAllHousesNotActive(userId, exeptionHouseID) {
-  House.updateMany(
-    {
-      _id: { $ne: exeptionHouseID },
-      tenants: userId,
-      active: true
-    },
-    { $set: { active: false } }
-  )
-    .then(houses => {
-      console.log("updated unactive houses: ");
-      console.log(houses);
-      // res.json({ msg: "Houses updated successfully", houses });
-    })
-    .catch(err => {
-      console.log("Could not find unactive houses");
-      console.log(err);
-      // res.status(400).json({ error: "Error updating houses" });
-    });
-}
 
 /**
  * @route       PUT api/houses/:id
@@ -148,6 +137,26 @@ router.delete("/:id", (req, res) => {
   House.findByIdAndRemove(req.params.id, req.body)
     .then(house => res.json({ mgs: "House entry deleted successfully" }))
     .catch(err => res.status(404).json({ error: "No such a house" }));
+});
+
+/**
+ * @route       PUT api/houses/avatar
+ * @description Update house avatar
+ * @access      Public
+ */
+router.put("/avatar", auth, (req, res) => {
+  House.findByIdAndUpdate(
+    { _id: req.body.houseId },
+    { avatar: req.body.avatar },
+    { new: true }
+  )
+    .then(house => {
+      res.json({ msg: "Avatar updated successfully", house });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(400).json({ error: "Unable to update avatar" });
+    });
 });
 
 module.exports = router;

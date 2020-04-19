@@ -107,7 +107,6 @@ router.put("/avatar", auth, (req, res) => {
   )
     .select("-password")
     .then(user => {
-      console.log("updated avatar for ");
       res.json({ msg: "Avatar updated successfully", user });
     })
     .catch(err => {
