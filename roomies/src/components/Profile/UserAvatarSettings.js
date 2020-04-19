@@ -1,10 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./profile.scss";
-import { FaUserEdit } from "react-icons/fa";
 import { getIcon } from "../../utils/iconManager";
+import { FaUserEdit, FaUserCheck, FaUserTimes } from "react-icons/fa";
+import axios from "axios";
+import { AuthContext } from "../auth/AuthContext";
+import { BASE_URL } from "../../utils/AppParams";
+import CircleLoader from "../GenericComponents/Loader/CircleLoader";
+import imageCompression from "browser-image-compression";
+
+// TODO: create useImageUpload hook
 
 export default function UserAvatarSettings({ avatar }) {
+  const [readyToUpload, setReadyToUpload] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [userImage, setUserImage] = useState(avatar);
+  const [tempImage, setTempImage] = useState(avatar);
+  const { userId, requestHeader, loginUser } = useContext(AuthContext);
 
   const handleImageUpload = e => {
     e.preventDefault();
@@ -14,23 +25,62 @@ export default function UserAvatarSettings({ avatar }) {
     console.log(file);
 
     if (file) {
-      setUserImage(URL.createObjectURL(file));
+      imageCompression(file, {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 150
+      })
+        .then(compressedFile => {
+          setTempImage(URL.createObjectURL(compressedFile));
 
-      // read data file for <img/> display
-      let reader = new FileReader();
-      reader.onloadend = () => {
-        setUserImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-
-      const formData = new FormData();
-      formData.append("image", file.raw);
-      const config = { headers: { "content-type": "multipart/form-data" } };
-      console.log(config);
-
-      //   TODO: upload image to server as user avatar or as house avatar
-      // await uploadToBackend('endpoint', { image: file.raw }, config)
+          let reader = new FileReader();
+          reader.onloadend = () => {
+            // result is base64 of the image file
+            setTempImage(reader.result);
+            setReadyToUpload(true);
+          };
+          reader.readAsDataURL(compressedFile);
+        })
+        .catch(err => console.log(err));
     }
+  };
+
+  const handleSaveImage = e => {
+    e.preventDefault();
+
+    setLoading(true);
+
+    axios
+      .put(
+        `${BASE_URL}/users/avatar`,
+        { userId: userId, avatar: tempImage },
+        requestHeader
+      )
+      .then(res => {
+        console.log("Saved image successfully");
+        console.log(res);
+        //  display image from form
+        setUserImage(res.data.user.avatar);
+        setReadyToUpload(false);
+
+        // update user in AuthContext
+        loginUser(res.data.user, "");
+
+        setLoading(false);
+      })
+      .catch(error => {
+        setLoading(false);
+        console.log("Login Error: ");
+        console.log(error.response.data.error);
+        // TODO: handle error message
+        setLoading(false);
+      });
+  };
+
+  const handleCancelImage = e => {
+    e.preventDefault();
+
+    setTempImage(undefined);
+    setReadyToUpload(false);
   };
 
   const uploadButton = (
@@ -47,21 +97,42 @@ export default function UserAvatarSettings({ avatar }) {
     </div>
   );
 
+  const saveSelection = (
+    <div className="flex-container toRight doubleIconHolder">
+      <FaUserCheck
+        className="actionIcon doubleIcon success_hov"
+        onClick={e => handleSaveImage(e)}
+      />
+      <FaUserTimes
+        className="actionIcon doubleIcon abort"
+        onClick={e => handleCancelImage(e)}
+      />
+    </div>
+  );
+
+  // prefer temporary image over user image
+  const imgToDisplay =
+    (tempImage !== undefined) & (tempImage !== "") ? tempImage : userImage;
+
   return (
     <div className="userDataItem avatarHolder">
-      {uploadButton}
-      <div>
-        {(userImage !== undefined) & (userImage !== "") ? (
-          <img
-            className="homeLogo avatar"
-            src={userImage}
-            alt="user avatar"
-            aria-label="User avatar"
-          />
-        ) : (
-          getIcon("user", "homeLogo avatar")
-        )}
-      </div>
+      {readyToUpload ? saveSelection : uploadButton}
+      {isLoading ? (
+        <CircleLoader />
+      ) : (
+        <div>
+          {(imgToDisplay !== undefined) & (imgToDisplay !== "") ? (
+            <img
+              className="homeLogo avatar"
+              src={imgToDisplay}
+              alt="user avatar"
+              aria-label="User avatar"
+            />
+          ) : (
+            getIcon("user", "homeLogo avatar")
+          )}
+        </div>
+      )}
     </div>
   );
 }

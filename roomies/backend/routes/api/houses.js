@@ -23,8 +23,6 @@ const House = require("../../models/House");
  * @access      Public
  */
 router.get("/:userId", auth, (req, res) => {
-  console.log("getting all houses for user from db");
-  console.log(req.headers);
   House.find({ tenants: req.params.userId })
     .populate({ path: "tenants" })
     .sort({ active: -1, opened: -1 })

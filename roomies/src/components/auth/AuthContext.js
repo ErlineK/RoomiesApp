@@ -12,7 +12,9 @@ export function AuthProvider(props) {
   };
 
   const loginUser = (user, token) => {
-    setToken(token);
+    if (token !== "") {
+      setToken(token);
+    }
     setUser(user);
   };
 

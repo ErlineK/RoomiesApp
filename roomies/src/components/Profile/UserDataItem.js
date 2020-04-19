@@ -32,7 +32,7 @@ export default function UserDataItem({ item, handleUpdate }) {
               />
               <FaUserTimes
                 className="actionIcon abort"
-                onClick={() => toggleEdit()}
+                onClick={e => toggleEdit()}
               />
             </div>
           </div>

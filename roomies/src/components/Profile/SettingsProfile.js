@@ -12,11 +12,9 @@ export default function SettingsProfile() {
   const [name, handleNameChange] = useState(user.name);
   const [brthDate, handleBDayChange] = useState(user.brthDate);
   const [phone, handlePhoneChange] = useState(user.phone);
-  const [avatar, handleAvatarChange] = useState(user.avatar);
+  const [avatar, handleAvatarChange] = useState(user.user_avatar);
 
   const saveUpdate = (itemTitle, newVal) => {
-    console.log(`changing user ${itemTitle} to ${newVal}`);
-
     switch (itemTitle) {
       case "Name":
         handleNameChange(newVal);
