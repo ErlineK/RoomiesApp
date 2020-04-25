@@ -10,36 +10,10 @@ export default function HouseAvatar({ avatar, addAvatarToForm }) {
     handleDismissImage,
     handleImageUpload
   ] = useImageUploadState(avatar, "HOUSE");
-  // const [houseImage, setHouseImage] = useState(avatar);
 
   useEffect(() => {
     addAvatarToForm(displayImg);
   }, [displayImg]);
-
-  // const handleImageUpload = e => {
-  //   e.preventDefault();
-
-  //   let file = e.target.files[0];
-  //   console.log(file);
-
-  //   if (file) {
-  //     // read data file for <img/> display
-  //     let reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       setHouseImage(reader.result);
-  //       addAvatarToForm(reader.result);
-  //     };
-  //     reader.readAsDataURL(file);
-
-  //     const formData = new FormData();
-  //     formData.append("image", file.raw);
-  //     const config = { headers: { "content-type": "multipart/form-data" } };
-  //     console.log(config);
-
-  //     //   TODO: upload image to server as house avatar or as house avatar
-  //     // await uploadToBackend('endpoint', { image: file.raw }, config)
-  //   }
-  // };
 
   const uploadButton = (
     <div className="edit">

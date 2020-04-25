@@ -6,10 +6,6 @@ const HouseSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     required: true
   },
-  active: {
-    type: Boolean,
-    default: true
-  },
   opened: {
     type: Date,
     default: Date.now
@@ -36,9 +32,14 @@ const HouseSchema = new mongoose.Schema({
   avatar: {
     type: String
   },
-  tenants: [
+  house_tenants: [
     {
-      //holds user ids
+      type: mongoose.Types.ObjectId,
+      ref: user
+    }
+  ],
+  approved_tenants: [
+    {
       type: mongoose.Types.ObjectId,
       ref: user
     }

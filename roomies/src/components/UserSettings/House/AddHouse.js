@@ -24,8 +24,7 @@ function AddHousePop() {
       city: hCity,
       province: hProvince,
       description: hDescription,
-      avatar: houseAvatar,
-      tenants: []
+      avatar: houseAvatar
     };
 
     handleNewHouse(house);

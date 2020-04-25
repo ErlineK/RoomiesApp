@@ -9,9 +9,6 @@ import useChoresState from "../../../hooks/useChoresState";
 function HomeChores() {
   const [chores, choresActions, requestStatus] = useChoresState({}, "HOME");
 
-  console.log("chores: ");
-  console.log(chores);
-
   const choreItems =
     chores !== undefined && Object.entries(chores).length > 0
       ? chores.map(chore => (

@@ -6,77 +6,23 @@ import axios from "axios";
 
 export const HouseContext = createContext();
 
+// TODO: create houses state hook
+
 export function HouseProvider(props) {
-  const { requestHeader, userId } = useContext(AuthContext);
+  const { requestHeader, user, loginUser } = useContext(AuthContext);
   const [houses, setHousesState] = useState();
-  const [houseTenants, setHouseTenants] = useState();
+  // const [houseTenants, setHouseTenants] = useState();
   const [showAddTenants, toggleAddTenants] = useToggle(false);
   const [showNewHouse, toggleNewHouse] = useToggle(false);
   const [selectedHouseId, setSelectedHouseId] = useState("");
 
   useEffect(() => {
-    if (userId !== undefined && userId !== "") {
-      console.log("Trying to he houses for user " + userId);
+    if (user !== undefined && user._id !== undefined) {
+      console.log("Trying to he houses for user " + user._id);
 
       // get houses from DB
       axios
-        .get(`${BASE_URL}/houses/${userId}`, requestHeader)
-        .then(res => {
-          console.log("got houses successfully");
-          console.log(res);
-
-          setHouses(res.data.houses);
-        })
-        .catch(error => {
-          console.log("Get houses Error: ");
-          console.log(error);
-          // console.log(error.response.data.error);
-        });
-    }
-  }, [userId]);
-
-  const setSelectedHouse = houseId => {
-    setSelectedHouseId(houseId);
-    console.log("calling setHouseTenants in setSelectedHouse");
-    setHouseTenants(getCurrentHouseTenants());
-  };
-
-  const setHouses = houses => {
-    // save currently active house id (later get it from Auth context)
-    let activeHouseId = undefined;
-    houses.map(house => {
-      if (house.active) {
-        activeHouseId = house._id;
-      }
-    });
-
-    console.log("active house id:" + activeHouseId);
-
-    setSelectedHouseId(activeHouseId);
-    setHousesState(houses);
-  };
-
-  const handleAddTenants = houseId => {
-    setSelectedHouse(houseId);
-    toggleAddTenants();
-  };
-
-  const handleNewHouse = newHouse => {
-    if (userId !== undefined && userId !== "") {
-      console.log("Trying to add house for user " + userId);
-
-      // add curent user as house tenant
-      newHouse.tenants.push(userId);
-
-      console.log(newHouse);
-
-      // add new house to DB
-      axios
-        .post(
-          `${BASE_URL}/houses`,
-          { userId: userId, newHouse: newHouse },
-          requestHeader
-        )
+        .get(`${BASE_URL}/houses/${user._id}`, requestHeader)
         .then(res => {
           console.log("got houses successfully");
           console.log(res);
@@ -89,71 +35,126 @@ export function HouseProvider(props) {
           console.log(error.response.data.error);
         });
     }
-    // set all other houses to be not active
-    // const existingHouses = houses.map(house => ({ ...house, active: false }));
+  }, [user]);
 
-    // setHouses([...existingHouses, newHouse]);
+  // const setSelectedHouse = houseId => {
+  //   setSelectedHouseId(houseId);
+  //   console.log("calling setHouseTenants in setSelectedHouse");
+  //   setHouseTenants(getCurrentHouseTenants());
+  // };
+
+  const setHouses = houses => {
+    // save currently active house id (later get it from Auth context)
+    // let activeHouseId = undefined;
+    // houses.map(house => {
+    //   if (house.active) {
+    //     activeHouseId = house._id;
+    //   }
+    // });
+
+    // console.log("active house id:" + activeHouseId);
+
+    setSelectedHouseId(user.active_house);
+    setHousesState(houses);
   };
 
-  const handleNewTenant = newTenant => {
-    console.log(newTenant);
+  const handleNewHouse = newHouse => {
+    if (user !== undefined && user._id !== "") {
+      console.log("Trying to add house for user " + user._id);
+      console.log(newHouse);
 
+      // add new house to DB.
+      // responds with updated user
+      // getHouses called upon user updates
+      axios
+        .post(
+          `${BASE_URL}/houses/${user._id}`,
+          { userId: user._id, newHouse: newHouse },
+          requestHeader
+        )
+        .then(res => {
+          console.log("Added new house successfully");
+          console.log(res);
+
+          loginUser(res.data.user);
+        })
+        .catch(error => {
+          console.log("Get houses Error: ");
+          // console.log(error);
+          console.log(error.response.data.error);
+        });
+    }
+  };
+
+  const handleNewTenant = (email, name) => {
     // check if tenant's email exist in list
-    const tenantInList = houseTenants.filter(
-      tenant => tenant.email === newTenant.email
-    );
+    const currentHouse = selectedHouse();
+    console.log(currentHouse);
+
+    const tenantInList =
+      currentHouse && currentHouse.house_tenants
+        ? currentHouse.house_tenants.filter(tenant => tenant.email === email)
+        : [];
 
     if (tenantInList.length == 0) {
       console.log("trying to add tenants to tenants list");
-      // TODO: add tenant to house in DB
-      setHouseTenants(tnState => [...tnState, newTenant]);
 
-      const updatedhouses = houses.map(house =>
-        house.houseId === selectedHouseId
-          ? { ...house, tenants: [...house.tenants, newTenant] }
-          : house
-      );
-      console.log("updated houses:");
-      console.log(updatedhouses);
-      setHouses(updatedhouses);
+      axios
+        .put(
+          `${BASE_URL}/houses/addTenant/${selectedHouseId}`,
+          { userId: user._id, email, name },
+          requestHeader
+        )
+        .then(res => {
+          console.log("updated house tenants successfully");
+          console.log(res);
+
+          console.log("updated houses:");
+          console.log(res.data.houses);
+          setHouses(res.data.houses);
+
+          toggleAddTenants();
+        })
+        .catch(error => {
+          console.log("Get houses Error: ");
+          console.log(error.response.data.error);
+          return error.response.data.error;
+        });
     } else {
       console.log("tenant alredy in list");
       console.log(tenantInList);
+      return "Tenant already exist";
     }
   };
 
   const selectedHouse = () => {
-    console.log("selectedHouse");
-    console.log(houses);
-    const selectedHouse = houses.filter(
-      house => house.houseId === selectedHouseId
-    );
-
-    return selectedHouse;
+    return houses.filter(house => house._id === user.active_house);
   };
 
   const getCurrentHouseTenants = () => {
     const selectedhouseObj = selectedHouse();
     console.log("selected house object:");
     console.log(selectedhouseObj);
-    return selectedhouseObj[0].tenants;
+    return selectedhouseObj[0].house_tenants;
   };
 
   return (
     <HouseContext.Provider
       value={{
         houses: houses,
-        houseTenants: houseTenants,
         setHouses: setHouses,
+        activeHouseId: user ? user.active_house : "",
+
         showNewHouse: showNewHouse,
         toggleNewHouse: toggleNewHouse,
         handleNewHouse: handleNewHouse,
+
+        // houseTenants: houseTenants,
         showAddTenants: showAddTenants,
         toggleAddTenants: toggleAddTenants,
-        handleNewTenant: handleNewTenant,
-        handleAddTenants: handleAddTenants,
-        activeHouseId: selectedHouseId,
-        setSelectedHouse: setSelectedHouse
+        handleNewTenant: handleNewTenant
+
+        // setSelectedHouse: setSelectedHouse
       }}
     >
       {props.children}

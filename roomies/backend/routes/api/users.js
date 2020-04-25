@@ -8,6 +8,9 @@ const auth = require("../../helpers/auth");
 // User Model
 const User = require("../../models/User");
 
+/* TODO: user controller
+TODO: set active house for user */
+
 /**
  * @route   GET api/users
  * @desc    Get all users

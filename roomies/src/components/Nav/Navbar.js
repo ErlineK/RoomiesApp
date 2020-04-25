@@ -28,7 +28,6 @@ function Navbar() {
     }
   ];
 
-  /* important! keep title one word, so side nav css wont be broken */
   const userSideNavItems = [
     { title: "Home", path: "UserHome", icon: "home", color: "red" },
     { title: "Bills", path: "Bills", icon: "bills", color: "orange" },
@@ -45,7 +44,6 @@ function Navbar() {
   return isLoggedIn() ? (
     <>
       <TopNav navItems={userTopNavItems} />
-      {/* <SideNav className="side-bar" navItems={userSideNavItems} /> */}
       <SideNav className="side-bar" navItems={userSideNavItems} />
     </>
   ) : (

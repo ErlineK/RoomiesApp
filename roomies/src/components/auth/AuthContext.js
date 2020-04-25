@@ -12,7 +12,8 @@ export function AuthProvider(props) {
   };
 
   const loginUser = (user, token) => {
-    if (token !== "") {
+    console.log("setting new user");
+    if (token && token !== "") {
       setToken(token);
     }
     setUser(user);

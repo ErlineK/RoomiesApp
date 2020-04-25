@@ -52,7 +52,7 @@ export default function HomeBills() {
           isLoading={isLoading}
           isError={isError}
           noData={data.bills === "undefined" || data.bills.length < 1}
-          title={"Bills pending/ latest bills"}
+          title={"Latest bills"}
           itemsName={"bills"}
           linkTitle={"All bills"}
           linkPath={"Bills"}

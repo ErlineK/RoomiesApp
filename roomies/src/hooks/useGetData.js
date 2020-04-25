@@ -4,9 +4,6 @@ import dataFetchReducer from "../reducers/dataFetch.reducer";
 import { BASE_URL } from "../utils/AppParams";
 import { AuthContext } from "../components/auth/AuthContext";
 
-// const BASE_URL = "http://localhost:5000/api";
-// const BASE_URL = "https://jsonplaceholder.typicode.com/users";
-
 export default ({ reqUri, reqType, reqData }, initData) => {
   const { requestHeader } = useContext(AuthContext);
   const [requst, setRequest] = useState({

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import useInputState from "../../../../hooks/useInputState";
 import "../../../auth/auth.scss";
 import PopUpCard from "../../../GenericComponents/PopUpCard";
@@ -7,24 +7,30 @@ import uuid from "uuid";
 
 function AddTenantsPop() {
   const { toggleAddTenants, handleNewTenant } = useContext(HouseContext);
+  const [error, setError] = useState();
 
   const [name, handleNameChange] = useInputState("");
-  const [email, handleEmailChange, validateEmail] = useInputState("");
+  const [
+    email,
+    handleEmailChange,
+    resetEmail,
+    validateEmail,
+    emailError
+  ] = useInputState("", "EMAIL");
 
   const handleAddTenant = () => {
     console.log("saving tenant");
-    //TODO: handle add tenants
-    let tenant = {
-      _id: uuid(),
-      invited: new Date(), //do that on server
-      added: null, //do this on server. changes when invitation is approved
-      name: name,
-      email: email,
-      admin: false //do that on server
-    };
 
-    handleNewTenant(tenant);
-    toggleAddTenants();
+    // TODO: add loader
+
+    const tenantError = handleNewTenant(email, name);
+    if (tenantError && tenantError !== "") {
+      // TODO: handle error
+      setError(tenantError);
+    }
+    // else {
+    //   toggleAddTenants();
+    // }
   };
 
   //   Validate name exist and not empty
@@ -36,7 +42,7 @@ function AddTenantsPop() {
     }
 
     if (validated) {
-      validated = validated = validateEmail("EMAIL");
+      validated = validateEmail();
     }
 
     return validated;
@@ -48,18 +54,21 @@ function AddTenantsPop() {
     if (validate()) {
       handleAddTenant();
       toggleAddTenants();
+    } else {
+      setError("Invalid data.\n" + emailError);
     }
   };
 
   return (
     <PopUpCard togglePop={toggleAddTenants}>
       <div>
+        {error && <div className="alert-danger">{error}</div>}
         <p className="form-text">
           To invite a tenant, please enter their name and email.
         </p>
         <small className="form-text">
-          Please note - temaporarily only registered Roomies will be able to
-          recieve an invitation.
+          Please note - only registered Roomies will be able to recieve an
+          invitation.
         </small>
         <hr></hr>
 
@@ -70,7 +79,7 @@ function AddTenantsPop() {
               id="name"
               type="text"
               name="hNnameame"
-              placeholder="Chuck Norris"
+              placeholder="Example: Chuck Norris"
               className="form-control"
               value={name}
               onChange={handleNameChange}
@@ -83,7 +92,7 @@ function AddTenantsPop() {
               id="email"
               type="email"
               name="email"
-              placeholder="gmail@allmighty.com"
+              placeholder="Example: gmail@allmighty.com"
               className="form-control"
               value={email}
               onChange={handleEmailChange}

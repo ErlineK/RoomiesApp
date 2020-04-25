@@ -2,121 +2,150 @@ const express = require("express");
 const router = express.Router();
 const auth = require("../../helpers/auth");
 
-// Load House model
+// House model
 const House = require("../../models/House");
+// User model
+const User = require("../../models/User");
 
-// /**
-//  * @route       GET api/houses/
-//  * @description Get all houses
-//  * @access      Private
-//  */
-// router.get("/", (req, res) => {
-//   House.find()
-//     .sort({ active: +1 })
-//     .then(houses => res.json(houses))
-//     .catch(err => res.status(404).json({ noHousesfound: "No houses found" }));
-// });
+const houseController = require("../../controllers/houseController");
 
 /**
- * @route       GET api/houses
- * @description Get all houses for userId
+ * @route       api/houses/:userId
  * @access      Public
  */
-router.get("/:userId", auth, (req, res) => {
-  House.find({ tenants: req.params.userId })
-    .populate({ path: "tenants" })
-    .sort({ active: -1, opened: -1 })
-    .then(houses => res.json({ msg: "Got houses successfully", houses }))
-    .catch(err => res.status(404).json({ error: "No houses found" }));
-});
+router
+  .route("/:userId")
+  .head(auth)
+  .get(houseController.getAllHousesForUser)
+  .patch(houseController.updateHouse)
+  .post(houseController.addNewHouse);
 
 // /**
-//  * @route       GET api/houses/:id
-//  * @description Get single house by id
+//  * @route       POST api/houses
+//  * @description add/save house
 //  * @access      Public
 //  */
-// router.get("/:id", (req, res) => {
-//   House.findById(req.params.id)
-//     .then(house => res.json(house))
-//     .catch(err => res.status(404).json({ error: "No house found" }));
+// router.post("/", auth, (req, res) => {
+//   const reqDataHouse = req.body.newHouse;
+
+//   const newHouse = new House({
+//     admin: req.body.userId,
+//     houseName: reqDataHouse.houseName,
+//     address: reqDataHouse.address,
+//     city: reqDataHouse.city,
+//     province: reqDataHouse.province,
+//     description: reqDataHouse.description,
+//     house_tenants: reqDataHouse.tenants,
+//     approved_tenants: reqDataHouse.tenants,
+//     avatar: reqDataHouse.avatar
+//   });
+
+//   newHouse
+//     .save()
+//     .then(house => {
+//       // TODO: set house as active in user's object
+//       House.updateMany(
+//         {
+//           _id: { $ne: house.id },
+//           house_tenants: req.body.userId,
+//           active: true
+//         },
+//         { $set: { active: false } }
+//       )
+//         .then(houses =>
+//           // return entire user houses list
+//           House.find({ house_tenants: req.body.userId })
+//             .populate({
+//               path: "house_tenants",
+//               select: "email name",
+//               populate: { path: "approved_tenants", select: "email name" }
+//             })
+//             .sort({ active: -1 })
+//             .then(houses =>
+//               res.json({ msg: "House added successfully", houses })
+//             )
+//             .catch(err =>
+//               res.status(404).json({ error: "Error getting houses list" })
+//             )
+//         )
+//         .catch(err => {
+//           console.log(err);
+//         });
+//     })
+//     .catch(err => {
+//       console.log(err);
+//       res.status(400).json({ error: "Unable to add this house" });
+//     });
+// });
+
+// /**
+//  * @route       PUT api/houses/:id
+//  * @description Update house
+//  * @access      Public
+//  */
+// router.put("/:id", auth, (req, res) => {
+//   House.findByIdAndUpdate(req.params.id, req.body)
+//     .then(house => res.json({ msg: "Updated successfully", house }))
+//     .catch(err =>
+//       res.status(400).json({ error: "Unable to update the Database" })
+//     );
 // });
 
 /**
- * @route       POST api/houses
- * @description add/save house
+ * @route       PUT api/houses/addTenant/:houseId
+ * @description Add house tenant
  * @access      Public
  */
-router.post("/", auth, (req, res) => {
-  console.log("adding new house");
+router.put("/addTenant/:houseId", auth, (req, res) => {
+  const { userId, email, name } = req.body;
+  // check tenant id exist as user
+  User.findOne({ email: email })
+    .select("-password")
+    .then(user => {
+      if (!user) {
+        res.status(404).json({ error: "No houses found" });
+      }
+      console.log("found user with email: " + user);
+      // add tenant to house
+      House.findByIdAndUpdate(req.params.houseId, {
+        $push: { house_tenants: user }
+      })
+        .then(house => {
+          console.log("updated house");
+          console.log(house.house_tenants);
 
-  const reqDataHouse = req.body.newHouse;
+          // TODO: create invitation notification
 
-  const newHouse = new House({
-    admin: req.body.userId,
-    houseName: reqDataHouse.houseName,
-    address: reqDataHouse.address,
-    city: reqDataHouse.city,
-    province: reqDataHouse.province,
-    description: reqDataHouse.description,
-    tenants: reqDataHouse.tenants,
-    avatar: reqDataHouse.avatar
-  });
-
-  console.log(newHouse);
-
-  newHouse
-    .save()
-    .then(house => {
-      // set all other houses of that user to active: false
-      House.updateMany(
-        {
-          _id: { $ne: house.id },
-          tenants: req.body.userId,
-          active: true
-        },
-        { $set: { active: false } }
-      )
-        .then(houses =>
-          // return entire user houses list
-          House.find({ tenants: [req.body.userId] })
-            .populate({ path: "tenants" })
-            .sort({ active: -1 })
+          // get houses list
+          // res.json({ msg: "Updated successfully", house });
+          House.find({ house_tenants: userId })
+            .populate({
+              path: "house_tenants",
+              select: "email name",
+              populate: { path: "approved_tenants", select: "email name" }
+            })
+            .sort({ active: -1, opened: -1 })
             .then(houses =>
-              res.json({ msg: "House added successfully", houses })
+              res.json({ msg: "Got houses successfully", houses })
             )
-            .catch(err =>
-              res.status(404).json({ error: "Error getting houses list" })
-            )
-        )
+            .catch(err => res.status(404).json({ error: "No houses found" }));
+        })
         .catch(err => {
           console.log(err);
+          res.status(400).json({ error: "Unable to update the Database" });
         });
     })
     .catch(err => {
-      console.log(err);
-      res.status(400).json({ error: "Unable to add this house" });
+      console.log("can't find user with email " + email);
+      res.status(400).json({ error: "User not found" });
     });
 });
 
-/**
- * @route       PUT api/houses/:id
- * @description Update house
- * @access      Public
- */
-router.put("/:id", auth, (req, res) => {
-  House.findByIdAndUpdate(req.params.id, req.body)
-    .then(house => res.json({ msg: "Updated successfully", house }))
-    .catch(err =>
-      res.status(400).json({ error: "Unable to update the Database" })
-    );
-});
-
-/**
- * @route       PUT api/houses/remove/:id
- * @description Remove house for tenant. If no tenants left in house - delete house
- * @access      Public
- */
-
+// /**
+//  * @route       PUT api/houses/remove/:id
+//  * @description Remove house for tenant. If no tenants left in house - delete house
+//  * @access      Public
+//  */
 //  TODO: set that
 // router.put("/reamove/:id", (req, res) => {
 //   House.findByIdAndUpdate(req.params.id, req.body)
@@ -127,36 +156,5 @@ router.put("/:id", auth, (req, res) => {
 // });
 
 // TODO: add tenants to house
-
-/**
- * @route       DELETE api/houses/:id
- * @description Delete house by id
- * @access      Private
- */
-router.delete("/:id", (req, res) => {
-  House.findByIdAndRemove(req.params.id, req.body)
-    .then(house => res.json({ mgs: "House entry deleted successfully" }))
-    .catch(err => res.status(404).json({ error: "No such a house" }));
-});
-
-/**
- * @route       PUT api/houses/avatar
- * @description Update house avatar
- * @access      Public
- */
-router.put("/avatar", auth, (req, res) => {
-  House.findByIdAndUpdate(
-    { _id: req.body.houseId },
-    { avatar: req.body.avatar },
-    { new: true }
-  )
-    .then(house => {
-      res.json({ msg: "Avatar updated successfully", house });
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(400).json({ error: "Unable to update avatar" });
-    });
-});
 
 module.exports = router;

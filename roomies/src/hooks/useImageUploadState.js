@@ -24,7 +24,7 @@ export default (initImage, imgSource) => {
 
     if (file) {
       imageCompression(file, {
-        maxSizeMB: 1,
+        maxSizeMB: 0.75,
         maxWidthOrHeight: 150
       })
         .then(compressedFile => {
@@ -44,7 +44,7 @@ export default (initImage, imgSource) => {
     imgUploadDispatch({ type: "UPLOAD_INIT" });
 
     const uploadImgUrl = `${BASE_URL}/${
-      imgSource == "USER" ? "users" : "houses"
+      imgSource === "USER" ? "users" : "houses"
     }/avatar`;
 
     const uploadData =
@@ -66,6 +66,9 @@ export default (initImage, imgSource) => {
             // update user in AuthContext
             loginUser(res.data.user, res.config.headers["x-auth-token"]);
 
+            break;
+
+          default:
             break;
         }
 

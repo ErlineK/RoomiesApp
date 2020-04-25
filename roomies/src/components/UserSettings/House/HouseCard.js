@@ -10,36 +10,37 @@ import { HouseContext } from "./HouseContext";
 
 export default function HouseCard({ house }) {
   const { userId } = useContext(AuthContext);
-  const { activeHouseId, handleAddTenants, toggleNewHouse } = useContext(
+  const { activeHouseId, toggleAddTenants, toggleNewHouse } = useContext(
     HouseContext
   );
 
-  const tenants = house
-    ? house.tenants.map(tenant =>
-        userId === tenant._id ? (
-          ""
-        ) : (
-          <li
-            key={tenant._id}
-            className={tenant.added === null ? "text-muted" : ""}
-          >
-            {tenant.name}
-            <span className="small-note success">
-              {tenant.admin && "admin"}
-            </span>
-            <span className="small-note abort">
-              {tenant.added === null && "Not Approved"}
-            </span>
-          </li>
+  const tenants =
+    house && house.house_tenants
+      ? house.house_tenants.map(tenant =>
+          userId === tenant._id ? (
+            ""
+          ) : (
+            <li
+              key={tenant._id}
+              className={tenant.added === null ? "text-muted" : ""}
+            >
+              {tenant.name}
+              <span className="small-note success">
+                {tenant.admin && "admin"}
+              </span>
+              <span className="small-note abort">
+                {tenant.added === null && "Not Approved"}
+              </span>
+            </li>
+          )
         )
-      )
-    : "";
+      : "";
+
+  const houseActive = house && house._id === activeHouseId;
 
   return (
     <div
-      className={`${
-        house && house.active ? "activeCard" : ""
-      } card houseCardHolder`}
+      className={`${houseActive ? "activeCard" : ""} card houseCardHolder`}
       onClick={!house ? toggleNewHouse : null}
     >
       {house === undefined ? (
@@ -47,14 +48,14 @@ export default function HouseCard({ house }) {
       ) : (
         <>
           <Link className="" to={`/House/${house._id}`}>
-            {house && house._id === activeHouseId ? (
+            {houseActive ? (
               <FaEdit className="sectionIcon" />
             ) : (
               <FaEye className="sectionIcon" />
             )}
           </Link>
 
-          {house && house.active ? (
+          {houseActive ? (
             <span className="small-note sectionNote">Active</span>
           ) : (
             ""
@@ -76,10 +77,10 @@ export default function HouseCard({ house }) {
           <p>{`${house.address} ${house.city}, ${house.province}`}</p>
           <div className="tenantsHolder">
             {/* Tenants can be added only to curently active house! */}
-            {house && house.active && (
+            {houseActive && (
               <FaUserPlus
                 className="sectionIcon"
-                onClick={() => handleAddTenants(activeHouseId)}
+                onClick={() => toggleAddTenants()}
               />
             )}
             <ul>
