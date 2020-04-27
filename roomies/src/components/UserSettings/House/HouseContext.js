@@ -101,8 +101,8 @@ export function HouseProvider(props) {
 
       axios
         .put(
-          `${BASE_URL}/houses/addTenant/${selectedHouseId}`,
-          { userId: user._id, email, name },
+          `${BASE_URL}/houses/${user._id}/tenants`,
+          { houseId: selectedHouseId, email, name },
           requestHeader
         )
         .then(res => {

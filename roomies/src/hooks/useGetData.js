@@ -7,8 +7,7 @@ import { AuthContext } from "../components/auth/AuthContext";
 export default ({ reqUri, reqType, reqData }, initData) => {
   const { requestHeader } = useContext(AuthContext);
   const [requst, setRequest] = useState({
-    url: `${BASE_URL}/${reqUri}`,
-    // url: reqUri,
+    url: reqUri,
     reqType: reqType,
     reqData: reqData
   });
@@ -19,30 +18,36 @@ export default ({ reqUri, reqType, reqData }, initData) => {
   });
 
   useEffect(() => {
-    console.log("entered use effect on useGetData");
-    console.log("useGetData url: " + requst.url);
-
     let didCancel = false; //to prevent state changing after component unmount
     const fetchData = async () => {
       fetchDispatch({ type: "FETCH_INIT" });
       try {
-        const result = await axios[requst.reqType](
-          requst.url,
+        const response = await axios[requst.reqType](
+          `${BASE_URL}/${requst.url}`,
           requst.reqData,
-          requestHeader()
+          requestHeader
         );
-        console.log(result);
+        console.log("got response on useGetData for " + requst.url);
+        console.log(response);
 
         if (!didCancel) {
-          fetchDispatch({ type: "FETCH_SUCCESS", payload: result.data });
+          fetchDispatch({ type: "FETCH_SUCCESS", payload: response.data });
         }
       } catch (error) {
+        // console.log(error);
+        console.log(error.response.data.error);
         if (!didCancel) {
           fetchDispatch({ type: "FETCH_FAILURE" });
         }
       }
     };
-    fetchData();
+    if (
+      requst !== undefined &&
+      requst.url !== undefined &&
+      requst.reqType !== undefined
+    ) {
+      fetchData();
+    }
     return () => {
       didCancel = true;
     };

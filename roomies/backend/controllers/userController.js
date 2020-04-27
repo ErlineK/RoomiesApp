@@ -7,3 +7,7 @@ exports.updateUser = async (req, res) => {
     .then(user => res.json({ msg: "Updated successfully", user }))
     .catch(err => res.status(400).json({ error: "Could not update user" }));
 };
+
+exports.getUserByParam = async searchObj => {
+  return User.findOne(searchObj).select("-password");
+};

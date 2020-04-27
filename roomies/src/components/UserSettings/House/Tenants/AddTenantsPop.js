@@ -3,7 +3,6 @@ import useInputState from "../../../../hooks/useInputState";
 import "../../../auth/auth.scss";
 import PopUpCard from "../../../GenericComponents/PopUpCard";
 import { HouseContext } from "../HouseContext";
-import uuid from "uuid";
 
 function AddTenantsPop() {
   const { toggleAddTenants, handleNewTenant } = useContext(HouseContext);

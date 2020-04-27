@@ -3,6 +3,9 @@ const House = require("../models/House");
 // User constroller
 const userController = require("./userController");
 
+// User constroller
+const notificationController = require("./notificationController");
+
 exports.getAllHousesForUser = async (req, res) => {
   try {
     // get all houses where user is a tenant
@@ -16,7 +19,7 @@ exports.getAllHousesForUser = async (req, res) => {
       })
       .sort({ opened: -1 });
 
-    res.json({ msg: "Got user houses successfully", houses });
+    res.json({ msg: "Got user houses successfully", houses: houses });
   } catch (err) {
     res.status(404).json({ error: "Could not find houses" });
   }
@@ -46,19 +49,44 @@ exports.addNewHouse = async (req, res) => {
       avatar: reqDataHouse.avatar
     }).save();
 
-    console.log("new house:");
-    console.log(newHouse);
-
     //update user's active house
     const updateUserReq = {
       params: { userId: req.params.userId },
       body: { active_house: newHouse._id }
     };
-
     // update user and return
     userController.updateUser(updateUserReq, res);
   } catch (err) {
     console.log(err);
     res.status(404).json({ error: "Could not save new house" });
+  }
+};
+
+exports.addTenant = async (req, res) => {
+  const { houseId, email, name } = req.body;
+
+  try {
+    // get user with tenant email
+    const tenant = await userController.getUserByParam({ email: email });
+    if (!tenant) {
+      res.status(404).json({ error: "No such user" });
+    }
+
+    // add tenant to house
+    await House.findByIdAndUpdate(houseId, {
+      $push: { house_tenants: tenant }
+    });
+
+    // create invitation notification
+    notificationController.createNvtNotification(
+      req.params.userId,
+      tenant._id,
+      houseId
+    );
+    // get houses list
+    this.getAllHousesForUser(req, res);
+  } catch (err) {
+    console.log(err);
+    res.status(404).json({ error: "Could not add tenant" });
   }
 };

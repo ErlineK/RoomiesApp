@@ -2,7 +2,7 @@ import React from "react";
 import { FaCheck } from "react-icons/fa";
 import { GiKeyring } from "react-icons/gi";
 import { TiDeleteOutline } from "react-icons/ti";
-import { formatDate } from "../../utils/formatHelper";
+import { formatDateOnly } from "../../utils/formatHelper";
 
 function InvitationMsgItem({ item }) {
   return (
@@ -11,16 +11,18 @@ function InvitationMsgItem({ item }) {
         <GiKeyring className="listIcon" />
         <div style={{ width: "100%" }}>
           <div className="msgRow">
-            <p>
-              <span style={{ fontWeight: "bold" }}>{item.author}</span> invited
-              you to join{" "}
-              <span style={{ fontWeight: "bold" }}>{item.propertyName}</span>
+            <p className="msgTitle">
+              <span style={{ fontWeight: "bold" }}>{item.from_user.name}</span>{" "}
+              invited you to join{" "}
+              <span style={{ fontWeight: "bold" }}>
+                {item.ntf_house.houseName}
+              </span>
             </p>
-            <p className="description textLight">{formatDate(item.date)}</p>
+            <p className="description textLight">{formatDateOnly(item.date)}</p>
           </div>
           <div className="msgRow">
             <p className="description">
-              {item.propertyAddress} , {item.propertyCity}
+              {item.ntf_house.address} , {item.ntf_house.city}
             </p>
             {/* <button className="btn msgSimpleBtn highlightGreen invitationBtnPosition">
               <FaCheck className="accent-icon" />

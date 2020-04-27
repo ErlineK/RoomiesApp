@@ -22,14 +22,16 @@ export default function HouseCard({ house }) {
           ) : (
             <li
               key={tenant._id}
-              className={tenant.added === null ? "text-muted" : ""}
+              className={
+                !house.approved_tenants.includes(tenant._id) ? "text-muted" : ""
+              }
             >
               {tenant.name}
               <span className="small-note success">
-                {tenant.admin && "admin"}
+                {house.admin === tenant._id && "admin"}
               </span>
               <span className="small-note abort">
-                {tenant.added === null && "Not Approved"}
+                {!house.approved_tenants.includes(tenant._id) && "Not Approved"}
               </span>
             </li>
           )

@@ -9,23 +9,22 @@ const auth = require("../../helpers/auth");
 const User = require("../../models/User");
 
 /* TODO: user controller
-TODO: set active house for user */
 
-/**
- * @route   GET api/users
- * @desc    Get all users
- * @access  Private
- */
+// /**
+//  * @route   GET api/users
+//  * @desc    Get all users
+//  * @access  Private
+//  */
 
-router.get("/", async (req, res) => {
-  try {
-    const users = await User.find();
-    if (!users) throw Error("No users exist");
-    res.json(users);
-  } catch (e) {
-    res.status(400).json({ msg: e.message });
-  }
-});
+// router.get("/", async (req, res) => {
+//   try {
+//     const users = await User.find();
+//     if (!users) throw Error("No users exist");
+//     res.json(users);
+//   } catch (e) {
+//     res.status(400).json({ msg: e.message });
+//   }
+// });
 
 /**
  * @route   POST api/users
