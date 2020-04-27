@@ -12,7 +12,7 @@ import CircleLoader from "../GenericComponents/Loader/CircleLoader";
 // TODO: add loader
 
 export default function CreateProfile() {
-  const { user, requestHeader, loginUser } = useContext(AuthContext);
+  const { user, requestHeader } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
   const [srvError, setSrvError] = useState();
   const [

@@ -3,8 +3,8 @@ import "./circle_loader.scss";
 
 export default function CircleLoader() {
   return (
-    <div className="main">
-      <div className="inside"></div>
+    <div className="loaderHolder">
+      <div className="loader"></div>
     </div>
   );
 }

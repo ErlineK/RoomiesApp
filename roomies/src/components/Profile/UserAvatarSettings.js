@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import "./profile.scss";
 import { getIcon } from "../../utils/iconManager";
 import { FaUserEdit, FaUserCheck, FaUserTimes } from "react-icons/fa";

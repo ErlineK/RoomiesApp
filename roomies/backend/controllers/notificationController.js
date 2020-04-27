@@ -66,7 +66,6 @@ exports.addMsgNotification = async (req, res) => {
 };
 
 exports.createNvtNotification = async (fromId, toId, houseId) => {
-  console.log("creating invitation");
   try {
     //create invitation notification
     const newInvitation = await Notification.create({
@@ -80,6 +79,18 @@ exports.createNvtNotification = async (fromId, toId, houseId) => {
   } catch (err) {
     console.log(err);
     return err;
+  }
+};
+
+exports.acceptInvitation = async () => {
+  try {
+    //TODO: change invitation status to accepted
+    //TODO: add house as user's active house
+    //TODO: create welcome notification (NTF, general) to all house tenants but current
+    //   TODO: return user's notifications?
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({ error: "Could not update invitation" });
   }
 };
 

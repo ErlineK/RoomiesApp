@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "../../Profile/profile.scss";
 import "./house.scss";
 import useImageUploadState from "../../../hooks/useImageUploadState";
