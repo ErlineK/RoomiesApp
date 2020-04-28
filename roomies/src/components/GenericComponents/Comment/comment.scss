@@ -1,0 +1,28 @@
+@import "../general.scss";
+
+.commentSection {
+  width: 100%;
+  margin: 0 auto;
+  display: inline-flex;
+
+  .sectionIcon {
+    position: relative;
+    top: 0;
+    right: unset;
+    font-size: unset;
+  }
+}
+
+.commentHolder {
+  width: 100%;
+  margin: auto;
+}
+
+@media (min-width: $tablet) {
+  .commentSection {
+    width: 80%;
+  }
+  .commentHolder {
+    width: 80%;
+  }
+}

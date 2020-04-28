@@ -2,16 +2,35 @@ import React from "react";
 import { GiPayMoney } from "react-icons/gi";
 import "../Home/UserHome/homeLists.scss";
 import {
+  formatCurrency,
   formatDateOnly,
-  formatDayMonth,
-  formatCurrency
+  formatDayMonth
 } from "../../utils/formatHelper";
 import { getBackgroundByDue } from "../Home/UserHome/homeHelper";
+import { getIcon } from "../../utils/iconManager";
+// import CommentSection from "../GenericComponents/Comment/CommentSection";
 
 // TODO: set Icon by bill type
 // TODO: on bill click go to bill page
 
-function HomeBillItem({ item }) {
+function BillItem({ item }) {
+  const handleRemoveBill = e => {
+    e.preventDefault();
+
+    // TODO: prompt confiramtion
+    // TODO: on accept confirm - remove bill
+
+    console.log("removing bill");
+  };
+
+  const handleEditBill = e => {
+    e.preventDefault();
+
+    // TODO: go to edit bill with bill info
+
+    console.log("editing bill");
+  };
+
   const billingPreiod =
     item && item.start_date && item.end_date
       ? `${formatDayMonth(item.start_date)} - ${formatDayMonth(
@@ -21,10 +40,7 @@ function HomeBillItem({ item }) {
 
   return (
     <div
-      className={`${getBackgroundByDue(item.dueDate)} listItemHolder`}
-      onClick={() => {
-        console.log("clicked on bill");
-      }}
+      className={`${getBackgroundByDue(item.dueDate)} listItemHolder billItem`}
     >
       <div className="listFlexHolder">
         <GiPayMoney
@@ -32,12 +48,15 @@ function HomeBillItem({ item }) {
         />
 
         <div
-          className="msgRow lhShort listGridHolder"
-          style={{ width: "100%" }}
+          className="billsGrid"
+          onClick={() => {
+            console.log("clicked on bill");
+          }}
         >
-          {/* <div className="gridItem">
+          <div className="gridItem">
             <p>{item.refNum}</p>
-          </div> */}
+          </div>
+
           <div className="gridItem">
             <p>{billingPreiod}</p>
           </div>
@@ -64,11 +83,20 @@ function HomeBillItem({ item }) {
             </p>
           </div>
         </div>
+        <div className="flex-container billsIconsHolder">
+          {getIcon("edit", "billActionIcon success_hov", e =>
+            handleEditBill(e)
+          )}
+          {getIcon("decline", "billActionIcon success_hov", e =>
+            handleRemoveBill(e)
+          )}
+        </div>
       </div>
+      {/* <CommentSection comments={item.comments} type={"PREV"} /> */}
 
       <hr></hr>
     </div>
   );
 }
 
-export default HomeBillItem;
+export default BillItem;

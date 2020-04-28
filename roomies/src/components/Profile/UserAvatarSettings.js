@@ -31,14 +31,20 @@ export default function UserAvatarSettings({ avatar }) {
 
   const saveSelection = (
     <div className="flex-container toRight doubleIconHolder">
-      <FaUserCheck
+      {getIcon("acceptUser", "actionIcon doubleIcon success_hov", e =>
+        handleSaveImage(e)
+      )}
+      {/* <FaUserCheck
         className="actionIcon doubleIcon success_hov"
         onClick={e => handleSaveImage(e)}
-      />
-      <FaUserTimes
+      /> */}
+      {getIcon("declineUser", "actionIcon doubleIcon success_hov", e =>
+        handleDismissImage(e)
+      )}
+      {/* <FaUserTimes
         className="actionIcon doubleIcon abort"
         onClick={e => handleDismissImage(e)}
-      />
+      /> */}
     </div>
   );
 

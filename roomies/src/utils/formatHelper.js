@@ -17,6 +17,13 @@ export function formatDateOnly(dateBase) {
   }).format(dateBase);
 }
 
+export function formatDayMonth(dateBase) {
+  return new Intl.DateTimeFormat("en-CA", {
+    month: "short",
+    day: "numeric"
+  }).format(dateBase);
+}
+
 export function formatCurrency(amount) {
   return new Intl.NumberFormat("en-CA", {
     style: "currency",

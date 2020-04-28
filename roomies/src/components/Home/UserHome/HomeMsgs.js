@@ -110,10 +110,7 @@ function HomeMsgs() {
           title={""}
           itemsName={"messages"}
         >
-          <div className="listContainer">
-            {/* <div className="titleContainer">this is title</div> */}
-            {msgs}
-          </div>
+          <div className="listContainer">{msgs}</div>
         </HomeFragment>
       </div>
     </div>

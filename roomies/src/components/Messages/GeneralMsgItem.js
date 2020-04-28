@@ -1,23 +1,17 @@
 import React from "react";
 import { TiMessages } from "react-icons/ti";
 import { MdReplyAll } from "react-icons/md";
+import { getIcon } from "../../utils/iconManager";
+import { formatDate } from "../../utils/formatHelper";
 
 // TODO: on reply button click -> open quick reply module
 
 function GeneralMsgItem({ item }) {
-  function formatDate(dateBase) {
-    return new Intl.DateTimeFormat("en-CA", {
-      month: "short",
-      day: "2-digit",
-      hour: "numeric",
-      minute: "numeric",
-      hour12: false
-    }).format(dateBase);
-  }
   return (
     <div className="listItemHolder">
       <div className="listFlexHolder">
-        <TiMessages className="listIcon" />
+        {getIcon("messages", "listIcon")}
+        {/* <TiMessages className="listIcon" /> */}
         <div style={{ width: "100%" }}>
           <div className="msgRow lhShort">
             <p className="description">
