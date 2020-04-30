@@ -13,32 +13,19 @@ function Registration() {
   const { loginUser } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
   const [srvError, setSrvError] = useState();
-  const [
-    name,
-    handleNameChange,
-    resetName,
-    validateName,
-    nameError
-  ] = useInputState("", "NAME");
-  const [
-    email,
-    handleEmailChange,
-    resetEmail,
-    validateEmail,
-    emailError
-  ] = useInputState("", "EMAIL");
-  const [
-    password,
-    handlePassChange,
-    resetPass,
-    validatePass,
-    passError
-  ] = useInputState("", "PASS");
-  const [
-    passConfirm,
-    handlePassConfirmChange,
-    resetPassConfirm
-  ] = useInputState("", "PASS");
+  const [name, handleNameChange, validateName, nameError] = useInputState(
+    "",
+    "NAME"
+  );
+  const [email, handleEmailChange, validateEmail, emailError] = useInputState(
+    "",
+    "EMAIL"
+  );
+  const [password, handlePassChange, validatePass, passError] = useInputState(
+    "",
+    "PASS"
+  );
+  const [passConfirm, handlePassConfirmChange] = useInputState("", "PASS");
   const [passConfirmError, setPassConfirmError] = useState("");
 
   const handleRegistration = () => {
@@ -52,12 +39,6 @@ function Registration() {
         console.log(res);
         //  save user and token to context
         loginUser(res.data.user, res.data.token);
-
-        //reset fields
-        // resetName();
-        // resetEmail();
-        // resetPass();
-        // resetPassConfirm();
 
         // redirect home
         history.push("/CreateProfile");

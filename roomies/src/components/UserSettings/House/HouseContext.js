@@ -10,6 +10,7 @@ export const HouseContext = createContext();
 
 export function HouseProvider(props) {
   const { requestHeader, user, loginUser } = useContext(AuthContext);
+
   const [houses, setHousesState] = useState();
   // const [houseTenants, setHouseTenants] = useState();
   const [showAddTenants, toggleAddTenants] = useToggle(false);
@@ -44,16 +45,6 @@ export function HouseProvider(props) {
   // };
 
   const setHouses = houses => {
-    // save currently active house id (later get it from Auth context)
-    // let activeHouseId = undefined;
-    // houses.map(house => {
-    //   if (house.active) {
-    //     activeHouseId = house._id;
-    //   }
-    // });
-
-    // console.log("active house id:" + activeHouseId);
-
     setSelectedHouseId(user.active_house);
     setHousesState(houses);
   };
@@ -131,12 +122,12 @@ export function HouseProvider(props) {
     return houses.filter(house => house._id === user.active_house);
   };
 
-  const getCurrentHouseTenants = () => {
-    const selectedhouseObj = selectedHouse();
-    console.log("selected house object:");
-    console.log(selectedhouseObj);
-    return selectedhouseObj[0].house_tenants;
-  };
+  // const getCurrentHouseTenants = () => {
+  //   const selectedhouseObj = selectedHouse();
+  //   console.log("selected house object:");
+  //   console.log(selectedhouseObj);
+  //   return selectedhouseObj[0].house_tenants;
+  // };
 
   return (
     <HouseContext.Provider
@@ -144,12 +135,12 @@ export function HouseProvider(props) {
         houses: houses,
         setHouses: setHouses,
         activeHouseId: user ? user.active_house : "",
+        selectedHouse: selectedHouse,
 
         showNewHouse: showNewHouse,
         toggleNewHouse: toggleNewHouse,
         handleNewHouse: handleNewHouse,
 
-        // houseTenants: houseTenants,
         showAddTenants: showAddTenants,
         toggleAddTenants: toggleAddTenants,
         handleNewTenant: handleNewTenant

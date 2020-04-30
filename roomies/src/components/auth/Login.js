@@ -19,20 +19,14 @@ function Login() {
   const history = useHistory();
   const [isLoading, setLoading] = useState(false);
   const [srvError, setSrvError] = useState();
-  const [
-    email,
-    handleEmailChange,
-    resetEmail,
-    validateEmail,
-    emailError
-  ] = useInputState(test_user.email, "EMAIL");
-  const [
-    password,
-    handlePassChange,
-    resetPass,
-    validatePass,
-    passError
-  ] = useInputState(test_user.pass, "PASS");
+  const [email, handleEmailChange, validateEmail, emailError] = useInputState(
+    test_user.email,
+    "EMAIL"
+  );
+  const [password, handlePassChange, validatePass, passError] = useInputState(
+    test_user.pass,
+    "PASS"
+  );
   const { loginUser } = useContext(AuthContext);
 
   const validated = () => {
@@ -64,10 +58,6 @@ function Login() {
         console.log(res);
         //  save user and token to context
         loginUser(res.data.user, res.data.token);
-
-        // reset fields
-        // resetEmail();
-        // resetPass();
 
         // redirect home
         history.push("/UserHome");

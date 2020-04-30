@@ -18,16 +18,16 @@ export default function CreateProfile() {
   const [
     phone,
     handlePhoneChange,
-    resetPhone,
     validatePhone,
-    phoneErr
+    phoneErr,
+    resetPhone
   ] = useInputState("", "PHONE");
   const [
     brthDate,
     handleBDayChange,
-    resetBDate,
     validateBDay,
-    bDateErr
+    bDateErr,
+    resetBDate
   ] = useInputState("", "B_DATE");
   const [avatar, handleAvatarChange] = useState(user.avatar);
 

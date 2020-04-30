@@ -3,6 +3,7 @@ import { FaCheck } from "react-icons/fa";
 import { GiKeyring } from "react-icons/gi";
 import { TiDeleteOutline } from "react-icons/ti";
 import { formatDateOnly } from "../../utils/formatHelper";
+import { getIcon } from "../../utils/iconManager";
 
 function InvitationMsgItem({ item }) {
   return (
@@ -41,7 +42,8 @@ function InvitationMsgItem({ item }) {
       </div>
 
       <div className="msgBtn msgBtnCancel">
-        <TiDeleteOutline className="msgBtnIcon" />
+        {getIcon("delete", "msgBtnIcon")}
+        {/* <TiDeleteOutline className="msgBtnIcon" /> */}
       </div>
 
       <hr></hr>

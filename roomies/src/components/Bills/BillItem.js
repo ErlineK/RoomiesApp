@@ -53,7 +53,7 @@ function BillItem({ item }) {
             console.log("clicked on bill");
           }}
         >
-          <div className="gridItem">
+          <div className="gridItem lg-sc-only">
             <p>{item.refNum}</p>
           </div>
 
@@ -87,7 +87,7 @@ function BillItem({ item }) {
           {getIcon("edit", "billActionIcon success_hov", e =>
             handleEditBill(e)
           )}
-          {getIcon("decline", "billActionIcon success_hov", e =>
+          {getIcon("delete", "billActionIcon success_hov", e =>
             handleRemoveBill(e)
           )}
         </div>

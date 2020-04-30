@@ -74,20 +74,9 @@ $shadow-primary: (
     )
 );
 
-// .background-gradient {
-//   //   background-image: radial-gradient(
-//   //     circle farthest-corner at 10% 20%,
-//   //     $primary-color 0.1%,
-//   //     rgba(255, 153, 1, 1) 90%
-//   //   );
-
-//   background-image: radial-gradient(
-//     circle farthest-corner at 10% 20%,
-//     rgba(254, 244, 48, 1) 0%,
-//     rgba(250, 214, 1, 1) 42%,
-//     rgba(234, 171, 24, 1) 100%
-//   );
-// }
+.lg-sc-only {
+  display: none;
+}
 
 .appContainer {
   width: 100%;
@@ -125,6 +114,11 @@ $shadow-primary: (
   hr {
     width: 50%;
   }
+}
+
+.section-title {
+  color: $primary-color-dark;
+  margin-top: -1rem;
 }
 
 // gradient button
@@ -239,6 +233,11 @@ $shadow-primary: (
   &.align-base {
     align-items: baseline;
   }
+
+  &.doubleColumn {
+    flex-direction: column;
+    max-width: 50%;
+  }
 }
 
 .flex-item {
@@ -325,6 +324,9 @@ $shadow-primary: (
 }
 
 @media (min-width: $tablet) {
+  .lg-sc-only {
+    display: inherit;
+  }
   .user-main {
     width: 92%;
     margin-left: 70px;
@@ -339,8 +341,4 @@ $shadow-primary: (
       width: 50%;
     }
   }
-
-  // .flex-container {
-  //   align-content: space-around;
-  // }
 }

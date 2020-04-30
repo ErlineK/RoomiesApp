@@ -1,8 +1,9 @@
-import React from "react";
-import { AiFillFileAdd } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
 import "./bills.scss";
 import BillItem from "./BillItem";
+import { getIcon } from "../../utils/iconManager";
+import { BillsContext } from "./BillsContext";
+import AddBillPop from "./AddBillPop";
 
 // TODO: get bills for user
 
@@ -60,22 +61,23 @@ const data = {
 };
 
 export default function Bills() {
-  const bills = data.bills.map((bill, i) => (
+  const { bills, showAddBill, toggleAddBill } = useContext(BillsContext);
+
+  const billItems = data.bills.map((bill, i) => (
     <BillItem key={`bill${i}`} item={bill} />
   ));
 
   return (
-    <div className="user-main">
-      <div className="card">
-        <h3>Bills and Payments</h3>
-        <Link to={"/addBill"}>
-          <AiFillFileAdd className="sectionIcon" />
-        </Link>
-        <div className="billsHolder listContainer">
-          {/* {titles} */}
-          {bills}
-        </div>
-      </div>
+    <div className="card user-main">
+      {/* <div className="card"> */}
+      <h3>Bills and Payments</h3>
+      {getIcon("addFile", "sectionIcon", () => {
+        console.log("toggling bill");
+        toggleAddBill();
+      })}
+      Filter bills..
+      <div className="billsHolder listContainer">{billItems}</div>
+      {showAddBill && <AddBillPop />}
     </div>
   );
 }

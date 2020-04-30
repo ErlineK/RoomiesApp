@@ -8,8 +8,14 @@
   .billsGrid {
     width: 100%;
     display: grid;
-    grid-template-columns: 2fr 3fr 3fr 5fr auto;
+    grid-template-columns: 3fr 3fr 4fr auto;
     grid-template-rows: auto;
+
+    .gridItem {
+      p {
+        font-size: 0.8rem;
+      }
+    }
   }
 
   .billsIconsHolder {
@@ -33,5 +39,17 @@
 @media (min-width: $tablet) {
   .billsHolder {
     margin: 1rem;
+  }
+
+  .billItem {
+    .billsGrid {
+      grid-template-columns: 2fr 3fr 3fr 5fr auto;
+
+      .gridItem {
+        p {
+          font-size: 1rem;
+        }
+      }
+    }
   }
 }

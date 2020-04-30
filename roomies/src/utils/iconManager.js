@@ -14,8 +14,10 @@ import {
   FaUserTimes
 } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
-import { TiMessages } from "react-icons/ti";
+import { TiMessages, TiDeleteOutline } from "react-icons/ti";
 import { MdReplyAll } from "react-icons/md";
+
+import { AiFillFileAdd } from "react-icons/ai";
 
 function getIcon(iconName, classNames, onIconClick) {
   let iconObj;
@@ -42,6 +44,10 @@ function getIcon(iconName, classNames, onIconClick) {
 
     case "add":
       iconObj = <GoPlus className={classNames} onClick={onIconClick} />;
+      break;
+
+    case "addFile":
+      iconObj = <AiFillFileAdd className={classNames} onClick={onIconClick} />;
       break;
 
     case "addUser":
@@ -74,6 +80,16 @@ function getIcon(iconName, classNames, onIconClick) {
 
     case "decline":
       iconObj = <FaMinusCircle className={classNames} onClick={onIconClick} />;
+      break;
+
+    case "delete":
+      iconObj = (
+        <TiDeleteOutline
+          className={classNames}
+          style={{ fontSize: "1.75rem" }}
+          onClick={onIconClick}
+        />
+      );
       break;
 
     case "messages":

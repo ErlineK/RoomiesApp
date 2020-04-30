@@ -5,6 +5,7 @@ import AppRouter from "./AppRouter";
 import { AuthProvider } from "../auth/AuthContext";
 import { HouseProvider } from "../UserSettings/House/HouseContext";
 import Navbar from "../Nav/Navbar";
+import { BillsProvider } from "../Bills/BillsContext";
 
 class App extends Component {
   render() {
@@ -13,8 +14,10 @@ class App extends Component {
         <AuthProvider>
           <HouseProvider>
             <Navbar />
-            <RoomiesApp />
-            <AppRouter />
+            <BillsProvider>
+              <RoomiesApp />
+              <AppRouter />
+            </BillsProvider>
           </HouseProvider>
         </AuthProvider>
       </div>

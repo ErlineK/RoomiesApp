@@ -9,13 +9,10 @@ function AddTenantsPop() {
   const [error, setError] = useState();
 
   const [name, handleNameChange] = useInputState("");
-  const [
-    email,
-    handleEmailChange,
-    resetEmail,
-    validateEmail,
-    emailError
-  ] = useInputState("", "EMAIL");
+  const [email, handleEmailChange, validateEmail, emailError] = useInputState(
+    "",
+    "EMAIL"
+  );
 
   const handleAddTenant = () => {
     console.log("saving tenant");

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { validateVal } from "../utils/validations";
 
 // TODO: rewrite validation function and return an error field
 
@@ -22,63 +23,21 @@ export default (initialVal, valueType) => {
       output:Boolean
    */
   const validate = () => {
-    setError(null);
+    setError(undefined);
     let valid = true;
-    switch (valueType) {
-      case "EMAIL":
-        // check for email pattern
-        const mailPtrn = /^[a-zA-Z0-9]+@(?:[a-zA-Z0-9]+\.)+[A-Za-z]+$/;
-        // const mailPtrn = /^\w+([-]?\w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/;
-        valid = mailPtrn.test(value);
-        if (!valid) {
-          setError("Invalid email");
-        }
-        break;
+    const validationError = validateVal(value, valueType);
 
-      case "PASS":
-        //check for at least 6 digit, no spaces
-        if (value.trim().length < 6) {
-          valid = false;
-          setError("Password must be at least 6 characters long");
-        }
-        // TODO: check for strong password: at least one capital letter, one small latter
-        break;
+    console.log("validation error: " + validationError);
 
-      case "NAME":
-        //min 2 chars, max 20
-        if (value.trim().length < 2 || value.length > 20) {
-          valid = false;
-          setError("Invalid name");
-        }
-        break;
-
-      case "PHONE":
-        var phonrPtrn = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
-        valid = phonrPtrn.test(value);
-        if (!valid) {
-          setError("Invalid phone number");
-        }
-        break;
-
-      case "B_DATE":
-        var valDate = new Date(value);
-        var today = new Date(); //current Date
-        if (today.getFullYear() - valDate.getFullYear() < 16) {
-          valid = false;
-          setError("Invalid date. User must be at least 16 years old");
-        }
-
-        break;
-
-      default:
-        valid = false;
-        setError("Invalid input");
-        break;
+    if (validationError && validationError !== "") {
+      console.log("setting error");
+      valid = false;
+      setError(validationError);
     }
 
     return valid;
   };
 
   // return [value, handleChange, setValue, reset, validate, errorMsg];
-  return [value, handleChange, reset, validate, errorMsg];
+  return [value, handleChange, validate, errorMsg, reset];
 };
