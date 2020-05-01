@@ -27,8 +27,6 @@ export default (initialVal, valueType) => {
     let valid = true;
     const validationError = validateVal(value, valueType);
 
-    console.log("validation error: " + validationError);
-
     if (validationError && validationError !== "") {
       console.log("setting error");
       valid = false;

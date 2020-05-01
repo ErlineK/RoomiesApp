@@ -33,18 +33,18 @@ function BillItem({ item }) {
 
   const billingPreiod =
     item && item.start_date && item.end_date
-      ? `${formatDayMonth(item.start_date)} - ${formatDayMonth(
-          item.start_date
-        )}`
+      ? `${formatDayMonth(item.start_date)} - ${formatDayMonth(item.end_date)}`
       : "";
 
   return (
     <div
-      className={`${getBackgroundByDue(item.dueDate)} listItemHolder billItem`}
+      className={`${getBackgroundByDue(item.due_date)} listItemHolder billItem`}
     >
       <div className="listFlexHolder">
         <GiPayMoney
-          className={`${item.total === item.payed ? "success" : ""} listIcon`}
+          className={`${
+            item.total_amount === item.payed ? "success" : ""
+          } listIcon`}
         />
 
         <div
@@ -54,7 +54,7 @@ function BillItem({ item }) {
           }}
         >
           <div className="gridItem lg-sc-only">
-            <p>{item.refNum}</p>
+            <p>{item.invoice_num}</p>
           </div>
 
           <div className="gridItem">
@@ -62,32 +62,34 @@ function BillItem({ item }) {
           </div>
 
           <div className="gridItem">
-            <p>{item.type}</p>
+            <p>{item.bill_type}</p>
           </div>
 
           <div className="gridItem">
             <p
               className={`${
-                Math.abs(item.payed) >= Math.abs(item.total) ? "success" : ""
+                Math.abs(item.payed) >= Math.abs(item.total_amount)
+                  ? "success"
+                  : ""
               }`}
             >
-              {item.payed && item.payed !== item.total
-                ? `${formatCurrency(item.total - item.payed)}/`
+              {item.payed && item.payed !== item.total_amount
+                ? `${formatCurrency(item.total_amount - item.payed)}/`
                 : ""}
-              {formatCurrency(item.total)}
+              {formatCurrency(item.total_amount)}
             </p>
           </div>
           <div className="gridItem">
             <p className="description textLight">
-              {formatDateOnly(item.dueDate)}
+              {formatDateOnly(item.due_date)}
             </p>
           </div>
         </div>
         <div className="flex-container billsIconsHolder">
-          {getIcon("edit", "billActionIcon success_hov", e =>
+          {getIcon("edit", "billActionIcon ic ic_md roomiesIcon", e =>
             handleEditBill(e)
           )}
-          {getIcon("delete", "billActionIcon success_hov", e =>
+          {getIcon("delete", "billActionIcon ic_lg alertIcon", e =>
             handleRemoveBill(e)
           )}
         </div>

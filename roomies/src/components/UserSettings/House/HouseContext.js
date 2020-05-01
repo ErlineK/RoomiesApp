@@ -25,9 +25,6 @@ export function HouseProvider(props) {
       axios
         .get(`${BASE_URL}/houses/${user._id}`, requestHeader)
         .then(res => {
-          console.log("got houses successfully");
-          console.log(res);
-
           setHouses(res.data.houses);
         })
         .catch(error => {

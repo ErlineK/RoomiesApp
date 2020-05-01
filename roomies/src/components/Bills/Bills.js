@@ -63,19 +63,18 @@ const data = {
 export default function Bills() {
   const { bills, showAddBill, toggleAddBill } = useContext(BillsContext);
 
-  const billItems = data.bills.map((bill, i) => (
-    <BillItem key={`bill${i}`} item={bill} />
-  ));
+  const billItems = bills
+    ? bills.map((bill, i) => <BillItem key={`bill${i}`} item={bill} />)
+    : "";
 
   return (
     <div className="card user-main">
       {/* <div className="card"> */}
       <h3>Bills and Payments</h3>
-      {getIcon("addFile", "sectionIcon", () => {
-        console.log("toggling bill");
-        toggleAddBill();
-      })}
-      Filter bills..
+      {getIcon("addFile", "sectionIcon ic ic_lg ic_fade", () =>
+        toggleAddBill()
+      )}
+      <div>Filter bills..</div>
       <div className="billsHolder listContainer">{billItems}</div>
       {showAddBill && <AddBillPop />}
     </div>

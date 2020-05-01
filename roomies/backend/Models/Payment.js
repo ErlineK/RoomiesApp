@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const user = require("./User").model("user");
-const comment = require("./Comment").model("comment");
+const userComment = require("./UserComment").model("userComment");
 const house = require("./House").model("house");
 
 const PaymentSchema = new mongoose.Schema({
@@ -34,7 +34,7 @@ const PaymentSchema = new mongoose.Schema({
   comments: [
     {
       type: mongoose.Types.ObjectId,
-      ref: comment
+      ref: userComment
     }
   ],
   transaction_images: [

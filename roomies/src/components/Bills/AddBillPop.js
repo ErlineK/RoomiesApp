@@ -69,8 +69,6 @@ function AddBillPop() {
       // bill_images: billImages
     };
 
-    // TODO: add loader
-
     addBill(bill);
   };
 

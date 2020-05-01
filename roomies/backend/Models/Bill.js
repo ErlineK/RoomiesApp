@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
-const user = require("./User").model("user");
-const comment = require("./Comment").model("comment");
+const comment = require("./UserComment").model("userComment");
 const house = require("./House").model("house");
 const payment = require("./Payment").model("payment");
 
@@ -20,8 +19,7 @@ const BillSchema = new mongoose.Schema({
   },
   invoice_num: {
     type: String,
-    maxlength: 12,
-    default: 0000
+    maxlength: 12
   },
   ref_house: {
     type: mongoose.Types.ObjectId,
@@ -52,7 +50,12 @@ const BillSchema = new mongoose.Schema({
       ref: payment
     }
   ],
-  comments: [
+  payed: {
+    type: Number,
+    default: 0
+    // TODO: set calculated/virtual field of payments sums
+  },
+  bill_comments: [
     {
       type: mongoose.Types.ObjectId,
       ref: comment

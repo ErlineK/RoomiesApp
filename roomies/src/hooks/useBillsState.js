@@ -1,37 +1,40 @@
 import { useContext, useEffect } from "react";
-import axios from "axios";
 import useGetData from "./useGetData";
 import { AuthContext } from "../components/auth/AuthContext";
+import { HouseContext } from "../components/UserSettings/House/HouseContext";
 
-const choresMode = { HOME: "HOME", NONE: undefined };
-
-export default (initialBills, mode) => {
-  const { houseId } = useContext(AuthContext);
+export default initialBills => {
+  const { userId } = useContext(AuthContext);
+  const { activeHouseId } = useContext(HouseContext);
   const [{ data, isLoading, isError }, setRequest] = useGetData(
     {
-      reqUri: `bills/${houseId}`,
-      reqType: "get",
-      reqData: null
+      // reqUri: `bills/${houseId}`,
+      // reqType: "get",
+      // reqData: null
     },
     initialBills
   );
 
-  useEffect(() => {}, [houseId]);
+  useEffect(() => {
+    if (userId && activeHouseId) {
+      getAllBills();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userId, activeHouseId]);
 
   const getAllBills = () => {
-    console.log("calling getAllBills from useBillsState for mode: " + mode);
-
     setRequest({
-      reqUri: `bills/${houseId}`,
+      url: `bills/${activeHouseId}/${userId}`,
       reqType: "get",
       reqData: null
     });
   };
 
   const addBill = async bill => {
-    // TODO: modify bill for request
+    console.log("entered addBill in useBillState");
+
     setRequest({
-      reqUri: `bills/${houseId}`,
+      url: `bills/${activeHouseId}/${userId}`,
       reqType: "post",
       reqData: bill
     });

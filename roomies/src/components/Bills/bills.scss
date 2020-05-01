@@ -1,4 +1,5 @@
 @import "../GenericComponents/general.scss";
+@import "../GenericComponents/icons.scss";
 
 .billsHolder {
   margin: 0;
@@ -21,7 +22,8 @@
   .billsIconsHolder {
     align-items: center;
     justify-content: center;
-    margin-top: -0.5rem;
+    margin-top: -0.75rem;
+    margin-left: 0.5rem;
 
     .billActionIcon {
       position: relative;

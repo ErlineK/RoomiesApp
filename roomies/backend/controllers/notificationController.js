@@ -16,8 +16,6 @@ const houseController = require("./houseController");
 
 exports.getNotificationsForUser = async (req, res) => {
   try {
-    console.log("\n\n");
-    console.log("getting all notifications for user " + req.params.userId);
     //   TODO: limit number of notifications
     const notifications = await Notification.find()
       .where("to_user")

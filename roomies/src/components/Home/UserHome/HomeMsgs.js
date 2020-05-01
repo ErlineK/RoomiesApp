@@ -89,8 +89,6 @@ function HomeMsgs() {
     return msgObj;
   };
 
-  console.log("massages data: ");
-  console.log(data);
   const msgs =
     data !== undefined && Object.entries(data).length > 0
       ? data.messages.map((msg, i) => getMsgObjByType(msg))

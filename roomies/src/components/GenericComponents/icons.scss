@@ -1,0 +1,51 @@
+@import "./general.scss";
+
+$large-icon: 1.5rem;
+$medium-icon: 1rem;
+$small-icon: 0.75rem;
+
+.ic {
+  color: $accent-darker;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.ic_lg {
+  font-size: $large-icon;
+}
+
+.ic_md {
+  font-size: $medium-icon;
+}
+
+.ic_sm {
+  font-size: $small-icon;
+}
+
+.ic_fade {
+  opacity: 0.3;
+}
+
+.roomiesIcon {
+  color: $accent-darker;
+
+  &:hover {
+    color: $primary-color-dark;
+  }
+}
+
+.successIcon {
+  color: $accent-darker;
+
+  &:hover {
+    color: $accent-green;
+  }
+}
+
+.alertIcon {
+  color: $accent-darker;
+
+  &:hover {
+    color: $accent-red;
+  }
+}

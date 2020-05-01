@@ -5,11 +5,11 @@ const auth = require("../../helpers/auth");
 const billController = require("../../controllers/billController");
 
 /**
- * @route       api/bills/:houseId
+ * @route       api/bills/:houseId/:userId
  * @access      Public
  */
 router
-  .route("/:houseId")
+  .route("/:houseId/:userId")
   .head(auth)
   .get(billController.getAllBillsForHouse)
   .patch(billController.updateBill)
