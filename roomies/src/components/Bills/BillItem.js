@@ -4,17 +4,18 @@ import "../Home/UserHome/homeLists.scss";
 import {
   formatCurrency,
   formatDateOnly,
-  formatDayMonth
+  formatDayMonth,
 } from "../../utils/formatHelper";
 import { getBackgroundByDue } from "../Home/UserHome/homeHelper";
 import { getIcon } from "../../utils/iconManager";
+import { getIconByBillType } from "./billsHelper";
 // import CommentSection from "../GenericComponents/Comment/CommentSection";
 
 // TODO: set Icon by bill type
 // TODO: on bill click go to bill page
 
 function BillItem({ item }) {
-  const handleRemoveBill = e => {
+  const handleRemoveBill = (e) => {
     e.preventDefault();
 
     // TODO: prompt confiramtion
@@ -23,7 +24,7 @@ function BillItem({ item }) {
     console.log("removing bill");
   };
 
-  const handleEditBill = e => {
+  const handleEditBill = (e) => {
     e.preventDefault();
 
     // TODO: go to edit bill with bill info
@@ -41,12 +42,10 @@ function BillItem({ item }) {
       className={`${getBackgroundByDue(item.due_date)} listItemHolder billItem`}
     >
       <div className="listFlexHolder">
-        <GiPayMoney
-          className={`${
-            item.total_amount === item.payed ? "success" : ""
-          } listIcon`}
-        />
-
+        {getIconByBillType(
+          item.bill_type,
+          `${item.total_amount === item.payed ? "success" : ""} listIcon`
+        )}
         <div
           className="billsGrid"
           onClick={() => {
@@ -86,10 +85,10 @@ function BillItem({ item }) {
           </div>
         </div>
         <div className="flex-container billsIconsHolder">
-          {getIcon("edit", "billActionIcon ic ic_md roomiesIcon", e =>
+          {getIcon("edit", "billActionIcon ic ic_md roomiesIcon", (e) =>
             handleEditBill(e)
           )}
-          {getIcon("delete", "billActionIcon ic_lg alertIcon", e =>
+          {getIcon("delete", "billActionIcon ic_lg alertIcon", (e) =>
             handleRemoveBill(e)
           )}
         </div>

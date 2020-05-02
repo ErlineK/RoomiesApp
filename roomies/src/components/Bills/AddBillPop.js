@@ -15,40 +15,40 @@ function AddBillPop() {
     invNum,
     handleInvNumChange,
     validateInvNum,
-    invNumError
+    invNumError,
   ] = useInputState("", "INV_NUM");
   const [
     billType,
     handleBillTypeChange,
     validateBillType,
-    billTypeError
+    billTypeError,
   ] = useInputState("select", "BILL_TYPE");
   const [
     dueDate,
     handleDueDateChange,
     validateDueDate,
-    dueDateError
-  ] = useInputState("", "DATE");
+    dueDateError,
+  ] = useInputState(new Date(), "DATE");
 
   const [
     strDate,
     handleStrDateChange,
     validateStrDate,
-    strDateError
+    strDateError,
   ] = useInputState("", "DATE");
 
   const [
     endDate,
     handleEndDateChange,
     validateEndDate,
-    endDateError
+    endDateError,
   ] = useInputState("", "DATE");
 
   const [
     totalSum,
     handleTotalSumChange,
     validateTotalSum,
-    totalSumError
+    totalSumError,
   ] = useInputState("", "BILL_SUM");
 
   const [billComment, handleBillCommentChange] = useInputState("", "COMMENT");
@@ -65,7 +65,7 @@ function AddBillPop() {
       end_date: endDate,
       total_amount: totalSum,
       due_date: dueDate,
-      comment: billComment
+      comment: billComment,
       // bill_images: billImages
     };
 
@@ -94,7 +94,7 @@ function AddBillPop() {
     return validated;
   }
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
     // TODO: validate end date after start date
@@ -106,7 +106,7 @@ function AddBillPop() {
     }
   };
 
-  const billTypeOptions = BILL_TYPES.map(option => (
+  const billTypeOptions = BILL_TYPES.map((option) => (
     <option key={option} value={option}>
       {option}
     </option>
@@ -217,7 +217,7 @@ function AddBillPop() {
                   id="dueDate"
                   type="date"
                   name="dueDate"
-                  placeholder="01/01/2020"
+                  placeholder={dueDate}
                   className="form-control"
                   value={dueDate}
                   onChange={handleDueDateChange}
@@ -257,7 +257,7 @@ function AddBillPop() {
               <button
                 type="submit"
                 className="btn btn-grad-pressed"
-                onClick={e => handleSubmit(e)}
+                onClick={(e) => handleSubmit(e)}
               >
                 Add Bill
               </button>

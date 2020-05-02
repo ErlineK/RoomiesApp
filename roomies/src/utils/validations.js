@@ -54,7 +54,7 @@ export function validateVal(value, valueType) {
       break;
 
     case "INV_NUM":
-      if (value.length < 4 || value.length > 12) {
+      if (value.length > 12) {
         validationErr = "Invalid invoice number";
       }
       break;

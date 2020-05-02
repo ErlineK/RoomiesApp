@@ -3,7 +3,7 @@ import useGetData from "./useGetData";
 import { AuthContext } from "../components/auth/AuthContext";
 import { HouseContext } from "../components/UserSettings/House/HouseContext";
 
-export default initialBills => {
+export default (initialBills) => {
   const { userId } = useContext(AuthContext);
   const { activeHouseId } = useContext(HouseContext);
   const [{ data, isLoading, isError }, setRequest] = useGetData(
@@ -26,17 +26,15 @@ export default initialBills => {
     setRequest({
       url: `bills/${activeHouseId}/${userId}`,
       reqType: "get",
-      reqData: null
+      reqData: null,
     });
   };
 
-  const addBill = async bill => {
-    console.log("entered addBill in useBillState");
-
+  const addBill = async (bill) => {
     setRequest({
       url: `bills/${activeHouseId}/${userId}`,
       reqType: "post",
-      reqData: bill
+      reqData: bill,
     });
   };
 
@@ -47,7 +45,7 @@ export default initialBills => {
     // setChores(updatedChores);
   };
 
-  const removeBill = billId => {
+  const removeBill = (billId) => {
     // const updatedChores = data.chores.filter(chore => chore.id !== choreId);
     // setChores(updatedChores);
   };
@@ -56,7 +54,7 @@ export default initialBills => {
     addBill: addBill,
     editBill: editBill,
     removeBill: removeBill,
-    getAllBills: getAllBills
+    getAllBills: getAllBills,
   };
 
   // const requestStatus = [isLoading, isError];

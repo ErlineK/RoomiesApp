@@ -6,25 +6,25 @@ const payment = require("./Payment").model("payment");
 const BillSchema = new mongoose.Schema({
   date_added: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   due_date: {
-    type: Date
+    type: Date,
   },
   start_date: {
-    type: Date
+    type: Date,
   },
   end_date: {
-    type: Date
+    type: Date,
   },
   invoice_num: {
     type: String,
-    maxlength: 12
+    maxlength: 12,
   },
   ref_house: {
     type: mongoose.Types.ObjectId,
     ref: house,
-    required: true
+    required: true,
   },
   bill_type: {
     type: String,
@@ -32,40 +32,40 @@ const BillSchema = new mongoose.Schema({
       "Other",
       "Hydro",
       "Gas",
-      "Internet/TV",
+      "internet/TV",
       "Groceries",
-      "Roomie Transfer"
+      "Roomie Transfer",
     ],
-    required: true
+    required: true,
   },
   total_amount: {
     type: Number,
     required: true,
     min: 0.1,
-    max: 1000.0
+    max: 1000.0,
   },
   payments: [
     {
       type: mongoose.Types.ObjectId,
-      ref: payment
-    }
+      ref: payment,
+    },
   ],
   payed: {
     type: Number,
-    default: 0
+    default: 0,
     // TODO: set calculated/virtual field of payments sums
   },
   bill_comments: [
     {
       type: mongoose.Types.ObjectId,
-      ref: comment
-    }
+      ref: comment,
+    },
   ],
   bill_images: [
     {
-      type: String
-    }
-  ]
+      type: String,
+    },
+  ],
 });
 
 module.exports = Bill = mongoose.model("bill", BillSchema);

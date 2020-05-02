@@ -20,13 +20,13 @@
 .listContainer {
   display: grid;
   background-color: rgba($color: $accent-dark, $alpha: 0.3);
+  box-shadow: 0px -3px 5px 3px rgba($color: $accent-dark, $alpha: 0.3),
+    0px 5px 5px 0px rgba($color: $accent-dark, $alpha: 0.3);
 
   .listItemHolder {
     padding: 0.25rem;
     background-color: $accent-light;
     position: relative;
-
-    // box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
 
     .listFlexHolder {
       display: flex;
@@ -39,7 +39,7 @@
 
     .listGridHolder {
       display: grid;
-      grid-template-columns: 1fr 1fr 3fr 2fr auto;
+      grid-template-columns: 1fr 1fr 1fr 1fr auto;
       grid-template-rows: auto;
 
       .gridItem {

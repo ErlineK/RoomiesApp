@@ -11,10 +11,11 @@ import {
   FaCheck,
   FaUserEdit,
   FaUserCheck,
-  FaUserTimes
+  FaUserTimes,
 } from "react-icons/fa";
 import { GoPlus } from "react-icons/go";
 import { TiMessages, TiDeleteOutline } from "react-icons/ti";
+
 import { MdReplyAll } from "react-icons/md";
 
 import { AiFillFileAdd } from "react-icons/ai";
@@ -68,6 +69,10 @@ function getIcon(iconName, classNames, onIconClick) {
 
     case "edit":
       iconObj = <FaEdit className={classNames} onClick={onIconClick} />;
+      break;
+
+    case "reply":
+      iconObj = <MdReplyAll className={classNames} onClick={onIconClick} />;
       break;
 
     case "watch":
