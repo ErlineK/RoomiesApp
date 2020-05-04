@@ -1,4 +1,4 @@
-@import "../GenericComponents/general.scss";
+@import "../GenericComponents/ui/ui_consts.scss";
 
 .from-container {
   display: grid;
@@ -48,7 +48,7 @@
 }
 
 .card {
-  background-color: rgba(245, 245, 245, 0.8);
+  background-color: rgba(245, 245, 245, 0.9);
   color: $accent-dark;
 }
 

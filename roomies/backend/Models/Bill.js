@@ -50,11 +50,11 @@ const BillSchema = new mongoose.Schema({
       ref: payment,
     },
   ],
-  payed: {
-    type: Number,
-    default: 0,
-    // TODO: set calculated/virtual field of payments sums
-  },
+  // payed: {
+  //   type: Number,
+  //   default: 0,
+  //   // TODO: set calculated/virtual field of payments sums
+  // },
   bill_comments: [
     {
       type: mongoose.Types.ObjectId,
@@ -66,6 +66,11 @@ const BillSchema = new mongoose.Schema({
       type: String,
     },
   ],
+});
+
+// sum total of payments for bill
+BillSchema.virtual("payed").get(function () {
+  return this.payments.map((p) => p.total_amount).reduce((a, b) => a + b, 0);
 });
 
 module.exports = Bill = mongoose.model("bill", BillSchema);

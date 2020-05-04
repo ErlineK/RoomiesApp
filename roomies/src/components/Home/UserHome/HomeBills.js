@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import "../../GenericComponents/general.scss";
 import "./homeLists.scss";
 import useGetRoomiesData from "../../../hooks/useGetRoomiesData";
 import HomeFragment from "./HomeFragment";

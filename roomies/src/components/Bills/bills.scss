@@ -1,5 +1,5 @@
-@import "../GenericComponents/general.scss";
-@import "../GenericComponents/icons.scss";
+@import "../GenericComponents/ui/ui_consts.scss";
+@import "../GenericComponents/ui/icons.scss";
 
 .billsHolder {
   margin: 0;
@@ -38,9 +38,24 @@
   }
 }
 
+.viewBillContainer {
+  width: 100%;
+  margin: auto;
+}
+
+.billDataSection {
+  position: relative;
+  padding: 1rem 2rem;
+  margin: 0;
+}
+
 @media (min-width: $tablet) {
   .billsHolder {
     margin: 1rem;
+  }
+
+  .viewBillContainer {
+    width: 85%;
   }
 
   .billItem {

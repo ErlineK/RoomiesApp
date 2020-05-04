@@ -1,13 +1,9 @@
-@import "./general.scss";
-
-$large-icon: 1.5rem;
-$medium-icon: 1rem;
-$small-icon: 0.75rem;
+@import "./ui_consts.scss";
 
 .ic {
   color: $accent-darker;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
+  margin: 0.5rem;
+  cursor: pointer;
 }
 
 .ic_lg {
@@ -26,7 +22,11 @@ $small-icon: 0.75rem;
   opacity: 0.3;
 }
 
-.roomiesIcon {
+.ic_decore {
+  cursor: none;
+}
+
+.ic_roomies {
   color: $accent-darker;
 
   &:hover {
@@ -34,18 +34,39 @@ $small-icon: 0.75rem;
   }
 }
 
-.successIcon {
+.ic_success {
   color: $accent-darker;
+
+  &.active {
+    color: $accent-green;
+  }
 
   &:hover {
     color: $accent-green;
   }
 }
 
-.alertIcon {
+.ic_alert {
   color: $accent-darker;
+
+  &.active {
+    color: $accent-red;
+  }
 
   &:hover {
     color: $accent-red;
+  }
+}
+
+.ic_light {
+  color: $accent-light;
+}
+
+@media (min-width: $tablet) {
+  .ic_hidden {
+    visibility: hidden;
+    &:hover {
+      visibility: visible;
+    }
   }
 }

@@ -1,10 +1,10 @@
 import React from "react";
 import { VictoryBar, VictoryChart, VictoryAxis } from "victory";
-import "../GenericComponents/general.scss";
+import "../GenericComponents/ui/general.scss";
 
 export default function BalanceChart({ data }) {
   const colorSwitcher = {
-    fill: data => {
+    fill: (data) => {
       let color = "blue";
       if (data.datum.balance < 0) {
         color = "#c60402"; //accent-red
@@ -15,7 +15,7 @@ export default function BalanceChart({ data }) {
       return color;
     },
     strokeWidth: 0,
-    fillOpacity: 0.65
+    fillOpacity: 0.65,
   };
 
   return (
@@ -24,15 +24,15 @@ export default function BalanceChart({ data }) {
       domainPadding={50}
       animate={{ duration: 750 }}
     >
-      <VictoryAxis tickFormat={y => y} />
+      <VictoryAxis tickFormat={(y) => y} />
       <VictoryAxis
         dependentAxis
         // tickFormat specifies how ticks should be displayed
-        tickFormat={x =>
+        tickFormat={(x) =>
           `${new Intl.NumberFormat("en-CA", {
             style: "currency",
             currencyDisplay: "symbol",
-            currency: "CAD"
+            currency: "CAD",
           }).format(x)}`
         }
       />
@@ -44,7 +44,7 @@ export default function BalanceChart({ data }) {
           `${new Intl.NumberFormat("en-CA", {
             style: "currency",
             currencyDisplay: "symbol",
-            currency: "CAD"
+            currency: "CAD",
           }).format(datum.balance)}`
         }
         // data accessor for x values

@@ -21,7 +21,7 @@ export default function HouseCard({ house }) {
     HouseContext
   );
 
-  const handleDeclineInvitation = e => {
+  const handleDeclineInvitation = (e) => {
     e.preventDefault();
 
     console.log("declining invitation");
@@ -29,7 +29,7 @@ export default function HouseCard({ house }) {
     // TODO: delete invitation item related to that user & house
   };
 
-  const handleAcceptInvitation = e => {
+  const handleAcceptInvitation = (e) => {
     e.preventDefault();
 
     console.log("accepting invitation");
@@ -40,7 +40,7 @@ export default function HouseCard({ house }) {
 
   const tenants =
     house && house.house_tenants
-      ? house.house_tenants.map(tenant =>
+      ? house.house_tenants.map((tenant) =>
           userId === tenant._id ? (
             ""
           ) : (
@@ -77,11 +77,12 @@ export default function HouseCard({ house }) {
         <>
           {houseApproved && (
             <Link className="" to={`/House/${house._id}`}>
-              {houseActive
-                ? getIcon("edit", "sectionIcon")
-                : // <FaEdit className="sectionIcon" />
-                  getIcon("watch", "sectionIcon")
-              // <FaEye className="sectionIcon" />
+              {
+                houseActive
+                  ? getIcon("edit", "sectionIcon")
+                  : // <FaEdit className="sectionIcon" />
+                    getIcon("watch", "sectionIcon")
+                // <FaEye className="sectionIcon" />
               }
             </Link>
           )}
@@ -132,7 +133,7 @@ export default function HouseCard({ house }) {
               <div className="buttonsHolder">
                 <button
                   className="btn btn-grad-green btn-grad-red btnAction"
-                  onClick={e => handleDeclineInvitation(e)}
+                  onClick={(e) => handleDeclineInvitation(e)}
                 >
                   {getIcon("decline", "accent-icon")}
                   {/* <FaMinusCircle className="accent-icon" /> */}
@@ -140,7 +141,7 @@ export default function HouseCard({ house }) {
                 </button>
                 <button
                   className="btn btn-grad-green btnAction"
-                  onClick={e => handleAcceptInvitation(e)}
+                  onClick={(e) => handleAcceptInvitation(e)}
                 >
                   {getIcon("accept", "accent-icon")}
                   {/* <FaCheck className="accent-icon" /> */}

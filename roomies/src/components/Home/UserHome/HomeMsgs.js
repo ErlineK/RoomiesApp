@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, memo } from "react";
-import "../../GenericComponents/generic_list.scss";
+import "../../GenericComponents/ui/generic_list.scss";
 import useGetData from "../../../hooks/useGetData";
 import HomeFragment from "./HomeFragment";
 import { AuthContext } from "../../auth/AuthContext";
 import {
   InvitationMsgItem,
   NofiticationMsgItem,
-  GeneralMsgItem
+  GeneralMsgItem,
 } from "../../Messages/messagesHelper";
 
 const defaultData = {
@@ -16,7 +16,7 @@ const defaultData = {
       type: "MSG",
       author: "Tenant One",
       date: new Date(2017, 11, 17),
-      msg: "Forgot to walk the cow. Beers on me"
+      msg: "Forgot to walk the cow. Beers on me",
     },
     {
       _id: 6,
@@ -24,14 +24,14 @@ const defaultData = {
       ntfType: "transfer",
       date: new Date(2020, 1, 30),
       msg: "Tenant 3 transfered you $200",
-      accepted: true
+      accepted: true,
     },
     {
       _id: 4,
       type: "NTF",
       ntfType: "general",
       date: new Date(2020, 2, 22),
-      msg: "Welcome Tenant 2 to Home Sweet Home"
+      msg: "Welcome Tenant 2 to Home Sweet Home",
     },
     {
       _id: 2,
@@ -41,9 +41,9 @@ const defaultData = {
       propertyName: "Home Sweet Home",
       propertyAddress: "123 Over the Hill Rd.",
       propertyCity: "Wonderland",
-      accepted: true
-    }
-  ]
+      accepted: true,
+    },
+  ],
 };
 
 function HomeMsgs() {
@@ -62,12 +62,12 @@ function HomeMsgs() {
       setRequest({
         url: `notifications/${userId}`,
         reqType: "get",
-        reqData: {}
+        reqData: {},
       });
     }
   }, []);
 
-  const getMsgObjByType = msg => {
+  const getMsgObjByType = (msg) => {
     var msgObj;
     switch (msg.type) {
       case "MSG":

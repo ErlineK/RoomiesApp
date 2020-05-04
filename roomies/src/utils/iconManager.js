@@ -12,13 +12,14 @@ import {
   FaUserEdit,
   FaUserCheck,
   FaUserTimes,
+  FaFileInvoiceDollar,
 } from "react-icons/fa";
-import { GoPlus } from "react-icons/go";
+import { GoPlus, GoCalendar } from "react-icons/go";
+// import { GrDocumentTime } from "react-icons/gr";
 import { TiMessages, TiDeleteOutline } from "react-icons/ti";
-
 import { MdReplyAll } from "react-icons/md";
-
 import { AiFillFileAdd } from "react-icons/ai";
+import { RiTimerFlashLine } from "react-icons/ri";
 
 function getIcon(iconName, classNames, onIconClick) {
   let iconObj;
@@ -99,6 +100,23 @@ function getIcon(iconName, classNames, onIconClick) {
 
     case "messages":
       iconObj = <TiMessages className={classNames} onClick={onIconClick} />;
+      break;
+
+    case "inv_amount":
+      iconObj = (
+        <FaFileInvoiceDollar className={classNames} onClick={onIconClick} />
+      );
+      break;
+
+    case "doc_period":
+      iconObj = <GoCalendar className={classNames} onClick={onIconClick} />;
+      // iconObj = <GrDocumentTime className={classNames} onClick={onIconClick} />;
+      break;
+
+    case "pay_due":
+      iconObj = (
+        <RiTimerFlashLine className={classNames} onClick={onIconClick} />
+      );
       break;
 
     default:

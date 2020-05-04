@@ -1,4 +1,5 @@
 import React from "react";
+import "./bills.scss";
 import { getIconByBillType } from "./billsHelper";
 import "../Home/UserHome/homeLists.scss";
 import {
@@ -7,8 +8,8 @@ import {
   formatCurrency,
 } from "../../utils/formatHelper";
 import { getBackgroundByDue } from "../Home/UserHome/homeHelper";
+import { Link } from "react-router-dom";
 
-// TODO: set Icon by bill type
 // TODO: on bill click go to bill page
 
 function HomeBillItem({ item }) {
@@ -18,11 +19,15 @@ function HomeBillItem({ item }) {
       : "";
 
   return (
-    <div
+    // <div
+    //   className={`${getBackgroundByDue(item.due_date)} listItemHolder`}
+    //   onClick={() => {
+    //     console.log("clicked on bill");
+    //   }}
+    // >
+    <Link
       className={`${getBackgroundByDue(item.due_date)} listItemHolder`}
-      onClick={() => {
-        console.log("clicked on bill");
-      }}
+      to={{ pathname: "/ViewBill", state: { bill: item } }}
     >
       <div className="listFlexHolder">
         {getIconByBillType(
@@ -68,7 +73,8 @@ function HomeBillItem({ item }) {
       </div>
 
       <hr></hr>
-    </div>
+      {/* </div> */}
+    </Link>
   );
 }
 

@@ -1,5 +1,4 @@
 import React from "react";
-import { GiPayMoney } from "react-icons/gi";
 import "../Home/UserHome/homeLists.scss";
 import {
   formatCurrency,
@@ -9,9 +8,9 @@ import {
 import { getBackgroundByDue } from "../Home/UserHome/homeHelper";
 import { getIcon } from "../../utils/iconManager";
 import { getIconByBillType } from "./billsHelper";
+import { Link } from "react-router-dom";
 // import CommentSection from "../GenericComponents/Comment/CommentSection";
 
-// TODO: set Icon by bill type
 // TODO: on bill click go to bill page
 
 function BillItem({ item }) {
@@ -46,11 +45,15 @@ function BillItem({ item }) {
           item.bill_type,
           `${item.total_amount === item.payed ? "success" : ""} listIcon`
         )}
-        <div
+        {/* <div
           className="billsGrid"
           onClick={() => {
             console.log("clicked on bill");
           }}
+        > */}
+        <Link
+          className="billsGrid"
+          to={{ pathname: "/ViewBill", state: { bill: item } }}
         >
           <div className="gridItem lg-sc-only">
             <p>{item.invoice_num}</p>
@@ -83,12 +86,12 @@ function BillItem({ item }) {
               {formatDateOnly(item.due_date)}
             </p>
           </div>
-        </div>
+        </Link>
         <div className="flex-container billsIconsHolder">
-          {getIcon("edit", "billActionIcon ic ic_md roomiesIcon", (e) =>
+          {getIcon("edit", "billActionIcon ic ic_md ic_roomies", (e) =>
             handleEditBill(e)
           )}
-          {getIcon("delete", "billActionIcon ic_lg alertIcon", (e) =>
+          {getIcon("delete", "billActionIcon ic_lg ic_alert", (e) =>
             handleRemoveBill(e)
           )}
         </div>

@@ -19,28 +19,28 @@ exports.getAllBillsForHouse = async (req, res) => {
         {
           $and: [
             { bill_type: "Roomie Transfer" },
-            { "payments.to_user": req.params.userId }
-          ]
+            { "payments.to_user": req.params.userId },
+          ],
         },
         {
           $and: [
             { bill_type: "Roomie Transfer" },
-            { "payments.from_user": req.params.userId }
-          ]
+            { "payments.from_user": req.params.userId },
+          ],
         }
       )
       .populate({
-        path: "bill_comments"
+        path: "bill_comments",
         // populate: { path: "author", select: "name" }
       })
       .populate({
         path: "payments",
         populate: [
           { path: "user", select: "name" },
-          { path: "userComment", populate: { path: "user", select: "name" } }
-        ]
+          { path: "userComment", populate: { path: "user", select: "name" } },
+        ],
       })
-      .sort({ due_date: -1 });
+      .sort({ due_date: +1 });
 
     res.json({ msg: "Got bills successfully", bills: bills });
   } catch (err) {
@@ -51,11 +51,10 @@ exports.getAllBillsForHouse = async (req, res) => {
 
 exports.addNewBill = async (req, res) => {
   try {
-    console.log("\n adding new bill \n");
     // create comment
     const newComment = await new UserComment({
       author: req.params.userId,
-      msg: req.body.comment
+      msg: req.body.comment,
     });
 
     // reate new bill and add to db
@@ -69,7 +68,7 @@ exports.addNewBill = async (req, res) => {
       total_amount: billParams.total_amount,
       due_date: billParams.due_date,
       ref_house: req.params.houseId,
-      bill_comments: [newComment]
+      bill_comments: [newComment],
     }).save();
 
     if (newBill.bill_type === "Roomie Transfer") {

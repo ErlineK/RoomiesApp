@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import "./profile.scss";
 import "../auth/auth.scss";
-import UserDataItem from "./UserDataItem";
-import { formatDateOnly } from "../../utils/formatHelper";
+import EditableDataItem from "../GenericComponents/EditableDataItem/EditableDataItem";
+import { formatInputDate } from "../../utils/formatHelper";
 import UserAvatarSettings from "./UserAvatarSettings";
 import { AuthContext } from "../auth/AuthContext";
 
@@ -45,43 +45,45 @@ export default function SettingsProfile() {
     <div className="userDataHolder">
       <h3>Profile</h3>
 
-      <div className="flex-container flex-center from-container">
-        <UserAvatarSettings avatar={avatar} />
+      <div className="flex-container flex-center flex-columns-holder from-container ">
+        <div className="avatarContainer">
+          <UserAvatarSettings avatar={avatar} />
+        </div>
 
-        <div className="">
-          <UserDataItem
+        <div className="flex-container flex-fill data-section">
+          <EditableDataItem
             item={{
               title: "Name",
               data: name,
               icon: "name",
-              type: "text"
+              type: "text",
             }}
             handleUpdate={saveUpdate}
           />
-          <UserDataItem
+          <EditableDataItem
             item={{
               title: "Email",
               data: user ? user.email : "",
-              icon: "email"
+              icon: "email",
             }}
           />
         </div>
-        <div className="">
-          <UserDataItem
+        <div className="flex-container flex-fill data-section">
+          <EditableDataItem
             item={{
               title: "Birth Date",
-              data: formatDateOnly(brthDate),
+              data: formatInputDate(brthDate),
               icon: "bday",
-              type: "date"
+              type: "date",
             }}
             handleUpdate={saveUpdate}
           />
-          <UserDataItem
+          <EditableDataItem
             item={{
               title: "Phone",
               data: phone,
               icon: "phone",
-              type: "phone"
+              type: "phone",
             }}
             handleUpdate={saveUpdate}
           />

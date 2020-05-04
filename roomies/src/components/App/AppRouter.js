@@ -10,8 +10,9 @@ import UserHome from "../Home/UserHome/UserHome";
 import Chores from "../Chores/chores";
 import UserSettings from "../UserSettings/Settings";
 import CreateProfile from "../Profile/CreateProfile";
+import ViewBill from "../Bills/ViewBill";
 
-export default function() {
+export default function () {
   return (
     <Switch>
       <Route exact path="/" render={() => <Home />} />
@@ -20,6 +21,7 @@ export default function() {
       <Route exact path="/CreateProfile" render={() => <CreateProfile />} />
       <Route exact path="/Login" render={() => <Login />} />
       <Route exact path="/Bills" component={Bills} />
+      <Route exact path="/ViewBill" component={ViewBill} />
       <Route exact path="/GroupChat" component={GroupChat} />
       <Route exact path="/HouseList" component={HouseList} />
       <Route exact path="/UserHome" component={UserHome} />

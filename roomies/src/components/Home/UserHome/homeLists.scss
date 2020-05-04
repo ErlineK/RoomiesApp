@@ -1,5 +1,5 @@
-@import "../../GenericComponents/general.scss";
-@import "../../GenericComponents/generic_list.scss";
+@import "../../GenericComponents/ui/ui_consts.scss";
+@import "../../GenericComponents/ui/generic_list.scss";
 
 $list-gradient-red: (
   linear-gradient(to right, $accent-light 50%, $accent-red 100%)
@@ -18,6 +18,12 @@ $list-gradient-orange: (
 // );
 
 .listItemHolder {
+  text-decoration: none;
+
+  &:hover {
+    color: inherit;
+  }
+
   &.due1 {
     background: $list-gradient-red;
 

@@ -1,5 +1,4 @@
 import React, { memo, useContext } from "react";
-// import "../../GenericComponents/general.scss";
 import "../home.scss";
 import HomeMsgs from "./HomeMsgs";
 import HomeStatus from "./HomeStatus";

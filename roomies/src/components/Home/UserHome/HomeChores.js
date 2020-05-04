@@ -1,5 +1,4 @@
 import React, { memo } from "react";
-import "../../GenericComponents/general.scss";
 import HomeFragment from "./HomeFragment";
 import HomeChoreItem from "../../Chores/HomeChoreItem";
 import useChoresState from "../../../hooks/useChoresState";
@@ -11,7 +10,7 @@ function HomeChores() {
 
   const choreItems =
     chores !== undefined && Object.entries(chores).length > 0
-      ? chores.map(chore => (
+      ? chores.map((chore) => (
           <div key={`holder${chore._id}`}>
             <HomeChoreItem
               item={chore}

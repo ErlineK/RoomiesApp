@@ -1,32 +1,4 @@
-@import "../GenericComponents/general.scss";
-
-.userDataItem {
-  padding: 0.5rem;
-  color: $accent-darker;
-
-  .hiddenIcon {
-    visibility: hidden;
-  }
-
-  .item {
-    margin: 0.5rem;
-  }
-
-  .userDataIcon {
-    color: $accent-darker;
-    margin-top: 0.75rem;
-  }
-
-  .itemData {
-    color: $accent-dark;
-  }
-
-  &:hover {
-    .hiddenIcon {
-      visibility: visible;
-    }
-  }
-}
+@import "../GenericComponents/ui/ui_consts.scss";
 
 .actionIcon {
   position: absolute;
@@ -38,6 +10,8 @@
 
 .avatarHolder {
   position: relative;
+  width: fit-content;
+  margin: auto;
 
   .actionIcon {
     position: absolute;
@@ -63,6 +37,7 @@
 }
 
 .avatarContainer {
+  min-width: 30%;
   display: flex;
   margin: auto;
 }

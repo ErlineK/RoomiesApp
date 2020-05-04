@@ -12,7 +12,7 @@ export default function UserAvatarSettings({ avatar }) {
     { displayImg, isLoading, readyToUpload },
     handleSaveImage,
     handleDismissImage,
-    handleImageUpload
+    handleImageUpload,
   ] = useImageUploadState(avatar, "USER");
 
   const uploadButton = (
@@ -31,14 +31,14 @@ export default function UserAvatarSettings({ avatar }) {
 
   const saveSelection = (
     <div className="flex-container toRight doubleIconHolder">
-      {getIcon("acceptUser", "actionIcon doubleIcon success_hov", e =>
+      {getIcon("acceptUser", "actionIcon doubleIcon success_hov", (e) =>
         handleSaveImage(e)
       )}
       {/* <FaUserCheck
         className="actionIcon doubleIcon success_hov"
         onClick={e => handleSaveImage(e)}
       /> */}
-      {getIcon("declineUser", "actionIcon doubleIcon success_hov", e =>
+      {getIcon("declineUser", "actionIcon doubleIcon success_hov", (e) =>
         handleDismissImage(e)
       )}
       {/* <FaUserTimes

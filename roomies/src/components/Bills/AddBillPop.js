@@ -1,11 +1,12 @@
 import React, { useContext, useState } from "react";
 import useInputState from "../../hooks/useInputState";
 import "../auth/auth.scss";
-import "../GenericComponents/forms.scss";
+import "../GenericComponents/ui/forms.scss";
 import PopUpCard from "../GenericComponents/PopUpCard";
 import { BillsContext } from "./BillsContext";
 import { BILL_TYPES } from "../../utils/AppParams";
 import CircleLoader from "../GenericComponents/Loader/CircleLoader";
+import { formatInputDate } from "../../utils/formatHelper";
 
 function AddBillPop() {
   const { toggleAddBill, addBill, requestStatus } = useContext(BillsContext);
@@ -28,7 +29,7 @@ function AddBillPop() {
     handleDueDateChange,
     validateDueDate,
     dueDateError,
-  ] = useInputState(new Date(), "DATE");
+  ] = useInputState(formatInputDate(new Date()), "DATE");
 
   const [
     strDate,
@@ -75,6 +76,7 @@ function AddBillPop() {
   //   Validate name exist and not empty
   function validate() {
     let validated = false;
+    setError(undefined);
 
     if (
       validateBillType() &&
@@ -87,7 +89,7 @@ function AddBillPop() {
       validated = true;
       if (endDate < strDate) {
         validated = false;
-        // setError("Invalid billing period");
+        setError("Invalid billing period");
       }
     }
 
@@ -117,9 +119,8 @@ function AddBillPop() {
       <div>
         <h4 className="section-title">Add Bill</h4>
 
-        {requestStatus.isError && error && (
-          <div className="alert alert-danger">{error}</div>
-        )}
+        {requestStatus.isError ||
+          (error && <div className="alert alert-danger">{error}</div>)}
 
         <div className="flex-container flex-between form-group userDataItem">
           <select
@@ -164,7 +165,6 @@ function AddBillPop() {
                   id="strDate"
                   type="date"
                   name="strDate"
-                  placeholder="01/01/2020"
                   className="form-control"
                   value={strDate}
                   onChange={handleStrDateChange}
@@ -182,7 +182,6 @@ function AddBillPop() {
                   id="endDate"
                   type="date"
                   name="endDate"
-                  placeholder="01/01/2020"
                   className="form-control"
                   value={endDate}
                   onChange={handleEndDateChange}
@@ -217,7 +216,6 @@ function AddBillPop() {
                   id="dueDate"
                   type="date"
                   name="dueDate"
-                  placeholder={dueDate}
                   className="form-control"
                   value={dueDate}
                   onChange={handleDueDateChange}

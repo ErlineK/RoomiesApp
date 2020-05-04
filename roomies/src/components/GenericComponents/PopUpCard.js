@@ -1,5 +1,4 @@
 import React from "react";
-// import "../../GenericComponents/generic_list.scss";
 import { AiFillCloseCircle } from "react-icons/ai";
 
 export default function PopUpCard(props) {

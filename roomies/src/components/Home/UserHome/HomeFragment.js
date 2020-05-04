@@ -1,5 +1,5 @@
 import React from "react";
-import "../../GenericComponents/generic_list.scss";
+import "../../GenericComponents/ui/generic_list.scss";
 import CircleLoader from "../../GenericComponents/Loader/CircleLoader";
 import { Link } from "react-router-dom";
 

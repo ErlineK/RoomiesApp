@@ -1,7 +1,5 @@
 import React from "react";
-import "../GenericComponents/general.scss";
 import "./home.scss";
-import "../GenericComponents/general.scss";
 import { Link } from "react-router-dom";
 
 function Home() {
