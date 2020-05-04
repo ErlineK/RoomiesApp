@@ -12,6 +12,10 @@ const PaymentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  reference_num: {
+    type: String,
+    maxlength: 12,
+  },
   house_ref: {
     type: mongoose.Types.ObjectId,
     ref: house,
@@ -26,9 +30,6 @@ const PaymentSchema = new mongoose.Schema({
     type: mongoose.Types.ObjectId,
     ref: user,
   },
-  payed_for: {
-    type: String,
-  },
   total_amount: {
     type: Number,
     required: true,
@@ -41,7 +42,7 @@ const PaymentSchema = new mongoose.Schema({
       ref: userComment,
     },
   ],
-  transaction_images: [
+  reference_images: [
     {
       type: String,
     },

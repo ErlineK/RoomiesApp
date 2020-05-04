@@ -7,6 +7,7 @@ import { BillsContext } from "./BillsContext";
 import { BILL_TYPES } from "../../utils/AppParams";
 import CircleLoader from "../GenericComponents/Loader/CircleLoader";
 import { formatInputDate } from "../../utils/formatHelper";
+import CustomInput from "../GenericComponents/CustomInput";
 
 function AddBillPop() {
   const { toggleAddBill, addBill, requestStatus } = useContext(BillsContext);
@@ -57,8 +58,6 @@ function AddBillPop() {
   // const [billImages, setBillImages] = useState();
 
   const handleAddBill = () => {
-    console.log("saving bill");
-
     const bill = {
       invoice_num: invNum,
       bill_type: billType,
@@ -192,7 +191,7 @@ function AddBillPop() {
           </div>
 
           <div className="flex-container flex-around">
-            <div className="flex-container flex-between form-group doubleColumn">
+            {/* <div className="flex-container flex-between form-group doubleColumn">
               <label htmlFor="totalSum">Total to pay</label>
               <div className="flex-container">
                 <span style={{ marginTop: "0.75rem" }}>$</span>
@@ -207,7 +206,18 @@ function AddBillPop() {
                 />
               </div>
               <small className="form-alert">{totalSumError}</small>
-            </div>
+            </div> */}
+
+            <CustomInput
+              itemId={"totalSum"}
+              value={totalSum}
+              label={"Total payed"}
+              type={"number"}
+              handleOnChange={handleTotalSumChange}
+              errorMsg={totalSumError}
+              placeHolder={"Example: 20.00"}
+              specialChar={"$"}
+            />
 
             <div className="flex-container flex-between form-group doubleColumn">
               <label htmlFor="totalSum">Pay before</label>

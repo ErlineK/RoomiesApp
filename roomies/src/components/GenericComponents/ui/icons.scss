@@ -2,7 +2,6 @@
 
 .ic {
   color: $accent-darker;
-  margin: 0.5rem;
   cursor: pointer;
 }
 
@@ -60,6 +59,12 @@
 
 .ic_light {
   color: $accent-light;
+}
+
+.btnClose {
+  position: absolute;
+  right: 0.5rem;
+  z-index: 1;
 }
 
 @media (min-width: $tablet) {

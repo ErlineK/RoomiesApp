@@ -12,7 +12,6 @@ export function HouseProvider(props) {
   const { requestHeader, user, loginUser } = useContext(AuthContext);
 
   const [houses, setHousesState] = useState();
-  // const [houseTenants, setHouseTenants] = useState();
   const [showAddTenants, toggleAddTenants] = useToggle(false);
   const [showNewHouse, toggleNewHouse] = useToggle(false);
   const [selectedHouseId, setSelectedHouseId] = useState("");
@@ -24,10 +23,10 @@ export function HouseProvider(props) {
       // get houses from DB
       axios
         .get(`${BASE_URL}/houses/${user._id}`, requestHeader)
-        .then(res => {
+        .then((res) => {
           setHouses(res.data.houses);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log("Get houses Error: ");
           // console.log(error);
           console.log(error.response.data.error);
@@ -41,12 +40,17 @@ export function HouseProvider(props) {
   //   setHouseTenants(getCurrentHouseTenants());
   // };
 
-  const setHouses = houses => {
+  const setHouses = (houses) => {
     setSelectedHouseId(user.active_house);
+    console.log("active house:" + selectedHouseId);
+
+    console.log("houses:");
+    console.log(houses);
+
     setHousesState(houses);
   };
 
-  const handleNewHouse = newHouse => {
+  const handleNewHouse = (newHouse) => {
     if (user !== undefined && user._id !== "") {
       console.log("Trying to add house for user " + user._id);
       console.log(newHouse);
@@ -60,13 +64,13 @@ export function HouseProvider(props) {
           { userId: user._id, newHouse: newHouse },
           requestHeader
         )
-        .then(res => {
+        .then((res) => {
           console.log("Added new house successfully");
           console.log(res);
 
           loginUser(res.data.user);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log("Get houses Error: ");
           // console.log(error);
           console.log(error.response.data.error);
@@ -76,12 +80,11 @@ export function HouseProvider(props) {
 
   const handleNewTenant = (email, name) => {
     // check if tenant's email exist in list
-    const currentHouse = selectedHouse();
-    console.log(currentHouse);
+    const currentHouse = getSelectedHouse();
 
     const tenantInList =
       currentHouse && currentHouse.house_tenants
-        ? currentHouse.house_tenants.filter(tenant => tenant.email === email)
+        ? currentHouse.house_tenants.filter((tenant) => tenant.email === email)
         : [];
 
     if (tenantInList.length == 0) {
@@ -93,7 +96,7 @@ export function HouseProvider(props) {
           { houseId: selectedHouseId, email, name },
           requestHeader
         )
-        .then(res => {
+        .then((res) => {
           console.log("updated house tenants successfully");
           console.log(res);
 
@@ -103,7 +106,7 @@ export function HouseProvider(props) {
 
           toggleAddTenants();
         })
-        .catch(error => {
+        .catch((error) => {
           console.log("Get houses Error: ");
           console.log(error.response.data.error);
           return error.response.data.error;
@@ -115,8 +118,19 @@ export function HouseProvider(props) {
     }
   };
 
-  const selectedHouse = () => {
-    return houses.filter(house => house._id === user.active_house);
+  const getSelectedHouse = () => {
+    const selectedHouse = houses.filter(
+      (house) => house._id === selectedHouseId
+    );
+    return selectedHouse ? selectedHouse[0] : "";
+  };
+
+  const getSelectedHouseActiveTenants = () => {
+    const selectedHouse = getSelectedHouse();
+    console.log("active house:");
+    console.log(selectedHouse);
+
+    return selectedHouse.approved_tenants;
   };
 
   // const getCurrentHouseTenants = () => {
@@ -132,7 +146,7 @@ export function HouseProvider(props) {
         houses: houses,
         setHouses: setHouses,
         activeHouseId: user ? user.active_house : "",
-        selectedHouse: selectedHouse,
+        getSelectedHouse: getSelectedHouse,
 
         showNewHouse: showNewHouse,
         toggleNewHouse: toggleNewHouse,
@@ -140,7 +154,8 @@ export function HouseProvider(props) {
 
         showAddTenants: showAddTenants,
         toggleAddTenants: toggleAddTenants,
-        handleNewTenant: handleNewTenant
+        handleNewTenant: handleNewTenant,
+        getActiveTenants: getSelectedHouseActiveTenants,
 
         // setSelectedHouse: setSelectedHouse
       }}

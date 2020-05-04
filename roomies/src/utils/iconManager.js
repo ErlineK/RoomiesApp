@@ -49,7 +49,13 @@ function getIcon(iconName, classNames, onIconClick) {
       break;
 
     case "addFile":
-      iconObj = <AiFillFileAdd className={classNames} onClick={onIconClick} />;
+      iconObj = (
+        <AiFillFileAdd
+          className={classNames}
+          style={{ fontSize: "1.75rem" }}
+          onClick={onIconClick}
+        />
+      );
       break;
 
     case "addUser":

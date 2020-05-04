@@ -31,11 +31,14 @@ export default (initialBills) => {
   };
 
   const addBill = async (bill) => {
-    setRequest({
+    await setRequest({
       url: `bills/${activeHouseId}/${userId}`,
       reqType: "post",
       reqData: bill,
     });
+
+    console.log("added New bill.");
+    console.log(data);
   };
 
   const editBill = (newBill, billId) => {
@@ -45,7 +48,24 @@ export default (initialBills) => {
     // setChores(updatedChores);
   };
 
+  const addBillPayment = async (payment) => {
+    const newPayemnt = {
+      ...payment,
+      house_ref: activeHouseId,
+      from_user: userId,
+    };
+    setRequest({
+      url: `payments/${activeHouseId}/${userId}`,
+      reqType: "post",
+      reqData: newPayemnt,
+    });
+  };
+
   const removeBill = (billId) => {
+    setRequest({
+      url: `payments/${billId}/${userId}`,
+      reqType: "delete",
+    });
     // const updatedChores = data.chores.filter(chore => chore.id !== choreId);
     // setChores(updatedChores);
   };
@@ -55,6 +75,7 @@ export default (initialBills) => {
     editBill: editBill,
     removeBill: removeBill,
     getAllBills: getAllBills,
+    addBillPayment: addBillPayment,
   };
 
   // const requestStatus = [isLoading, isError];

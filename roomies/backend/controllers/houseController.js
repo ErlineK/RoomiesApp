@@ -15,8 +15,8 @@ exports.getAllHousesForUser = async (req, res) => {
       .populate({
         path: "house_tenants",
         select: "email name",
-        populate: { path: "approved_tenants", select: "email name" }
       })
+      .populate({ path: "approved_tenants", select: "name" })
       .sort({ opened: -1 });
 
     res.json({ msg: "Got user houses successfully", houses: houses });
@@ -27,8 +27,8 @@ exports.getAllHousesForUser = async (req, res) => {
 
 exports.updateHouse = async (req, res) => {
   House.findByIdAndUpdate(req.params.userId, req.body)
-    .then(house => res.json({ msg: "Updated successfully", house }))
-    .catch(err => res.status(400).json({ error: "Could not update house" }));
+    .then((house) => res.json({ msg: "Updated successfully", house }))
+    .catch((err) => res.status(400).json({ error: "Could not update house" }));
 };
 
 exports.addNewHouse = async (req, res) => {
@@ -46,13 +46,13 @@ exports.addNewHouse = async (req, res) => {
       description: reqDataHouse.description,
       house_tenants: [req.params.userId], // set user as first member in house
       approved_tenants: [req.params.userId], // self approved
-      avatar: reqDataHouse.avatar
+      avatar: reqDataHouse.avatar,
     }).save();
 
     //update user's active house
     const updateUserReq = {
       params: { userId: req.params.userId },
-      body: { active_house: newHouse._id }
+      body: { active_house: newHouse._id },
     };
     // update user and return
     userController.updateUser(updateUserReq, res);
@@ -74,7 +74,7 @@ exports.addTenant = async (req, res) => {
 
     // add tenant to house
     await House.findByIdAndUpdate(houseId, {
-      $push: { house_tenants: tenant }
+      $push: { house_tenants: tenant },
     });
 
     // create invitation notification

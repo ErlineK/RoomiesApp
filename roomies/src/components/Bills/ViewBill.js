@@ -7,13 +7,18 @@ import {
   formatCurrency,
 } from "../../utils/formatHelper";
 import { BillsContext } from "./BillsContext";
+import AddPayment from "./Payments/AddPayment";
 import EditableDataItem from "../GenericComponents/EditableDataItem/EditableDataItem";
 
 // TODO: add comments area + add comment
-// TODO: create payments area: theme title, add button, list
+// TODO: create payments area: payments list
 
 export default function ViewBill(props) {
-  const { editBill, removeBill } = useContext(BillsContext);
+  const { showAddPayment, toggleAddPayment, editBill, removeBill } = useContext(
+    BillsContext
+  );
+
+  console.log("show payment: " + showAddPayment);
 
   const bill = props.location.state.bill;
 
@@ -22,15 +27,7 @@ export default function ViewBill(props) {
       ? `${formatDayMonth(bill.start_date)} - ${formatDayMonth(bill.end_date)}`
       : "no p";
 
-  console.log("billing period: " + billPeriod);
-
   const billTitle = `${bill.bill_type} ${billPeriod}`;
-
-  const handleAddPayment = (e) => {
-    e.preventDefault();
-
-    console.log("clicked add payment");
-  };
 
   const handleAddDoc = (e) => {
     e.preventDefault();
@@ -40,7 +37,7 @@ export default function ViewBill(props) {
 
   return (
     <div className="card user-main">
-      <h3 className="section-title">{billTitle}</h3>
+      <h4 className="section-title">{billTitle}</h4>
 
       <div className="flex-container flex-columns-holder viewBillContainer">
         <div className="flex-container flex-fill data-section billDataSection">
@@ -116,7 +113,7 @@ export default function ViewBill(props) {
         <div id="payments Holder">
           <div className="titleContainer">
             Payments
-            {getIcon("add", "ic ic_lg ic_light", (e) => handleAddPayment(e))}
+            {getIcon("add", "ic ic_lg ic_light", (e) => toggleAddPayment(e))}
           </div>
           These are apyments
         </div>
@@ -134,6 +131,7 @@ export default function ViewBill(props) {
           These are comments
         </div>
       </div>
+      {showAddPayment && <AddPayment bill={bill} />}
     </div>
   );
 }
