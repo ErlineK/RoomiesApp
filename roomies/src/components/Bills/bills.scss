@@ -50,8 +50,12 @@
 
 .billDataSection {
   position: relative;
-  padding: 1rem 2rem;
+  padding: 1rem 1.5rem;
   margin: 0;
+}
+
+.indented .editableDataItem {
+  padding: 0;
 }
 
 @media (min-width: $tablet) {

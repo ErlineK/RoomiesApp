@@ -31,13 +31,16 @@ exports.getAllBillsForHouse = async (req, res) => {
       )
       .populate({
         path: "bill_comments",
-        // populate: { path: "author", select: "name" }
+        populate: { path: "author", select: "name" },
       })
       .populate({
         path: "payments",
         populate: [
-          { path: "user", select: "name" },
-          { path: "userComment", populate: { path: "user", select: "name" } },
+          { path: "from_user", select: "name" },
+          {
+            path: "user_comment",
+            populate: { path: "author", select: "name" },
+          },
         ],
       })
       .sort({ due_date: +1 });
@@ -55,7 +58,7 @@ exports.addNewBill = async (req, res) => {
     const newComment = await new UserComment({
       author: req.params.userId,
       msg: req.body.comment,
-    });
+    }).save();
 
     // reate new bill and add to db
     const billParams = req.body;

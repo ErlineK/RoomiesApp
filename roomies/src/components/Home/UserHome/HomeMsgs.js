@@ -58,7 +58,6 @@ function HomeMsgs() {
 
   useEffect(() => {
     if (userId !== undefined && userId !== "") {
-      console.log("getting messages for user");
       setRequest({
         url: `notifications/${userId}`,
         reqType: "get",

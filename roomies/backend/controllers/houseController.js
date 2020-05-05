@@ -90,3 +90,5 @@ exports.addTenant = async (req, res) => {
     res.status(404).json({ error: "Could not add tenant" });
   }
 };
+
+exports.addTenant = async (req, res) => {};

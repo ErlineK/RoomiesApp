@@ -48,14 +48,16 @@ export default (initialBills) => {
     // setChores(updatedChores);
   };
 
-  const addBillPayment = async (payment) => {
+  const addBillPayment = async (payment, billId) => {
+    console.log("requesting new payment for bill Id: " + billId);
+
     const newPayemnt = {
       ...payment,
       house_ref: activeHouseId,
       from_user: userId,
     };
     setRequest({
-      url: `payments/${activeHouseId}/${userId}`,
+      url: `bills/payment/${billId}/${userId}`,
       reqType: "post",
       reqData: newPayemnt,
     });
@@ -63,7 +65,7 @@ export default (initialBills) => {
 
   const removeBill = (billId) => {
     setRequest({
-      url: `payments/${billId}/${userId}`,
+      url: `bills/payment/${billId}/${userId}`,
       reqType: "delete",
     });
     // const updatedChores = data.chores.filter(chore => chore.id !== choreId);

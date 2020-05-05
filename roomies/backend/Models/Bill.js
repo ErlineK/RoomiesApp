@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const comment = require("./UserComment").model("userComment");
+const userComment = require("./UserComment").model("userComment");
 const house = require("./House").model("house");
 const payment = require("./Payment").model("payment");
 
@@ -50,15 +50,25 @@ const BillSchema = new mongoose.Schema({
       ref: payment,
     },
   ],
-  // payed: {
-  //   type: Number,
-  //   default: 0,
-  //   // TODO: set calculated/virtual field of payments sums
-  // },
+  payed: {
+    type: Number,
+    // default: 0,
+    default: function () {
+      try {
+        return this.payments
+          .map((p) => p.total_amount)
+          .reduce((a, b) => a + b, 0);
+      } catch (err) {
+        return 0;
+      }
+    },
+
+    // TODO: set calculated/virtual field of payments sums
+  },
   bill_comments: [
     {
       type: mongoose.Types.ObjectId,
-      ref: comment,
+      ref: userComment,
     },
   ],
   bill_images: [
@@ -66,11 +76,6 @@ const BillSchema = new mongoose.Schema({
       type: String,
     },
   ],
-});
-
-// sum total of payments for bill
-BillSchema.virtual("payed").get(function () {
-  return this.payments.map((p) => p.total_amount).reduce((a, b) => a + b, 0);
 });
 
 module.exports = Bill = mongoose.model("bill", BillSchema);

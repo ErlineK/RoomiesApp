@@ -9,7 +9,8 @@ export default (initialVal, valueType) => {
   const [value, setValue] = useState(initialVal);
   const [errorMsg, setError] = useState("");
   // value change callback
-  const handleChange = e => {
+  const handleChange = (e) => {
+    e.preventDefault();
     setValue(e.target.value);
   };
 

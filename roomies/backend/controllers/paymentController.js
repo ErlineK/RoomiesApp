@@ -3,29 +3,44 @@ const Payment = require("../models/Payment");
 // Bill model
 const Bill = require("../models/Bill");
 
-exports.addNewPayment = async (payment) => {
+// User constroller
+const billController = require("./billController");
+
+exports.addNewPayment = async (req, res) => {
   try {
     console.log("\n adding new payment \n");
-    // create comment
-    const newComment = await new UserComment({
-      author: payment.userId,
-      msg: payment.comment,
-    });
+    // create comment if not empty
+
+    const newComment = req.body.comment
+      ? await new UserComment({
+          author: req.params.userId,
+          msg: req.body.comment,
+        }).save()
+      : undefined;
+
+    // TODO: test user in approved tenant in bill's house
 
     //create payment
-
-    // TODO: update payment data
     // TODO: update payment images
-    return await new Payment({
-      transaction_date: "",
-      from_user: payment.userId,
-      to_user: payment.to_user,
-      payed_for: "",
-      total_amount: "",
-      comments: [newComment],
+    const newPayment = await new Payment({
+      ...req.body,
+      user_comment: newComment,
     }).save();
+
+    // add payment to bill
+    const updatedBill = await Bill.findByIdAndUpdate(req.params.billId, {
+      $push: { payments: newPayment },
+    });
+
+    console.log("\nUpadted Bill:\n");
+    console.log(updatedBill);
+
+    //return all house bills for response
+    const newReq = { ...req, params: { houseId: req.body.house_ref } };
+
+    billController.getAllBillsForHouse(newReq, res);
   } catch (err) {
     console.log(err);
-    return { error: "Could not add payment" };
+    res.status(400).json({ error: "Could not add payment" });
   }
 };

@@ -97,13 +97,8 @@ export function HouseProvider(props) {
           requestHeader
         )
         .then((res) => {
-          console.log("updated house tenants successfully");
-          console.log(res);
-
-          console.log("updated houses:");
-          console.log(res.data.houses);
+          //update houses, clode add tenants popup
           setHouses(res.data.houses);
-
           toggleAddTenants();
         })
         .catch((error) => {
@@ -127,8 +122,6 @@ export function HouseProvider(props) {
 
   const getSelectedHouseActiveTenants = () => {
     const selectedHouse = getSelectedHouse();
-    console.log("active house:");
-    console.log(selectedHouse);
 
     return selectedHouse.approved_tenants;
   };

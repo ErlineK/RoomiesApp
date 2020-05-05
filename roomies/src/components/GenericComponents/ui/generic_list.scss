@@ -1,22 +1,5 @@
 @import "./general.scss";
 
-// .titleContainer {
-//   display: flex;
-//   justify-content: space-between;
-//   background: $gradient-darker;
-//   color: $accent-light;
-//   padding: 0.5rem 1rem;
-//   text-align: left;
-//   font-size: 120%;
-//   box-shadow: 0px 3px 5px 0px rgba($color: $accent-dark, $alpha: 0.3);
-//   z-index: 90; //must be below 100 so won't cover side nav
-
-//   a {
-//     color: $accent-light;
-//     text-decoration: none;
-//   }
-// }
-
 .titleContainer {
   position: relative;
   display: flex;
@@ -105,16 +88,16 @@
       }
     }
 
-    .description {
-      color: $accent-darker;
-      font-size: 0.5em;
-    }
+    // .description {
+    //   color: $accent-darker;
+    //   font-size: 0.5em;
+    // }
 
-    .textLight {
-      color: $accent-gray-light;
-      font-weight: normal;
-      white-space: nowrap;
-    }
+    // .textLight {
+    //   color: $accent-gray-light;
+    //   font-weight: normal;
+    //   white-space: nowrap;
+    // }
 
     .rightBlock {
       justify-self: flex-end;
@@ -246,7 +229,25 @@
   }
 }
 
-.completeItemText {
-  text-decoration: line-through;
-  color: $accent-darker;
+.listItemLight {
+  width: 100%;
+  color: $accent-dark;
+  padding: 0.5rem;
+  font-size: $font-md;
+  text-align: start;
+}
+
+.separator-light {
+  height: 8px;
+  // background-color: red;
+  background-image: linear-gradient(90deg, $orange-color, transparent);
+  border: 0;
+  height: 1px;
+  margin: 0;
+}
+
+@media (min-width: $tablet) {
+  .listItemLight {
+    padding: 0.5rem 1rem;
+  }
 }

@@ -17,6 +17,10 @@
   font-size: $small-icon;
 }
 
+.ic_margins {
+  margin: 0.25rem 0.5rem;
+}
+
 .ic_fade {
   opacity: 0.3;
 }
@@ -65,6 +69,37 @@
   position: absolute;
   right: 0.5rem;
   z-index: 1;
+}
+
+.btnBack {
+  position: absolute;
+  left: 0.5rem;
+  z-index: 1;
+}
+
+.ic_action {
+  margin-top: 0.5rem;
+}
+
+.actionIcon {
+  margin-top: 0.5rem;
+  margin-right: 1rem;
+  font-size: 1.5rem;
+  // color: $accent-dark;
+
+  &:hover {
+    &.edit {
+      color: $primary-color-dark;
+    }
+
+    &.success_hov {
+      color: $accent-green;
+    }
+
+    &.abort {
+      color: $accent-red;
+    }
+  }
 }
 
 @media (min-width: $tablet) {

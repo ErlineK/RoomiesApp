@@ -27,18 +27,9 @@ export default function EditableDataItem({ item, handleUpdate }) {
               {getIcon("acceptUser", "ic ic_lg ic_success", (e) =>
                 updateItem(e)
               )}
-              {/* <FaUserCheck
-                className="actionIcon success_hov"
-                onClick={(e) => updateItem(e)}
-              /> */}
               {getIcon("declineUser", "ic ic_lg ic_alert active", (e) =>
                 toggleEdit()
               )}
-              {/* {getIcon(
-                "declineUser",
-                "ic ic_lg ic_alert actionIcon hover",
-                (e) => toggleEdit()
-              )} */}
             </div>
           </div>
           <input
@@ -55,7 +46,7 @@ export default function EditableDataItem({ item, handleUpdate }) {
       ) : (
         <div className="editableDataItem">
           <div className="flex-container flex-between">
-            <div className="flex-container">
+            <div className="flex-container flex-center-vertical">
               {getIcon(item.icon, "ic ic_lg ic_decore")}
               <p className="item itemTitle">
                 {item.title}
@@ -65,8 +56,10 @@ export default function EditableDataItem({ item, handleUpdate }) {
             </div>
             <div className="toRight">
               {handleUpdate
-                ? getIcon("editUser", "ic ic_lg ic_hidden ic_roomies", () =>
-                    toggleEdit()
+                ? getIcon(
+                    "editUser",
+                    "ic ic_lg ic_hidden ic_roomies ic_action",
+                    () => toggleEdit()
                   )
                 : ""}
             </div>

@@ -36,12 +36,10 @@ const PaymentSchema = new mongoose.Schema({
     min: 0.1,
     max: 1000.0,
   },
-  comments: [
-    {
-      type: mongoose.Types.ObjectId,
-      ref: userComment,
-    },
-  ],
+  user_comment: {
+    type: mongoose.Types.ObjectId,
+    ref: userComment,
+  },
   reference_images: [
     {
       type: String,

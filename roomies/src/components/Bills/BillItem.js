@@ -53,7 +53,7 @@ function BillItem({ item }) {
         > */}
         <Link
           className="billsGrid"
-          to={{ pathname: "/ViewBill", state: { bill: item } }}
+          to={{ pathname: "/ViewBill", state: { billId: item._id } }}
         >
           <div className="gridItem lg-sc-only">
             <p>{item.invoice_num}</p>

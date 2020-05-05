@@ -9,25 +9,32 @@ import {
 import { BillsContext } from "./BillsContext";
 import AddPayment from "./Payments/AddPayment";
 import EditableDataItem from "../GenericComponents/EditableDataItem/EditableDataItem";
+import PaymentItem from "./Payments/PaymentItem";
+import { useHistory } from "react-router-dom";
 
 // TODO: add comments area + add comment
 // TODO: create payments area: payments list
 
 export default function ViewBill(props) {
-  const { showAddPayment, toggleAddPayment, editBill, removeBill } = useContext(
-    BillsContext
-  );
+  const history = useHistory();
+  const {
+    showAddPayment,
+    toggleAddPayment,
+    getBillById,
+    editBill,
+    removeBill,
+  } = useContext(BillsContext);
 
-  console.log("show payment: " + showAddPayment);
-
-  const bill = props.location.state.bill;
+  const billId = props.location.state.billId;
+  console.log("entered view bill. bill id:" + billId);
+  const bill = getBillById(billId);
 
   const billPeriod =
-    bill.start_date !== "" && bill.end_date !== ""
+    bill && bill.start_date !== "" && bill.end_date !== ""
       ? `${formatDayMonth(bill.start_date)} - ${formatDayMonth(bill.end_date)}`
-      : "no p";
+      : "";
 
-  const billTitle = `${bill.bill_type} ${billPeriod}`;
+  const billTitle = bill ? `${bill.bill_type} ${billPeriod}` : "";
 
   const handleAddDoc = (e) => {
     e.preventDefault();
@@ -35,8 +42,18 @@ export default function ViewBill(props) {
     console.log("clicked add document");
   };
 
+  const paymentItems =
+    bill && bill.payments
+      ? bill.payments.map((payment) => (
+          <PaymentItem key={payment._id} item={payment} />
+        ))
+      : "No payments made yet. Click + button to tart paying NOW >>";
+
   return (
     <div className="card user-main">
+      <div className="secondary-link toLeft" onClick={() => history.goBack()}>
+        {getIcon("btnBack", "back-icon")} back
+      </div>
       <h4 className="section-title">{billTitle}</h4>
 
       <div className="flex-container flex-columns-holder viewBillContainer">
@@ -111,11 +128,14 @@ export default function ViewBill(props) {
 
       <div>
         <div id="payments Holder">
-          <div className="titleContainer">
+          <div className="titleContainer ">
             Payments
             {getIcon("add", "ic ic_lg ic_light", (e) => toggleAddPayment(e))}
           </div>
-          These are apyments
+          {bill.total_amount <= bill.payed && (
+            <PaymentItem action={"complete"} />
+          )}
+          {paymentItems}
         </div>
 
         <div id="comments Holder">

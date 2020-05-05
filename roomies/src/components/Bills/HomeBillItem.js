@@ -27,7 +27,7 @@ function HomeBillItem({ item }) {
     // >
     <Link
       className={`${getBackgroundByDue(item.due_date)} listItemHolder`}
-      to={{ pathname: "/ViewBill", state: { bill: item } }}
+      to={{ pathname: "/ViewBill", state: { billId: item._id } }}
     >
       <div className="listFlexHolder">
         {getIconByBillType(

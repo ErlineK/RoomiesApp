@@ -47,9 +47,6 @@ function AddPayment({ bill }) {
 
   const houseTenants = getActiveTenants();
 
-  console.log("tenants:");
-  console.log(houseTenants);
-
   const tenantsList = houseTenants
     ? houseTenants.map((tenant) => tenant.name)
     : "";
@@ -60,12 +57,12 @@ function AddPayment({ bill }) {
     const payment = {
       transaction_date: paymentDate,
       reference_num: refNum,
-      to_user: payedTo,
+      to_user: isRoomieTransfer ? payedTo : undefined,
       total_amount: paymentSum,
       comment: comment,
     };
 
-    addBillPayment(payment);
+    addBillPayment(payment, bill._id);
   };
 
   //   Validate name exist and not empty
@@ -75,7 +72,7 @@ function AddPayment({ bill }) {
 
     if (validatePaymentDate() && validatePaymentSum() && validateRefNum()) {
       validated = true;
-      if (!(isRoomieTransfer && tenantsList.includes(payedTo))) {
+      if (isRoomieTransfer && !tenantsList.includes(payedTo)) {
         validated = false;
         setError("Invalid payment recipient");
       }
@@ -104,7 +101,7 @@ function AddPayment({ bill }) {
 
   const pageTitle = isRoomieTransfer
     ? "Add Roomie Transfer"
-    : `Add payment for ${bill.bill_type}`;
+    : `Add payment for ${bill.bill_type} bill`;
 
   return (
     <PopUpCard togglePop={toggleAddPayment}>

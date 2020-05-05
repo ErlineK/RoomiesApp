@@ -1,5 +1,6 @@
 @import "./ui_consts.scss";
 @import "./positioning.scss";
+@import "./texts.scss";
 
 .lg-sc-only {
   display: none;
@@ -151,27 +152,6 @@
 
 .abort {
   color: $accent-red;
-}
-
-.actionIcon {
-  margin-top: 0.5rem;
-  margin-right: 1rem;
-  font-size: 1.5rem;
-  // color: $accent-dark;
-
-  &:hover {
-    &.edit {
-      color: $primary-color-dark;
-    }
-
-    &.success_hov {
-      color: $accent-green;
-    }
-
-    &.abort {
-      color: $accent-red;
-    }
-  }
 }
 
 .popup {

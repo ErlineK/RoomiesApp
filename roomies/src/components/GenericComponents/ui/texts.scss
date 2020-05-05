@@ -1,0 +1,24 @@
+@import "./ui_consts.scss";
+
+.description {
+  color: $accent-darker;
+  font-size: $font-sm;
+}
+
+.textLight {
+  color: $accent-gray-light;
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+.completeItemText {
+  text-decoration: line-through;
+  color: $accent-darker;
+}
+
+.comment {
+  font-size: 0.85rem;
+  font-weight: normal;
+  margin: 0rem 1rem;
+  text-align: left;
+}

@@ -14,9 +14,20 @@ export function BillsProvider(props) {
     toggleAddBill();
   };
 
-  const addPayment = async (payment) => {
-    await billActions.addBillPayment(payment);
+  const addPayment = async (payment, billId) => {
+    await billActions.addBillPayment(payment, billId);
     toggleAddPayment();
+  };
+
+  const getBillById = (billId) => {
+    const bill =
+      data && data.bills
+        ? data.bills.filter((bill) => bill._id === billId)
+        : undefined;
+    console.log("getting bill: " + billId);
+    console.log(bill);
+
+    return bill ? bill[0] : undefined;
   };
 
   return (
@@ -29,7 +40,8 @@ export function BillsProvider(props) {
         addBill: addBill,
         editBill: billActions.editBill,
         removeBill: billActions.removeBill,
-        getAllBills: billActions.getAllBills,
+        // getAllBills: billActions.getAllBills,
+        getBillById: getBillById,
 
         showAddPayment: showAddPayment,
         toggleAddPayment: toggleAddPayment,

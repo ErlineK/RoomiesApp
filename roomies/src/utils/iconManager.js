@@ -17,7 +17,7 @@ import {
 import { GoPlus, GoCalendar } from "react-icons/go";
 // import { GrDocumentTime } from "react-icons/gr";
 import { TiMessages, TiDeleteOutline } from "react-icons/ti";
-import { MdReplyAll } from "react-icons/md";
+import { MdReplyAll, MdArrowBack } from "react-icons/md";
 import { AiFillFileAdd } from "react-icons/ai";
 import { RiTimerFlashLine } from "react-icons/ri";
 
@@ -123,6 +123,10 @@ function getIcon(iconName, classNames, onIconClick) {
       iconObj = (
         <RiTimerFlashLine className={classNames} onClick={onIconClick} />
       );
+      break;
+
+    case "btnBack":
+      iconObj = <MdArrowBack className={classNames} onClick={onIconClick} />;
       break;
 
     default:
