@@ -23,9 +23,7 @@ export default function Bills() {
     : bills;
 
   const billItems = filteredBills
-    ? filteredBills.map((bill, i) => (
-        <BillItem key={`bill${i}`} billId={bill} />
-      ))
+    ? filteredBills.map((bill, i) => <BillItem key={`bill${i}`} item={bill} />)
     : "";
 
   return (
