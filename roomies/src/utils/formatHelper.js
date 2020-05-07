@@ -1,14 +1,18 @@
 /* returns date in formt MMM DD HH:mm */
 export function formatDate(dateBase) {
   try {
-    const iDate = new Date(dateBase);
-    return new Intl.DateTimeFormat("en-CA", {
-      month: "short",
-      day: "2-digit",
-      hour: "numeric",
-      minute: "numeric",
-      hour12: false,
-    }).format(dateBase);
+    if (dateBase !== null && dateBase !== "") {
+      const iDate = new Date(dateBase);
+      return new Intl.DateTimeFormat("en-CA", {
+        month: "short",
+        day: "2-digit",
+        hour: "numeric",
+        minute: "numeric",
+        hour12: false,
+      }).format(iDate);
+    } else {
+      return "";
+    }
   } catch (err) {
     return "";
   }
@@ -17,13 +21,17 @@ export function formatDate(dateBase) {
 /* returns date in formt MMM DD YYYY */
 export function formatDateOnly(dateBase) {
   try {
-    const iDate = new Date(dateBase);
-    return new Intl.DateTimeFormat("en-CA", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-      hour12: false,
-    }).format(iDate);
+    if (dateBase !== null && dateBase !== "") {
+      const iDate = new Date(dateBase);
+      return new Intl.DateTimeFormat("en-CA", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+        hour12: false,
+      }).format(iDate);
+    } else {
+      return "";
+    }
   } catch (err) {
     return "";
   }
@@ -32,11 +40,15 @@ export function formatDateOnly(dateBase) {
 /* returns date in formt MMM DD */
 export function formatDayMonth(dateBase) {
   try {
-    const iDate = new Date(dateBase);
-    return new Intl.DateTimeFormat("en-CA", {
-      month: "short",
-      day: "numeric",
-    }).format(iDate);
+    if (dateBase !== null && dateBase !== "") {
+      const iDate = new Date(dateBase);
+      return new Intl.DateTimeFormat("en-CA", {
+        month: "short",
+        day: "numeric",
+      }).format(iDate);
+    } else {
+      return "";
+    }
   } catch (err) {
     return "";
   }

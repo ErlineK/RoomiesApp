@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import useInputState from "../../hooks/useInputState";
-import "../auth/auth.scss";
+// import "../auth/auth.scss";
 import "../GenericComponents/ui/forms.scss";
 import PopUpCard from "../GenericComponents/PopUpCard";
 import { BillsContext } from "./BillsContext";
@@ -8,9 +8,13 @@ import { BILL_TYPES } from "../../utils/AppParams";
 import CircleLoader from "../GenericComponents/Loader/CircleLoader";
 import { formatInputDate } from "../../utils/formatHelper";
 import CustomInput from "../GenericComponents/CustomInput";
+import { HouseContext } from "../UserSettings/House/HouseContext";
+import { AuthContext } from "../auth/AuthContext";
 
 function AddBillPop() {
   const { toggleAddBill, addBill, requestStatus } = useContext(BillsContext);
+  const { getActiveTenants } = useContext(HouseContext);
+  const { userId } = useContext(AuthContext);
   const [error, setError] = useState();
 
   const [
@@ -53,7 +57,16 @@ function AddBillPop() {
     totalSumError,
   ] = useInputState("", "BILL_SUM");
 
+  const [
+    payedTo,
+    handlePayedToChange,
+    validatePayedTo,
+    payedToError,
+  ] = useInputState("select", "");
+
   const [billComment, handleBillCommentChange] = useInputState("", "COMMENT");
+
+  const isRoomiesTransfer = billType === "Roomie Transfer";
 
   // const [billImages, setBillImages] = useState();
 
@@ -66,6 +79,7 @@ function AddBillPop() {
       total_amount: totalSum,
       due_date: dueDate,
       comment: billComment,
+      to_user: isRoomieTransfer ? getPayedToId() : undefined,
       // bill_images: billImages
     };
 
@@ -86,7 +100,17 @@ function AddBillPop() {
       validateTotalSum()
     ) {
       validated = true;
-      if (endDate < strDate) {
+
+      // create tenant names list to check 'payed_to' field
+      const tenantsList =
+        isRoomieTransfer && houseTenants
+          ? houseTenants.map((tenant) => tenant.name)
+          : "";
+
+      if (isRoomieTransfer && !tenantsList.includes(payedTo)) {
+        validated = false;
+        setError("Please select a valid payment recipient");
+      } else if (endDate < strDate) {
         validated = false;
         setError("Invalid billing period");
       }
@@ -98,15 +122,33 @@ function AddBillPop() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // TODO: validate end date after start date
     if (validate()) {
       handleAddBill();
-      // toggleAddBill();
     } else {
       // setError("Invalid data.\n");
     }
   };
 
+  const isRoomieTransfer = billType === "Roomie Transfer";
+
+  const houseTenants = getActiveTenants();
+
+  // get id of the selected roomie for payedTo
+  function getPayedToId() {
+    const recepient = houseTenants.filter((tenant) => tenant.name === payedTo);
+    return recepient._id;
+  }
+
+  // get only other roomies
+  const roomieOptions = houseTenants
+    .filter((tenant) => tenant._id !== userId)
+    .map((roomie) => (
+      <option key={roomie.name} value={roomie.name}>
+        {roomie.name}
+      </option>
+    ));
+
+  // create payedTo options from roomies list
   const billTypeOptions = BILL_TYPES.map((option) => (
     <option key={option} value={option}>
       {option}
@@ -116,7 +158,9 @@ function AddBillPop() {
   return (
     <PopUpCard togglePop={toggleAddBill}>
       <div>
-        <h4 className="section-title">Add Bill</h4>
+        <h4 className="section-title">
+          Add {isRoomiesTransfer ? "Payment" : "Bill"}
+        </h4>
 
         {requestStatus.isError ||
           (error && <div className="alert alert-danger">{error}</div>)}
@@ -136,9 +180,32 @@ function AddBillPop() {
           <small className="form-alert">{billTypeError}</small>
         </div>
 
+        {isRoomieTransfer ? (
+          <div className="flex-container flex-between form-group userDataItem">
+            <select
+              className="form-control"
+              id="pay_to"
+              onChange={handlePayedToChange}
+              value={payedTo}
+            >
+              <option value="select" disabled>
+                {roomieOptions && roomieOptions.length > 0
+                  ? "Select Roomie..."
+                  : "Sorry! No roomies to select"}
+              </option>
+              {roomieOptions}
+            </select>
+            <small className="form-alert">{payedToError}</small>
+          </div>
+        ) : (
+          ""
+        )}
+
         <form className="userDataItem houseForm">
           <div className="flex-container flex-between form-group">
-            <label htmlFor="inv_num">Invoice Number</label>
+            <label htmlFor="inv_num">
+              {isRoomiesTransfer ? "Reference #" : "Invoice #"}
+            </label>
             <input
               id="inv_num"
               type="text"
@@ -151,67 +218,51 @@ function AddBillPop() {
             />
             <small className="form-alert">{invNumError}</small>
           </div>
-
-          <div className="flex-container flex-between">
-            <label htmlFor="billingPeriod">Billing Period</label>
+          {!isRoomiesTransfer && (
             <div className="flex-container flex-between">
-              <div
-                id="billingPeriod"
-                className="flex-container flex-between form-group"
-                style={{ maxWidth: "48%" }}
-              >
-                <input
-                  id="strDate"
-                  type="date"
-                  name="strDate"
-                  className="form-control"
-                  value={strDate}
-                  onChange={handleStrDateChange}
-                />
-                <small className="form-alert">{strDateError}</small>
-              </div>
-              <span style={{ marginTop: "0.5rem", marginLeft: "0.5rem" }}>
-                -
-              </span>
-              <div
-                className="flex-container flex-between form-group"
-                style={{ maxWidth: "48%" }}
-              >
-                <input
-                  id="endDate"
-                  type="date"
-                  name="endDate"
-                  className="form-control"
-                  value={endDate}
-                  onChange={handleEndDateChange}
-                />
-                <small className="form-alert">{endDateError}</small>
+              <label htmlFor="billingPeriod">Billing Period</label>
+              <div className="flex-container flex-between">
+                <div
+                  id="billingPeriod"
+                  className="flex-container flex-between form-group"
+                  style={{ maxWidth: "47%" }}
+                >
+                  <input
+                    id="strDate"
+                    type="date"
+                    name="strDate"
+                    className="form-control"
+                    value={strDate}
+                    onChange={handleStrDateChange}
+                  />
+                  <small className="form-alert">{strDateError}</small>
+                </div>
+                <span style={{ marginTop: "0.5rem", marginLeft: "0.5rem" }}>
+                  -
+                </span>
+                <div
+                  className="flex-container flex-between form-group"
+                  style={{ maxWidth: "47%" }}
+                >
+                  <input
+                    id="endDate"
+                    type="date"
+                    name="endDate"
+                    className="form-control"
+                    value={endDate}
+                    onChange={handleEndDateChange}
+                  />
+                  <small className="form-alert">{endDateError}</small>
+                </div>
               </div>
             </div>
-          </div>
+          )}
 
-          <div className="flex-container flex-around">
-            {/* <div className="flex-container flex-between form-group doubleColumn">
-              <label htmlFor="totalSum">Total to pay</label>
-              <div className="flex-container">
-                <span style={{ marginTop: "0.75rem" }}>$</span>
-                <input
-                  id="totalSum"
-                  type="number"
-                  name="totalSum"
-                  placeholder="Example: 50.00"
-                  className="form-control"
-                  value={totalSum}
-                  onChange={handleTotalSumChange}
-                />
-              </div>
-              <small className="form-alert">{totalSumError}</small>
-            </div> */}
-
+          <div className="flex-container">
             <CustomInput
               itemId={"totalSum"}
               value={totalSum}
-              label={"Total payed"}
+              label={isRoomiesTransfer ? "Total payed" : "Total to pay"}
               type={"number"}
               handleOnChange={handleTotalSumChange}
               errorMsg={totalSumError}
@@ -219,20 +270,14 @@ function AddBillPop() {
               specialChar={"$"}
             />
 
-            <div className="flex-container flex-between form-group doubleColumn">
-              <label htmlFor="totalSum">Pay before</label>
-              <div className="flex-container">
-                <input
-                  id="dueDate"
-                  type="date"
-                  name="dueDate"
-                  className="form-control"
-                  value={dueDate}
-                  onChange={handleDueDateChange}
-                />
-              </div>
-              <small className="form-alert">{dueDateError}</small>
-            </div>
+            <CustomInput
+              itemId={"dueDate"}
+              value={dueDate}
+              label={isRoomiesTransfer ? "Payment Date" : "Pay before"}
+              type={"date"}
+              handleOnChange={handleDueDateChange}
+              errorMsg={dueDateError}
+            />
           </div>
 
           <div className="flex-container flex-between form-group">
@@ -267,7 +312,7 @@ function AddBillPop() {
                 className="btn btn-grad-pressed"
                 onClick={(e) => handleSubmit(e)}
               >
-                Add Bill
+                Add {isRoomiesTransfer ? "Payment" : "Bill"}
               </button>
             )}
           </div>

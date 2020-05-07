@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import "./homeLists.scss";
 import HomeFragment from "./HomeFragment";
-import HomeBillItem from "../../Bills/HomeBillItem";
+import BillItem from "../../Bills/BillItem";
 import { BillsContext } from "../../Bills/BillsContext";
 
 const tempData = {
@@ -39,12 +39,13 @@ const tempData = {
 
 export default function HomeBills() {
   const { bills, requestStatus } = useContext(BillsContext);
-  // const [{ data, isLoading, isError }] = useGetRoomiesData();
-  // USER_SERVICE_URL,
-  // {}
 
   const billItems = bills
-    ? bills.map((bill, i) => <HomeBillItem key={`bill${i}`} item={bill} />)
+    ? bills
+        .slice(0, 5)
+        .map((bill, i) => (
+          <BillItem key={`bill${i}`} item={bill} type={"HOME"} />
+        ))
     : "";
 
   return (

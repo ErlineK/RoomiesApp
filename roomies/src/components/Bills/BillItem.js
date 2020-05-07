@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../Home/UserHome/homeLists.scss";
 import {
   formatCurrency,
@@ -9,26 +9,20 @@ import { getBackgroundByDue } from "../Home/UserHome/homeHelper";
 import { getIcon } from "../../utils/iconManager";
 import { getIconByBillType } from "./billsHelper";
 import { Link } from "react-router-dom";
+import { BillsContext } from "./BillsContext";
 // import CommentSection from "../GenericComponents/Comment/CommentSection";
 
-// TODO: on bill click go to bill page
+/* bill item types: "HOME" */
 
-function BillItem({ item }) {
+function BillItem({ item, type }) {
+  const { removeBill } = useContext(BillsContext);
+
   const handleRemoveBill = (e) => {
     e.preventDefault();
 
-    // TODO: prompt confiramtion
-    // TODO: on accept confirm - remove bill
-
-    console.log("removing bill");
-  };
-
-  const handleEditBill = (e) => {
-    e.preventDefault();
-
-    // TODO: go to edit bill with bill info
-
-    console.log("editing bill");
+    // prompt for confiramtion
+    window.confirm("Are you sure you want to delete this item?") &&
+      removeBill(item._id);
   };
 
   const billingPreiod =
@@ -36,21 +30,20 @@ function BillItem({ item }) {
       ? `${formatDayMonth(item.start_date)} - ${formatDayMonth(item.end_date)}`
       : "";
 
+  const fullyPayed = item.payed && item.payed >= item.total_amount;
+
   return (
     <div
-      className={`${getBackgroundByDue(item.due_date)} listItemHolder billItem`}
+      className={`${
+        !fullyPayed && getBackgroundByDue(item.due_date)
+      } listItemHolder billItem`}
     >
       <div className="listFlexHolder">
         {getIconByBillType(
           item.bill_type,
-          `${item.total_amount === item.payed ? "success" : ""} listIcon`
+          `${fullyPayed ? "success" : ""} listIcon`
         )}
-        {/* <div
-          className="billsGrid"
-          onClick={() => {
-            console.log("clicked on bill");
-          }}
-        > */}
+
         <Link
           className="billsGrid"
           to={{ pathname: "/ViewBill", state: { billId: item._id } }}
@@ -75,8 +68,8 @@ function BillItem({ item }) {
                   : ""
               }`}
             >
-              {item.payed && item.payed !== item.total_amount
-                ? `${formatCurrency(item.total_amount - item.payed)}/`
+              {item.payed && item.payed < item.total_amount
+                ? `${formatCurrency(item.payed)}/`
                 : ""}
               {formatCurrency(item.total_amount)}
             </p>
@@ -87,14 +80,16 @@ function BillItem({ item }) {
             </p>
           </div>
         </Link>
-        <div className="flex-container billsIconsHolder">
-          {getIcon("edit", "billActionIcon ic ic_md ic_roomies", (e) =>
+        {type !== "HOME" && (
+          <div className="flex-container billsIconsHolder">
+            {/* {getIcon("edit", "billActionIcon ic ic_md ic_roomies", (e) =>
             handleEditBill(e)
-          )}
-          {getIcon("delete", "billActionIcon ic_lg ic_alert", (e) =>
-            handleRemoveBill(e)
-          )}
-        </div>
+          )} */}
+            {getIcon("delete", "billActionIcon ic_lg ic_alert", (e) =>
+              handleRemoveBill(e)
+            )}
+          </div>
+        )}
       </div>
       {/* <CommentSection comments={item.comments} type={"PREV"} /> */}
 

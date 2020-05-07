@@ -51,6 +51,14 @@
       align-items: center;
     }
 
+    a {
+      text-decoration: none;
+
+      &:hover {
+        color: inherit;
+      }
+    }
+
     .listGridHolder {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr auto;

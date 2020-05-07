@@ -17,9 +17,12 @@ import { HouseContext } from "./HouseContext";
 
 export default function HouseCard({ house }) {
   const { userId } = useContext(AuthContext);
-  const { activeHouseId, toggleAddTenants, toggleNewHouse } = useContext(
-    HouseContext
-  );
+  const {
+    activeHouseId,
+    toggleAddTenants,
+    toggleNewHouse,
+    houseApprovedForUser,
+  } = useContext(HouseContext);
 
   const handleDeclineInvitation = (e) => {
     e.preventDefault();
@@ -63,7 +66,12 @@ export default function HouseCard({ house }) {
       : "";
 
   const houseActive = house && house._id === activeHouseId;
-  const houseApproved = house && house.approved_tenants.includes(userId);
+  const houseApproved =
+    house &&
+    (house.admin === userId || house.approved_tenants.includes(userId));
+  // console.log(
+  //   "house name: " + house.houseName + " user is approved: " + houseApproved
+  // );
 
   return (
     <div

@@ -1,9 +1,15 @@
 // Bill model
 const Bill = require("../models/Bill");
+// Bill model
+const Payment = require("../models/Payment");
+
 // UserComment model
 const UserComment = require("../models/UserComment");
 // User constroller
 const userController = require("./userController");
+
+// House constroller
+const houseController = require("./houseController");
 
 // User constroller
 const notificationController = require("./notificationController");
@@ -42,6 +48,7 @@ exports.getAllBillsForHouse = async (req, res) => {
             populate: { path: "author", select: "name" },
           },
         ],
+        options: { sort: { transaction_date: -1 } },
       })
       .sort({ due_date: +1 });
 
@@ -55,16 +62,21 @@ exports.getAllBillsForHouse = async (req, res) => {
 exports.addNewBill = async (req, res) => {
   try {
     // create comment
-    const newComment = await new UserComment({
-      author: req.params.userId,
-      msg: req.body.comment,
-    }).save();
+    const newComment =
+      req.body.comment && req.body.comment !== ""
+        ? await new UserComment({
+            author: req.params.userId,
+            msg: req.body.comment,
+          }).save()
+        : undefined;
 
     // reate new bill and add to db
     const billParams = req.body;
+    // if roomie transfer -> invoice num holds the reference num
+    const invoiceNum =
+      billParams.bill_type === "Roomie Transfer" ? "" : billParams.invoice_num;
     const newBill = await new Bill({
-      // TODO: create object
-      invoice_num: billParams.invoice_num,
+      invoice_num: invoiceNum,
       bill_type: billParams.bill_type,
       start_date: billParams.start_date,
       end_date: billParams.end_date,
@@ -75,7 +87,28 @@ exports.addNewBill = async (req, res) => {
     }).save();
 
     if (newBill.bill_type === "Roomie Transfer") {
-      // TODO: create notification for roomie transfer
+      // TODO: create payment for roomie
+      const roomiePayment = new Payment({
+        transaction_date: billParams.due_date,
+        reference_num: billParams.invoice_num,
+        house_ref: req.params.houseId,
+        from_user: req.params.userId,
+        to_user: billParams.to_user,
+        total_amount: billParams.total_amount,
+      }).save();
+
+      // add payment to bill
+      const updatedBill = await Bill.findByIdAndUpdate(newBill._id, {
+        $push: { payments: roomiePayment },
+      });
+
+      // create notification for roomie transfer
+      notificationController.createTrnsNotification(
+        req.params.userId,
+        billParams.to_user,
+        req.params.houseId,
+        updatedBill._id
+      );
     }
     // return all bills
     this.getAllBillsForHouse(req, res);
@@ -92,5 +125,35 @@ exports.updateBill = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(400).json({ error: "Could not update bill" });
+  }
+};
+
+exports.deleteBill = async (req, res) => {
+  try {
+    const billToDel = await Bill.findById(req.params.billId);
+
+    // check user approved in house
+    if (
+      houseController.checkUserCanEdit(billToDel.ref_house, req.params.userId)
+    ) {
+      // remove all payments in bill
+      await Payment.deleteMany({ _id: { $in: billToDel.payments } });
+
+      // remove all comments in bill
+      await UserComment.deleteMany({ _id: { $in: billToDel.bill_comments } });
+
+      // TODO: remove all images related to bill
+
+      // remove bill
+      await Bill.findByIdAndDelete(billToDel._id);
+      // return all bills
+      const newReq = { ...req, params: { houseId: billToDel.ref_house } };
+      this.getAllBillsForHouse(newReq, res);
+    } else {
+      res.status(403).json({ error: "User not authorized" });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({ error: "Could not remove bill" });
   }
 };

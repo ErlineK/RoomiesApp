@@ -12,15 +12,15 @@ function AddPayment({ bill }) {
   const { toggleAddPayment, addBillPayment, requestStatus } = useContext(
     BillsContext
   );
-  const { getActiveTenants } = useContext(HouseContext);
+  // const { getActiveTenants } = useContext(HouseContext);
   const [error, setError] = useState();
 
-  const [
-    payedTo,
-    handlePayedToChange,
-    validatePayedTo,
-    payedToError,
-  ] = useInputState("", "");
+  // const [
+  //   payedTo,
+  //   handlePayedToChange,
+  //   validatePayedTo,
+  //   payedToError,
+  // ] = useInputState("", "");
 
   const [
     paymentDate,
@@ -45,11 +45,11 @@ function AddPayment({ bill }) {
 
   const [comment, handleCommentChange] = useInputState("", "COMMENT");
 
-  const houseTenants = getActiveTenants();
+  // const houseTenants = getActiveTenants();
 
-  const tenantsList = houseTenants
-    ? houseTenants.map((tenant) => tenant.name)
-    : "";
+  // const tenantsList = houseTenants
+  //   ? houseTenants.map((tenant) => tenant.name)
+  //   : "";
 
   const handleAddPayment = () => {
     console.log("saving payment");
@@ -57,7 +57,7 @@ function AddPayment({ bill }) {
     const payment = {
       transaction_date: paymentDate,
       reference_num: refNum,
-      to_user: isRoomieTransfer ? payedTo : undefined,
+      // to_user: isRoomieTransfer ? payedTo : undefined,
       total_amount: paymentSum,
       comment: comment,
     };
@@ -72,10 +72,10 @@ function AddPayment({ bill }) {
 
     if (validatePaymentDate() && validatePaymentSum() && validateRefNum()) {
       validated = true;
-      if (isRoomieTransfer && !tenantsList.includes(payedTo)) {
-        validated = false;
-        setError("Invalid payment recipient");
-      }
+      // if (isRoomieTransfer && !tenantsList.includes(payedTo)) {
+      //   validated = false;
+      //   setError("Invalid payment recipient");
+      // }
     }
 
     return validated;
@@ -93,11 +93,11 @@ function AddPayment({ bill }) {
 
   const isRoomieTransfer = bill.billType === "Roomie Transfer";
 
-  const roomieOptions = houseTenants.map((roomie) => (
-    <option key={roomie.name} value={roomie.name}>
-      {roomie.name}
-    </option>
-  ));
+  // const roomieOptions = houseTenants.map((roomie) => (
+  //   <option key={roomie.name} value={roomie.name}>
+  //     {roomie.name}
+  //   </option>
+  // ));
 
   const pageTitle = isRoomieTransfer
     ? "Add Roomie Transfer"
@@ -112,7 +112,7 @@ function AddPayment({ bill }) {
           (error && <div className="alert alert-danger">{error}</div>)}
 
         <form className="form-holder">
-          {isRoomieTransfer ? (
+          {/* {isRoomieTransfer ? (
             <div className="flex-container flex-between form-group userDataItem">
               <select
                 className="form-control"
@@ -129,7 +129,7 @@ function AddPayment({ bill }) {
             </div>
           ) : (
             ""
-          )}
+          )} */}
 
           <CustomInput
             key={"billing_date"}

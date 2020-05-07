@@ -25,6 +25,7 @@ router
   .head(auth)
   // .get(billController.getAllBillsForHouse)
   // .patch(billController.updateBill)
-  .post(paymentController.addNewPayment);
+  .post(paymentController.addNewPayment)
+  .delete(billController.deleteBill);
 
 module.exports = router;

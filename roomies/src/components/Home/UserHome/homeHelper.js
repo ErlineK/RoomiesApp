@@ -1,8 +1,13 @@
 export function getBackgroundByDue(dueDate) {
   let bgClass = "";
 
+  // console.log("dueDate: " + dueDate);
+
+  const due = new Date(dueDate);
   const today = new Date();
-  const diff = dueDate - today;
+  const diff = due - today;
+
+  // console.log("bill due diff: " + diff);
 
   // if due date is in 1 day or less
   if (diff < 1000 * 60 * 60 * 24 * 1) {

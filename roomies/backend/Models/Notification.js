@@ -6,47 +6,47 @@ const NotificationSchema = new mongoose.Schema({
   type: {
     /* NVT => Invitation to join a peoperty account
      * MSG => message on messages board
-     * NTF => notification of payed bill/welcome/new tenant/birthdays(?)/transfer between tenants
+     * NTF => notification of payed bill/welcome new tenant/birthdays(?)
+     * TRNS => notification of transfer between tenants
      */
     type: String,
-    enum: ["NVT", "MSG", "NTF"],
-    required: true
+    enum: ["NVT", "MSG", "NTF", "TRNS"],
+    required: true,
   },
-  ntf_type: {
-    type: String,
-    enum: ["transfer", "general"]
-  },
+  // ntf_type: {
+  //   type: String,
+  //   enum: ["transfer", "general"],
+  // },
   to_user: {
     type: mongoose.Types.ObjectId,
     ref: user,
-    required: true
   },
   from_user: {
     type: mongoose.Types.ObjectId,
-    ref: user
+    ref: user,
   },
   added_date: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   ntf_house: {
     type: mongoose.Types.ObjectId,
-    ref: house
+    ref: house,
   },
   ntf_bill: {
-    type: mongoose.Types.ObjectId
+    type: mongoose.Types.ObjectId,
   },
   msg: {
-    type: String
+    type: String,
   },
   accepted: {
     type: Boolean,
-    default: false
+    default: false,
   },
   viewed: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
 module.exports = Notification = mongoose.model(

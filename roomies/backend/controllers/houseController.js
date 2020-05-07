@@ -91,4 +91,17 @@ exports.addTenant = async (req, res) => {
   }
 };
 
-exports.addTenant = async (req, res) => {};
+// exports.addTenant = async (req, res) => {};
+
+exports.checkUserCanEdit = async (houseId, userId) => {
+  try {
+    const authorized = await House.find({
+      _id: houseId,
+      active_tenants: userId,
+    });
+    return authorized;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+};

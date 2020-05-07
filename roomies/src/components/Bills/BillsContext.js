@@ -24,8 +24,6 @@ export function BillsProvider(props) {
       data && data.bills
         ? data.bills.filter((bill) => bill._id === billId)
         : undefined;
-    console.log("getting bill: " + billId);
-    console.log(bill);
 
     return bill ? bill[0] : undefined;
   };
