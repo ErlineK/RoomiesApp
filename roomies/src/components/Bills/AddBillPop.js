@@ -58,10 +58,10 @@ function AddBillPop() {
   ] = useInputState("", "BILL_SUM");
 
   const [
-    payedTo,
-    handlePayedToChange,
-    validatePayedTo,
-    payedToError,
+    paidTo,
+    handlePaidToChange,
+    validatePaidTo,
+    paidToError,
   ] = useInputState("select", "");
 
   const [billComment, handleBillCommentChange] = useInputState("", "COMMENT");
@@ -79,7 +79,7 @@ function AddBillPop() {
       total_amount: totalSum,
       due_date: dueDate,
       comment: billComment,
-      to_user: isRoomieTransfer ? getPayedToId() : undefined,
+      to_user: isRoomieTransfer ? getPaidToId() : undefined,
       // bill_images: billImages
     };
 
@@ -101,13 +101,13 @@ function AddBillPop() {
     ) {
       validated = true;
 
-      // create tenant names list to check 'payed_to' field
+      // create tenant names list to check 'paid_to' field
       const tenantsList =
         isRoomieTransfer && houseTenants
           ? houseTenants.map((tenant) => tenant.name)
           : "";
 
-      if (isRoomieTransfer && !tenantsList.includes(payedTo)) {
+      if (isRoomieTransfer && !tenantsList.includes(paidTo)) {
         validated = false;
         setError("Please select a valid payment recipient");
       } else if (endDate < strDate) {
@@ -133,9 +133,9 @@ function AddBillPop() {
 
   const houseTenants = getActiveTenants();
 
-  // get id of the selected roomie for payedTo
-  function getPayedToId() {
-    const recepient = houseTenants.filter((tenant) => tenant.name === payedTo);
+  // get id of the selected roomie for paidTo
+  function getPaidToId() {
+    const recepient = houseTenants.filter((tenant) => tenant.name === paidTo);
     return recepient._id;
   }
 
@@ -148,7 +148,7 @@ function AddBillPop() {
       </option>
     ));
 
-  // create payedTo options from roomies list
+  // create paidTo options from roomies list
   const billTypeOptions = BILL_TYPES.map((option) => (
     <option key={option} value={option}>
       {option}
@@ -185,8 +185,8 @@ function AddBillPop() {
             <select
               className="form-control"
               id="pay_to"
-              onChange={handlePayedToChange}
-              value={payedTo}
+              onChange={handlePaidToChange}
+              value={paidTo}
             >
               <option value="select" disabled>
                 {roomieOptions && roomieOptions.length > 0
@@ -195,7 +195,7 @@ function AddBillPop() {
               </option>
               {roomieOptions}
             </select>
-            <small className="form-alert">{payedToError}</small>
+            <small className="form-alert">{paidToError}</small>
           </div>
         ) : (
           ""
@@ -262,7 +262,7 @@ function AddBillPop() {
             <CustomInput
               itemId={"totalSum"}
               value={totalSum}
-              label={isRoomiesTransfer ? "Total payed" : "Total to pay"}
+              label={isRoomiesTransfer ? "Total paid" : "Total to pay"}
               type={"number"}
               handleOnChange={handleTotalSumChange}
               errorMsg={totalSumError}

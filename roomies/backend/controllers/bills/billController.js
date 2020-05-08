@@ -1,18 +1,18 @@
 // Bill model
-const Bill = require("../models/Bill");
-// Bill model
-const Payment = require("../models/Payment");
+const Bill = require("../../models/Bill");
+// Payment model
+const Payment = require("../../models/Payment");
 
 // UserComment model
-const UserComment = require("../models/UserComment");
+const UserComment = require("../../models/UserComment");
 // User constroller
-const userController = require("./userController");
+const userController = require("../userController");
 
 // House constroller
-const houseController = require("./houseController");
+const houseController = require("../houseController");
 
 // User constroller
-const notificationController = require("./notificationController");
+const notificationController = require("../notificationController");
 
 exports.getAllBillsForHouse = async (req, res) => {
   try {
@@ -118,10 +118,23 @@ exports.addNewBill = async (req, res) => {
   }
 };
 
+/* api/bills/:houseId/:userId
+ * billId in body
+ */
 exports.updateBill = async (req, res) => {
   try {
-    // TODO: update bill
-    // TODO: create notification if roomie transfer
+    //check user can edit bill
+    if (
+      houseController.checkUserCanEdit(req.params.houseId, req.params.userId)
+    ) {
+      // update bill
+      await Bill.findByIdAndUpdate(req.body.billId, req.body);
+
+      // return all bills
+      this.getAllBillsForHouse(req, res);
+    } else {
+      res.status(403).json({ error: "User not authorized" });
+    }
   } catch (err) {
     console.log(err);
     res.status(400).json({ error: "Could not update bill" });

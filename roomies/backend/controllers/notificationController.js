@@ -32,7 +32,10 @@ exports.getNotificationsForUser = async (req, res) => {
         select: "email name",
       })
       .populate({ path: "ntf_house", select: "houseName address city" })
-      .populate({ path: "ntf_bill", select: "bill_type total_amount" })
+      .populate({
+        path: "ntf_bill",
+        select: "bill_type total_amount start_date end_date",
+      })
       .sort({ added_date: -1 });
 
     res.json({

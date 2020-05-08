@@ -14,10 +14,5 @@ exports.getUserByParam = async (searchObj) => {
 
 exports.getUserActiveHouseId = async (userId) => {
   const userHouse = await User.findById(userId).select("name active_house");
-  console.log("getting active house:\n");
-  console.log(userHouse);
-
-  console.log("house id:" + userHouse.active_house);
-
   return userHouse.active_house;
 };

@@ -36,16 +36,19 @@ export default (initialBills) => {
       reqType: "post",
       reqData: bill,
     });
-
-    console.log("added New bill.");
-    console.log(data);
   };
 
-  const editBill = (newBill, billId) => {
-    // const updatedChores = data.chores.map(chore =>
-    //   chore.id === choreId ? { ...chore, task: newTask } : chore
-    // );
-    // setChores(updatedChores);
+  const editBill = async (billData, billId) => {
+    // add bill Id to request
+    const reqBill = {
+      ...billData,
+      billId: billId,
+    };
+    await setRequest({
+      url: `bills/${activeHouseId}/${userId}`,
+      reqType: "patch",
+      reqData: reqBill,
+    });
   };
 
   const addBillPayment = async (payment, billId) => {

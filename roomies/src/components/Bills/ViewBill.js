@@ -11,9 +11,8 @@ import AddPayment from "./Payments/AddPayment";
 import EditableDataItem from "../GenericComponents/EditableDataItem/EditableDataItem";
 import PaymentItem from "./Payments/PaymentItem";
 import { useHistory, Redirect } from "react-router-dom";
-
-// TODO: add comments area + add comment
-// TODO: create payments area: payments list
+import CommentItem from "../GenericComponents/Comment/CommentItem";
+import AddComment from "../GenericComponents/Comment/AddComment";
 
 export default function ViewBill(props) {
   const history = useHistory();
@@ -26,7 +25,6 @@ export default function ViewBill(props) {
   } = useContext(BillsContext);
 
   const billId = props.location.state.billId;
-  console.log("entered view bill. bill id:" + billId);
   const bill = getBillById(billId);
 
   const billPeriod =
@@ -49,11 +47,22 @@ export default function ViewBill(props) {
   };
 
   const paymentItems =
-    bill && bill.payments && bill.payments.length > 0
-      ? bill.payments.map((payment) => (
-          <PaymentItem key={payment._id} item={payment} />
-        ))
-      : "No payments made yet. Click + button to tart paying NOW >>";
+    bill && bill.payments && bill.payments.length > 0 ? (
+      bill.payments.map((payment) => (
+        <PaymentItem key={payment._id} item={payment} />
+      ))
+    ) : (
+      <p>No payments made yet</p>
+    );
+
+  const commentItems =
+    bill && bill.bill_comments && bill.bill_comments.length > 0 ? (
+      bill.bill_comments.map((comment) => (
+        <CommentItem key={comment._id} item={comment} />
+      ))
+    ) : (
+      <p>No comments</p>
+    );
 
   return (
     <>
@@ -80,6 +89,7 @@ export default function ViewBill(props) {
                   type: "text",
                 }}
                 handleUpdate={editBill}
+                parentObjId={billId}
               />
 
               <EditableDataItem
@@ -101,6 +111,7 @@ export default function ViewBill(props) {
                     type: "date",
                   }}
                   handleUpdate={editBill}
+                  parentObjId={billId}
                 />
                 <EditableDataItem
                   item={{
@@ -111,6 +122,7 @@ export default function ViewBill(props) {
                     type: "date",
                   }}
                   handleUpdate={editBill}
+                  parentObjId={billId}
                 />
               </div>
             </div>
@@ -124,17 +136,20 @@ export default function ViewBill(props) {
                   type: "date",
                 }}
                 handleUpdate={editBill}
+                parentObjId={billId}
               />
 
               <EditableDataItem
                 item={{
                   dbName: "total_amount",
                   title: "Total to pay",
-                  data: formatCurrency(bill.total_amount),
+                  data: bill.total_amount,
                   icon: "inv_amount",
                   type: "text",
+                  specialChar: "$",
                 }}
                 handleUpdate={editBill}
+                parentObjId={billId}
               />
             </div>
           </div>
@@ -143,12 +158,12 @@ export default function ViewBill(props) {
             <div id="payments Holder">
               <div className="titleContainer ">
                 Payments
-                {bill.payed < bill.total_amount &&
+                {bill.paid < bill.total_amount &&
                   getIcon("add", "ic ic_lg ic_light", (e) =>
                     toggleAddPayment(e)
                   )}
               </div>
-              {bill.total_amount <= bill.payed && (
+              {bill.total_amount <= bill.paid && (
                 <PaymentItem action={"complete"} />
               )}
               {paymentItems}
@@ -157,11 +172,9 @@ export default function ViewBill(props) {
             <div id="comments Holder">
               <div className="titleContainer">
                 Comments
-                {getIcon("add", "ic ic_lg ic_light", (e) =>
-                  handleAddComment(e)
-                )}
+                <AddComment billId={bill._id} />
               </div>
-              These are comments
+              {commentItems}
             </div>
 
             <div id="comments Holder">
@@ -169,7 +182,7 @@ export default function ViewBill(props) {
                 Invoice &amp; Receipts
                 {getIcon("add", "ic ic_lg ic_light", (e) => handleAddDoc(e))}
               </div>
-              These are comments
+              <p>No document added</p>
             </div>
           </div>
           {showAddPayment && <AddPayment bill={bill} />}

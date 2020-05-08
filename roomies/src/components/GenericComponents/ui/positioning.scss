@@ -34,6 +34,10 @@
     // align-items: flex-start;
   }
 
+  &.flext-right {
+    justify-content: flex-end;
+  }
+
   &.flex-center-vertical {
     align-items: center;
   }

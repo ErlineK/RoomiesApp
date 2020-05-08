@@ -7,7 +7,8 @@ import {
   InvitationMsgItem,
   NofiticationMsgItem,
   GeneralMsgItem,
-} from "../../Messages/messagesHelper";
+  ApprovalMsgItem,
+} from "../../Messages/msgComponents";
 
 const defaultData = {
   messages: [
@@ -51,7 +52,7 @@ function HomeMsgs() {
   //TODO: get 5 recent messages from DB ordered by date DSC
   /* NVT => Invitation to join a peoperty account
    * MSG => message on messages board
-   * NTF => notification of payed bill/welcome/new tenant/birthdays(?)/transfer between tenants
+   * NTF => notification of paid bill/welcome/new tenant/birthdays(?)/transfer between tenants
    */
 
   const [{ data, isLoading, isError }, setRequest] = useGetData({}, {});
@@ -79,6 +80,10 @@ function HomeMsgs() {
 
       case "NTF":
         msgObj = <NofiticationMsgItem key={`msg${msg._id}`} item={msg} />;
+        break;
+
+      case "TRNS":
+        msgObj = <ApprovalMsgItem key={`msg${msg._id}`} item={msg} />;
         break;
 
       default:

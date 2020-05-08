@@ -50,22 +50,6 @@ const BillSchema = new mongoose.Schema({
       ref: payment,
     },
   ],
-  // payed: {
-  //   type: Number,
-  //   // default: 0,
-  //   default: function () {
-  //     try {
-  //       console.log("\npayments:");
-  //       console.log(this.payments);
-  //       console.log("payments length: " + this.payments.length);
-  //       return this.payments && this.payments.length > 0
-  //         ? this.payments.map((p) => p.total_amount).reduce((a, b) => a + b, 0)
-  //         : 0;
-  //     } catch (err) {
-  //       return 0;
-  //     }
-  //   },
-  // },
   bill_comments: [
     {
       type: mongoose.Types.ObjectId,
@@ -79,7 +63,7 @@ const BillSchema = new mongoose.Schema({
   ],
 });
 
-BillSchema.virtual("payed").get(function () {
+BillSchema.virtual("paid").get(function () {
   return this.payments && this.payments.length > 0
     ? this.payments.map((p) => p.total_amount).reduce((a, b) => a + b, 0)
     : 0;

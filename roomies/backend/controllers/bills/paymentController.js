@@ -1,14 +1,14 @@
 // Payment model
-const Payment = require("../models/Payment");
+const Payment = require("../../models/Payment");
 // Bill model
-const Bill = require("../models/Bill");
+const Bill = require("../../models/Bill");
 
 // Bill controller
 const billController = require("./billController");
 // House controller
-const houseController = require("./houseController");
+const houseController = require("../houseController");
 // Notification controller
-const notificationController = require("./notificationController");
+const notificationController = require("../notificationController");
 
 exports.addNewPayment = async (req, res) => {
   try {
@@ -38,15 +38,15 @@ exports.addNewPayment = async (req, res) => {
       });
 
       try {
-        // check if entire bill was payed and create 'bill payed' notification
+        // check if entire bill was paid and create 'bill paid' notification
         const fullBill = await Bill.findById(req.params.billId).populate({
           path: "payments",
           // populate: [{ path: "from_user", select: "name" }],
         });
 
-        if (Number(fullBill.payed) >= Number(fullBill.total_amount)) {
+        if (Number(fullBill.paid) >= Number(fullBill.total_amount)) {
           console.log("creating notification");
-          //create notification for payed bill
+          //create notification for paid bill
           await notificationController.createNtfNotification(
             req.body.house_ref,
             fullBill._id

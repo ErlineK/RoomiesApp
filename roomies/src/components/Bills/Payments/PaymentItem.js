@@ -3,6 +3,7 @@ import { formatDateOnly, formatCurrency } from "../../../utils/formatHelper";
 import "../../GenericComponents/ui/generic_list.scss";
 import { getIconByAction } from "../billsHelper";
 import "../../GenericComponents/ui/icons.scss";
+import { getIcon } from "../../../utils/iconManager";
 
 export default function PaymentItem({ item, action }) {
   const isFinished = action == "complete";
@@ -30,19 +31,26 @@ export default function PaymentItem({ item, action }) {
                 <p>
                   <span>
                     &nbsp; &nbsp;
-                    {item.from_user.name} payed{" "}
+                    {item.from_user.name} paid{" "}
                     {formatCurrency(item.total_amount)}
                   </span>
                 </p>
                 {item.user_comment && (
-                  <p className="description comment">{item.user_comment.msg}</p>
+                  <p className="description comment comment-indent">
+                    {item.user_comment.msg}
+                  </p>
                 )}
               </div>
             </>
           )}
         </div>
-
-        {!isFinished && <span>{item.reference_num}</span>}
+        <div>
+          {!isFinished && <span>{item.reference_num}</span>}
+          <span style={{ marginLeft: "0.5rem" }}>
+            {" "}
+            {getIcon("delete", "ic ic_md ic_alert")}
+          </span>
+        </div>
       </div>
 
       <hr className="separator-light"></hr>

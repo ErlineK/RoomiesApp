@@ -1,7 +1,7 @@
 import React from "react";
 import useToggle from "../../../hooks/useToggle";
 import { getIcon } from "../../../utils/iconManager";
-import "./comment.scss";
+// import "./comment.scss";
 import CommentItem from "./CommentItem";
 
 function CommentSection({ comments, type }) {
@@ -9,7 +9,7 @@ function CommentSection({ comments, type }) {
 
   const commentItems =
     comments &&
-    comments.map(comment => <CommentItem key={comment._id} item={comment} />);
+    comments.map((comment) => <CommentItem key={comment._id} item={comment} />);
 
   const firstComment = comments && (
     <CommentItem key={comments[0]._id} item={comments[0]} />

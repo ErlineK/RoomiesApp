@@ -1,6 +1,5 @@
 import React from "react";
 import { FaCheck } from "react-icons/fa";
-import { GoMegaphone } from "react-icons/go";
 import { formatDate } from "../../utils/formatHelper";
 import { getIcon } from "../../utils/iconManager";
 
@@ -10,23 +9,19 @@ import { getIcon } from "../../utils/iconManager";
  * bill paid
  */
 
-function NofiticationMsgItem({ item }) {
-  const messageTxt = item.ntf_bill
-    ? `${item.ntf_bill.bill_type} bill has been paid`
-    : "general message";
-
+function ApprovalMsgItem({ item }) {
+  const TRNSFR = "transfer"; // notification of type 'transfer'
   return (
     <div className="listItemHolder">
       <div className="listFlexHolder">
         {getIcon("notificationMsg", "listIcon")}
+        {/* <GoMegaphone className="listIcon" /> */}
         <div style={{ width: "100%" }}>
           <div className="msgRow">
-            <p>{messageTxt}</p>
-            <p className="description textLight">
-              {formatDate(item.added_date)}
-            </p>
+            <p>{item.msg}</p>
+            <p className="description textLight">{formatDate(item.date)}</p>
           </div>
-          {/* {item.ntfType === TRNSFR && (
+          {item.ntfType === TRNSFR && (
             <div className="msgRow" style={{ marginBottom: "0.5rem" }}>
               <p className="description"></p>
 
@@ -34,12 +29,12 @@ function NofiticationMsgItem({ item }) {
                 <FaCheck className="accent-icon" />
                 Confirm
               </button> */}
-          {/* <button className="btn btn-grad-green btnAction invitationBtnPosition">
+              <button className="btn btn-grad-green btnAction invitationBtnPosition">
                 <FaCheck className="accent-icon" />
                 Accept
               </button>
             </div>
-          )} */}
+          )}
         </div>
       </div>
 
@@ -48,4 +43,4 @@ function NofiticationMsgItem({ item }) {
   );
 }
 
-export default NofiticationMsgItem;
+export default ApprovalMsgItem;

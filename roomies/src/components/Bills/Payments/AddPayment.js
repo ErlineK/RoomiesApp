@@ -12,15 +12,8 @@ function AddPayment({ bill }) {
   const { toggleAddPayment, addBillPayment, requestStatus } = useContext(
     BillsContext
   );
-  // const { getActiveTenants } = useContext(HouseContext);
-  const [error, setError] = useState();
 
-  // const [
-  //   payedTo,
-  //   handlePayedToChange,
-  //   validatePayedTo,
-  //   payedToError,
-  // ] = useInputState("", "");
+  const [error, setError] = useState();
 
   const [
     paymentDate,
@@ -57,7 +50,7 @@ function AddPayment({ bill }) {
     const payment = {
       transaction_date: paymentDate,
       reference_num: refNum,
-      // to_user: isRoomieTransfer ? payedTo : undefined,
+      // to_user: isRoomieTransfer ? paidTo : undefined,
       total_amount: paymentSum,
       comment: comment,
     };
@@ -72,10 +65,6 @@ function AddPayment({ bill }) {
 
     if (validatePaymentDate() && validatePaymentSum() && validateRefNum()) {
       validated = true;
-      // if (isRoomieTransfer && !tenantsList.includes(payedTo)) {
-      //   validated = false;
-      //   setError("Invalid payment recipient");
-      // }
     }
 
     return validated;
@@ -112,25 +101,6 @@ function AddPayment({ bill }) {
           (error && <div className="alert alert-danger">{error}</div>)}
 
         <form className="form-holder">
-          {/* {isRoomieTransfer ? (
-            <div className="flex-container flex-between form-group userDataItem">
-              <select
-                className="form-control"
-                id="pay_to"
-                onChange={handlePayedToChange}
-                value={payedTo}
-              >
-                <option value="select" disabled>
-                  Select Roomie...
-                </option>
-                {roomieOptions}
-              </select>
-              <small className="form-alert">{payedToError}</small>
-            </div>
-          ) : (
-            ""
-          )} */}
-
           <CustomInput
             key={"billing_date"}
             itemId={"billing_date"}
@@ -144,7 +114,7 @@ function AddPayment({ bill }) {
           <CustomInput
             itemId={"total_amount"}
             value={paymentSum}
-            label={"Total payed"}
+            label={"Total paid"}
             type={"number"}
             handleOnChange={handlePaymentSumChange}
             errorMsg={paymentSumError}
@@ -170,7 +140,7 @@ function AddPayment({ bill }) {
             label={"Comment"}
             type={"text"}
             handleOnChange={handleCommentChange}
-            placeHolder={"Example: Payed for..."}
+            placeHolder={"Example: paid for..."}
           />
 
           <div className="form-group">

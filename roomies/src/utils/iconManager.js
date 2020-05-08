@@ -14,7 +14,8 @@ import {
   FaUserTimes,
   FaFileInvoiceDollar,
 } from "react-icons/fa";
-import { GoPlus, GoCalendar } from "react-icons/go";
+import { IoMdClose } from "react-icons/io";
+import { GoPlus, GoCalendar, GoMegaphone } from "react-icons/go";
 // import { GrDocumentTime } from "react-icons/gr";
 import { TiMessages, TiDeleteOutline } from "react-icons/ti";
 import { MdReplyAll, MdArrowBack } from "react-icons/md";
@@ -95,13 +96,14 @@ function getIcon(iconName, classNames, onIconClick) {
       break;
 
     case "delete":
-      iconObj = (
-        <TiDeleteOutline
-          className={classNames}
-          style={{ fontSize: "1.75rem" }}
-          onClick={onIconClick}
-        />
-      );
+      // iconObj = (
+      //   <TiDeleteOutline
+      //     className={classNames}
+      //     style={{ fontSize: "1.75rem" }}
+      //     onClick={onIconClick}
+      //   />
+      // );
+      iconObj = <IoMdClose className={classNames} onClick={onIconClick} />;
       break;
 
     case "messages":
@@ -127,6 +129,11 @@ function getIcon(iconName, classNames, onIconClick) {
 
     case "btnBack":
       iconObj = <MdArrowBack className={classNames} onClick={onIconClick} />;
+      break;
+
+    /* Notification icons */
+    case "notificationMsg":
+      iconObj = <GoMegaphone className={classNames} onClick={onIconClick} />;
       break;
 
     default:

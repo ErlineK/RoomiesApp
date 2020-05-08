@@ -5,15 +5,19 @@ import useToggle from "../../../hooks/useToggle";
 import useInputState from "../../../hooks/useInputState";
 import { getIcon } from "../../../utils/iconManager";
 import { formatInputDate } from "../../../utils/formatHelper";
+import CustomInput from "../CustomInput";
 
-export default function EditableDataItem({ item, handleUpdate }) {
+export default function EditableDataItem({ item, handleUpdate, parentObjId }) {
   const [editMode, toggleEdit] = useToggle(false);
   const [data, handleDataChange] = useInputState(item.data);
 
   const updateItem = (e) => {
     e.preventDefault();
 
-    handleUpdate(item.dbName, data);
+    const edtObj = {};
+    edtObj[item.dbName] = data;
+
+    handleUpdate(edtObj, parentObjId);
     toggleEdit();
   };
 
@@ -52,6 +56,7 @@ export default function EditableDataItem({ item, handleUpdate }) {
                 {item.title}
                 {item.title && ":"}
               </p>
+              <span style={{ marginRight: "-0.4rem" }}>{item.specialChar}</span>
               <p className=" item itemData">{item.data}</p>
             </div>
             <div className="toRight">

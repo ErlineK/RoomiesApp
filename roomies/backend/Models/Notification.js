@@ -1,13 +1,14 @@
 const mongoose = require("mongoose");
 const user = require("./User").model("user");
 const house = require("./House").model("house");
+const bill = require("./Bill").model("bill");
 
 const NotificationSchema = new mongoose.Schema({
   type: {
     /* NVT => Invitation to join a peoperty account
      * MSG => message on messages board
-     * NTF => notification of payed bill/welcome new tenant/birthdays(?)
-     * TRNS => notification of transfer between tenants
+     * NTF => notification of paid bill/welcome new tenant/birthdays(?)
+     * TRNS => notification of transaction between tenants
      */
     type: String,
     enum: ["NVT", "MSG", "NTF", "TRNS"],
@@ -35,6 +36,7 @@ const NotificationSchema = new mongoose.Schema({
   },
   ntf_bill: {
     type: mongoose.Types.ObjectId,
+    ref: bill,
   },
   msg: {
     type: String,

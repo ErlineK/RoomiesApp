@@ -30,18 +30,18 @@ function BillItem({ item, type }) {
       ? `${formatDayMonth(item.start_date)} - ${formatDayMonth(item.end_date)}`
       : "";
 
-  const fullyPayed = item.payed && item.payed >= item.total_amount;
+  const fullyPaid = item.paid && item.paid >= item.total_amount;
 
   return (
     <div
       className={`${
-        !fullyPayed && getBackgroundByDue(item.due_date)
+        !fullyPaid && getBackgroundByDue(item.due_date)
       } listItemHolder billItem`}
     >
       <div className="listFlexHolder">
         {getIconByBillType(
           item.bill_type,
-          `${fullyPayed ? "success" : ""} listIcon`
+          `${fullyPaid ? "success" : ""} listIcon`
         )}
 
         <Link
@@ -63,13 +63,13 @@ function BillItem({ item, type }) {
           <div className="gridItem">
             <p
               className={`${
-                Math.abs(item.payed) >= Math.abs(item.total_amount)
+                Math.abs(item.paid) >= Math.abs(item.total_amount)
                   ? "success"
                   : ""
               }`}
             >
-              {item.payed && item.payed < item.total_amount
-                ? `${formatCurrency(item.payed)}/`
+              {item.paid && item.paid < item.total_amount
+                ? `${formatCurrency(item.paid)}/`
                 : ""}
               {formatCurrency(item.total_amount)}
             </p>
