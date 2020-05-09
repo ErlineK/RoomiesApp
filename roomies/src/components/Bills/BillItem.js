@@ -10,6 +10,7 @@ import { getIcon } from "../../utils/iconManager";
 import { getIconByBillType } from "./billsHelper";
 import { Link } from "react-router-dom";
 import { BillsContext } from "./BillsContext";
+import CommentItem from "../GenericComponents/Comment/CommentItem";
 // import CommentSection from "../GenericComponents/Comment/CommentSection";
 
 /* bill item types: "HOME" */
@@ -31,6 +32,18 @@ function BillItem({ item, type }) {
       : "";
 
   const fullyPaid = item.paid && item.paid >= item.total_amount;
+
+  const lastComment =
+    item.bill_comments && item.bill_comments.length > 0 ? (
+      <p className={"comment indented"}>
+        <span style={{ fontWeight: "bold" }}>
+          {item.bill_comments[0].author.name}:{" "}
+        </span>
+        {item.bill_comments[0].msg}
+      </p>
+    ) : (
+      ""
+    );
 
   return (
     <div
@@ -85,12 +98,14 @@ function BillItem({ item, type }) {
             {/* {getIcon("edit", "billActionIcon ic ic_md ic_roomies", (e) =>
             handleEditBill(e)
           )} */}
-            {getIcon("delete", "billActionIcon ic_lg ic_alert", (e) =>
-              handleRemoveBill(e)
-            )}
+            {!(item.payments && item.payments.length > 0) &&
+              getIcon("delete", "billActionIcon ic_lg ic_alert", (e) =>
+                handleRemoveBill(e)
+              )}
           </div>
         )}
       </div>
+      {lastComment}
       {/* <CommentSection comments={item.comments} type={"PREV"} /> */}
 
       <hr></hr>

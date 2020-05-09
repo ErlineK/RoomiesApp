@@ -18,7 +18,19 @@ router
   .post(billController.addNewBill);
 
 /**
- * @route       api/bills/payment/:houseId/:userId
+ * @route       api/bills/bill/:billId/:userId
+ * @access      Public
+ */
+router
+  .route("/bill/:billId/:userId")
+  .head(auth)
+  // .get(billController.getAllBillsForHouse)
+  // .patch(billController.updateBill)
+  // .post(paymentController.addNewPayment)
+  .delete(billController.deleteBill);
+
+/**
+ * @route       api/bills/payment/:billId/:userId
  * @access      Public
  */
 router
@@ -27,7 +39,7 @@ router
   // .get(billController.getAllBillsForHouse)
   // .patch(billController.updateBill)
   .post(paymentController.addNewPayment)
-  .delete(billController.deleteBill);
+  .delete(paymentController.deletePayment);
 
 /**
  * @route       api/bills/comment/:houseId/:userId

@@ -91,8 +91,6 @@ exports.addTenant = async (req, res) => {
   }
 };
 
-// exports.addTenant = async (req, res) => {};
-
 exports.checkUserCanEdit = async (houseId, userId) => {
   try {
     const authorized = await House.find({

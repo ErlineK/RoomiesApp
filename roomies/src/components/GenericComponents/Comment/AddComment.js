@@ -29,7 +29,7 @@ export default function AddComment({ billId }) {
         onChange={handleCommentChange}
       />
       {editMode
-        ? getIcon("accept", "ic ic_lg ic_light toRight", (e) =>
+        ? getIcon("accept", "ic ic_lg ic_success ic_light toRight", (e) =>
             handleAddComment(e)
           )
         : getIcon("add", "ic ic_lg ic_light toRight", () => toggleEditMode())}

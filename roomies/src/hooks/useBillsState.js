@@ -68,11 +68,18 @@ export default (initialBills) => {
 
   const removeBill = (billId) => {
     setRequest({
-      url: `bills/payment/${billId}/${userId}`,
+      url: `bills/bill/${billId}/${userId}`,
       reqType: "delete",
     });
     // const updatedChores = data.chores.filter(chore => chore.id !== choreId);
     // setChores(updatedChores);
+  };
+
+  const removePayment = (paymentId) => {
+    setRequest({
+      url: `bills/payment/${paymentId}/${userId}`,
+      reqType: "delete",
+    });
   };
 
   const billActions = {
@@ -81,6 +88,7 @@ export default (initialBills) => {
     removeBill: removeBill,
     getAllBills: getAllBills,
     addBillPayment: addBillPayment,
+    removePayment: removePayment,
   };
 
   // const requestStatus = [isLoading, isError];

@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { formatDateOnly } from "../../../utils/formatHelper";
 import { getIconByAction } from "../../Bills/billsHelper";
 import "./comment.scss";
 import { getIcon } from "../../../utils/iconManager";
+import { AuthContext } from "../../auth/AuthContext";
 
 function CommentItem({ item }) {
-  console.log("comment item: ");
-  console.log(item);
+  const { userId } = useContext(AuthContext);
+
   return (
     <div className="">
       <div className="flex-container flex-between listItemLight">
@@ -33,9 +34,8 @@ function CommentItem({ item }) {
             </p>
           </div>
         </div>
-
-        {getIcon("delete", "ic ic_md ic_alert ic_margins_vr")}
-        {/* <span className="ic ic_lg ic_alert">X</span> */}
+        {item.author._id === userId &&
+          getIcon("delete", "ic ic_md ic_alert ic_margins_vr")}
       </div>
 
       <hr className="separator-light"></hr>

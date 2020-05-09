@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { formatDateOnly, formatCurrency } from "../../../utils/formatHelper";
 import "../../GenericComponents/ui/generic_list.scss";
 import { getIconByAction } from "../billsHelper";
 import "../../GenericComponents/ui/icons.scss";
 import { getIcon } from "../../../utils/iconManager";
+import { AuthContext } from "../../auth/AuthContext";
+import { BillsContext } from "../BillsContext";
 
 export default function PaymentItem({ item, action }) {
+  const { userId } = useContext(AuthContext);
+  const { removePayment } = useContext(BillsContext);
   const isFinished = action == "complete";
+
+  const handlePaymentRemove = (e) => {
+    e.preventDefault();
+
+    removePayment(item._id);
+  };
 
   return (
     <div className="">
@@ -48,7 +58,11 @@ export default function PaymentItem({ item, action }) {
           {!isFinished && <span>{item.reference_num}</span>}
           <span style={{ marginLeft: "0.5rem" }}>
             {" "}
-            {getIcon("delete", "ic ic_md ic_alert")}
+            {item &&
+              item.from_user._id === userId &&
+              getIcon("delete", "ic ic_md ic_alert paymentDelete", (e) =>
+                handlePaymentRemove(e)
+              )}
           </span>
         </div>
       </div>

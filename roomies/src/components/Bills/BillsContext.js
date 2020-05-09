@@ -44,6 +44,7 @@ export function BillsProvider(props) {
         showAddPayment: showAddPayment,
         toggleAddPayment: toggleAddPayment,
         addBillPayment: addPayment,
+        removePayment: billActions.removePayment,
         requestStatus: requestStatus,
       }}
     >
