@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const config = require("config");
 const jwt = require("jsonwebtoken");
-const auth = require("../../helpers/auth");
+const { auth } = require("../../helpers/auth");
 
 // User Model
 const User = require("../../models/User");
@@ -22,7 +22,7 @@ router.post("/", (req, res) => {
   }
 
   // get user by email
-  User.findOne({ email }).then(user => {
+  User.findOne({ email }).then((user) => {
     if (!user) {
       console.log("Couldnt find user with email " + email);
       console.log(user);
@@ -30,13 +30,13 @@ router.post("/", (req, res) => {
     }
 
     // validate password
-    bcrypt.compare(password, user.password).then(isMatch => {
+    bcrypt.compare(password, user.password).then((isMatch) => {
       if (!isMatch)
         return res.status(400).json({ error: "Invalid credentials" });
 
       jwt.sign(
         {
-          id: user._id
+          id: user._id,
         },
         config.get("JWT_SECRET"),
         { expiresIn: 60 * 60 * 1000 },
@@ -46,14 +46,14 @@ router.post("/", (req, res) => {
           //get user without password
           User.findById(user.id)
             .select("-password")
-            .then(safeUser =>
+            .then((safeUser) =>
               res.json({
                 msg: "User logged in successfully",
                 token,
-                user: safeUser
+                user: safeUser,
               })
             )
-            .catch(err => {
+            .catch((err) => {
               console.log(err);
               return res.status(400).json({ error: "Error getting user" });
             });
@@ -72,7 +72,7 @@ router.post("/", (req, res) => {
 router.get("/user", auth, (req, res) => {
   User.findById(req.user.id)
     .select("-password")
-    .then(user => res.json(user));
+    .then((user) => res.json(user));
 });
 
 module.exports = router;

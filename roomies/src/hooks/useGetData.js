@@ -9,12 +9,12 @@ export default ({ reqUri, reqType, reqData }, initData) => {
   const [requst, setRequest] = useState({
     url: reqUri,
     reqType: reqType,
-    reqData: reqData
+    reqData: reqData,
   });
   const [state, fetchDispatch] = useReducer(dataFetchReducer, {
     isLoading: false,
     isError: false,
-    data: initData
+    data: initData,
   });
 
   useEffect(() => {
@@ -22,11 +22,20 @@ export default ({ reqUri, reqType, reqData }, initData) => {
     const fetchData = async () => {
       fetchDispatch({ type: "FETCH_INIT" });
       try {
-        const response = await axios[requst.reqType](
-          `${BASE_URL}/${requst.url}`,
-          requst.reqData,
-          requestHeader
-        );
+        let response;
+        if (requst.reqType === "post" || requst.reqType === "patch") {
+          response = await axios[requst.reqType](
+            `${BASE_URL}/${requst.url}`,
+            requst.reqData,
+            requestHeader
+          );
+        } else {
+          response = await axios[requst.reqType](
+            `${BASE_URL}/${requst.url}`,
+            requestHeader
+          );
+        }
+
         console.log("got response on useGetData for " + requst.url);
         console.log(response);
 

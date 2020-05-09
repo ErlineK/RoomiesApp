@@ -21,6 +21,7 @@ import { TiMessages, TiDeleteOutline } from "react-icons/ti";
 import { MdReplyAll, MdArrowBack } from "react-icons/md";
 import { AiFillFileAdd } from "react-icons/ai";
 import { RiTimerFlashLine } from "react-icons/ri";
+import { GiTakeMyMoney } from "react-icons/gi";
 
 function getIcon(iconName, classNames, onIconClick) {
   let iconObj;
@@ -125,6 +126,10 @@ function getIcon(iconName, classNames, onIconClick) {
       iconObj = (
         <RiTimerFlashLine className={classNames} onClick={onIconClick} />
       );
+      break;
+
+    case "paiment":
+      iconObj = <GiTakeMyMoney className={classNames} onClick={onIconClick} />;
       break;
 
     case "btnBack":

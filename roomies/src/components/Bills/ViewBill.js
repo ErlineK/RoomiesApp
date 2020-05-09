@@ -1,11 +1,7 @@
 import React, { useContext } from "react";
 import "./bills.scss";
 import { getIcon } from "../../utils/iconManager";
-import {
-  formatDayMonth,
-  formatDateOnly,
-  formatCurrency,
-} from "../../utils/formatHelper";
+import { formatDayMonth, formatDateOnly } from "../../utils/formatHelper";
 import { BillsContext } from "./BillsContext";
 import AddPayment from "./Payments/AddPayment";
 import EditableDataItem from "../GenericComponents/EditableDataItem/EditableDataItem";
@@ -13,6 +9,7 @@ import PaymentItem from "./Payments/PaymentItem";
 import { useHistory, Redirect } from "react-router-dom";
 import CommentItem from "../GenericComponents/Comment/CommentItem";
 import AddComment from "../GenericComponents/Comment/AddComment";
+import CircleLoader from "../GenericComponents/Loader/CircleLoader";
 
 export default function ViewBill(props) {
   const history = useHistory();
@@ -21,7 +18,7 @@ export default function ViewBill(props) {
     toggleAddPayment,
     getBillById,
     editBill,
-    removeBill,
+    requestStatus,
   } = useContext(BillsContext);
 
   const billId = props.location.state.billId;
@@ -70,6 +67,9 @@ export default function ViewBill(props) {
         <Redirect to="/" />
       ) : (
         <div className="card user-main">
+          <div className="floatingLoaderHolder">
+            {requestStatus.isLoading && <CircleLoader />}
+          </div>
           <div
             className="secondary-link toLeft btnBack"
             onClick={() => history.goBack()}
@@ -151,6 +151,18 @@ export default function ViewBill(props) {
                 handleUpdate={editBill}
                 parentObjId={billId}
               />
+              {bill.paid < bill.total_amount && (
+                <EditableDataItem
+                  item={{
+                    dbName: "pay_left",
+                    title: "Left to pay",
+                    data: bill.total_amount - bill.paid,
+                    icon: "paiment",
+                    type: "text",
+                    specialChar: "$",
+                  }}
+                />
+              )}
             </div>
           </div>
 

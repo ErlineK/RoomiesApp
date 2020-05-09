@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const auth = require("../../helpers/auth");
+const { auth, billAuth } = require("../../helpers/auth");
 
 const billController = require("../../controllers/bills/billController");
 const paymentController = require("../../controllers/bills/paymentController");
@@ -12,10 +12,10 @@ const billCommentsController = require("../../controllers/bills/billCommentsCont
  */
 router
   .route("/:houseId/:userId")
-  .head(auth)
-  .get(billController.getAllBillsForHouse)
-  .patch(billController.updateBill)
-  .post(billController.addNewBill);
+  // .head(auth)
+  .get(auth, billController.getAllBillsForHouse)
+  .patch(auth, billController.updateBill)
+  .post(auth, billController.addNewBill);
 
 /**
  * @route       api/bills/bill/:billId/:userId
@@ -23,11 +23,11 @@ router
  */
 router
   .route("/bill/:billId/:userId")
-  .head(auth)
+  // .head(auth)
   // .get(billController.getAllBillsForHouse)
   // .patch(billController.updateBill)
   // .post(paymentController.addNewPayment)
-  .delete(billController.deleteBill);
+  .delete(auth, billAuth, billController.deleteBill);
 
 /**
  * @route       api/bills/payment/:billId/:userId
@@ -35,21 +35,19 @@ router
  */
 router
   .route("/payment/:billId/:userId")
-  .head(auth)
   // .get(billController.getAllBillsForHouse)
   // .patch(billController.updateBill)
-  .post(paymentController.addNewPayment)
-  .delete(paymentController.deletePayment);
+  .post(auth, billAuth, paymentController.addNewPayment)
+  .delete(auth, paymentController.deletePayment);
 
 /**
- * @route       api/bills/comment/:houseId/:userId
+ * @route       api/bills/comment/:billId/:userId
  * @access      Public
  */
 router
   .route("/comment/:billId/:userId")
-  .head(auth)
   // .patch(billController.updateBill)
-  .post(billCommentsController.addNewComment);
+  .post(auth, billCommentsController.addNewComment);
 // .delete(billController.deleteComment);
 
 module.exports = router;

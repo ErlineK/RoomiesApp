@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const auth = require("../../helpers/auth");
+const { auth } = require("../../helpers/auth");
 
 const notificationController = require("../../controllers/notificationController");
 
@@ -10,9 +10,8 @@ const notificationController = require("../../controllers/notificationController
  */
 router
   .route("/:userId")
-  .head(auth)
-  .get(notificationController.getNotificationsForUser)
-  .post(notificationController.addNotification);
+  .get(auth, notificationController.getNotificationsForUser)
+  .post(auth, notificationController.addNotification);
 
 /**
  * @route       api/notifications/:userId/:notificationID
@@ -20,8 +19,7 @@ router
  */
 router
   .route("/:userId/:notificationID")
-  .head(auth)
-  .patch(notificationController.updateNotification);
+  .patch(auth, notificationController.updateNotification);
 //   .delete(notificationController.deleteNotification);
 
 // TODO: invitation approved + create welcome messages to all tenants

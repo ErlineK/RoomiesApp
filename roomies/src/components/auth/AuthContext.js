@@ -31,7 +31,7 @@ export function AuthProvider(props) {
 
   const requestHeader = () => {
     return {
-      headers: { "Content-Type": "application/json", "x-auth-token": token }
+      headers: { "Content-Type": "application/json", "x-auth-token": token },
     };
   };
 
@@ -44,7 +44,7 @@ export function AuthProvider(props) {
         userId: userId(),
         loginUser: loginUser,
         logoutUser: logoutUser,
-        isLoggedIn: isLoggedIn
+        isLoggedIn: isLoggedIn,
         // houseId: houseId,
         // setHouseId: setHouseId
       }}
