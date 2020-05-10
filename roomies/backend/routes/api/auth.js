@@ -63,16 +63,36 @@ router.post("/", (req, res) => {
   });
 });
 
+// /**
+//  * @route   GET api/auth/user
+//  * @desc    Get user data
+//  * @access  Private
+//  */
+
+// router.get("/user", auth, (req, res) => {
+//   User.findById(req.user.id)
+//     .select("-password")
+//     .then((user) => res.json(user));
+// });
 /**
- * @route   GET api/auth/user
+ * @route   GET api/auth/:userId
  * @desc    Get user data
  * @access  Private
  */
 
-router.get("/user", auth, (req, res) => {
-  User.findById(req.user.id)
+router.get("/:userId", auth, (req, res) => {
+  User.findById(req.params.userId)
     .select("-password")
-    .then((user) => res.json(user));
+    .then((user) =>
+      res.json({
+        msg: "Got user data successfully",
+        user: user,
+      })
+    )
+    .catch((err) => {
+      console.log(err);
+      return res.status(400).json({ error: "Error getting user" });
+    });
 });
 
 module.exports = router;

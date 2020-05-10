@@ -49,7 +49,7 @@ exports.addNewPayment = async (req, res) => {
         if (Number(fullBill.paid) >= Number(fullBill.total_amount)) {
           console.log("creating notification");
           //create notification for paid bill
-          await notificationController.createNtfNotification(
+          await notificationController.createNtfNotificationBill(
             req.body.house_ref,
             fullBill._id
           );

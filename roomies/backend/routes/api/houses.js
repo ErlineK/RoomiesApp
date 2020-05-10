@@ -15,6 +15,15 @@ router
   .post(auth, houseController.addNewHouse);
 
 /**
+ * @route       api/houses/accept/:userId/:houseId
+ * @access      Public
+ * @desc        Accept house invitation
+ */
+router
+  .route("/accept/:userId/:houseId")
+  .patch(auth, houseController.acceptHouseInv);
+
+/**
  * @route       api/houses/:userId/tenants
  * @access      Public
  */

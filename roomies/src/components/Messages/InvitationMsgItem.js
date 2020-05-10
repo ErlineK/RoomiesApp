@@ -1,11 +1,16 @@
 import React from "react";
 import { FaCheck } from "react-icons/fa";
 import { GiKeyring } from "react-icons/gi";
-import { TiDeleteOutline } from "react-icons/ti";
 import { formatDateOnly } from "../../utils/formatHelper";
 import { getIcon } from "../../utils/iconManager";
 
-function InvitationMsgItem({ item }) {
+function InvitationMsgItem({ item, handleAcceptINV }) {
+  const handleAcceptInvitation = (e) => {
+    e.preventDefault(e);
+
+    handleAcceptINV(item._id, item.ntf_house);
+  };
+
   return (
     <div className="listItemHolder">
       <div className="listFlexHolder">
@@ -16,23 +21,24 @@ function InvitationMsgItem({ item }) {
               <span style={{ fontWeight: "bold" }}>{item.from_user.name}</span>{" "}
               invited you to join{" "}
               <span style={{ fontWeight: "bold" }}>
-                {item.ntf_house.houseName}
+                {item.ntf_house ? item.ntf_house.houseName : ""}
               </span>
             </p>
             <p className="description textLight">{formatDateOnly(item.date)}</p>
           </div>
           <div className="msgRow">
-            <p className="description">
-              {item.ntf_house.address} , {item.ntf_house.city}
-            </p>
-            {/* <button className="btn msgSimpleBtn highlightGreen invitationBtnPosition">
-              <FaCheck className="accent-icon" />
-              Accept
-            </button> */}
+            {item.ntf_house && (
+              <p className="description">
+                {item.ntf_house.address} , {item.ntf_house.city}
+              </p>
+            )}
             {item.accepted ? (
               <p className="success">Accepted!</p>
             ) : (
-              <button className="btn btn-grad-green btnAction">
+              <button
+                className="btn btn-grad-green btnAction"
+                onClick={(e) => handleAcceptInvitation(e)}
+              >
                 <FaCheck className="accent-icon" />
                 Accept
               </button>

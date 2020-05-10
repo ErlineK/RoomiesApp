@@ -9,6 +9,7 @@ import {
   GeneralMsgItem,
   ApprovalMsgItem,
 } from "../../Messages/msgComponents";
+import useToggle from "../../../hooks/useToggle";
 
 const defaultData = {
   messages: [
@@ -47,8 +48,11 @@ const defaultData = {
   ],
 };
 
+// TODO: create use messages hook
+
 function HomeMsgs() {
-  const { userId } = useContext(AuthContext);
+  const { userId, getUserData } = useContext(AuthContext);
+  const [acceptingINV, toggleAcceptingINV] = useToggle(false);
   //TODO: get 5 recent messages from DB ordered by date DSC
   /* NVT => Invitation to join a peoperty account
    * MSG => message on messages board
@@ -67,6 +71,24 @@ function HomeMsgs() {
     }
   }, []);
 
+  useEffect(() => {
+    /* if got notifications data after accepting invitation -> 
+    get updated user data and and toggle accepting invitation state */
+    if (acceptingINV) {
+      getUserData();
+      toggleAcceptingINV();
+    }
+  }, [data]);
+
+  const handleAcceptINV = async (ntfId) => {
+    toggleAcceptingINV();
+    setRequest({
+      url: `notifications/${userId}/${ntfId}`,
+      reqType: "patch",
+      reqData: { accepted: true, viewed: true },
+    });
+  };
+
   const getMsgObjByType = (msg) => {
     var msgObj;
     switch (msg.type) {
@@ -75,7 +97,13 @@ function HomeMsgs() {
         break;
 
       case "NVT":
-        msgObj = <InvitationMsgItem key={`msg${msg._id}`} item={msg} />;
+        msgObj = (
+          <InvitationMsgItem
+            key={`msg${msg._id}`}
+            item={msg}
+            handleAcceptINV={handleAcceptINV}
+          />
+        );
         break;
 
       case "NTF":

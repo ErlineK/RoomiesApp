@@ -20,20 +20,20 @@ export default function CreateProfile() {
     handlePhoneChange,
     validatePhone,
     phoneErr,
-    resetPhone
+    resetPhone,
   ] = useInputState("", "PHONE");
   const [
     brthDate,
     handleBDayChange,
     validateBDay,
     bDateErr,
-    resetBDate
+    resetBDate,
   ] = useInputState("", "B_DATE");
   const [avatar, handleAvatarChange] = useState(user.avatar);
 
   const history = useHistory();
 
-  const doSubmit = event => {
+  const doSubmit = (event) => {
     event.preventDefault();
     // TODO: Validate
     if (
@@ -53,9 +53,9 @@ export default function CreateProfile() {
       .put(
         `${BASE_URL}/users/profile`,
         { phone, birth_date: brthDate },
-        requestHeader()
+        requestHeader
       )
-      .then(res => {
+      .then((res) => {
         console.log("Profile updated successfully");
         console.log(res);
 
@@ -65,7 +65,7 @@ export default function CreateProfile() {
         // redirect home
         history.push("/UserHome");
       })
-      .catch(error => {
+      .catch((error) => {
         setLoading(false);
         console.log(error.response.data.error);
         setSrvError(error.response.data.error);

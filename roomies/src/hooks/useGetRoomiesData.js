@@ -9,7 +9,7 @@ export default (initUri, initData) => {
   const [state, dispatch] = useReducer(dataFetchReducer, {
     isLoading: false,
     isError: false,
-    data: initData
+    data: initData,
   });
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export default (initUri, initData) => {
     const fetchData = async () => {
       dispatch({ type: "FETCH_INIT" });
       try {
-        const result = await axios(url, null, requestHeader());
+        const result = await axios(url, null, requestHeader);
         if (!didCancel) {
           /*** IMPORTANT! uncheck this line once server side added to project! ****/
           dispatch({ type: "FETCH_SUCCESS", payload: result.data });

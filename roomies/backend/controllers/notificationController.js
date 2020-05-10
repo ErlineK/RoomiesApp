@@ -1,8 +1,8 @@
 // Notification model
 const Notification = require("../models/Notification");
+
 // User constroller
 const userController = require("./userController");
-
 // House constroller
 const houseController = require("./houseController");
 
@@ -14,6 +14,11 @@ const houseController = require("./houseController");
 //     }
 // };
 
+/**
+ * @route       api/notifications/:userId
+ * @access      Public
+ * @returns     all user's notifications
+ */
 exports.getNotificationsForUser = async (req, res) => {
   try {
     //get user active house id
@@ -21,12 +26,12 @@ exports.getNotificationsForUser = async (req, res) => {
       req.params.userId
     );
     //   TODO: limit number of notifications
+    // get all notification related to user's current active house and user-specific notifications
     const notifications = await Notification.find()
-      .where("ntf_house")
-      .equals(houseId)
-      // .where("to_user")
-      // .equals(req.params.userId)
-      .or({ to_user: { $exists: false } }, { to_user: req.params.userId })
+      .or([
+        { $and: [{ to_user: { $exists: false } }, { ntf_house: houseId }] },
+        { to_user: [req.params.userId] },
+      ])
       .populate({
         path: "from_user",
         select: "email name",
@@ -48,6 +53,12 @@ exports.getNotificationsForUser = async (req, res) => {
   }
 };
 
+/**
+ * @route       api/notifications/:userId
+ * @access      Public
+ * @body        notification item
+ * @returns     all user's notifications
+ */
 exports.addNotification = async (req, res) => {
   try {
     //create new notification
@@ -61,6 +72,11 @@ exports.addNotification = async (req, res) => {
   }
 };
 
+/**
+ * @access      Private
+ * @body        notification item
+ * @returns     all user's notifications
+ */
 exports.addMsgNotification = async (req, res) => {
   try {
     //create new notification
@@ -74,6 +90,11 @@ exports.addMsgNotification = async (req, res) => {
   }
 };
 
+/**
+ * @access      Private
+ * @body        {from user Id, to user Id, referred house Id}
+ * @returns     notification item
+ */
 exports.createNvtNotification = async (fromId, toId, houseId) => {
   try {
     //create invitation notification
@@ -91,7 +112,36 @@ exports.createNvtNotification = async (fromId, toId, houseId) => {
   }
 };
 
-exports.createNtfNotification = async (houseId, billId) => {
+/**
+ * @access      Private
+ * @body        { referred house Id, referred bill Id,}
+ * @returns     notification item
+ * @desc    create NTF notification to welcome user to house
+ */
+exports.createNtfNotificationWelcome = async (houseId, userId) => {
+  try {
+    //create invitation notification
+    const ntfNotification = await Notification.create({
+      type: "NTF",
+      ntf_type: "welcome",
+      ntf_house: houseId,
+      from_user: userId,
+    });
+
+    return ntfNotification;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+};
+
+/**
+ * @access      Private
+ * @body        { referred house Id, referred bill Id,}
+ * @returns     notification item
+ * @desc    create NTF notification for 'bill paid'
+ */
+exports.createNtfNotificationBill = async (houseId, billId) => {
   try {
     //create invitation notification
     const newNtfNotification = await Notification.create({
@@ -107,6 +157,11 @@ exports.createNtfNotification = async (houseId, billId) => {
   }
 };
 
+/**
+ * @access      Private
+ * @body        { from user Id, to user Id, referred house Id, referred bill Id}
+ * @returns     notification item
+ */
 exports.createTrnsNotification = async (fromId, toId, houseId, billId) => {
   try {
     //create invitation notification
@@ -125,23 +180,55 @@ exports.createTrnsNotification = async (fromId, toId, houseId, billId) => {
   }
 };
 
-exports.acceptInvitation = async () => {
+/**
+ * @access      Private
+ * @body        { notification item, userId}
+ * @returns     notification item
+ */
+exports.acceptInvitation = async (ntfItem, userId) => {
   try {
-    //TODO: change invitation status to accepted
-    //TODO: add house as user's active house
-    //TODO: create welcome notification (NTF, general) to all house tenants but current
-    //   TODO: return user's notifications?
+    //add house as user's active house
+    await userController.updateActiveHouse(ntfItem.ntf_house, userId);
+
+    // add user to house active tenants
+    await houseController.setTenantActive(ntfItem.ntf_house, userId);
+
+    //create welcome notification (NTF, welcome) to all house tenants
+    await this.createNtfNotificationWelcome(ntfItem.ntf_house, userId);
+
+    return;
   } catch (err) {
     console.log(err);
-    res.status(400).json({ error: "Could not update invitation" });
+    return err;
   }
 };
 
+/**
+ * @route       api/notifications/:userId/:notificationID
+ * @access      Public
+ * @returns     All user's notifications
+ */
 exports.updateNotification = async (req, res) => {
   try {
     //update notification
-    await Notification.findByIdAndUpdate(req.params.notificationID, req.body);
+    const notificationItem = await Notification.findByIdAndUpdate(
+      req.params.notificationID,
+      req.body,
+      { new: true }
+    );
+    if (req.body.accepted) {
+      switch (notificationItem.type) {
+        case "NVT":
+          await this.acceptInvitation(notificationItem, req.params.userId);
+          break;
+
+        case "TRNS":
+          // TODO: handle accept roomie transfer
+          break;
+      }
+    }
     //return all notifications for user
+    this.getNotificationsForUser(req, res);
   } catch (err) {
     console.log(err);
     res.status(400).json({ error: "Could not update notification" });

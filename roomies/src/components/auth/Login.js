@@ -10,9 +10,9 @@ import axios from "axios";
 
 const test_user = {
   // email: "master@puppets.com",
-  // pass: "Qwer1234"
+  // pass: "Qwer1234",
   email: "test@test.com",
-  pass: "Test1234"
+  pass: "Test1234",
 };
 
 function Login() {
@@ -38,7 +38,7 @@ function Login() {
     return true;
   };
 
-  const doSubmit = event => {
+  const doSubmit = (event) => {
     event.preventDefault();
 
     if (validated()) {
@@ -53,7 +53,7 @@ function Login() {
 
     axios
       .post(`${BASE_URL}/auth`, { email: email, password: password })
-      .then(res => {
+      .then((res) => {
         console.log("Logged In successfully");
         console.log(res);
         //  save user and token to context
@@ -63,7 +63,7 @@ function Login() {
         history.push("/UserHome");
         // <Redirect to={"/UserHome"} />;
       })
-      .catch(error => {
+      .catch((error) => {
         setLoading(false);
         console.log("Login Error: ");
         console.log(error.response.data.error);

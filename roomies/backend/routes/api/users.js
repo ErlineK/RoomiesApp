@@ -8,7 +8,9 @@ const { auth } = require("../../helpers/auth");
 // User Model
 const User = require("../../models/User");
 
-/* TODO: user controller
+const userController = require("../../controllers/userController");
+
+// TODO: user controller
 
 /**
  * @route   POST api/users
@@ -66,6 +68,12 @@ router.post("/", (req, res) => {
     });
   });
 });
+
+/**
+ * @route   api/users/:userId
+ * @access  Public
+ */
+router.route("/:userId").patch(auth, userController.updateUser);
 
 /**
  * @route       PUT api/users/profile

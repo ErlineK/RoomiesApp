@@ -1,6 +1,10 @@
 import React, { createContext, useState } from "react";
+import axios from "axios";
+import { BASE_URL } from "../../utils/AppParams";
 
 export const AuthContext = createContext();
+
+// TODO: create user state
 
 export function AuthProvider(props) {
   const [user, setUser] = useState();
@@ -25,14 +29,44 @@ export function AuthProvider(props) {
     setUser(undefined);
   };
 
+  const getUserData = () => {
+    axios
+      .get(`${BASE_URL}/auth/${userId()}`, requestHeader)
+      .then((res) => {
+        console.log("Getting user data:");
+        console.log(res);
+        //  save user and token to context
+        setUser(res.data.user);
+      })
+      .catch((error) => {
+        console.log(error.response.data.error);
+      });
+  };
+
+  const acceptHouseInv = (houseId) => {
+    axios
+      .patch(
+        `${BASE_URL}/houses/accept/${userId()}/${houseId}`,
+        null,
+        requestHeader
+      )
+      .then((res) => {
+        console.log("Getting user data:");
+        console.log(res);
+        // save user
+        setUser(res.data.user);
+      })
+      .catch((error) => {
+        console.log(error.response.data.error);
+      });
+  };
+
   const userId = () => {
     return user ? user._id : "";
   };
 
-  const requestHeader = () => {
-    return {
-      headers: { "Content-Type": "application/json", "x-auth-token": token },
-    };
+  const requestHeader = {
+    headers: { "Content-Type": "application/json", "x-auth-token": token },
   };
 
   return (
@@ -40,11 +74,16 @@ export function AuthProvider(props) {
       value={{
         user: user,
         token: token,
-        requestHeader: requestHeader(),
-        userId: userId(),
+        requestHeader: requestHeader,
+
         loginUser: loginUser,
         logoutUser: logoutUser,
         isLoggedIn: isLoggedIn,
+
+        userId: userId(),
+        getUserData: getUserData,
+
+        acceptHouseInv: acceptHouseInv,
         // houseId: houseId,
         // setHouseId: setHouseId
       }}

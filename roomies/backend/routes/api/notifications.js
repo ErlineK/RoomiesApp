@@ -23,6 +23,7 @@ router
 //   .delete(notificationController.deleteNotification);
 
 // TODO: invitation approved + create welcome messages to all tenants
+// TODO: house invitation declined
 // TODO: transfer accepted
 
 module.exports = router;

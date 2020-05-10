@@ -14,10 +14,10 @@ const NotificationSchema = new mongoose.Schema({
     enum: ["NVT", "MSG", "NTF", "TRNS"],
     required: true,
   },
-  // ntf_type: {
-  //   type: String,
-  //   enum: ["transfer", "general"],
-  // },
+  ntf_type: {
+    type: String,
+    enum: ["bill", "welcome", "general"],
+  },
   to_user: {
     type: mongoose.Types.ObjectId,
     ref: user,

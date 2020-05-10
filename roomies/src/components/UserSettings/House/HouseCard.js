@@ -2,27 +2,19 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./house.scss";
 import { getIcon } from "../../../utils/iconManager";
-// import { GoPlus } from "react-icons/go";
-// import {
-//   FaEdit,
-//   FaEye,
-//   FaUserPlus,
-//   FaMinusCircle,
-//   FaCheck
-// } from "react-icons/fa";
 import { AuthContext } from "../../auth/AuthContext";
 import { HouseContext } from "./HouseContext";
+import { isTenantApproved } from "./houseHelper";
 
 // TODO: handle change active house in DB
 
+// TODO: house helper
+
 export default function HouseCard({ house }) {
-  const { userId } = useContext(AuthContext);
-  const {
-    activeHouseId,
-    toggleAddTenants,
-    toggleNewHouse,
-    houseApprovedForUser,
-  } = useContext(HouseContext);
+  const { userId, acceptHouseInv } = useContext(AuthContext);
+  const { activeHouseId, toggleAddTenants, toggleNewHouse } = useContext(
+    HouseContext
+  );
 
   const handleDeclineInvitation = (e) => {
     e.preventDefault();
@@ -34,11 +26,7 @@ export default function HouseCard({ house }) {
 
   const handleAcceptInvitation = (e) => {
     e.preventDefault();
-
-    console.log("accepting invitation");
-    // TODO: set invitation to accepted
-    // TODO: add tenant to approved
-    // TODO: send other tenants welcome notification
+    acceptHouseInv(house._id);
   };
 
   const tenants =
@@ -50,16 +38,17 @@ export default function HouseCard({ house }) {
             <li
               key={tenant._id}
               className={
-                !house.approved_tenants.includes(tenant._id) ? "text-muted" : ""
+                !isTenantApproved(house, tenant._id) ? "text-muted" : ""
               }
             >
               {tenant.name}
-              <span className="small-note success">
-                {house.admin === tenant._id && "admin"}
-              </span>
-              <span className="small-note abort">
-                {!house.approved_tenants.includes(tenant._id) && "Not Approved"}
-              </span>
+              {house.admin === tenant._id ? (
+                <span className="small-note success">admin</span>
+              ) : !isTenantApproved(house, tenant._id) ? (
+                <span className="small-note abort">Not Approved</span>
+              ) : (
+                ""
+              )}
             </li>
           )
         )
@@ -68,10 +57,7 @@ export default function HouseCard({ house }) {
   const houseActive = house && house._id === activeHouseId;
   const houseApproved =
     house &&
-    (house.admin === userId || house.approved_tenants.includes(userId));
-  // console.log(
-  //   "house name: " + house.houseName + " user is approved: " + houseApproved
-  // );
+    (house.admin === userId || houseActive || isTenantApproved(house, userId));
 
   return (
     <div

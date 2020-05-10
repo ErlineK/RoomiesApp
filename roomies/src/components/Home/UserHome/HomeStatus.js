@@ -14,8 +14,8 @@ export default function HomeStatus() {
     roomiesBalance: [
       { _id: "111", roomieName: "Tenant 1", balance: -50 },
       { _id: "222", roomieName: "Tenant 2", balance: 10 },
-      { _id: "333", roomieName: "Tenant 4", balance: -60 }
-    ]
+      { _id: "333", roomieName: "Tenant 4", balance: -60 },
+    ],
   };
 
   const [{ data, isLoading, isError }] = useGetRoomiesData(
@@ -36,14 +36,17 @@ export default function HomeStatus() {
     </h6>
   );
 
-  const tenants = data.roomiesBalance.map(roomie => (
-    <div key={roomie._id} className="balanceItem">
-      <p className={`${roomie.balance < 0 ? "red" : ""} underline`}>
-        {roomie.roomieName}
-      </p>
-      <p className="balance-text"> {formatCurrency(roomie.balance)}</p>
-    </div>
-  ));
+  const tenants =
+    data && data.roomiesBalance
+      ? data.roomiesBalance.map((roomie) => (
+          <div key={roomie._id} className="balanceItem">
+            <p className={`${roomie.balance < 0 ? "red" : ""} underline`}>
+              {roomie.roomieName}
+            </p>
+            <p className="balance-text"> {formatCurrency(roomie.balance)}</p>
+          </div>
+        ))
+      : "";
 
   return (
     <div className="homeItem">
@@ -51,7 +54,11 @@ export default function HomeStatus() {
         <HomeFragment
           isLoading={isLoading}
           isError={isError}
-          noData={data === undefined || data.roomiesBalance.length < 1}
+          noData={
+            data === undefined ||
+            !data.roomiesBalance ||
+            data.roomiesBalance.length < 1
+          }
           title={`Your total balance: ${formatCurrency(data.userBalance)}`}
           itemsName={"data"}
           linkTitle={"Break even"}
