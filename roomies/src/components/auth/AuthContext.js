@@ -43,11 +43,14 @@ export function AuthProvider(props) {
       });
   };
 
-  const acceptHouseInv = (houseId) => {
+  const acceptHouseInv = (houseId, accept) => {
     axios
       .patch(
         `${BASE_URL}/houses/accept/${userId()}/${houseId}`,
-        null,
+        {
+          accepted: accept,
+          viewed: true,
+        },
         requestHeader
       )
       .then((res) => {

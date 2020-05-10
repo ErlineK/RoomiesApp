@@ -3,8 +3,6 @@ const Bill = require("../../models/Bill");
 
 // UserComment model
 const UserComment = require("../../models/UserComment");
-// User constroller
-const userController = require("../userController");
 
 /**
  * @route       api/bills/comment/:billId/:userId

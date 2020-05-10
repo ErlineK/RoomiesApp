@@ -18,8 +18,6 @@ export function HouseProvider(props) {
 
   useEffect(() => {
     if (user !== undefined && user._id !== undefined) {
-      console.log("Trying to he houses for user " + user._id);
-
       // get houses from DB
       axios
         .get(`${BASE_URL}/houses/${user._id}`, requestHeader)
@@ -42,11 +40,6 @@ export function HouseProvider(props) {
 
   const setHouses = (houses) => {
     setSelectedHouseId(user.active_house);
-    console.log("active house:" + selectedHouseId);
-
-    console.log("houses:");
-    console.log(houses);
-
     setHousesState(houses);
   };
 

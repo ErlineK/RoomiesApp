@@ -1,10 +1,11 @@
 // Notification model
 const Notification = require("../models/Notification");
 
-// User constroller
+// User controller
 const userController = require("./userController");
-// House constroller
-const houseController = require("./houseController");
+
+// Tenants controller
+const tenantsController = require("./houses/tenantsController");
 
 // exports.getNotificationsForUser = async (req, res) => {
 //     try{}
@@ -191,10 +192,29 @@ exports.acceptInvitation = async (ntfItem, userId) => {
     await userController.updateActiveHouse(ntfItem.ntf_house, userId);
 
     // add user to house active tenants
-    await houseController.setTenantActive(ntfItem.ntf_house, userId);
+    await tenantsController.setTenantActive(ntfItem.ntf_house, userId);
 
     //create welcome notification (NTF, welcome) to all house tenants
     await this.createNtfNotificationWelcome(ntfItem.ntf_house, userId);
+
+    return;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+};
+
+/**
+ * @access      Private
+ * @body        { notification item, userId}
+ */
+exports.declineInvitation = async (ntfItem, userId) => {
+  try {
+    // remove tenant from house's tenants list
+    await tenantsController.removeTenantFromHouse(ntfItem.ntf_house, userId);
+
+    // remove notification
+    await Notification.findByIdAndDelete(ntfItem._id);
 
     return;
   } catch (err) {
@@ -208,7 +228,7 @@ exports.acceptInvitation = async (ntfItem, userId) => {
  * @access      Public
  * @returns     All user's notifications
  */
-exports.updateNotification = async (req, res) => {
+exports.updateNotificationAccept = async (req, res) => {
   try {
     //update notification
     const notificationItem = await Notification.findByIdAndUpdate(
@@ -216,17 +236,19 @@ exports.updateNotification = async (req, res) => {
       req.body,
       { new: true }
     );
-    if (req.body.accepted) {
-      switch (notificationItem.type) {
-        case "NVT":
-          await this.acceptInvitation(notificationItem, req.params.userId);
-          break;
 
-        case "TRNS":
-          // TODO: handle accept roomie transfer
-          break;
-      }
+    switch (notificationItem.type) {
+      case "NVT":
+        req.body.accepted
+          ? await this.acceptInvitation(notificationItem, req.params.userId)
+          : await this.declineInvitation(notificationItem, req.params.userId);
+        break;
+
+      case "TRNS":
+        // TODO: handle accept roomie transfer
+        break;
     }
+
     //return all notifications for user
     this.getNotificationsForUser(req, res);
   } catch (err) {

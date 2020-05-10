@@ -8,12 +8,26 @@ import { getIcon } from "../../utils/iconManager";
  * types of notifications:
  * general
  * bill paid
+ * welcome new tenant
  */
 
 function NofiticationMsgItem({ item }) {
-  const messageTxt = item.ntf_bill
-    ? `${item.ntf_bill.bill_type} bill has been paid`
-    : "general message";
+  let messageTxt = "";
+  switch (item.ntf_type) {
+    case "bill":
+      messageTxt = `${item.ntf_bill.bill_type} bill has been paid`;
+      break;
+
+    case "welcome":
+      messageTxt = `Welcome ${item.from_user ? item.from_user.name : ""} to ${
+        item.ntf_house ? item.ntf_house.houseName : ""
+      }!`;
+      break;
+
+    default:
+      messageTxt = "general message";
+      break;
+  }
 
   return (
     <div className="listItemHolder">
@@ -26,20 +40,6 @@ function NofiticationMsgItem({ item }) {
               {formatDate(item.added_date)}
             </p>
           </div>
-          {/* {item.ntfType === TRNSFR && (
-            <div className="msgRow" style={{ marginBottom: "0.5rem" }}>
-              <p className="description"></p>
-
-              {/* <button className="btn msgSimpleBtn highlightGreen invitationBtnPosition">
-                <FaCheck className="accent-icon" />
-                Confirm
-              </button> */}
-          {/* <button className="btn btn-grad-green btnAction invitationBtnPosition">
-                <FaCheck className="accent-icon" />
-                Accept
-              </button>
-            </div>
-          )} */}
         </div>
       </div>
 

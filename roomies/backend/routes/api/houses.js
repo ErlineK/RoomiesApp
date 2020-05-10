@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const { auth } = require("../../helpers/auth");
 
-const houseController = require("../../controllers/houseController");
+const houseController = require("../../controllers/houses/houseController");
+const tenantsController = require("../../controllers/houses/tenantsController");
 
 /**
  * @route       api/houses/:userId
@@ -27,6 +28,6 @@ router
  * @route       api/houses/:userId/tenants
  * @access      Public
  */
-router.route("/:userId/tenants").put(auth, houseController.addTenant);
+router.route("/:userId/tenants").put(auth, tenantsController.addTenant);
 
 module.exports = router;

@@ -4,11 +4,17 @@ import { GiKeyring } from "react-icons/gi";
 import { formatDateOnly } from "../../utils/formatHelper";
 import { getIcon } from "../../utils/iconManager";
 
-function InvitationMsgItem({ item, handleAcceptINV }) {
+function InvitationMsgItem({ item, handleAcceptINV, handleDeclineINV }) {
   const handleAcceptInvitation = (e) => {
     e.preventDefault(e);
 
     handleAcceptINV(item._id, item.ntf_house);
+  };
+
+  const handleDeclineInvitation = (e) => {
+    e.preventDefault(e);
+
+    handleDeclineINV(item._id, item.ntf_house);
   };
 
   return (
@@ -26,7 +32,7 @@ function InvitationMsgItem({ item, handleAcceptINV }) {
             </p>
             <p className="description textLight">{formatDateOnly(item.date)}</p>
           </div>
-          <div className="msgRow">
+          <div className="msgRow flext-right">
             {item.ntf_house && (
               <p className="description">
                 {item.ntf_house.address} , {item.ntf_house.city}
@@ -46,11 +52,11 @@ function InvitationMsgItem({ item, handleAcceptINV }) {
           </div>
         </div>
       </div>
-
-      <div className="msgBtn msgBtnCancel">
-        {getIcon("delete", "msgBtnIcon")}
-        {/* <TiDeleteOutline className="msgBtnIcon" /> */}
-      </div>
+      {!item.accepted && (
+        <div className="msgBtn msgBtnCancel">
+          {getIcon("delete", "msgBtnIcon", (e) => handleDeclineInvitation(e))}
+        </div>
+      )}
 
       <hr></hr>
     </div>

@@ -11,54 +11,29 @@ import {
 } from "../../Messages/msgComponents";
 import useToggle from "../../../hooks/useToggle";
 
-const defaultData = {
-  messages: [
-    {
-      _id: 1,
-      type: "MSG",
-      author: "Tenant One",
-      date: new Date(2017, 11, 17),
-      msg: "Forgot to walk the cow. Beers on me",
-    },
-    {
-      _id: 6,
-      type: "NTF",
-      ntfType: "transfer",
-      date: new Date(2020, 1, 30),
-      msg: "Tenant 3 transfered you $200",
-      accepted: true,
-    },
-    {
-      _id: 4,
-      type: "NTF",
-      ntfType: "general",
-      date: new Date(2020, 2, 22),
-      msg: "Welcome Tenant 2 to Home Sweet Home",
-    },
-    {
-      _id: 2,
-      type: "NVT",
-      author: "Some Tenant",
-      date: new Date(2018, 2, 14),
-      propertyName: "Home Sweet Home",
-      propertyAddress: "123 Over the Hill Rd.",
-      propertyCity: "Wonderland",
-      accepted: true,
-    },
-  ],
-};
+// const defaultData = {
+//   messages: [
+//     {
+//       _id: 6,
+//       type: "NTF",
+//       ntfType: "transfer",
+//       date: new Date(2020, 1, 30),
+//       msg: "Tenant 3 transfered you $200",
+//       accepted: true,
+//     },
+//   ],
+// };
 
 // TODO: create use messages hook
+
+/* NVT => Invitation to join a peoperty account
+ * MSG => message on messages board
+ * NTF => notification of paid bill/welcome/new tenant/birthdays(?)/transfer between tenants
+ */
 
 function HomeMsgs() {
   const { userId, getUserData } = useContext(AuthContext);
   const [acceptingINV, toggleAcceptingINV] = useToggle(false);
-  //TODO: get 5 recent messages from DB ordered by date DSC
-  /* NVT => Invitation to join a peoperty account
-   * MSG => message on messages board
-   * NTF => notification of paid bill/welcome/new tenant/birthdays(?)/transfer between tenants
-   */
-
   const [{ data, isLoading, isError }, setRequest] = useGetData({}, {});
 
   useEffect(() => {
@@ -89,6 +64,15 @@ function HomeMsgs() {
     });
   };
 
+  const handleDeclineINV = async (ntfId) => {
+    toggleAcceptingINV();
+    setRequest({
+      url: `notifications/${userId}/${ntfId}`,
+      reqType: "patch",
+      reqData: { accepted: false, viewed: true },
+    });
+  };
+
   const getMsgObjByType = (msg) => {
     var msgObj;
     switch (msg.type) {
@@ -102,6 +86,7 @@ function HomeMsgs() {
             key={`msg${msg._id}`}
             item={msg}
             handleAcceptINV={handleAcceptINV}
+            handleDeclineINV={handleDeclineINV}
           />
         );
         break;

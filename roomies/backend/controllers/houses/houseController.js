@@ -1,10 +1,9 @@
 // House model
-const House = require("../models/House");
-// User constroller
-const userController = require("./userController");
-
-// User constroller
-const notificationController = require("./notificationController");
+const House = require("../../models/House");
+// User controller
+const userController = require("../userController");
+// Notifications controller
+const notificationController = require("../notificationController");
 
 /**
  * @route       api/houses/:userId
@@ -77,52 +76,6 @@ exports.addNewHouse = async (req, res) => {
 };
 
 /**
- * @route       api/houses/:userId/tenants
- * @access      Public
- * @receives    {house Id, tenant email, tenant name (to be used later)}
- * @returns     All houses for user
- */
-exports.addTenant = async (req, res) => {
-  const { houseId, email, name } = req.body;
-
-  try {
-    // get user with tenant email
-    const tenant = await userController.getSafeUserByParam({ email: email });
-    if (!tenant) {
-      res.status(404).json({ error: "No such user" });
-    }
-
-    // add tenant to house
-    await House.findByIdAndUpdate(houseId, {
-      $push: { house_tenants: tenant },
-    });
-
-    // create invitation notification
-    notificationController.createNvtNotification(
-      req.params.userId,
-      tenant._id,
-      houseId
-    );
-    // get houses list
-    this.getAllHousesForUser(req, res);
-  } catch (err) {
-    console.log(err);
-    res.status(404).json({ error: "Could not add tenant" });
-  }
-};
-
-/**
- * @access      Private
- * @returns     house item
- * @desc    add tenant to 'approved tenants' list of a house object
- */
-exports.setTenantActive = async (houseId, userId) => {
-  return House.findByIdAndUpdate(houseId, {
-    $push: { approved_tenants: userId },
-  });
-};
-
-/**
  * @access      Private
  * @returns     house item
  * @desc    checks a user is an approved tenant in house and is authorized to modify related info
@@ -143,6 +96,7 @@ exports.checkUserCanEdit = async (houseId, userId) => {
 /**
  * @route       api/houses/house/:userId/:houseId
  * @access      Public
+ * @receive     {accepted : Boolean, viewed : Boolean}
  * @returns     Updated user
  */
 exports.acceptHouseInv = async (req, res) => {
@@ -150,26 +104,33 @@ exports.acceptHouseInv = async (req, res) => {
     // update invitation accepted and do accept invitation proccess
     const invitationItem = await Notification.findOneAndUpdate(
       {
+        type: "NVT",
         ntf_house: req.params.houseId,
         to_user: req.params.userId,
       },
-      {
-        accepted: true,
-        viewed: true,
-      },
+      res.body,
       { new: true }
     );
 
-    await notificationController.acceptInvitation(
-      invitationItem,
-      req.params.userId
-    );
+    console.log("got invitation item: \n");
+    console.log(invitationItem);
+
+    req.body.accepted
+      ? await notificationController.acceptInvitation(
+          invitationItem,
+          req.params.userId
+        )
+      : await notificationController.declineInvitation(
+          invitationItem,
+          req.params.userId
+        );
 
     const user = await userController.getSafeUserByParam({
       _id: req.params.userId,
     });
-    res.json({ msg: "Invitation accepted", user });
+    res.json({ msg: "Invitation updated", user });
   } catch (err) {
-    res.status(400).json({ error: "Could not accept house invitation" });
+    console.log(err);
+    res.status(400).json({ error: "Could not update house invitation" });
   }
 };

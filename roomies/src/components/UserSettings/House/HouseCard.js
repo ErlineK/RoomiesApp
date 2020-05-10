@@ -20,13 +20,12 @@ export default function HouseCard({ house }) {
     e.preventDefault();
 
     console.log("declining invitation");
-    // TODO: remove tenant from house
-    // TODO: delete invitation item related to that user & house
+    acceptHouseInv(house._id, false);
   };
 
   const handleAcceptInvitation = (e) => {
     e.preventDefault();
-    acceptHouseInv(house._id);
+    acceptHouseInv(house._id, true);
   };
 
   const tenants =

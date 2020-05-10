@@ -5,13 +5,13 @@ const Payment = require("../../models/Payment");
 
 // UserComment model
 const UserComment = require("../../models/UserComment");
-// User constroller
+// User controller
 const userController = require("../userController");
 
-// House constroller
-const houseController = require("../houseController");
+// House controller
+const houseController = require("../houses/houseController");
 
-// User constroller
+// User controller
 const notificationController = require("../notificationController");
 
 exports.getAllBillsForHouse = async (req, res) => {

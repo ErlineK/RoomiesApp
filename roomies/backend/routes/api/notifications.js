@@ -19,7 +19,7 @@ router
  */
 router
   .route("/:userId/:notificationID")
-  .patch(auth, notificationController.updateNotification);
+  .patch(auth, notificationController.updateNotificationAccept);
 //   .delete(notificationController.deleteNotification);
 
 // TODO: invitation approved + create welcome messages to all tenants

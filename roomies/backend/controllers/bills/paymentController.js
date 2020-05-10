@@ -8,7 +8,7 @@ const UserComment = require("../../models/UserComment");
 // Bill controller
 const billController = require("./billController");
 // House controller
-const houseController = require("../houseController");
+const houseController = require("../houses/houseController");
 // Notification controller
 const notificationController = require("../notificationController");
 
