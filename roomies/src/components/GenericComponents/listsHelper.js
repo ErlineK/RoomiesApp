@@ -1,3 +1,4 @@
+/* get list background color according to due Date. */
 export function getBackgroundByDue(dueDate) {
   let bgClass = "";
 

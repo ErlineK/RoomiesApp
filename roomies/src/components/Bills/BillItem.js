@@ -5,12 +5,12 @@ import {
   formatDateOnly,
   formatDayMonth,
 } from "../../utils/formatHelper";
-import { getBackgroundByDue } from "../Home/UserHome/homeHelper";
+import { getBackgroundByDue } from "../GenericComponents/listsHelper";
 import { getIcon } from "../../utils/iconManager";
 import { getIconByBillType } from "./billsHelper";
 import { Link } from "react-router-dom";
 import { BillsContext } from "./BillsContext";
-import CommentItem from "../GenericComponents/Comment/CommentItem";
+// import CommentItem from "../GenericComponents/Comment/CommentItem";
 // import CommentSection from "../GenericComponents/Comment/CommentSection";
 
 /* bill item types: "HOME" */

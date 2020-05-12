@@ -11,6 +11,7 @@ import Chores from "../Chores/chores";
 import UserSettings from "../UserSettings/Settings";
 import CreateProfile from "../Profile/CreateProfile";
 import ViewBill from "../Bills/ViewBill";
+import Balance from "../Balance/Balance";
 
 export default function () {
   return (
@@ -21,6 +22,7 @@ export default function () {
       <Route exact path="/CreateProfile" render={() => <CreateProfile />} />
       <Route exact path="/Login" render={() => <Login />} />
       <Route exact path="/Bills" component={Bills} />
+      <Route exact path="/Balance" component={Balance} />
       <Route exact path="/ViewBill" component={ViewBill} />
       <Route exact path="/GroupChat" component={GroupChat} />
       <Route exact path="/HouseList" component={HouseList} />

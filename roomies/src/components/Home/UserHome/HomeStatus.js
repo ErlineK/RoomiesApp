@@ -4,19 +4,9 @@ import HomeFragment from "./HomeFragment";
 import { formatCurrency } from "../../../utils/formatHelper";
 import { AuthContext } from "../../auth/AuthContext";
 import { HouseContext } from "../../UserSettings/House/HouseContext";
+import { getMyBalance } from "../../Balance/balanceHelper";
 
-const USER_STATUS_URL = "https://jsonplaceholder.typicode.com/users";
-
-// TODO: create balance/bills page
-
-const defaultData = {
-  userBalance: -100,
-  roomiesBalance: [
-    { _id: "111", roomieName: "Tenant 1", balance: -50 },
-    { _id: "222", roomieName: "Tenant 2", balance: 10 },
-    { _id: "333", roomieName: "Tenant 4", balance: -60 },
-  ],
-};
+// TODO: create balance page
 
 export default function HomeStatus() {
   const { userId } = useContext(AuthContext);
@@ -33,29 +23,34 @@ export default function HomeStatus() {
     }
   }, []);
 
-  const balance = `$${Math.abs(data.userBalance)}`;
+  const myBalance = getMyBalance(data.balance, userId);
   const balanceSum = (
-    <h6
-      className={` ${
-        data.userBalance > 0 ? "positivVal" : "negativeVal"
-      } nav-link`}
-    >
-      {data.userBalance > 0
-        ? `Tenants owe you ${balance}`
-        : `You owe ${balance} total`}
+    <h6 className={` ${myBalance > 0 ? "positivVal" : "negativeVal"} nav-link`}>
+      {myBalance > 0
+        ? `Roomies owe you ${formatCurrency(Math.abs(myBalance))}`
+        : `You owe ${formatCurrency(Math.abs(myBalance))} total`}
     </h6>
   );
 
   const tenants =
-    data && data.roomiesBalance
-      ? data.roomiesBalance.map((roomie) => (
-          <div key={roomie._id} className="balanceItem">
-            <p className={`${roomie.balance < 0 ? "red" : ""} underline`}>
-              {roomie.roomieName}
-            </p>
-            <p className="balance-text"> {formatCurrency(roomie.balance)}</p>
-          </div>
-        ))
+    data && data.balance
+      ? data.balance.map((roomie) =>
+          roomie._id !== userId ? (
+            <div key={roomie._id} className="balanceItem">
+              <p
+                className={`${roomie.totalBalance < 0 ? "red" : ""} underline`}
+              >
+                {roomie.user}
+              </p>
+              <p className="balance-text">
+                {" "}
+                {formatCurrency(roomie.totalBalance)}
+              </p>
+            </div>
+          ) : (
+            ""
+          )
+        )
       : "";
 
   return (
@@ -65,11 +60,9 @@ export default function HomeStatus() {
           isLoading={isLoading}
           isError={isError}
           noData={
-            data === undefined ||
-            !data.roomiesBalance ||
-            data.roomiesBalance.length < 1
+            data === undefined || !data.balance || data.balance.length < 1
           }
-          title={`Your total balance: ${formatCurrency(data.userBalance)}`}
+          title={`Your total balance: ${formatCurrency(myBalance)}`}
           itemsName={"data"}
           linkTitle={"Break even"}
           linkPath={"Balance"}

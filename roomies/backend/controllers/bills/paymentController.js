@@ -175,13 +175,13 @@ exports.getRoomieTransToUser = async (houseId, userId) => {
         $group: {
           _id: "$from_user",
           count: { $sum: 1 },
-          totalReceived: { $sum: "$total_amount" },
+          totalTransfered: { $sum: "$total_amount" },
         },
       },
     ]);
 
-    console.log("got transfers to user: ");
-    console.log(rTrns);
+    // console.log("got transfers to user: ");
+    // console.log(rTrns);
 
     return rTrns;
   } catch (err) {
@@ -217,8 +217,8 @@ exports.getRoomieTransFromUser = async (houseId, userId) => {
       },
     ]);
 
-    console.log("got transfers from user: ");
-    console.log(rTrnsF);
+    // console.log("got transfers from user: ");
+    // console.log(rTrnsF);
 
     return rTrnsF;
   } catch (err) {
@@ -256,14 +256,22 @@ exports.getBillSumsByTenant = async (houseId) => {
         },
       },
       {
+        $unwind: "$user",
+      },
+      { $project: { _id: "$user._id", user: "$user.name" } },
+      {
         $group: {
-          _id: "$from_user",
+          _id: "$_id",
+          // _id: "$$userId",
           user: { $first: "$user" },
           count: { $sum: 1 },
           total: { $sum: "$total_amount" },
         },
       },
     ]);
+
+    console.log("\ntemp bills sums:");
+    console.log(trans);
 
     return trans;
   } catch (err) {
