@@ -16,7 +16,7 @@ const notificationController = require("../notificationController");
 exports.getAllBillsForHouse = async (req, res) => {
   try {
     // get list of roomie transactions for house (after break even date)
-    const rTransfers = await paymentController.getRoomieTransForUser(
+    const rTransfers = await paymentController.getRoomieTransForTenant(
       req.params.houseId,
       req.params.userId
     );

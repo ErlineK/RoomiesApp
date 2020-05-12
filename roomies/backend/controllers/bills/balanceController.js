@@ -15,22 +15,29 @@ const paymentController = require("../../controllers/bills/paymentController");
  * @returns     User balance object
  */
 exports.getUserBalance = async (req, res) => {
+  // // TODO: limit balance to last break even date
   try {
     // get total payments each tenant made exluding roomie transfers
     const roomieTransSums = await paymentController.getPaymentsSum(
       req.params.houseId,
       req.params.userId
     );
+    // TODO: calculate base bills break-even
+    const billsNotEmpty =
+      roomieTransSums.billSums && roomieTransSums.billSums.length > 0;
+    const numRoomies = billsNotEmpty ? roomieTransSums.billSums.length : 0;
+    const billsPaidTotal = billsNotEmpty
+      ? roomieTransSums.billSums.map((p) => p.total).reduce((a, b) => a + b, 0)
+      : 0;
+    const billsEven = (billsPaidTotal / numRoomies).toFixed(2);
 
-    // console.log("\ngot roomie trans: ");
-    // console.log(roomieTransSums);
-
-    // // TODO: limit balance to last break even date
-    // const paymentSums = await paymentController.getPaymentsSum(
-    //   req.params.houseId
-    // );
+    console.log("numRoomies: " + numRoomies);
+    console.log("billsPaidTotal " + billsPaidTotal);
+    console.log("billsEven " + billsEven);
 
     // TODO: calculate individual balance for each user
+    //   TODO: for each roomie: billSums - roomieTransfered + roomieReceived
+
     // TODO: get user balance
 
     res.json({ msg: "Got balance successfully", balance: roomieTransSums });

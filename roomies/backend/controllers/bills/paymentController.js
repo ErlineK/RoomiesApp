@@ -9,7 +9,6 @@ const UserComment = require("../../models/UserComment");
 const billController = require("./billController");
 const houseController = require("../houses/houseController");
 const notificationController = require("../notificationController");
-const tenantsController = require("../houses/tenantsController");
 
 /**
  * @route       api/bills/payment/:billId/:userId
@@ -138,14 +137,13 @@ exports.getPaymentsSum = async (houseId, userId) => {
   try {
     // get bill sums
     const billSums = await this.getBillSumsByTenant(houseId);
-    const roomieSums = await this.getRoomieTransByTenant(houseId, userId);
-
-    console.log("\ngot roomie sums");
-    console.log(roomieSums);
+    const roomieReceived = await this.getRoomieTransToUser(houseId, userId);
+    const roomieTransfered = await this.getRoomieTransFromUser(houseId, userId);
 
     const totals = {
-      roomieTotals: roomieSums,
-      billsTotals: billSums,
+      billSums: billSums,
+      roomieReceived: roomieReceived,
+      roomieTransfered: roomieTransfered,
     };
 
     return totals;
@@ -158,17 +156,71 @@ exports.getPaymentsSum = async (houseId, userId) => {
 /**
  * @access      Private
  * @returns     transuction Ids : String Array
- * @desc        get all roomie transactions ids for house id
+ * @desc        get roomie transactions user received
  */
-exports.getRoomieTransForUser = async (houseId, userId) => {
+exports.getRoomieTransToUser = async (houseId, userId) => {
   try {
-    const trns = await Payment.find({
-      house_ref: houseId,
-      payment_type: "rTRNS",
-      $or: [{ to_user: userId }, { from_user: userId }],
-    }).select("to_user from_user total_amount");
+    const rTrns = await Payment.aggregate([
+      {
+        $match: {
+          $and: [
+            { house_ref: mongoose.Types.ObjectId(houseId) },
+            { payment_type: "rTRNS" },
+            { to_user: mongoose.Types.ObjectId(userId) },
+            // { accepted: true }
+          ],
+        },
+      },
+      {
+        $group: {
+          _id: "$from_user",
+          count: { $sum: 1 },
+          totalReceived: { $sum: "$total_amount" },
+        },
+      },
+    ]);
 
-    return trns;
+    console.log("got transfers to user: ");
+    console.log(rTrns);
+
+    return rTrns;
+  } catch (err) {
+    console.log(err);
+    return err;
+  }
+};
+
+/**
+ * @access      Private
+ * @returns     transuction Ids : String Array
+ * @desc        get roomie transactions user made
+ */
+exports.getRoomieTransFromUser = async (houseId, userId) => {
+  try {
+    const rTrnsF = await Payment.aggregate([
+      {
+        $match: {
+          $and: [
+            { house_ref: mongoose.Types.ObjectId(houseId) },
+            { payment_type: "rTRNS" },
+            { from_user: mongoose.Types.ObjectId(userId) },
+            // { accepted: true }
+          ],
+        },
+      },
+      {
+        $group: {
+          _id: "$to_user",
+          count: { $sum: 1 },
+          totalTransfered: { $sum: "$total_amount" },
+        },
+      },
+    ]);
+
+    console.log("got transfers from user: ");
+    console.log(rTrnsF);
+
+    return rTrnsF;
   } catch (err) {
     console.log(err);
     return err;
@@ -193,12 +245,20 @@ exports.getBillSumsByTenant = async (houseId) => {
         },
       },
       {
+        $lookup: {
+          from: "users",
+          let: { userId: "$from_user" },
+          pipeline: [
+            { $match: { $expr: { $eq: ["$_id", "$$userId"] } } },
+            { $project: { name: 1 } },
+          ],
+          as: "user",
+        },
+      },
+      {
         $group: {
-          _id: {
-            userId: "$from_user",
-            paymentType: "$payment_type",
-          },
-          user: { $first: "$from_user" },
+          _id: "$from_user",
+          user: { $first: "$user" },
           count: { $sum: 1 },
           total: { $sum: "$total_amount" },
         },
@@ -214,39 +274,15 @@ exports.getBillSumsByTenant = async (houseId) => {
 
 /**
  * @access      Private
- * @desc        get user's roomie transactions to/from roomies
+ * @desc        get all user's roomie transactions to/from roomies
  */
-exports.getRoomieTransByTenant = async (houseId, userId) => {
+exports.getRoomieTransForTenant = async (houseId, userId) => {
   try {
-    const trans = await Payment.aggregate([
-      {
-        $match: {
-          $and: [
-            {
-              house_ref: mongoose.Types.ObjectId(houseId),
-            },
-            { payment_type: "rTRNS" },
-            {
-              $or: [
-                { to_user: mongoose.Types.ObjectId(userId) },
-                { from_user: mongoose.Types.ObjectId(userId) },
-              ],
-            },
-          ],
-        },
-      },
-      {
-        $group: {
-          _id: "$to_user",
-          recepient: { $first: "$to_user" },
-          // recepientName: { $first: "$to_user.name" },
-          count: { $sum: 1 },
-          total: { $sum: "$total_amount" },
-        },
-      },
-    ]);
-
-    return trans;
+    return await Payment.find({
+      house_ref: houseId,
+      payment_type: "rTRNS",
+      $or: [{ to_user: userId }, { from_user: userId }, { accepted: true }],
+    }).select("to_user from_user total_amount");
   } catch (err) {
     console.log(err);
     return err;
