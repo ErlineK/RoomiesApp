@@ -8,6 +8,10 @@ const PaymentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  payment_type: {
+    type: String,
+    enum: ["rTRNS", "Bill", "Other"],
+  },
   transaction_date: {
     type: Date,
     default: Date.now,

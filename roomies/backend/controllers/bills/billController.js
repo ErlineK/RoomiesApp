@@ -2,39 +2,36 @@
 const Bill = require("../../models/Bill");
 // Payment model
 const Payment = require("../../models/Payment");
-
 // UserComment model
 const UserComment = require("../../models/UserComment");
-// User controller
-const userController = require("../userController");
 
-// House controller
+/* Controllers */
+const userController = require("../userController");
 const houseController = require("../houses/houseController");
+const paymentController = require("./paymentController");
 
 // User controller
 const notificationController = require("../notificationController");
 
 exports.getAllBillsForHouse = async (req, res) => {
   try {
+    // get list of roomie transactions for house (after break even date)
+    const rTransfers = await paymentController.getRoomieTransForUser(
+      req.params.houseId,
+      req.params.userId
+    );
+
+    console.log("\ngot roomie transfers list: ");
+    console.log(rTransfers);
+
     // get all houses where user is a tenant
-    const bills = await Bill.find()
-      .where("ref_house")
-      .equals(req.params.houseId)
-      .or(
+    const bills = await Bill.find({
+      ref_house: req.params.houseId,
+      $or: [
+        { payments: { $in: rTransfers } },
         { bill_type: { $ne: "Roomie Transfer" } },
-        {
-          $and: [
-            { bill_type: "Roomie Transfer" },
-            { "payments.to_user": req.params.userId },
-          ],
-        },
-        {
-          $and: [
-            { bill_type: "Roomie Transfer" },
-            { "payments.from_user": req.params.userId },
-          ],
-        }
-      )
+      ],
+    })
       .populate({
         path: "bill_comments",
         populate: { path: "author", select: "name" },
@@ -43,6 +40,7 @@ exports.getAllBillsForHouse = async (req, res) => {
         path: "payments",
         populate: [
           { path: "from_user", select: "name" },
+          { path: "to_user", select: "name" },
           {
             path: "user_comment",
             populate: { path: "author", select: "name" },
@@ -62,13 +60,13 @@ exports.getAllBillsForHouse = async (req, res) => {
 exports.addNewBill = async (req, res) => {
   try {
     // create comment
-    const newComment =
-      req.body.comment && req.body.comment !== ""
-        ? await new UserComment({
-            author: req.params.userId,
-            msg: req.body.comment,
-          }).save()
-        : undefined;
+    const doAddComment = req.body.comment && req.body.comment !== "";
+    const newComment = doAddComment
+      ? await new UserComment({
+          author: req.params.userId,
+          msg: req.body.comment,
+        }).save()
+      : undefined;
 
     // reate new bill and add to db
     const billParams = req.body;
@@ -83,12 +81,15 @@ exports.addNewBill = async (req, res) => {
       total_amount: billParams.total_amount,
       due_date: billParams.due_date,
       ref_house: req.params.houseId,
-      bill_comments: [newComment],
+      bill_comments: doAddComment && newComment ? [newComment] : undefined,
     }).save();
 
     if (newBill.bill_type === "Roomie Transfer") {
-      // TODO: create payment for roomie
-      const roomiePayment = new Payment({
+      console.log("\nAdding roomies payment\n");
+
+      // create payment for roomie
+      const roomiePayment = await new Payment({
+        payment_type: "rTRNS",
         transaction_date: billParams.due_date,
         reference_num: billParams.invoice_num,
         house_ref: req.params.houseId,

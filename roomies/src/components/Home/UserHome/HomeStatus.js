@@ -1,27 +1,37 @@
-import React from "react";
-import useGetRoomiesData from "../../../hooks/useGetRoomiesData";
+import React, { useEffect, useContext } from "react";
+import useGetData from "../../../hooks/useGetData";
 import HomeFragment from "./HomeFragment";
 import { formatCurrency } from "../../../utils/formatHelper";
+import { AuthContext } from "../../auth/AuthContext";
+import { HouseContext } from "../../UserSettings/House/HouseContext";
 
 const USER_STATUS_URL = "https://jsonplaceholder.typicode.com/users";
-// const USER_STATUS_URL = "users/user_status"; //GET
 
 // TODO: create balance/bills page
 
-export default function HomeStatus() {
-  const defaultData = {
-    userBalance: -100,
-    roomiesBalance: [
-      { _id: "111", roomieName: "Tenant 1", balance: -50 },
-      { _id: "222", roomieName: "Tenant 2", balance: 10 },
-      { _id: "333", roomieName: "Tenant 4", balance: -60 },
-    ],
-  };
+const defaultData = {
+  userBalance: -100,
+  roomiesBalance: [
+    { _id: "111", roomieName: "Tenant 1", balance: -50 },
+    { _id: "222", roomieName: "Tenant 2", balance: 10 },
+    { _id: "333", roomieName: "Tenant 4", balance: -60 },
+  ],
+};
 
-  const [{ data, isLoading, isError }] = useGetRoomiesData(
-    USER_STATUS_URL,
-    defaultData
-  );
+export default function HomeStatus() {
+  const { userId } = useContext(AuthContext);
+  const { activeHouseId } = useContext(HouseContext);
+  const [{ data, isLoading, isError }, setRequest] = useGetData({}, {});
+
+  useEffect(() => {
+    if (userId !== undefined && userId !== "") {
+      setRequest({
+        url: `bills/balance/${activeHouseId}/${userId}`,
+        reqType: "get",
+        reqData: {},
+      });
+    }
+  }, []);
 
   const balance = `$${Math.abs(data.userBalance)}`;
   const balanceSum = (
@@ -67,6 +77,7 @@ export default function HomeStatus() {
           <div className="listItemHolder">
             <div className="flex-container flex-around  ">{tenants}</div>
           </div>
+          {balanceSum}
         </HomeFragment>
       </div>
     </div>

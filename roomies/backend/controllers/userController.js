@@ -40,7 +40,12 @@ exports.getUserActiveHouseId = async (userId) => {
  * @desc    updates user's active_house
  */
 exports.updateActiveHouse = async (houseId, userId) => {
-  return User.findByIdAndUpdate(userId, { active_house: houseId }).select(
-    "-password"
-  );
+  return User.findByIdAndUpdate(
+    userId,
+    {
+      active_house: houseId,
+      active_house_date: Date.now,
+    },
+    { new: true }
+  ).select("-password");
 };

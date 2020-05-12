@@ -48,6 +48,17 @@ exports.addTenant = async (req, res) => {
  * @returns     house item
  * @desc        add tenant to 'approved tenants' list of a house object
  */
+exports.getHouseTenants = async (houseId) => {
+  return await House.findById(houseId)
+    .select("approved_tenants")
+    .populate({ path: "approved_tenants", select: "name" });
+};
+
+/**
+ * @access      Private
+ * @returns     house item
+ * @desc        add tenant to 'approved tenants' list of a house object
+ */
 exports.setTenantActive = async (houseId, userId) => {
   return House.findByIdAndUpdate(houseId, {
     $push: { approved_tenants: userId },

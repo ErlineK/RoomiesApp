@@ -11,6 +11,10 @@ import axios from "axios";
 const test_user = {
   // email: "master@puppets.com",
   // pass: "Qwer1234",
+
+  // email: "super@super.com",
+  // pass: "Qwer1234",
+
   email: "test@test.com",
   pass: "Test1234",
 };

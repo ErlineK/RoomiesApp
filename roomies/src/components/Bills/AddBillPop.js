@@ -102,12 +102,12 @@ function AddBillPop() {
       validated = true;
 
       // create tenant names list to check 'paid_to' field
-      const tenantsList =
+      const tenantNamesList =
         isRoomieTransfer && houseTenants
           ? houseTenants.map((tenant) => tenant.name)
           : "";
 
-      if (isRoomieTransfer && !tenantsList.includes(paidTo)) {
+      if (isRoomieTransfer && !tenantNamesList.includes(paidTo)) {
         validated = false;
         setError("Please select a valid payment recipient");
       } else if (endDate < strDate) {
@@ -136,7 +136,7 @@ function AddBillPop() {
   // get id of the selected roomie for paidTo
   function getPaidToId() {
     const recepient = houseTenants.filter((tenant) => tenant.name === paidTo);
-    return recepient._id;
+    return recepient[0]._id;
   }
 
   // get only other roomies

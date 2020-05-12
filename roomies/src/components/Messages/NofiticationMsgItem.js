@@ -1,6 +1,4 @@
 import React from "react";
-import { FaCheck } from "react-icons/fa";
-import { GoMegaphone } from "react-icons/go";
 import { formatDate } from "../../utils/formatHelper";
 import { getIcon } from "../../utils/iconManager";
 
@@ -15,13 +13,28 @@ function NofiticationMsgItem({ item }) {
   let messageTxt = "";
   switch (item.ntf_type) {
     case "bill":
-      messageTxt = `${item.ntf_bill.bill_type} bill has been paid`;
+      messageTxt = (
+        <p>
+          <span className="txb">{item.ntf_bill.bill_type}</span> bill has been
+          paid
+        </p>
+      );
       break;
 
     case "welcome":
-      messageTxt = `Welcome ${item.from_user ? item.from_user.name : ""} to ${
-        item.ntf_house ? item.ntf_house.houseName : ""
-      }!`;
+      messageTxt = (
+        <p>
+          Welcome{" "}
+          <span className="txb">
+            {item.from_user ? item.from_user.name : ""}
+          </span>{" "}
+          to{" "}
+          <span className="txb">
+            {item.ntf_house ? item.ntf_house.houseName : ""}
+          </span>
+          !
+        </p>
+      );
       break;
 
     default:
@@ -35,8 +48,8 @@ function NofiticationMsgItem({ item }) {
         {getIcon("notificationMsg", "listIcon")}
         <div style={{ width: "100%" }}>
           <div className="msgRow">
-            <p>{messageTxt}</p>
-            <p className="description textLight">
+            {messageTxt}
+            <p className="description textLight msgDate">
               {formatDate(item.added_date)}
             </p>
           </div>

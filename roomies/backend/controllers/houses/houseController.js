@@ -65,7 +65,7 @@ exports.addNewHouse = async (req, res) => {
     //update user's active house
     const updateUserReq = {
       params: { userId: req.params.userId },
-      body: { active_house: newHouse._id },
+      body: { active_house: newHouse._id, active_house_date: Date.now },
     };
     // update user and return
     userController.updateUser(updateUserReq, res);

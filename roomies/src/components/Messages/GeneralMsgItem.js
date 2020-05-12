@@ -15,7 +15,7 @@ function GeneralMsgItem({ item }) {
         <div style={{ width: "100%" }}>
           <div className="msgRow lhShort">
             <p className="description">
-              <span style={{ fontWeight: "bold" }}>{item.author}</span> sais:
+              <span className="txb">{item.author}</span> sais:
             </p>
             <p className="description textLight">{formatDate(item.date)}</p>
           </div>

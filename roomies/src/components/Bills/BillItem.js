@@ -36,9 +36,7 @@ function BillItem({ item, type }) {
   const lastComment =
     item.bill_comments && item.bill_comments.length > 0 ? (
       <p className={"comment indented"}>
-        <span style={{ fontWeight: "bold" }}>
-          {item.bill_comments[0].author.name}:{" "}
-        </span>
+        <span className="txb">{item.bill_comments[0].author.name}: </span>
         {item.bill_comments[0].msg}
       </p>
     ) : (

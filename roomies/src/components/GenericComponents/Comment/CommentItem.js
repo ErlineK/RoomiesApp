@@ -27,9 +27,8 @@ function CommentItem({ item }) {
             <p>
               <span>
                 &nbsp; &nbsp;
-                <span style={{ fontWeight: "bold" }}>
-                  {item.author.name}
-                </span>: <span className="comment">{item.msg}</span>
+                <span className="txb">{item.author.name}</span>:{" "}
+                <span className="comment">{item.msg}</span>
               </span>
             </p>
           </div>

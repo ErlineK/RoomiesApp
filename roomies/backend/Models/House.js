@@ -4,46 +4,46 @@ const user = require("./User").model("user");
 const HouseSchema = new mongoose.Schema({
   admin: {
     type: mongoose.Types.ObjectId,
-    required: true
+    required: true,
   },
   opened: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   houseName: {
     type: String,
-    required: true
+    required: true,
   },
   address: {
-    type: String
+    type: String,
   },
   city: {
     type: String,
-    required: true
+    required: true,
   },
   province: {
     type: String,
     enum: ["ON", "QC", "NS", "NB", "MB", "BC", "PE", "SK", "AB", "NL"],
-    required: true
+    required: true,
   },
   description: {
-    type: String
+    type: String,
   },
   avatar: {
-    type: String
+    type: String,
   },
   house_tenants: [
     {
       type: mongoose.Types.ObjectId,
-      ref: user
-    }
+      ref: user,
+    },
   ],
   approved_tenants: [
     {
       type: mongoose.Types.ObjectId,
-      ref: user
-    }
-  ]
+      ref: user,
+    },
+  ],
 });
 
 module.exports = House = mongoose.model("house", HouseSchema);

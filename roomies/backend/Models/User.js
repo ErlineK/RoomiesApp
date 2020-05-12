@@ -6,31 +6,34 @@ const UserSchema = new mongoose.Schema({
   email: {
     type: mongoose.SchemaTypes.Email,
     unique: true,
-    required: true
+    required: true,
   },
   password: {
-    type: String
+    type: String,
   },
   name: {
     type: String,
-    required: true
+    required: true,
   },
   phone: {
-    type: String
+    type: String,
   },
   birth_date: {
-    type: Date
+    type: Date,
   },
   user_avatar: {
-    type: String
+    type: String,
   },
   register_date: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   active_house: {
-    type: mongoose.Types.ObjectId
-  }
+    type: mongoose.Types.ObjectId,
+  },
+  active_house_date: {
+    type: Date,
+  },
 });
 
 module.exports = User = mongoose.model("user", UserSchema);

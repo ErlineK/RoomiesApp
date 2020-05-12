@@ -39,7 +39,6 @@ async function billAuth(req, res, next) {
     }).select("approved_tenants");
 
     if (house) {
-      console.log("\nuser authorized for bill\n");
       next();
     } else {
       return res.status(401).json({ error: "Authorization denied for bill" });

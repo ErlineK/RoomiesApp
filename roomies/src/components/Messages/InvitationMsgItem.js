@@ -24,9 +24,9 @@ function InvitationMsgItem({ item, handleAcceptINV, handleDeclineINV }) {
         <div style={{ width: "100%" }}>
           <div className="msgRow">
             <p className="msgTitle">
-              <span style={{ fontWeight: "bold" }}>{item.from_user.name}</span>{" "}
-              invited you to join{" "}
-              <span style={{ fontWeight: "bold" }}>
+              <span className="txb">{item.from_user.name}</span> invited you to
+              join{" "}
+              <span className="txb">
                 {item.ntf_house ? item.ntf_house.houseName : ""}
               </span>
             </p>

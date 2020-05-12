@@ -96,17 +96,6 @@
       }
     }
 
-    // .description {
-    //   color: $accent-darker;
-    //   font-size: 0.5em;
-    // }
-
-    // .textLight {
-    //   color: $accent-gray-light;
-    //   font-weight: normal;
-    //   white-space: nowrap;
-    // }
-
     .rightBlock {
       justify-self: flex-end;
       align-self: baseline;
@@ -148,6 +137,10 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
+
+    .msgDate {
+      margin-left: 0.5rem;
+    }
   }
 
   .msgTitle {
