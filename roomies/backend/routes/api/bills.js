@@ -26,6 +26,15 @@ router
   .delete(auth, billAuth, billController.deleteBill);
 
 /**
+ * @route       api/bills/accept/:houseId/:userId
+ * @access      Public
+ * @description Accept Roomie transfer
+ */
+router
+  .route("/accept/:houseId/:userId")
+  .patch(auth, billController.acceptRoomieTransfer);
+
+/**
  * @route       api/bills/payment/:billId/:userId
  * @access      Public
  */

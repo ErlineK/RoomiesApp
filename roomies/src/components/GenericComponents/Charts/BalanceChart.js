@@ -20,13 +20,23 @@ export default function BalanceChart({ data }) {
 
   return (
     <VictoryChart
-      padding={{ top: 5, bottom: 5, left: 70, right: 50 }}
+      padding={{ top: 10, bottom: 10, left: 70, right: 50 }}
       domainPadding={50}
-      animate={{ duration: 750 }}
+      animate={{ duration: 500 }}
     >
-      <VictoryAxis tickFormat={(y) => y} />
+      <VictoryAxis
+        label="Roomies"
+        style={{
+          axisLabel: { padding: 30 },
+        }}
+        tickFormat={(y) => y}
+      />
       <VictoryAxis
         dependentAxis
+        label="Total bills paid"
+        style={{
+          axisLabel: { padding: 40 },
+        }}
         // tickFormat specifies how ticks should be displayed
         tickFormat={(x) =>
           `${new Intl.NumberFormat("en-CA", {
@@ -38,14 +48,16 @@ export default function BalanceChart({ data }) {
       />
       <VictoryBar
         style={{ data: { ...colorSwitcher } }}
-        data={data.roomiesBalance}
+        data={data}
         barRatio={1.25}
-        labels={({ datum }) =>
-          `${new Intl.NumberFormat("en-CA", {
-            style: "currency",
-            currencyDisplay: "symbol",
-            currency: "CAD",
-          }).format(datum.balance)}`
+        labels={
+          ({ datum }) =>
+            `${new Intl.NumberFormat("en-CA", {
+              style: "currency",
+              currencyDisplay: "symbol",
+              currency: "CAD",
+            }).format(datum.balance)}`
+          // datum.roomieName
         }
         // data accessor for x values
         x="roomieName"

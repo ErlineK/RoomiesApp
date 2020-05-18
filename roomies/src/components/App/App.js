@@ -6,6 +6,8 @@ import { AuthProvider } from "../auth/AuthContext";
 import { HouseProvider } from "../UserSettings/House/HouseContext";
 import Navbar from "../Nav/Navbar";
 import { BillsProvider } from "../Bills/BillsContext";
+// import { DashboardProvider } from "../Home/UserHome/DashboardContext";
+import { BalanceProvider } from "../Balance/BalanceContext";
 
 class App extends Component {
   render() {
@@ -14,10 +16,14 @@ class App extends Component {
         <AuthProvider>
           <HouseProvider>
             <Navbar />
-            <BillsProvider>
-              <RoomiesApp />
-              <AppRouter />
-            </BillsProvider>
+            {/* <DashboardProvider> */}
+            <BalanceProvider>
+              <BillsProvider>
+                <RoomiesApp />
+                <AppRouter />
+              </BillsProvider>
+            </BalanceProvider>
+            {/* </DashboardProvider> */}
           </HouseProvider>
         </AuthProvider>
       </div>

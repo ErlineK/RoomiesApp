@@ -2,8 +2,10 @@
 const House = require("../../models/House");
 // User controller
 const userController = require("../userController");
-// Notifications controller
+
+/* Controllers */
 const notificationController = require("../notificationController");
+const paymentController = require("../bills/paymentController");
 
 /**
  * @route       api/houses/:userId
@@ -62,12 +64,14 @@ exports.addNewHouse = async (req, res) => {
       avatar: reqDataHouse.avatar,
     }).save();
 
+    // create dummy payment for house tenant
+    await paymentController.addDummyPayment(newHouse._id, req.params.userId);
+
     //update user's active house
     const updateUserReq = {
       params: { userId: req.params.userId },
-      body: { active_house: newHouse._id, active_house_date: Date.now },
+      body: { active_house: newHouse._id, active_house_date: Date.now() },
     };
-    // update user and return
     userController.updateUser(updateUserReq, res);
   } catch (err) {
     console.log(err);
@@ -78,7 +82,7 @@ exports.addNewHouse = async (req, res) => {
 /**
  * @access      Private
  * @returns     house item
- * @desc    checks a user is an approved tenant in house and is authorized to modify related info
+ * @description checks a user is an approved tenant in house and is authorized to modify related info
  */
 exports.checkUserCanEdit = async (houseId, userId) => {
   try {
@@ -111,9 +115,6 @@ exports.acceptHouseInv = async (req, res) => {
       res.body,
       { new: true }
     );
-
-    console.log("got invitation item: \n");
-    console.log(invitationItem);
 
     req.body.accepted
       ? await notificationController.acceptInvitation(

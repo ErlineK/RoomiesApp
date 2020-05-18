@@ -15,28 +15,28 @@ export function HouseProvider(props) {
   const [showAddTenants, toggleAddTenants] = useToggle(false);
   const [showNewHouse, toggleNewHouse] = useToggle(false);
   const [selectedHouseId, setSelectedHouseId] = useState("");
+  const [isLoading, setLoading] = useState(false);
+
+  // console.log("house context is called");
 
   useEffect(() => {
     if (user !== undefined && user._id !== undefined) {
       // get houses from DB
+      setLoading(true);
       axios
         .get(`${BASE_URL}/houses/${user._id}`, requestHeader)
         .then((res) => {
           setHouses(res.data.houses);
+          setLoading(false);
         })
         .catch((error) => {
           console.log("Get houses Error: ");
           // console.log(error);
           console.log(error.response.data.error);
+          setLoading(false);
         });
     }
   }, [user]);
-
-  // const setSelectedHouse = houseId => {
-  //   setSelectedHouseId(houseId);
-  //   console.log("calling setHouseTenants in setSelectedHouse");
-  //   setHouseTenants(getCurrentHouseTenants());
-  // };
 
   const setHouses = (houses) => {
     setSelectedHouseId(user.active_house);
@@ -47,6 +47,8 @@ export function HouseProvider(props) {
     if (user !== undefined && user._id !== "") {
       console.log("Trying to add house for user " + user._id);
       console.log(newHouse);
+
+      setLoading(true);
 
       // add new house to DB.
       // responds with updated user
@@ -62,11 +64,13 @@ export function HouseProvider(props) {
           console.log(res);
 
           loginUser(res.data.user);
+          setLoading(false);
         })
         .catch((error) => {
-          console.log("Get houses Error: ");
+          console.log("Add new house Error: ");
           // console.log(error);
           console.log(error.response.data.error);
+          setLoading(false);
         });
     }
   };
@@ -83,6 +87,7 @@ export function HouseProvider(props) {
     if (tenantInList.length == 0) {
       console.log("trying to add tenants to tenants list");
 
+      setLoading(true);
       axios
         .put(
           `${BASE_URL}/houses/${user._id}/tenants`,
@@ -93,15 +98,21 @@ export function HouseProvider(props) {
           //update houses, clode add tenants popup
           setHouses(res.data.houses);
           toggleAddTenants();
+
+          setLoading(false);
         })
         .catch((error) => {
-          console.log("Get houses Error: ");
+          console.log("Add tenant error: ");
           console.log(error.response.data.error);
+
+          setLoading(false);
           return error.response.data.error;
         });
     } else {
       console.log("tenant alredy in list");
       console.log(tenantInList);
+
+      setLoading(false);
       return "Tenant already exist";
     }
   };
@@ -143,6 +154,7 @@ export function HouseProvider(props) {
         handleNewTenant: handleNewTenant,
         getActiveTenants: getSelectedHouseActiveTenants,
 
+        isLoading: isLoading,
         // setSelectedHouse: setSelectedHouse
       }}
     >

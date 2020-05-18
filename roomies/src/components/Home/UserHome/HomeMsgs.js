@@ -11,24 +11,12 @@ import {
 } from "../../Messages/msgComponents";
 import useToggle from "../../../hooks/useToggle";
 
-// const defaultData = {
-//   messages: [
-//     {
-//       _id: 6,
-//       type: "NTF",
-//       ntfType: "transfer",
-//       date: new Date(2020, 1, 30),
-//       msg: "Tenant 3 transfered you $200",
-//       accepted: true,
-//     },
-//   ],
-// };
-
 // TODO: create use messages hook
 
 /* NVT => Invitation to join a peoperty account
  * MSG => message on messages board
- * NTF => notification of paid bill/welcome/new tenant/birthdays(?)/transfer between tenants
+ * NTF => notification of paid bill/welcome/new tenant/birthdays(?)
+ * TRNS => notification of transaction between tenants
  */
 
 function HomeMsgs() {
@@ -96,7 +84,13 @@ function HomeMsgs() {
         break;
 
       case "TRNS":
-        msgObj = <ApprovalMsgItem key={`msg${msg._id}`} item={msg} />;
+        msgObj = (
+          <ApprovalMsgItem
+            key={`msg${msg._id}`}
+            item={msg}
+            handleAcceptRtrns={handleAcceptINV}
+          />
+        );
         break;
 
       default:

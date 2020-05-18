@@ -46,7 +46,7 @@ exports.addTenant = async (req, res) => {
 /**
  * @access      Private
  * @returns     house item
- * @desc        add tenant to 'approved tenants' list of a house object
+ * @description add tenant to 'approved tenants' list of a house object
  */
 exports.getHouseTenants = async (houseId) => {
   return await House.findById(houseId)
@@ -57,7 +57,7 @@ exports.getHouseTenants = async (houseId) => {
 /**
  * @access      Private
  * @returns     house item
- * @desc        add tenant to 'approved tenants' list of a house object
+ * @description add tenant to 'approved tenants' list of a house object
  */
 exports.setTenantActive = async (houseId, userId) => {
   return House.findByIdAndUpdate(houseId, {
@@ -68,7 +68,7 @@ exports.setTenantActive = async (houseId, userId) => {
 /**
  * @access      Private
  * @returns     house item
- * @desc        remove tenant from 'house tenants' list of a house object
+ * @description remove tenant from 'house tenants' list of a house object
  */
 exports.removeTenantFromHouse = async (houseId, userId) => {
   return House.findByIdAndUpdate(

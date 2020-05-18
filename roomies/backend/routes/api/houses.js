@@ -18,7 +18,7 @@ router
 /**
  * @route       api/houses/accept/:userId/:houseId
  * @access      Public
- * @desc        Accept house invitation
+ * @description Accept house invitation
  */
 router
   .route("/accept/:userId/:houseId")

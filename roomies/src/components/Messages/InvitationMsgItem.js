@@ -33,11 +33,12 @@ function InvitationMsgItem({ item, handleAcceptINV, handleDeclineINV }) {
             <p className="description textLight">{formatDateOnly(item.date)}</p>
           </div>
           <div className="msgRow flext-right">
-            {item.ntf_house && (
-              <p className="description">
-                {item.ntf_house.address} , {item.ntf_house.city}
-              </p>
-            )}
+            <p className="description">
+              {item.ntf_house
+                ? `${item.ntf_house.address} , ${item.ntf_house.city}`
+                : ""}
+            </p>
+
             {item.accepted ? (
               <p className="success">Accepted!</p>
             ) : (

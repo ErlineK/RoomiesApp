@@ -51,6 +51,14 @@ export default (initialBills) => {
     });
   };
 
+  const acceptBill = async (billId) => {
+    await setRequest({
+      url: `bills/accept/${activeHouseId}/${userId}`,
+      reqType: "patch",
+      reqData: { billId: billId },
+    });
+  };
+
   const addBillPayment = async (payment, billId) => {
     console.log("requesting new payment for bill Id: " + billId);
 
@@ -87,6 +95,7 @@ export default (initialBills) => {
     editBill: editBill,
     removeBill: removeBill,
     getAllBills: getAllBills,
+    acceptBill: acceptBill,
     addBillPayment: addBillPayment,
     removePayment: removePayment,
   };

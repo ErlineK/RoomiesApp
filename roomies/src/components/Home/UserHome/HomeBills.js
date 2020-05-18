@@ -40,6 +40,8 @@ const tempData = {
 export default function HomeBills() {
   const { bills, requestStatus } = useContext(BillsContext);
 
+  console.log("Home bills is called");
+
   const billItems = bills
     ? bills
         .slice(0, 5)

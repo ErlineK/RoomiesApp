@@ -1,11 +1,10 @@
-// Notification model
+/* Models */
 const Notification = require("../models/Notification");
 
-// User controller
+/* Controllers */
 const userController = require("./userController");
-
-// Tenants controller
 const tenantsController = require("./houses/tenantsController");
+const paymentController = require("./bills/paymentController");
 
 // exports.getNotificationsForUser = async (req, res) => {
 //     try{}
@@ -23,16 +22,24 @@ const tenantsController = require("./houses/tenantsController");
 exports.getNotificationsForUser = async (req, res) => {
   try {
     //get user active house id
-    const houseId = await userController.getUserActiveHouseId(
+    const activeHouse = await userController.getUserActiveHouse(
       req.params.userId
     );
     //   TODO: limit number of notifications
     // get all notification related to user's current active house and user-specific notifications
-    const notifications = await Notification.find()
-      .or([
-        { $and: [{ to_user: { $exists: false } }, { ntf_house: houseId }] },
+    const notifications = await Notification.find({
+      // ntf_house: activeHouse.active_house,
+      $or: [
+        {
+          $and: [
+            { to_user: { $exists: false } },
+            { ntf_house: activeHouse.active_house },
+            { added_date: { $gte: activeHouse.active_house_date } },
+          ],
+        },
         { to_user: [req.params.userId] },
-      ])
+      ],
+    })
       .populate({
         path: "from_user",
         select: "email name",
@@ -40,7 +47,7 @@ exports.getNotificationsForUser = async (req, res) => {
       .populate({ path: "ntf_house", select: "houseName address city" })
       .populate({
         path: "ntf_bill",
-        select: "bill_type total_amount start_date end_date",
+        select: "bill_type total_amount start_date end_date payments",
       })
       .sort({ added_date: -1 });
 
@@ -117,9 +124,9 @@ exports.createNvtNotification = async (fromId, toId, houseId) => {
  * @access      Private
  * @body        { referred house Id, referred bill Id,}
  * @returns     notification item
- * @desc    create NTF notification to welcome user to house
+ * @description create NTF notification to welcome user to house
  */
-exports.createNtfNotificationWelcome = async (houseId, userId) => {
+const createNtfNotificationWelcome = async (houseId, userId) => {
   try {
     //create invitation notification
     const ntfNotification = await Notification.create({
@@ -140,7 +147,7 @@ exports.createNtfNotificationWelcome = async (houseId, userId) => {
  * @access      Private
  * @body        { referred house Id, referred bill Id,}
  * @returns     notification item
- * @desc    create NTF notification for 'bill paid'
+ * @description    create NTF notification for 'bill paid'
  */
 exports.createNtfNotificationBill = async (houseId, billId) => {
   try {
@@ -183,6 +190,51 @@ exports.createTrnsNotification = async (fromId, toId, houseId, billId) => {
 
 /**
  * @access      Private
+ * @body        { from user Id, to user Id, referred house Id, referred bill Id}
+ * @returns     notification item
+ */
+const createNtfTrnsAcceptedNotification = async (
+  fromId,
+  toId,
+  houseId,
+  billId
+) => {
+  // crete notification: user accepted you transfer
+  const newNotification = await Notification.create({
+    type: "TRNS",
+    ntf_type: "trnsAccepted",
+    to_user: toId,
+    from_user: fromId,
+    ntf_house: houseId,
+    ntf_bill: billId,
+    accepted: true,
+  });
+
+  return newNotification;
+};
+
+/**
+ * @access      Private
+ * @body        { notification item, userId}
+ * @returns     notification item
+ * @description Accept notification of type roomie transfer
+ */
+exports.acceptRoomieTransfer = async (ntfItem, userId) => {
+  // set bill/payment transfer as accepted
+  await paymentController.acceptRoomieTransfer(ntfItem.ntf_bill, userId);
+
+  // create notification Transfer accepted
+  await createNtfTrnsAcceptedNotification(
+    userId,
+    ntfItem.from_user,
+    ntfItem.ntf_house,
+    ntfItem.ntf_bill
+  );
+  return;
+};
+
+/**
+ * @access      Private
  * @body        { notification item, userId}
  * @returns     notification item
  */
@@ -194,8 +246,11 @@ exports.acceptInvitation = async (ntfItem, userId) => {
     // add user to house active tenants
     await tenantsController.setTenantActive(ntfItem.ntf_house, userId);
 
+    // create dummy payment for house tenant
+    await paymentController.addDummyPayment(ntfItem.ntf_house, userId);
+
     //create welcome notification (NTF, welcome) to all house tenants
-    await this.createNtfNotificationWelcome(ntfItem.ntf_house, userId);
+    await createNtfNotificationWelcome(ntfItem.ntf_house, userId);
 
     return;
   } catch (err) {
@@ -246,6 +301,9 @@ exports.updateNotificationAccept = async (req, res) => {
 
       case "TRNS":
         // TODO: handle accept roomie transfer
+        if (req.body.accepted) {
+          await this.acceptRoomieTransfer(notificationItem, req.params.userId);
+        }
         break;
     }
 

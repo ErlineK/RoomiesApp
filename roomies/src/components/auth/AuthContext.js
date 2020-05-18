@@ -16,7 +16,7 @@ export function AuthProvider(props) {
   };
 
   const loginUser = (user, token) => {
-    console.log("setting new user");
+    // console.log("setting new user");
     if (token && token !== "") {
       setToken(token);
     }
@@ -54,8 +54,8 @@ export function AuthProvider(props) {
         requestHeader
       )
       .then((res) => {
-        console.log("Getting user data:");
-        console.log(res);
+        // console.log("Getting user data:");
+        // console.log(res);
         // save user
         setUser(res.data.user);
       })

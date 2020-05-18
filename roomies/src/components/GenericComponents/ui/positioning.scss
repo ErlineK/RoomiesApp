@@ -79,11 +79,19 @@
   text-align: center;
 }
 
+.centerRsp {
+  margin: 0;
+}
+
 @media (min-width: $tablet) {
   .flex-container {
     &.flex-columns-holder {
       flex-direction: row;
       margin: auto;
     }
+  }
+
+  .centerRsp {
+    margin: auto;
   }
 }

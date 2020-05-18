@@ -1,17 +1,15 @@
-// Bill model
+/* Models */
 const Bill = require("../../models/Bill");
-// Bill model
 const House = require("../../models/House");
-// Payment model
 const Payment = require("../../models/Payment");
 
-const tenantsController = require("../../controllers/houses/tenantsController");
+/* Controllers */
 const paymentController = require("../../controllers/bills/paymentController");
 
 /**
  * @route       api/bills/balance/:houseId/:userId
  * @access      Public
- * @desc        Calculate user balance for house
+ * @description Calculate user balance for house
  * @returns     User balance object
  */
 exports.getUserBalance = async (req, res) => {
@@ -23,6 +21,9 @@ exports.getUserBalance = async (req, res) => {
       req.params.userId
     );
 
+    // console.log("got user balance sums:");
+    // console.log(roomieTransSums);
+
     // calculate base bills break-even
     const billsNotEmpty =
       roomieTransSums.billSums && roomieTransSums.billSums.length > 0;
@@ -32,9 +33,14 @@ exports.getUserBalance = async (req, res) => {
       : 0;
     const billsEven = billsPaidTotal / numRoomies;
 
-    // console.log("numRoomies: " + numRoomies);
-    // console.log("billsPaidTotal " + billsPaidTotal);
-    // console.log("billsEven " + billsEven);
+    // console.log(
+    //   "numRoomies: " +
+    //     numRoomies +
+    //     " billsPaidTotal: " +
+    //     billsPaidTotal +
+    //     " billsEven: " +
+    //     billsEven
+    // );
 
     // calculate individual balance for each user
     let userBalances = roomieTransSums.billSums;
@@ -47,18 +53,12 @@ exports.getUserBalance = async (req, res) => {
         roomieTransSums.roomieReceived,
         user._id
       );
-      received = me ? 0 - received : received;
 
       // If user is me: add all given transfers, If giving: substruct for receiveing user
       let transfered = getTransfersForUser(
         me,
         roomieTransSums.roomieTransfered,
         user._id
-      );
-      transfered = me ? 0 - transfered : transfered;
-
-      console.log(
-        `Roomie ${user.user[0].name} total balance: ${user.total}, received: ${received}, transfered: ${transfered} `
       );
 
       let newUser = {
@@ -85,7 +85,7 @@ exports.getUserBalance = async (req, res) => {
 
 /**
  * @access      Private
- * @desc        Calculate user balance for house
+ * @description Calculate user balance for house
  * @requires    {me: Boolean, transfers: Obj Array: iUserId: String}
  * @returns     User transfers sum total : Number
  */
@@ -108,6 +108,8 @@ function getTransfersForUser(me, transfers, iUserId) {
           : 0;
     }
   }
+
+  // totalTransfered = me ? 0 - totalTransfered : totalTransfered;
 
   return totalTransfered;
 }

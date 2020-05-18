@@ -9,7 +9,7 @@ import PaymentItem from "./Payments/PaymentItem";
 import { useHistory, Redirect } from "react-router-dom";
 import CommentItem from "../GenericComponents/Comment/CommentItem";
 import AddComment from "../GenericComponents/Comment/AddComment";
-import CircleLoader from "../GenericComponents/Loader/CircleLoader";
+import CardWithLoader from "../GenericComponents/CardWithLoader";
 
 export default function ViewBill(props) {
   const history = useHistory();
@@ -66,10 +66,7 @@ export default function ViewBill(props) {
       {bill === undefined ? (
         <Redirect to="/" />
       ) : (
-        <div className="card user-main">
-          <div className="floatingLoaderHolder">
-            {requestStatus.isLoading && <CircleLoader />}
-          </div>
+        <CardWithLoader loading={requestStatus.isLoading}>
           <div
             className="secondary-link toLeft btnBack"
             onClick={() => history.goBack()}
@@ -198,7 +195,7 @@ export default function ViewBill(props) {
             </div>
           </div>
           {showAddPayment && <AddPayment bill={bill} />}
-        </div>
+        </CardWithLoader>
       )}
     </>
   );

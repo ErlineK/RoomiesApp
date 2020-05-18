@@ -37,7 +37,7 @@ const PaymentSchema = new mongoose.Schema({
   total_amount: {
     type: Number,
     required: true,
-    min: 0.1,
+    min: 0,
     max: 1000.0,
   },
   user_comment: {

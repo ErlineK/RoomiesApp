@@ -13,6 +13,10 @@ const paymentController = require("./paymentController");
 // User controller
 const notificationController = require("../notificationController");
 
+/**
+ * @route       api/bills/:houseId/:userId
+ * @access      Public
+ */
 exports.getAllBillsForHouse = async (req, res) => {
   try {
     // get list of roomie transactions for house (after break even date)
@@ -20,9 +24,6 @@ exports.getAllBillsForHouse = async (req, res) => {
       req.params.houseId,
       req.params.userId
     );
-
-    console.log("\ngot roomie transfers list: ");
-    console.log(rTransfers);
 
     // get all houses where user is a tenant
     const bills = await Bill.find({
@@ -57,6 +58,12 @@ exports.getAllBillsForHouse = async (req, res) => {
   }
 };
 
+/**
+ * @route       api/bills/:houseId/:userId
+ * @access      Public
+ * @receives    Bill object
+ * @returns     All house bills
+ */
 exports.addNewBill = async (req, res) => {
   try {
     // create comment
@@ -85,7 +92,7 @@ exports.addNewBill = async (req, res) => {
     }).save();
 
     if (newBill.bill_type === "Roomie Transfer") {
-      console.log("\nAdding roomies payment\n");
+      console.log("\nAdding roomies payment to billId " + newBill._id);
 
       // create payment for roomie
       const roomiePayment = await new Payment({
@@ -98,8 +105,10 @@ exports.addNewBill = async (req, res) => {
         total_amount: billParams.total_amount,
       }).save();
 
+      console.log(roomiePayment);
+
       // add payment to bill
-      const updatedBill = await Bill.findByIdAndUpdate(newBill._id, {
+      await Bill.findByIdAndUpdate(newBill._id, {
         $push: { payments: roomiePayment },
       });
 
@@ -108,7 +117,7 @@ exports.addNewBill = async (req, res) => {
         req.params.userId,
         billParams.to_user,
         req.params.houseId,
-        updatedBill._id
+        newBill._id
       );
     }
     // return all bills
@@ -119,8 +128,11 @@ exports.addNewBill = async (req, res) => {
   }
 };
 
-/* api/bills/:houseId/:userId
- * billId in body
+/**
+ * @route       api/bills/:houseId/:userId
+ * @access      Public
+ * @receives    Bill partial object, billId in body
+ * @returns     All house bills
  */
 exports.updateBill = async (req, res) => {
   try {
@@ -139,6 +151,51 @@ exports.updateBill = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(400).json({ error: "Could not update bill" });
+  }
+};
+
+/**
+ * @route       api/bills/accept/:houseId/:userId
+ * @access      Public
+ * @description Accept Roomie transfer
+ * @receives    billId in body
+ * @returns     All house bills
+ */
+exports.acceptRoomieTransfer = async (req, res) => {
+  try {
+    // update notification accepted and do accept invitation proccess
+    const ntf = await Notification.findOneAndUpdate(
+      {
+        type: "TRNS",
+        ntf_house: req.params.houseId,
+        to_user: req.params.userId,
+        ntf_bill: req.body.billId,
+      },
+      {
+        accepted: true,
+        viewed: true,
+      },
+      { new: true }
+    );
+
+    console.log("\ngot ntf updated:");
+    console.log(ntf);
+
+    // const ntfReq = {
+    //   ...req,
+    //   params: { notificationID: ntf._id, userId: req.params.userId },
+    //   body: { accepted: true, viewed: true },
+    // };
+
+    if (ntf) {
+      await notificationController.acceptRoomieTransfer(ntf, req.params.userId);
+    }
+
+    // return all bills
+    this.getAllBillsForHouse(req, res);
+  } catch (err) {
+    console.log(err);
+    res.status(400).json({ error: "Could not accept roomie transfer" });
   }
 };
 

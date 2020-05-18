@@ -6,10 +6,15 @@ import { BillsContext } from "./BillsContext";
 import AddBillPop from "./AddBillPop";
 import { BILL_TYPES } from "../../utils/AppParams";
 import useInputState from "../../hooks/useInputState";
+import CardWithLoader from "../GenericComponents/CardWithLoader";
 
 export default function Bills() {
-  const { bills, showAddBill, toggleAddBill } = useContext(BillsContext);
+  const { bills, showAddBill, toggleAddBill, requestStatus } = useContext(
+    BillsContext
+  );
   const [billType, handleBillTypeChange] = useInputState("select", "BILL_TYPE");
+
+  console.log("Bills is called");
 
   const billTypeOptions = BILL_TYPES.map((option) => (
     <option key={option} value={option}>
@@ -27,8 +32,7 @@ export default function Bills() {
     : "";
 
   return (
-    <div className="card user-main">
-      {/* <div className="card"> */}
+    <CardWithLoader loading={requestStatus.isLoading}>
       <h3>Bills and Payments</h3>
 
       <div>Filter bills icon..</div>
@@ -50,6 +54,6 @@ export default function Bills() {
       </div>
       <div className="billsHolder listContainer">{billItems}</div>
       {showAddBill && <AddBillPop />}
-    </div>
+    </CardWithLoader>
   );
 }

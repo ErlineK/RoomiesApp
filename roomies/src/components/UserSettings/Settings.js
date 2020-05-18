@@ -5,18 +5,21 @@ import SettingsProfile from "../Profile/SettingsProfile";
 import AddHousePop from "./House/AddHouse";
 import { HouseContext } from "./House/HouseContext";
 import AddTenantsPop from "./House/Tenants/AddTenantsPop";
+import CardWithLoader from "../GenericComponents/CardWithLoader";
 
 // TODO: get houses list by user id from db order by active
 
 export default function UserSettings() {
-  const { houses, showNewHouse, showAddTenants } = useContext(HouseContext);
+  const { houses, showNewHouse, showAddTenants, isLoading } = useContext(
+    HouseContext
+  );
 
   const houseItems = houses
-    ? houses.map(house => <HouseCard key={house._id} house={house} />)
+    ? houses.map((house) => <HouseCard key={house._id} house={house} />)
     : "";
 
   return (
-    <div className="card user-main">
+    <CardWithLoader loading={isLoading}>
       <SettingsProfile />
       <div className="housesHolder">
         {/* <h4>Houses</h4> */}
@@ -30,6 +33,6 @@ export default function UserSettings() {
       </div>
       {showNewHouse && <AddHousePop />}
       {showAddTenants && <AddTenantsPop />}
-    </div>
+    </CardWithLoader>
   );
 }

@@ -16,7 +16,7 @@ const NotificationSchema = new mongoose.Schema({
   },
   ntf_type: {
     type: String,
-    enum: ["bill", "welcome", "general"],
+    enum: ["bill", "welcome", "general", "trnsAccepted"],
   },
   to_user: {
     type: mongoose.Types.ObjectId,

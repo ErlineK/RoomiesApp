@@ -1,38 +1,68 @@
 import React from "react";
-import { FaCheck } from "react-icons/fa";
-import { formatDate } from "../../utils/formatHelper";
+import { formatDate, formatCurrency } from "../../utils/formatHelper";
 import { getIcon } from "../../utils/iconManager";
+import AcceptBtn from "../GenericComponents/Buttons/AcceptBtn";
 
-/**
- * types of notifications:
- * general
- * bill paid
- */
+function ApprovalMsgItem({ item, handleAcceptRtrns }) {
+  const amountPaid =
+    item.ntf_bill && item.ntf_bill.total_amount
+      ? item.ntf_bill.total_amount
+      : 0;
 
-function ApprovalMsgItem({ item }) {
-  const TRNSFR = "transfer"; // notification of type 'transfer'
+  let messageTxt = (
+    <p className="msgTitle">
+      <span className="txb">{item.from_user.name}</span> transfered you{" "}
+      <span className="txb">{formatCurrency(amountPaid)}</span>
+    </p>
+  );
+
+  if (item.ntf_type && item.ntf_type === "trnsAccepted") {
+    messageTxt = (
+      <p className="msgTitle">
+        <span className="txb">{item.from_user.name}</span> accepted your{" "}
+        <span className="txb">{formatCurrency(amountPaid)}</span> Roomie
+        Transfer
+      </p>
+    );
+  }
+
+  const handleAcceptPayment = (e) => {
+    e.preventDefault();
+
+    handleAcceptRtrns(item._id, item.ntf_house);
+  };
+
   return (
     <div className="listItemHolder">
       <div className="listFlexHolder">
-        {getIcon("notificationMsg", "listIcon")}
-        {/* <GoMegaphone className="listIcon" /> */}
+        {getIcon("paiment", "listIcon")}
         <div style={{ width: "100%" }}>
           <div className="msgRow">
-            <p>{item.msg}</p>
-            <p className="description textLight">{formatDate(item.date)}</p>
+            {messageTxt}
+            <p className="description textLight">
+              {formatDate(item.added_date)}
+            </p>
           </div>
-          {item.ntfType === TRNSFR && (
-            <div className="msgRow" style={{ marginBottom: "0.5rem" }}>
-              <p className="description"></p>
-
-              {/* <button className="btn msgSimpleBtn highlightGreen invitationBtnPosition">
-                <FaCheck className="accent-icon" />
-                Confirm
-              </button> */}
-              <button className="btn btn-grad-green btnAction invitationBtnPosition">
-                <FaCheck className="accent-icon" />
-                Accept
-              </button>
+          {item.type === "TRNS" && (
+            <div className="msgRow">
+              <p className="msgTitle description">
+                {item.ntf_bill && item.ntf_bill.bill_comments
+                  ? item.ntf_bill.bill_comments[0]
+                  : !item.accepted &&
+                    "Do not accept Roomie transfers before getting paid"}
+              </p>
+              {item.accepted ? (
+                <p className="success">Accepted!</p>
+              ) : (
+                // <button
+                //   className="btn btn-grad-green btnAction"
+                //   onClick={(e) => handleAcceptPayment(e)}
+                // >
+                //   {getIcon("accept", "accent-icon")}
+                //   Accept
+                // </button>
+                <AcceptBtn onClick={handleAcceptPayment} />
+              )}
             </div>
           )}
         </div>

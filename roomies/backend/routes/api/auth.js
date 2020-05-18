@@ -64,9 +64,9 @@ router.post("/", (req, res) => {
 });
 
 // /**
-//  * @route   GET api/auth/user
-//  * @desc    Get user data
-//  * @access  Private
+//  * @route       GET api/auth/user
+//  * @description Get user data
+//  * @access      Private
 //  */
 
 // router.get("/user", auth, (req, res) => {
@@ -75,9 +75,9 @@ router.post("/", (req, res) => {
 //     .then((user) => res.json(user));
 // });
 /**
- * @route   GET api/auth/:userId
- * @desc    Get user data
- * @access  Private
+ * @route       GET api/auth/:userId
+ * @description Get user data
+ * @access      Private
  */
 
 router.get("/:userId", auth, (req, res) => {

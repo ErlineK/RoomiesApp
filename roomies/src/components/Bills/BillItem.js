@@ -10,13 +10,31 @@ import { getIcon } from "../../utils/iconManager";
 import { getIconByBillType } from "./billsHelper";
 import { Link } from "react-router-dom";
 import { BillsContext } from "./BillsContext";
+import { AuthContext } from "../auth/AuthContext";
+import AcceptBtn from "../GenericComponents/Buttons/AcceptBtn";
 // import CommentItem from "../GenericComponents/Comment/CommentItem";
 // import CommentSection from "../GenericComponents/Comment/CommentSection";
 
 /* bill item types: "HOME" */
 
 function BillItem({ item, type }) {
-  const { removeBill } = useContext(BillsContext);
+  const { userId } = useContext(AuthContext);
+  const { removeBill, acceptRoomieTransfer } = useContext(BillsContext);
+
+  const isRoomieTransfer = item.bill_type === "Roomie Transfer";
+  const fromMe =
+    isRoomieTransfer &&
+    item &&
+    item.payments &&
+    item.payments[0].from_user._id === userId;
+  const paymentAccepted =
+    isRoomieTransfer && item && item.payments && item.payments[0].accepted;
+
+  const handleAcceptPayment = (e) => {
+    e.preventDefault();
+
+    acceptRoomieTransfer(item._id);
+  };
 
   const handleRemoveBill = (e) => {
     e.preventDefault();
@@ -43,6 +61,41 @@ function BillItem({ item, type }) {
       ""
     );
 
+  function getRecepient() {
+    if (isRoomieTransfer && item.payments) {
+      // const fromMe = item.payments[0].from_user._id === userId;
+      const userName = fromMe
+        ? item.payments[0].to_user.name
+        : item.payments[0].from_user.name;
+      return `${fromMe ? "To" : "From"} ${userName}`;
+    } else {
+      return undefined;
+    }
+  }
+
+  function getRTstatus() {
+    // dispaly Accept Roomie Transfer" button anly from bills page
+    if (isRoomieTransfer) {
+      return (
+        <p
+          className={`${paymentAccepted ? "success" : ""} description comment`}
+        >
+          {paymentAccepted ? "Accepted!" : "Pending approval..."}
+        </p>
+      );
+    } else {
+      return "";
+    }
+  }
+
+  function getAcceptButton() {
+    if (isRoomieTransfer && !fromMe && !paymentAccepted && type !== "HOME") {
+      return <AcceptBtn onClick={handleAcceptPayment} />;
+    } else {
+      return "";
+    }
+  }
+
   return (
     <div
       className={`${
@@ -52,7 +105,7 @@ function BillItem({ item, type }) {
       <div className="listFlexHolder">
         {getIconByBillType(
           item.bill_type,
-          `${fullyPaid ? "success" : ""} listIcon`
+          `${fullyPaid && paymentAccepted ? "success" : ""} listIcon`
         )}
 
         <Link
@@ -60,7 +113,11 @@ function BillItem({ item, type }) {
           to={{ pathname: "/ViewBill", state: { billId: item._id } }}
         >
           <div className="gridItem lg-sc-only">
-            <p>{item.invoice_num}</p>
+            <p>
+              {isRoomieTransfer
+                ? item.payments[0].reference_num
+                : item.invoice_num}
+            </p>
           </div>
 
           <div className="gridItem">
@@ -68,34 +125,48 @@ function BillItem({ item, type }) {
           </div>
 
           <div className="gridItem">
-            <p>{item.bill_type}</p>
+            <div className="flex-container data-section">
+              <p>{item.bill_type}</p>
+              {isRoomieTransfer && (
+                <p className="description comment">{getRecepient()}</p>
+              )}
+            </div>
           </div>
 
           <div className="gridItem">
-            <p
-              className={`${
-                Math.abs(item.paid) >= Math.abs(item.total_amount)
-                  ? "success"
-                  : ""
-              }`}
-            >
-              {item.paid && item.paid < item.total_amount
-                ? `${formatCurrency(item.paid)}/`
-                : ""}
-              {formatCurrency(item.total_amount)}
-            </p>
+            <div className="flex-container data-section">
+              <p
+                className={`${
+                  (isRoomieTransfer && paymentAccepted) ||
+                  (!isRoomieTransfer &&
+                    Math.abs(item.paid) >= Math.abs(item.total_amount))
+                    ? "success"
+                    : ""
+                }`}
+              >
+                {item.paid && item.paid < item.total_amount
+                  ? `${formatCurrency(item.paid)}/`
+                  : ""}
+                {formatCurrency(item.total_amount)}
+              </p>
+              {isRoomieTransfer ? getRTstatus() : ""}
+            </div>
           </div>
           <div className="gridItem">
-            <p className="description textLight">
-              {formatDateOnly(item.due_date)}
-            </p>
+            <div className="flex-container data-section">
+              <p className="description textLight">
+                {formatDateOnly(
+                  isRoomieTransfer
+                    ? item.payments[0].transaction_date
+                    : item.due_date
+                )}
+              </p>
+              {isRoomieTransfer && getAcceptButton()}
+            </div>
           </div>
         </Link>
         {type !== "HOME" && (
           <div className="flex-container billsIconsHolder">
-            {/* {getIcon("edit", "billActionIcon ic ic_md ic_roomies", (e) =>
-            handleEditBill(e)
-          )} */}
             {!(item.payments && item.payments.length > 0) &&
               getIcon("delete", "billActionIcon ic_lg ic_alert", (e) =>
                 handleRemoveBill(e)

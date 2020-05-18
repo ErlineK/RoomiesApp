@@ -13,9 +13,9 @@ const userController = require("../../controllers/userController");
 // TODO: user controller
 
 /**
- * @route   POST api/users
- * @desc    Register new user
- * @access  Public
+ * @route       POST api/users
+ * @description Register new user
+ * @access      Public
  */
 
 router.post("/", (req, res) => {

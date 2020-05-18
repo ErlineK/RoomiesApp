@@ -13,7 +13,7 @@ const notificationController = require("../notificationController");
 /**
  * @route       api/bills/payment/:billId/:userId
  * @access      Public
- * @desc        add new payment to billId
+ * @description add new payment to billId
  */
 exports.addNewPayment = async (req, res) => {
   try {
@@ -51,7 +51,6 @@ exports.addNewPayment = async (req, res) => {
         });
 
         if (Number(fullBill.paid) >= Number(fullBill.total_amount)) {
-          console.log("creating notification");
           //create notification for paid bill
           await notificationController.createNtfNotificationBill(
             req.body.house_ref,
@@ -63,7 +62,10 @@ exports.addNewPayment = async (req, res) => {
       }
 
       //return all house bills for response
-      const newReq = { ...req, params: { houseId: req.body.house_ref } };
+      const newReq = {
+        ...req,
+        params: { houseId: req.body.house_ref, userId: req.params.userId },
+      };
       billController.getAllBillsForHouse(newReq, res);
     } else {
       res.status(403).json({ error: "User not authorized" });
@@ -77,7 +79,7 @@ exports.addNewPayment = async (req, res) => {
 /**
  * @route       api/bills/payment/:billId/:userId
  * @access      Public
- * @desc        billId holds paymentId
+ * @description billId holds paymentId
  */
 exports.deletePayment = async (req, res) => {
   try {
@@ -106,9 +108,6 @@ exports.deletePayment = async (req, res) => {
         path: "payments",
       });
 
-      console.log("got full bill: \n");
-      console.log(fullBill);
-
       // check if bill not fully paid anymode and remove notification for bill paid
       if (Number(fullBill.paid) < Number(fullBill.total_amount)) {
         await Notification.deleteMany({
@@ -131,7 +130,7 @@ exports.deletePayment = async (req, res) => {
 
 /**
  * @access      Private
- * @desc        gets total payment for house tenants exluding roomie transactions
+ * @description gets total payment for house tenants exluding roomie transactions
  */
 exports.getPaymentsSum = async (houseId, userId) => {
   try {
@@ -156,7 +155,7 @@ exports.getPaymentsSum = async (houseId, userId) => {
 /**
  * @access      Private
  * @returns     transuction Ids : String Array
- * @desc        get roomie transactions user received
+ * @description get roomie transactions user received
  */
 exports.getRoomieTransToUser = async (houseId, userId) => {
   try {
@@ -167,7 +166,7 @@ exports.getRoomieTransToUser = async (houseId, userId) => {
             { house_ref: mongoose.Types.ObjectId(houseId) },
             { payment_type: "rTRNS" },
             { to_user: mongoose.Types.ObjectId(userId) },
-            // { accepted: true }
+            { accepted: true },
           ],
         },
       },
@@ -180,7 +179,7 @@ exports.getRoomieTransToUser = async (houseId, userId) => {
       },
     ]);
 
-    // console.log("got transfers to user: ");
+    // console.log("\ngetting roomie transfers to user : " + userId);
     // console.log(rTrns);
 
     return rTrns;
@@ -193,7 +192,7 @@ exports.getRoomieTransToUser = async (houseId, userId) => {
 /**
  * @access      Private
  * @returns     transuction Ids : String Array
- * @desc        get roomie transactions user made
+ * @description get roomie transactions user made
  */
 exports.getRoomieTransFromUser = async (houseId, userId) => {
   try {
@@ -204,7 +203,7 @@ exports.getRoomieTransFromUser = async (houseId, userId) => {
             { house_ref: mongoose.Types.ObjectId(houseId) },
             { payment_type: "rTRNS" },
             { from_user: mongoose.Types.ObjectId(userId) },
-            // { accepted: true }
+            { accepted: true },
           ],
         },
       },
@@ -217,9 +216,6 @@ exports.getRoomieTransFromUser = async (houseId, userId) => {
       },
     ]);
 
-    // console.log("got transfers from user: ");
-    // console.log(rTrnsF);
-
     return rTrnsF;
   } catch (err) {
     console.log(err);
@@ -229,7 +225,7 @@ exports.getRoomieTransFromUser = async (houseId, userId) => {
 
 /**
  * @access      Private
- * @desc        get user's bill transactions (all payments except roomie transuctions)
+ * @description get user's bill transactions (all payments except roomie transuctions)
  */
 exports.getBillSumsByTenant = async (houseId) => {
   try {
@@ -258,11 +254,16 @@ exports.getBillSumsByTenant = async (houseId) => {
       {
         $unwind: "$user",
       },
-      { $project: { _id: "$user._id", user: "$user.name" } },
+      {
+        $project: {
+          _id: "$user._id",
+          user: "$user.name",
+          total_amount: "$total_amount",
+        },
+      },
       {
         $group: {
           _id: "$_id",
-          // _id: "$$userId",
           user: { $first: "$user" },
           count: { $sum: 1 },
           total: { $sum: "$total_amount" },
@@ -270,8 +271,8 @@ exports.getBillSumsByTenant = async (houseId) => {
       },
     ]);
 
-    console.log("\ntemp bills sums:");
-    console.log(trans);
+    // console.log("\ngetting bills sums:");
+    // console.log(trans);
 
     return trans;
   } catch (err) {
@@ -282,17 +283,66 @@ exports.getBillSumsByTenant = async (houseId) => {
 
 /**
  * @access      Private
- * @desc        get all user's roomie transactions to/from roomies
+ * @description get all user's roomie transactions to/from roomies
  */
 exports.getRoomieTransForTenant = async (houseId, userId) => {
   try {
     return await Payment.find({
       house_ref: houseId,
       payment_type: "rTRNS",
-      $or: [{ to_user: userId }, { from_user: userId }, { accepted: true }],
+      // $and: [
+      // { accepted: true },
+      // {
+      $or: [{ to_user: userId }, { from_user: userId }],
+      // },
+      // ],
     }).select("to_user from_user total_amount");
   } catch (err) {
     console.log(err);
     return err;
+  }
+};
+
+/**
+ * @access      Private
+ * @description set transuction to accepted
+ */
+exports.acceptRoomieTransfer = async (billId, userId) => {
+  const billPayments = await Bill.findByIdAndUpdate(
+    billId,
+    {
+      due_date: undefined,
+    },
+    { new: true }
+  ).select("payments");
+
+  let payment = undefined;
+  if (billPayments && billPayments.payments) {
+    payment = await Payment.findOneAndUpdate(
+      { _id: billPayments.payments[0], to_user: userId },
+      { accepted: true },
+      { new: true }
+    );
+  }
+
+  return payment;
+};
+
+/**
+ * @access      Private
+ * @description Create sum 0 payment for user in house, to include user in house balance
+ */
+exports.addDummyPayment = async (houseId, userId) => {
+  try {
+    return await new Payment({
+      reference_num: 0,
+      payment_type: "Other",
+      total_amount: 0,
+      house_ref: houseId,
+      from_user: userId,
+      accepted: true,
+    }).save();
+  } catch (err) {
+    console.log(err);
   }
 };
