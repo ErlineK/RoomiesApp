@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { FaCheck } from "react-icons/fa";
-import { GiKeyring } from "react-icons/gi";
+
 import { formatDateOnly } from "../../utils/formatHelper";
 import { getIcon } from "../../utils/iconManager";
 import { NtfActionsContext } from "./utils/NotificationsContext";
@@ -23,7 +23,8 @@ function InvitationMsgItem({ item }) {
   return (
     <div className="listItemHolder">
       <div className="listFlexHolder">
-        <GiKeyring className="listIcon" />
+        {getIcon("welcome_home", undefined, "ic_list_item")}
+        {/* <GiKeyring className="ic_list_item" /> */}
         <div style={{ width: "100%" }}>
           <div className="msgRow">
             <p className="msgTitle">
@@ -58,7 +59,9 @@ function InvitationMsgItem({ item }) {
       </div>
       {!item.accepted && (
         <div className="msgBtn msgBtnCancel">
-          {getIcon("delete", "msgBtnIcon", (e) => handleDeclineInvitation(e))}
+          {getIcon("delete", "Decline", "msgBtnIcon", (e) =>
+            handleDeclineInvitation(e)
+          )}
         </div>
       )}
 

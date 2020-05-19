@@ -68,6 +68,10 @@ export function AuthProvider(props) {
     return user ? user._id : "";
   };
 
+  const activeHouseId = () => {
+    return user ? user.active_house : "";
+  };
+
   const requestHeader = {
     headers: { "Content-Type": "application/json", "x-auth-token": token },
   };
@@ -84,6 +88,7 @@ export function AuthProvider(props) {
         isLoggedIn: isLoggedIn,
 
         userId: userId(),
+        activeHouseId: activeHouseId(),
         getUserData: getUserData,
 
         acceptHouseInv: acceptHouseInv,

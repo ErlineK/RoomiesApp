@@ -16,13 +16,14 @@ export default function ViewBill(props) {
   const {
     showAddPayment,
     toggleAddPayment,
-    getBillById,
-    editBill,
+    // getBillById,
+    // editBill,
+    billActs,
     requestStatus,
   } = useContext(BillsContext);
 
   const billId = props.location.state.billId;
-  const bill = getBillById(billId);
+  const bill = billActs.getBillById(billId);
 
   const billPeriod =
     bill && bill.start_date !== "" && bill.end_date !== ""
@@ -71,7 +72,7 @@ export default function ViewBill(props) {
             className="secondary-link toLeft btnBack"
             onClick={() => history.goBack()}
           >
-            {getIcon("btnBack", "back-icon")} back
+            {getIcon("btnBack", "Back", "back-icon")} back
           </div>
           <h4 className="section-title">{billTitle}</h4>
 
@@ -85,7 +86,7 @@ export default function ViewBill(props) {
                   icon: "name",
                   type: "text",
                 }}
-                handleUpdate={editBill}
+                handleUpdate={billActs.editBill}
                 parentObjId={billId}
               />
 
@@ -107,7 +108,7 @@ export default function ViewBill(props) {
                     icon: "",
                     type: "date",
                   }}
-                  handleUpdate={editBill}
+                  handleUpdate={billActs.editBill}
                   parentObjId={billId}
                 />
                 <EditableDataItem
@@ -118,7 +119,7 @@ export default function ViewBill(props) {
                     icon: "",
                     type: "date",
                   }}
-                  handleUpdate={editBill}
+                  handleUpdate={billActs.editBill}
                   parentObjId={billId}
                 />
               </div>
@@ -132,7 +133,7 @@ export default function ViewBill(props) {
                   icon: "pay_due",
                   type: "date",
                 }}
-                handleUpdate={editBill}
+                handleUpdate={billActs.editBill}
                 parentObjId={billId}
               />
 
@@ -145,7 +146,7 @@ export default function ViewBill(props) {
                   type: "text",
                   specialChar: "$",
                 }}
-                handleUpdate={editBill}
+                handleUpdate={billActs.editBill}
                 parentObjId={billId}
               />
               {bill.paid < bill.total_amount && (
@@ -168,7 +169,7 @@ export default function ViewBill(props) {
               <div className="titleContainer ">
                 Payments
                 {bill.paid < bill.total_amount &&
-                  getIcon("add", "ic ic_lg ic_light", (e) =>
+                  getIcon("add", "Add payment", "ic ic_lg ic_light", (e) =>
                     toggleAddPayment(e)
                   )}
               </div>
@@ -189,7 +190,12 @@ export default function ViewBill(props) {
             <div id="comments Holder">
               <div className="titleContainer">
                 Invoice &amp; Receipts
-                {getIcon("add", "ic ic_lg ic_light", (e) => handleAddDoc(e))}
+                {getIcon(
+                  "add",
+                  "Add invoice/receipt",
+                  "ic ic_lg ic_light",
+                  (e) => handleAddDoc(e)
+                )}
               </div>
               <p>No document added</p>
             </div>

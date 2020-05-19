@@ -34,7 +34,11 @@ function CommentItem({ item }) {
           </div>
         </div>
         {item.author._id === userId &&
-          getIcon("delete", "ic ic_md ic_alert ic_margins_vr")}
+          getIcon(
+            "delete",
+            "Remove comment",
+            "ic ic_md ic_alert ic_margins_vr"
+          )}
       </div>
 
       <hr className="separator-light"></hr>

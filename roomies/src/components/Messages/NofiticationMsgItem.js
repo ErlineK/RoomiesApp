@@ -45,7 +45,7 @@ function NofiticationMsgItem({ item }) {
   return (
     <div className="listItemHolder">
       <div className="listFlexHolder">
-        {getIcon("notificationMsg", "listIcon")}
+        {getIcon("notificationMsg", undefined, "ic_list_item")}
         <div style={{ width: "100%" }}>
           <div className="msgRow">
             {messageTxt}

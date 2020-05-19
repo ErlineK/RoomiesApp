@@ -7,7 +7,13 @@ import {
 } from "../../utils/formatHelper";
 import { getBackgroundByDue } from "../GenericComponents/listsHelper";
 import { getIcon } from "../../utils/iconManager";
-import { getIconByBillType } from "./utils/billsHelper";
+import {
+  getIconByBillType,
+  checkRoomieTransfer,
+  checkRoomieTransferAccepted,
+  checkBillFullyPaid,
+  checkRtFromMe,
+} from "./utils/billsHelper";
 import { Link } from "react-router-dom";
 import { BillsContext } from "./utils/BillsContext";
 import { AuthContext } from "../auth/utils/AuthContext";
@@ -21,14 +27,9 @@ function BillItem({ item, type }) {
   const { userId } = useContext(AuthContext);
   const { removeBill, acceptRoomieTransfer } = useContext(BillsContext);
 
-  const isRoomieTransfer = item.bill_type === "Roomie Transfer";
-  const fromMe =
-    isRoomieTransfer &&
-    item &&
-    item.payments &&
-    item.payments[0].from_user._id === userId;
-  const paymentAccepted =
-    isRoomieTransfer && item && item.payments && item.payments[0].accepted;
+  const isRoomieTransfer = checkRoomieTransfer(item);
+  const fromMe = checkRtFromMe(item, userId);
+  const paymentAccepted = checkRoomieTransferAccepted(item);
 
   const handleAcceptPayment = (e) => {
     e.preventDefault();
@@ -49,7 +50,7 @@ function BillItem({ item, type }) {
       ? `${formatDayMonth(item.start_date)} - ${formatDayMonth(item.end_date)}`
       : "";
 
-  const fullyPaid = item.paid && item.paid >= item.total_amount;
+  const fullyPaid = checkBillFullyPaid(item);
 
   const lastComment =
     item.bill_comments && item.bill_comments.length > 0 ? (
@@ -63,7 +64,6 @@ function BillItem({ item, type }) {
 
   function getRecepient() {
     if (isRoomieTransfer && item.payments) {
-      // const fromMe = item.payments[0].from_user._id === userId;
       const userName = fromMe
         ? item.payments[0].to_user.name
         : item.payments[0].from_user.name;
@@ -105,7 +105,7 @@ function BillItem({ item, type }) {
       <div className="listFlexHolder">
         {getIconByBillType(
           item.bill_type,
-          `${fullyPaid && paymentAccepted ? "success" : ""} listIcon`
+          `${fullyPaid && paymentAccepted ? "success" : ""} ic_list_item`
         )}
 
         <Link
@@ -167,10 +167,16 @@ function BillItem({ item, type }) {
         </Link>
         {type !== "HOME" && (
           <div className="flex-container billsIconsHolder">
-            {!(item.payments && item.payments.length > 0) &&
-              getIcon("delete", "billActionIcon ic_lg ic_alert", (e) =>
-                handleRemoveBill(e)
-              )}
+            {getIcon(
+              "delete",
+              "Delete item",
+              `${
+                item.payments && item.payments.length > 0
+                  ? "ic_placeholder"
+                  : ""
+              } billActionIcon ic_lg ic_alert`,
+              (e) => handleRemoveBill(e)
+            )}
           </div>
         )}
       </div>

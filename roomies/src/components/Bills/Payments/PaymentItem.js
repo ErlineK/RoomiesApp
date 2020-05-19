@@ -60,8 +60,11 @@ export default function PaymentItem({ item, action }) {
             {" "}
             {item &&
               item.from_user._id === userId &&
-              getIcon("delete", "ic ic_md ic_alert paymentDelete", (e) =>
-                handlePaymentRemove(e)
+              getIcon(
+                "delete",
+                "Remove payment",
+                "ic ic_md ic_alert paymentDelete",
+                (e) => handlePaymentRemove(e)
               )}
           </span>
         </div>

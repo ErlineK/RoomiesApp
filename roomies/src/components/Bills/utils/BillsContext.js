@@ -29,24 +29,33 @@ export function BillsProvider(props) {
     return bill ? bill[0] : undefined;
   };
 
+  const billActs = {
+    ...billActions,
+    addBill: addBill,
+    addBillPayment: addPayment,
+    getBillById: getBillById,
+  };
+
   return (
     <BillsContext.Provider
       value={{
         bills,
+        billActs,
+
         showAddBill: showAddBill,
         toggleAddBill: toggleAddBill,
 
-        addBill: addBill,
-        editBill: billActions.editBill,
-        removeBill: billActions.removeBill,
-        // getAllBills: billActions.getAllBills,
-        acceptRoomieTransfer: billActions.acceptBill,
-        getBillById: getBillById,
+        // addBill: addBill,
+        // editBill: billActions.editBill,
+        // removeBill: billActions.removeBill,
+        // // getAllBills: billActions.getAllBills,
+        // acceptRoomieTransfer: billActions.acceptBill,
+        // getBillById: getBillById,
 
         showAddPayment: showAddPayment,
         toggleAddPayment: toggleAddPayment,
-        addBillPayment: addPayment,
-        removePayment: billActions.removePayment,
+        // addBillPayment: addPayment,
+        // removePayment: billActions.removePayment,
         requestStatus: requestStatus,
       }}
     >

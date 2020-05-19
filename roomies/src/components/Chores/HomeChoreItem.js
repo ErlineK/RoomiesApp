@@ -13,7 +13,7 @@ function HomeChoreItem({ item, toggleChore }) {
     >
       <div className="listFlexHolder">
         <div
-          className={`glowIndicator listIcon ${
+          className={`glowIndicator ic_list_item ${
             item.complete ? "indicatorActive" : ""
           } `}
         ></div>

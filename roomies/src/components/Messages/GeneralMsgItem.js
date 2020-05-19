@@ -8,7 +8,7 @@ function GeneralMsgItem({ item }) {
   return (
     <div className="listItemHolder">
       <div className="listFlexHolder">
-        {getIcon("messages", "listIcon")}
+        {getIcon("messages", undefined, "ic_list_item")}
         <div style={{ width: "100%" }}>
           <div className="msgRow lhShort">
             <p className="description">
@@ -19,7 +19,9 @@ function GeneralMsgItem({ item }) {
           <p className="lhShort">{item.msg}</p>
         </div>
       </div>
-      <div className="msgBtn msgBtnBack">{getIcon("reply", "msgBtnIcon")}</div>
+      <div className="msgBtn msgBtnBack">
+        {getIcon("reply", "Reply", "msgBtnIcon")}
+      </div>
       <hr></hr>
     </div>
   );

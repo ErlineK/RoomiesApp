@@ -12,7 +12,7 @@ import { HouseContext } from "../UserSettings/House/utils/HouseContext";
 import { AuthContext } from "../auth/utils/AuthContext";
 
 function AddBillPop() {
-  const { toggleAddBill, addBill, requestStatus } = useContext(BillsContext);
+  const { toggleAddBill, billActs, requestStatus } = useContext(BillsContext);
   const { getActiveTenants } = useContext(HouseContext);
   const { userId } = useContext(AuthContext);
   const [error, setError] = useState();
@@ -83,7 +83,7 @@ function AddBillPop() {
       // bill_images: billImages
     };
 
-    addBill(bill);
+    billActs.addBill(bill);
   };
 
   //   Validate name exist and not empty

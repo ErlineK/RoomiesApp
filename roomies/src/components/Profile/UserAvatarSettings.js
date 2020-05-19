@@ -15,8 +15,10 @@ export default function UserAvatarSettings({ avatar }) {
   ] = useImageUploadState(avatar, "USER");
 
   const uploadButton = (
-    <div className=" actionIcon hiddenIcon edit">
-      <label htmlFor="upload-button">{getIcon("editUser")}</label>
+    <div className=" actionIcon ic_hidden edit">
+      <label htmlFor="upload-button">
+        {getIcon("editUser", "Select Image")}
+      </label>
       <input
         type="file"
         id="upload-button"
@@ -28,11 +30,14 @@ export default function UserAvatarSettings({ avatar }) {
 
   const saveSelection = (
     <div className="flex-container toRight doubleIconHolder">
-      {getIcon("acceptUser", "actionIcon doubleIcon success_hov", (e) =>
+      {getIcon("acceptUser", "Save", "actionIcon doubleIcon success_hov", (e) =>
         handleSaveImage(e)
       )}
-      {getIcon("declineUser", "actionIcon doubleIcon success_hov", (e) =>
-        handleDismissImage(e)
+      {getIcon(
+        "declineUser",
+        "Cancel",
+        "actionIcon doubleIcon success_hov",
+        (e) => handleDismissImage(e)
       )}
     </div>
   );
@@ -52,7 +57,7 @@ export default function UserAvatarSettings({ avatar }) {
               aria-label="User avatar"
             />
           ) : (
-            getIcon("user", "homeLogo avatar")
+            getIcon("user", undefined, "homeLogo avatar")
           )}
         </div>
       )}

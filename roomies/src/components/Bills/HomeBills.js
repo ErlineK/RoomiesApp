@@ -1,20 +1,36 @@
 import React, { useContext } from "react";
-// import "./homeLists.scss";
 import HomeFragment from "../Home/UserHome/HomeFragment";
 import BillItem from "./BillItem";
 import { BillsContext } from "./utils/BillsContext";
+import {
+  checkBillFullyPaid,
+  checkRoomieTransferAccepted,
+} from "./utils/billsHelper";
 
 export default function HomeBills() {
   const { bills, requestStatus } = useContext(BillsContext);
 
   console.log("Home bills is called");
 
-  const billItems = bills
-    ? bills
-        // .slice(0, 5)
-        .map((bill, i) => (
-          <BillItem key={`bill${i}`} item={bill} type={"HOME"} />
-        ))
+  const homeBills =
+    bills && bills.length > 0
+      ? bills
+          .filter((b) => b.due_date || !checkRoomieTransferAccepted(b))
+          .sort((a, b) => {
+            return (
+              new Date(a.due_date).getTime() - new Date(b.due_date).getTime()
+            );
+          })
+          .reverse()
+          .sort((b) => (checkBillFullyPaid(b) ? -1 : 1))
+          .sort((b) => (checkRoomieTransferAccepted(b) ? 1 : -1))
+          .slice(0, 5)
+      : bills;
+
+  const billItems = homeBills
+    ? homeBills.map((bill, i) => (
+        <BillItem key={`bill${i}`} item={bill} type={"HOME"} />
+      ))
     : "";
 
   return (

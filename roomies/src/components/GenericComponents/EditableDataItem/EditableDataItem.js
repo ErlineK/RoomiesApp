@@ -27,11 +27,17 @@ export default function EditableDataItem({ item, handleUpdate, parentObjId }) {
           <div className="flex-container flex-between flex-center-vertical">
             <label htmlFor={item.title}>{item.title}</label>
             <div className="toRight flex-container">
-              {getIcon("acceptUser", "ic ic_lg ic_success", (e) =>
-                updateItem(e)
+              {getIcon(
+                "acceptUser",
+                "Update user",
+                "ic ic_lg ic_success",
+                (e) => updateItem(e)
               )}
-              {getIcon("declineUser", "ic ic_lg ic_alert active", (e) =>
-                toggleEdit()
+              {getIcon(
+                "declineUser",
+                "Cancel",
+                "ic ic_lg ic_alert active",
+                (e) => toggleEdit()
               )}
             </div>
           </div>
@@ -50,7 +56,7 @@ export default function EditableDataItem({ item, handleUpdate, parentObjId }) {
         <div className="editableDataItem">
           <div className="flex-container flex-between">
             <div className="flex-container flex-center-vertical">
-              {getIcon(item.icon, "ic ic_lg ic_decore")}
+              {getIcon(item.icon, undefined, "ic ic_lg ic_decore")}
               <p className="item itemTitle">
                 {item.title}
                 {item.title && ":"}
@@ -62,6 +68,7 @@ export default function EditableDataItem({ item, handleUpdate, parentObjId }) {
               {handleUpdate
                 ? getIcon(
                     "editUser",
+                    "Edit",
                     "ic ic_lg ic_hidden ic_roomies ic_action",
                     () => toggleEdit()
                   )

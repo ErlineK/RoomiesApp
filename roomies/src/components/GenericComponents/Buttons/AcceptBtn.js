@@ -7,7 +7,7 @@ export default function AcceptBtn({ onClick }) {
       className="btn btn-grad-green btnAction"
       onClick={(e) => onClick(e)}
     >
-      {getIcon("accept", "accent-icon")}
+      {getIcon("accept", undefined, "accent-icon")}
       Accept
     </button>
   );

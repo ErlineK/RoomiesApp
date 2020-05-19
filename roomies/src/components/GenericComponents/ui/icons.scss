@@ -90,6 +90,21 @@
   margin-top: 0.5rem;
 }
 
+.ic_placeholder {
+  visibility: hidden;
+}
+
+.ic_list_item {
+  align-self: flex-start;
+  margin-right: 1rem;
+  font-size: 1.5rem;
+  color: $accent-gray-light;
+
+  &.success {
+    color: $accent-green;
+  }
+}
+
 .actionIcon {
   margin-top: 0.5rem;
   margin-right: 1rem;

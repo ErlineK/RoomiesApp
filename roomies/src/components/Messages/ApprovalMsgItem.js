@@ -38,7 +38,7 @@ function ApprovalMsgItem({ item }) {
   return (
     <div className="listItemHolder">
       <div className="listFlexHolder">
-        {getIcon("paiment", "listIcon")}
+        {getIcon("paiment", undefined, "ic_list_item")}
         <div style={{ width: "100%" }}>
           <div className="msgRow">
             {messageTxt}
@@ -57,13 +57,6 @@ function ApprovalMsgItem({ item }) {
               {item.accepted ? (
                 <p className="success">Accepted!</p>
               ) : (
-                // <button
-                //   className="btn btn-grad-green btnAction"
-                //   onClick={(e) => handleAcceptPayment(e)}
-                // >
-                //   {getIcon("accept", "accent-icon")}
-                //   Accept
-                // </button>
                 <AcceptBtn onClick={handleAcceptPayment} />
               )}
             </div>

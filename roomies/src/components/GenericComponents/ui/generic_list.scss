@@ -85,17 +85,6 @@
       margin-bottom: -0.25rem;
     }
 
-    .listIcon {
-      align-self: flex-start;
-      margin-right: 1rem;
-      font-size: 1.5rem;
-      color: $accent-gray-light;
-
-      &.success {
-        color: $accent-green;
-      }
-    }
-
     .rightBlock {
       justify-self: flex-end;
       align-self: baseline;

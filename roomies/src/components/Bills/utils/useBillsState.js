@@ -1,11 +1,9 @@
 import { useContext, useEffect } from "react";
 import useGetData from "../../../hooks/useGetData";
-import { HouseContext } from "../../UserSettings/House/utils/HouseContext";
 import { AuthContext } from "../../auth/utils/AuthContext";
 
 export default () => {
-  const { userId } = useContext(AuthContext);
-  const { activeHouseId } = useContext(HouseContext);
+  const { userId, activeHouseId } = useContext(AuthContext);
   const [{ data, isLoading, isError }, setRequest] = useGetData({}, {});
 
   useEffect(() => {

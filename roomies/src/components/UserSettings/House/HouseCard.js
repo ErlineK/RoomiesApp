@@ -64,15 +64,14 @@ export default function HouseCard({ house }) {
       onClick={!house ? toggleNewHouse : null}
     >
       {house === undefined ? (
-        getIcon("add", "toCenter fullCardIcon")
+        getIcon("add", "Add new house", "toCenter fullCardIcon")
       ) : (
-        // <GoPlus className=" toCenter fullCardIcon" />
         <>
           {houseApproved && (
             <Link className="" to={`/House/${house._id}`}>
               {houseActive
-                ? getIcon("edit", "sectionIcon")
-                : getIcon("watch", "sectionIcon")}
+                ? getIcon("edit", "Edit", "sectionIcon")
+                : getIcon("watch", "Preview", "sectionIcon")}
             </Link>
           )}
 
@@ -100,7 +99,9 @@ export default function HouseCard({ house }) {
             {/* Tenants can be added only to curently active house! */}
             {houseActive &&
               houseApproved &&
-              getIcon("addUser", "sectionIcon", () => toggleAddTenants())}
+              getIcon("addUser", "Add tenants", "sectionIcon", () =>
+                toggleAddTenants()
+              )}
             <ul>
               <li>
                 You
@@ -120,14 +121,14 @@ export default function HouseCard({ house }) {
                   className="btn btn-grad-green btn-grad-red btnAction"
                   onClick={(e) => handleDeclineInvitation(e)}
                 >
-                  {getIcon("decline", "accent-icon")}
+                  {getIcon("decline", "Decline", "accent-icon")}
                   Decline
                 </button>
                 <button
                   className="btn btn-grad-green btnAction"
                   onClick={(e) => handleAcceptInvitation(e)}
                 >
-                  {getIcon("accept", "accent-icon")}
+                  {getIcon("accept", "Accept", "accent-icon")}
                   Accept
                 </button>
               </div>

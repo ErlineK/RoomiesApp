@@ -21,38 +21,71 @@ import { TiMessages } from "react-icons/ti";
 import { MdReplyAll, MdArrowBack } from "react-icons/md";
 import { AiFillFileAdd } from "react-icons/ai";
 import { RiTimerFlashLine } from "react-icons/ri";
-import { GiTakeMyMoney } from "react-icons/gi";
+import { GiTakeMyMoney, GiKeyring } from "react-icons/gi";
 
-function getIcon(iconName, classNames, onIconClick) {
+function getIcon(iconName, iconTitle, classNames, onIconClick) {
   let iconObj;
   switch (iconName) {
     case "email":
-      iconObj = <FaAt className={classNames} onClick={onIconClick} />;
+      iconObj = (
+        <FaAt title={iconTitle} className={classNames} onClick={onIconClick} />
+      );
       break;
 
     case "name":
-      iconObj = <FaUser className={classNames} onClick={onIconClick} />;
+      iconObj = (
+        <FaUser
+          title={iconTitle}
+          className={classNames}
+          onClick={onIconClick}
+        />
+      );
       break;
 
     case "user":
-      iconObj = <FaUser className={classNames} onClick={onIconClick} />;
+      iconObj = (
+        <FaUser
+          title={iconTitle}
+          className={classNames}
+          onClick={onIconClick}
+        />
+      );
       break;
 
     case "phone":
-      iconObj = <FaPhone className={classNames} onClick={onIconClick} />;
+      iconObj = (
+        <FaPhone
+          title={iconTitle}
+          className={classNames}
+          onClick={onIconClick}
+        />
+      );
       break;
 
     case "bday":
-      iconObj = <FaBirthdayCake className={classNames} onClick={onIconClick} />;
+      iconObj = (
+        <FaBirthdayCake
+          title={iconTitle}
+          className={classNames}
+          onClick={onIconClick}
+        />
+      );
       break;
 
     case "add":
-      iconObj = <GoPlus className={classNames} onClick={onIconClick} />;
+      iconObj = (
+        <GoPlus
+          title={iconTitle}
+          className={classNames}
+          onClick={onIconClick}
+        />
+      );
       break;
 
     case "addFile":
       iconObj = (
         <AiFillFileAdd
+          title={iconTitle}
           className={classNames}
           style={{ fontSize: "1.75rem" }}
           onClick={onIconClick}
@@ -61,77 +94,181 @@ function getIcon(iconName, classNames, onIconClick) {
       break;
 
     case "addUser":
-      iconObj = <FaUserPlus className={classNames} onClick={onIconClick} />;
+      iconObj = (
+        <FaUserPlus
+          title={iconTitle}
+          className={classNames}
+          onClick={onIconClick}
+        />
+      );
       break;
 
     case "editUser":
-      iconObj = <FaUserEdit className={classNames} onClick={onIconClick} />;
+      iconObj = (
+        <FaUserEdit
+          title={iconTitle}
+          className={classNames}
+          onClick={onIconClick}
+        />
+      );
       break;
 
     case "acceptUser":
-      iconObj = <FaUserCheck className={classNames} onClick={onIconClick} />;
+      iconObj = (
+        <FaUserCheck
+          title={iconTitle}
+          className={classNames}
+          onClick={onIconClick}
+        />
+      );
       break;
 
     case "declineUser":
-      iconObj = <FaUserTimes className={classNames} onClick={onIconClick} />;
+      iconObj = (
+        <FaUserTimes
+          title={iconTitle}
+          className={classNames}
+          onClick={onIconClick}
+        />
+      );
       break;
 
     case "edit":
-      iconObj = <FaEdit className={classNames} onClick={onIconClick} />;
+      iconObj = (
+        <FaEdit
+          title={iconTitle}
+          className={classNames}
+          onClick={onIconClick}
+        />
+      );
       break;
 
     case "reply":
-      iconObj = <MdReplyAll className={classNames} onClick={onIconClick} />;
+      iconObj = (
+        <MdReplyAll
+          title={iconTitle}
+          className={classNames}
+          onClick={onIconClick}
+        />
+      );
       break;
 
     case "watch":
-      iconObj = <FaEye className={classNames} onClick={onIconClick} />;
+      iconObj = (
+        <FaEye title={iconTitle} className={classNames} onClick={onIconClick} />
+      );
       break;
 
     case "accept":
-      iconObj = <FaCheck className={classNames} onClick={onIconClick} />;
+      iconObj = (
+        <FaCheck
+          title={iconTitle}
+          className={classNames}
+          onClick={onIconClick}
+        />
+      );
       break;
 
     case "decline":
-      iconObj = <FaMinusCircle className={classNames} onClick={onIconClick} />;
+      iconObj = (
+        <FaMinusCircle
+          title={iconTitle}
+          className={classNames}
+          onClick={onIconClick}
+        />
+      );
       break;
 
     case "delete":
-      iconObj = <IoMdClose className={classNames} onClick={onIconClick} />;
+      iconObj = (
+        <IoMdClose
+          title={iconTitle}
+          className={classNames}
+          onClick={onIconClick}
+        />
+      );
       break;
 
     case "messages":
-      iconObj = <TiMessages className={classNames} onClick={onIconClick} />;
+      iconObj = (
+        <TiMessages
+          title={iconTitle}
+          className={classNames}
+          onClick={onIconClick}
+        />
+      );
       break;
 
     case "inv_amount":
       iconObj = (
-        <FaFileInvoiceDollar className={classNames} onClick={onIconClick} />
+        <FaFileInvoiceDollar
+          title={iconTitle}
+          className={classNames}
+          onClick={onIconClick}
+        />
+      );
+      break;
+
+    case "welcome_home":
+      iconObj = (
+        <GiKeyring
+          title={iconTitle}
+          className={classNames}
+          onClick={onIconClick}
+        />
       );
       break;
 
     case "doc_period":
-      iconObj = <GoCalendar className={classNames} onClick={onIconClick} />;
+      iconObj = (
+        <GoCalendar
+          title={iconTitle}
+          className={classNames}
+          onClick={onIconClick}
+        />
+      );
       // iconObj = <GrDocumentTime className={classNames} onClick={onIconClick} />;
       break;
 
     case "pay_due":
       iconObj = (
-        <RiTimerFlashLine className={classNames} onClick={onIconClick} />
+        <RiTimerFlashLine
+          title={iconTitle}
+          className={classNames}
+          onClick={onIconClick}
+        />
       );
       break;
 
     case "paiment":
-      iconObj = <GiTakeMyMoney className={classNames} onClick={onIconClick} />;
+      iconObj = (
+        <GiTakeMyMoney
+          title={iconTitle}
+          className={classNames}
+          onClick={onIconClick}
+        />
+      );
       break;
 
     case "btnBack":
-      iconObj = <MdArrowBack className={classNames} onClick={onIconClick} />;
+      iconObj = (
+        <MdArrowBack
+          title={iconTitle}
+          className={classNames}
+          onClick={onIconClick}
+        />
+      );
       break;
 
     /* Notification icons */
     case "notificationMsg":
-      iconObj = <GoMegaphone className={classNames} onClick={onIconClick} />;
+      iconObj = (
+        <GoMegaphone
+          title={iconTitle}
+          className={classNames}
+          onClick={onIconClick}
+        />
+      );
       break;
 
     default:

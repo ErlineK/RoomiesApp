@@ -1,6 +1,4 @@
 import React from "react";
-
-// import { BsLightningFill } from "react-icons/bs";
 import {
   GiHeatHaze,
   GiMilkCarton,
@@ -59,4 +57,33 @@ export function getIconByAction(actionType, classNames) {
   }
 
   return iconObj;
+}
+
+function billHasPayments(billItem) {
+  return billItem && billItem.payments && billItem.payments.length > 0;
+}
+
+export function checkRoomieTransfer(billItem) {
+  return billItem && billItem.bill_type === "Roomie Transfer";
+}
+
+export function checkRoomieTransferAccepted(billItem) {
+  return (
+    checkRoomieTransfer(billItem) &&
+    billHasPayments(billItem) &&
+    billItem.payments[0].accepted
+  );
+}
+
+export function checkBillFullyPaid(billItem) {
+  return billItem && billItem.paid && billItem.paid >= billItem.total_amount;
+}
+
+export function checkRtFromMe(billItem, userId) {
+  return (
+    billItem &&
+    checkRoomieTransfer(billItem) &&
+    billHasPayments(billItem) &&
+    billItem.payments[0].from_user._id === userId
+  );
 }
