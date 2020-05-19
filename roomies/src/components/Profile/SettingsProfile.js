@@ -4,7 +4,7 @@ import "../auth/auth.scss";
 import EditableDataItem from "../GenericComponents/EditableDataItem/EditableDataItem";
 import { formatInputDate } from "../../utils/formatHelper";
 import UserAvatarSettings from "./UserAvatarSettings";
-import { AuthContext } from "../auth/AuthContext";
+import { AuthContext } from "../auth/utils/AuthContext";
 
 export default function SettingsProfile() {
   const { user } = useContext(AuthContext);

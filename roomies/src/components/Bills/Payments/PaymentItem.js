@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
 import { formatDateOnly, formatCurrency } from "../../../utils/formatHelper";
 import "../../GenericComponents/ui/generic_list.scss";
-import { getIconByAction } from "../billsHelper";
+import { getIconByAction } from "../utils/billsHelper";
 import "../../GenericComponents/ui/icons.scss";
 import { getIcon } from "../../../utils/iconManager";
-import { AuthContext } from "../../auth/AuthContext";
-import { BillsContext } from "../BillsContext";
+import { AuthContext } from "../../auth/utils/AuthContext";
+import { BillsContext } from "../utils/BillsContext";
 
 export default function PaymentItem({ item, action }) {
   const { userId } = useContext(AuthContext);
   const { removePayment } = useContext(BillsContext);
-  const isFinished = action == "complete";
+  const isFinished = action === "complete";
 
   const handlePaymentRemove = (e) => {
     e.preventDefault();

@@ -6,7 +6,7 @@ const Payment = require("../../models/Payment");
 const UserComment = require("../../models/UserComment");
 
 /* Controllers */
-const userController = require("../userController");
+// const userController = require("../userController");
 const houseController = require("../houses/houseController");
 const paymentController = require("./paymentController");
 

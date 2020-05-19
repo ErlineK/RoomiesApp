@@ -1,11 +1,10 @@
 import React, { useState, useContext } from "react";
 import useInputState from "../../../hooks/useInputState";
-import "../../auth/auth.scss";
+// import "../../auth/auth.scss";
 import HouseAvatar from "./HouseAvatar";
 import PopUpCard from "../../GenericComponents/PopUpCard";
-import { HouseContext } from "./HouseContext";
-
-const provinces = ["ON", "QC", "NS", "NB", "MB", "BC", "PE", "SK", "AB", "NL"];
+import { HouseContext } from "./utils/HouseContext";
+import { PROVINCES } from "../../../utils/AppParams";
 
 function AddHousePop() {
   const { toggleNewHouse, handleNewHouse } = useContext(HouseContext);
@@ -14,7 +13,7 @@ function AddHousePop() {
   const [hDescription, handleHDescriptionChange] = useInputState("");
   const [hStreet, handleHStreetChange] = useInputState("");
   const [hCity, handleHCityChange] = useInputState("");
-  const [hProvince, handleHProvinceChange] = useInputState(provinces[0]);
+  const [hProvince, handleHProvinceChange] = useInputState(PROVINCES[0]);
   const [houseAvatar, setHouseAvatar] = useState("");
 
   const handleAddHouse = () => {
@@ -24,7 +23,7 @@ function AddHousePop() {
       city: hCity,
       province: hProvince,
       description: hDescription,
-      avatar: houseAvatar
+      avatar: houseAvatar,
     };
 
     handleNewHouse(house);
@@ -44,14 +43,14 @@ function AddHousePop() {
   function validate() {
     let validated = true;
 
-    if (hProvince === undefined || !provinces.includes(hProvince.trim())) {
+    if (hProvince === undefined || !PROVINCES.includes(hProvince.trim())) {
       validated = false;
     }
 
     return validated;
   }
 
-  const doSubmit = event => {
+  const doSubmit = (event) => {
     event.preventDefault();
 
     if (validate()) {
@@ -112,7 +111,7 @@ function AddHousePop() {
               value={hProvince}
               onChange={handleHProvinceChange}
             >
-              {provinces.map(prov => (
+              {PROVINCES.map((prov) => (
                 <option key={prov} value={prov}>
                   {prov}
                 </option>
@@ -138,7 +137,7 @@ function AddHousePop() {
             <button
               type="submit"
               className="btn btn-grad-pressed"
-              onClick={e => doSubmit(e)}
+              onClick={(e) => doSubmit(e)}
             >
               Add House
             </button>

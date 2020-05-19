@@ -3,13 +3,13 @@ import useInputState from "../../hooks/useInputState";
 // import "../auth/auth.scss";
 import "../GenericComponents/ui/forms.scss";
 import PopUpCard from "../GenericComponents/PopUpCard";
-import { BillsContext } from "./BillsContext";
+import { BillsContext } from "./utils/BillsContext";
 import { BILL_TYPES } from "../../utils/AppParams";
 import CircleLoader from "../GenericComponents/Loader/CircleLoader";
 import { formatInputDate } from "../../utils/formatHelper";
 import CustomInput from "../GenericComponents/CustomInput";
-import { HouseContext } from "../UserSettings/House/HouseContext";
-import { AuthContext } from "../auth/AuthContext";
+import { HouseContext } from "../UserSettings/House/utils/HouseContext";
+import { AuthContext } from "../auth/utils/AuthContext";
 
 function AddBillPop() {
   const { toggleAddBill, addBill, requestStatus } = useContext(BillsContext);

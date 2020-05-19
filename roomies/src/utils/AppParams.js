@@ -5,5 +5,18 @@ export const BILL_TYPES = [
   "Internet/TV",
   "Groceries",
   "Roomie Transfer",
-  "Other"
+  "Other",
+];
+
+export const PROVINCES = [
+  "ON",
+  "QC",
+  "NS",
+  "NB",
+  "MB",
+  "BC",
+  "PE",
+  "SK",
+  "AB",
+  "NL",
 ];

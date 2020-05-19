@@ -1,6 +1,4 @@
 import React from "react";
-import { TiMessages } from "react-icons/ti";
-import { MdReplyAll } from "react-icons/md";
 import { getIcon } from "../../utils/iconManager";
 import { formatDate } from "../../utils/formatHelper";
 
@@ -11,7 +9,6 @@ function GeneralMsgItem({ item }) {
     <div className="listItemHolder">
       <div className="listFlexHolder">
         {getIcon("messages", "listIcon")}
-        {/* <TiMessages className="listIcon" /> */}
         <div style={{ width: "100%" }}>
           <div className="msgRow lhShort">
             <p className="description">
@@ -22,9 +19,7 @@ function GeneralMsgItem({ item }) {
           <p className="lhShort">{item.msg}</p>
         </div>
       </div>
-      <div className="msgBtn msgBtnBack">
-        <MdReplyAll className="msgBtnIcon" />
-      </div>
+      <div className="msgBtn msgBtnBack">{getIcon("reply", "msgBtnIcon")}</div>
       <hr></hr>
     </div>
   );

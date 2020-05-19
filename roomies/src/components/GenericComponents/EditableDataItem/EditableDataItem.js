@@ -5,7 +5,6 @@ import useToggle from "../../../hooks/useToggle";
 import useInputState from "../../../hooks/useInputState";
 import { getIcon } from "../../../utils/iconManager";
 import { formatInputDate } from "../../../utils/formatHelper";
-import CustomInput from "../CustomInput";
 
 export default function EditableDataItem({ item, handleUpdate, parentObjId }) {
   const [editMode, toggleEdit] = useToggle(false);

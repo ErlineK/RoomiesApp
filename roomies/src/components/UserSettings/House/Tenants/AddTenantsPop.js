@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import useInputState from "../../../../hooks/useInputState";
 import "../../../auth/auth.scss";
 import PopUpCard from "../../../GenericComponents/PopUpCard";
-import { HouseContext } from "../HouseContext";
+import { HouseContext } from "../utils/HouseContext";
 
 function AddTenantsPop() {
   const { toggleAddTenants, handleNewTenant } = useContext(HouseContext);
@@ -44,7 +44,7 @@ function AddTenantsPop() {
     return validated;
   }
 
-  const doSubmit = event => {
+  const doSubmit = (event) => {
     event.preventDefault();
 
     if (validate()) {
@@ -99,7 +99,7 @@ function AddTenantsPop() {
             <button
               type="submit"
               className="btn btn-grad-pressed"
-              onClick={e => doSubmit(e)}
+              onClick={(e) => doSubmit(e)}
             >
               Invite Tenant
             </button>

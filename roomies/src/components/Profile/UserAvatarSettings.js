@@ -1,7 +1,6 @@
 import React from "react";
 import "./profile.scss";
 import { getIcon } from "../../utils/iconManager";
-import { FaUserEdit, FaUserCheck, FaUserTimes } from "react-icons/fa";
 import CircleLoader from "../GenericComponents/Loader/CircleLoader";
 import useImageUploadState from "../../hooks/useImageUploadState";
 
@@ -17,9 +16,7 @@ export default function UserAvatarSettings({ avatar }) {
 
   const uploadButton = (
     <div className=" actionIcon hiddenIcon edit">
-      <label htmlFor="upload-button">
-        <FaUserEdit />
-      </label>
+      <label htmlFor="upload-button">{getIcon("editUser")}</label>
       <input
         type="file"
         id="upload-button"
@@ -34,23 +31,11 @@ export default function UserAvatarSettings({ avatar }) {
       {getIcon("acceptUser", "actionIcon doubleIcon success_hov", (e) =>
         handleSaveImage(e)
       )}
-      {/* <FaUserCheck
-        className="actionIcon doubleIcon success_hov"
-        onClick={e => handleSaveImage(e)}
-      /> */}
       {getIcon("declineUser", "actionIcon doubleIcon success_hov", (e) =>
         handleDismissImage(e)
       )}
-      {/* <FaUserTimes
-        className="actionIcon doubleIcon abort"
-        onClick={e => handleDismissImage(e)}
-      /> */}
     </div>
   );
-
-  // prefer temporary image over user image
-  // const imgToDisplay =
-  //   (tempImage !== undefined) & (tempImage !== "") ? tempImage : userImage;
 
   return (
     <div className="userDataItem avatarHolder">

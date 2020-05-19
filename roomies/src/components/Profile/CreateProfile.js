@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import useInputState from "../../hooks/useInputState";
 import { Link, useHistory } from "react-router-dom";
 import "./profile.scss";
-import { AuthContext } from "../auth/AuthContext";
+import { AuthContext } from "../auth/utils/AuthContext";
 import { MdArrowForward } from "react-icons/md";
 import axios from "axios";
 import { BASE_URL } from "../../utils/AppParams";
@@ -29,13 +29,13 @@ export default function CreateProfile() {
     bDateErr,
     resetBDate,
   ] = useInputState("", "B_DATE");
-  const [avatar, handleAvatarChange] = useState(user.avatar);
+  // const [avatar, handleAvatarChange] = useState(user.avatar);
 
   const history = useHistory();
 
   const doSubmit = (event) => {
     event.preventDefault();
-    // TODO: Validate
+    // Validate
     if (
       (phone === "" || validatePhone()) &&
       (brthDate === "" || validateBDay())

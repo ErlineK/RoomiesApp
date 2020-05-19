@@ -2,13 +2,11 @@ import React from "react";
 import {
   BarChart,
   Bar,
-  Cell,
   ReferenceLine,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend,
   LabelList,
 } from "recharts";
 import { formatCurrency } from "../../../utils/formatHelper";
@@ -21,7 +19,7 @@ export default function ColumnChart({ title, data, even }) {
       <h5 className="title-margins">{title}</h5>
       <BarChart
         // width={750}
-        width={window.innerWidth > 768 ? 750 : window.innerWidth * 0.9}
+        width={window.innerWidth > 768 ? 700 : window.innerWidth * 0.9}
         height={window.innerHeight * 0.4}
         data={data}
         margin={{

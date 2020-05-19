@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import "./app.scss";
 import RoomiesApp from "./RoomiesApp";
 import AppRouter from "./AppRouter";
-import { AuthProvider } from "../auth/AuthContext";
-import { HouseProvider } from "../UserSettings/House/HouseContext";
+import { AuthProvider } from "../auth/utils/AuthContext";
+import { HouseProvider } from "../UserSettings/House/utils/HouseContext";
 import Navbar from "../Nav/Navbar";
-import { BillsProvider } from "../Bills/BillsContext";
-// import { DashboardProvider } from "../Home/UserHome/DashboardContext";
-import { BalanceProvider } from "../Balance/BalanceContext";
+import { BillsProvider } from "../Bills/utils/BillsContext";
+import { DashboardProvider } from "../Home/UserHome/utils/DashboardContext";
+import { BalanceProvider } from "../Balance/utils/BalanceContext";
+import { NotificationsProvider } from "../Messages/utils/NotificationsContext";
 
 class App extends Component {
   render() {
@@ -16,14 +17,16 @@ class App extends Component {
         <AuthProvider>
           <HouseProvider>
             <Navbar />
-            {/* <DashboardProvider> */}
-            <BalanceProvider>
-              <BillsProvider>
-                <RoomiesApp />
-                <AppRouter />
-              </BillsProvider>
-            </BalanceProvider>
-            {/* </DashboardProvider> */}
+            <NotificationsProvider>
+              <BalanceProvider>
+                <BillsProvider>
+                  <DashboardProvider>
+                    <RoomiesApp />
+                    <AppRouter />
+                  </DashboardProvider>
+                </BillsProvider>
+              </BalanceProvider>
+            </NotificationsProvider>
           </HouseProvider>
         </AuthProvider>
       </div>

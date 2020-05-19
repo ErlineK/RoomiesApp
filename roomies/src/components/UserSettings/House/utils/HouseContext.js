@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useContext, useState } from "react";
-import useToggle from "../../../hooks/useToggle";
-import { BASE_URL } from "../../../utils/AppParams";
-import { AuthContext } from "../../auth/AuthContext";
+import useToggle from "../../../../hooks/useToggle";
+import { BASE_URL } from "../../../../utils/AppParams";
+import { AuthContext } from "../../../auth/utils/AuthContext";
 import axios from "axios";
 
 export const HouseContext = createContext();
@@ -84,7 +84,7 @@ export function HouseProvider(props) {
         ? currentHouse.house_tenants.filter((tenant) => tenant.email === email)
         : [];
 
-    if (tenantInList.length == 0) {
+    if (tenantInList.length === 0) {
       console.log("trying to add tenants to tenants list");
 
       setLoading(true);

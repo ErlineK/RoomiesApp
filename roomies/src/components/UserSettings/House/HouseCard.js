@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./house.scss";
 import { getIcon } from "../../../utils/iconManager";
-import { AuthContext } from "../../auth/AuthContext";
-import { HouseContext } from "./HouseContext";
-import { isTenantApproved } from "./houseHelper";
+import { AuthContext } from "../../auth/utils/AuthContext";
+import { HouseContext } from "./utils/HouseContext";
+import { isTenantApproved } from "./utils/houseHelper";
 
 // TODO: handle change active house in DB
 
@@ -70,13 +70,9 @@ export default function HouseCard({ house }) {
         <>
           {houseApproved && (
             <Link className="" to={`/House/${house._id}`}>
-              {
-                houseActive
-                  ? getIcon("edit", "sectionIcon")
-                  : // <FaEdit className="sectionIcon" />
-                    getIcon("watch", "sectionIcon")
-                // <FaEye className="sectionIcon" />
-              }
+              {houseActive
+                ? getIcon("edit", "sectionIcon")
+                : getIcon("watch", "sectionIcon")}
             </Link>
           )}
 
@@ -105,10 +101,6 @@ export default function HouseCard({ house }) {
             {houseActive &&
               houseApproved &&
               getIcon("addUser", "sectionIcon", () => toggleAddTenants())}
-            {/* <FaUserPlus
-                  className="sectionIcon"
-                  onClick={() => toggleAddTenants()}
-                /> */}
             <ul>
               <li>
                 You
@@ -129,7 +121,6 @@ export default function HouseCard({ house }) {
                   onClick={(e) => handleDeclineInvitation(e)}
                 >
                   {getIcon("decline", "accent-icon")}
-                  {/* <FaMinusCircle className="accent-icon" /> */}
                   Decline
                 </button>
                 <button
@@ -137,7 +128,6 @@ export default function HouseCard({ house }) {
                   onClick={(e) => handleAcceptInvitation(e)}
                 >
                   {getIcon("accept", "accent-icon")}
-                  {/* <FaCheck className="accent-icon" /> */}
                   Accept
                 </button>
               </div>

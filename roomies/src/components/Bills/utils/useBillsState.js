@@ -1,19 +1,12 @@
 import { useContext, useEffect } from "react";
-import useGetData from "./useGetData";
-import { AuthContext } from "../components/auth/AuthContext";
-import { HouseContext } from "../components/UserSettings/House/HouseContext";
+import useGetData from "../../../hooks/useGetData";
+import { HouseContext } from "../../UserSettings/House/utils/HouseContext";
+import { AuthContext } from "../../auth/utils/AuthContext";
 
-export default (initialBills) => {
+export default () => {
   const { userId } = useContext(AuthContext);
   const { activeHouseId } = useContext(HouseContext);
-  const [{ data, isLoading, isError }, setRequest] = useGetData(
-    {
-      // reqUri: `bills/${houseId}`,
-      // reqType: "get",
-      // reqData: null
-    },
-    initialBills
-  );
+  const [{ data, isLoading, isError }, setRequest] = useGetData({}, {});
 
   useEffect(() => {
     if (userId && activeHouseId) {
@@ -79,8 +72,6 @@ export default (initialBills) => {
       url: `bills/bill/${billId}/${userId}`,
       reqType: "delete",
     });
-    // const updatedChores = data.chores.filter(chore => chore.id !== choreId);
-    // setChores(updatedChores);
   };
 
   const removePayment = (paymentId) => {
@@ -103,5 +94,11 @@ export default (initialBills) => {
   // const requestStatus = [isLoading, isError];
   const requestStatus = { isLoading: isLoading, isError: isError };
 
-  return [data, billActions, requestStatus];
+  return [
+    {
+      bills: data.bills,
+      billActions,
+      requestStatus,
+    },
+  ];
 };

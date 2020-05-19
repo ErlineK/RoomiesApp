@@ -1,20 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaCheck } from "react-icons/fa";
 import { GiKeyring } from "react-icons/gi";
 import { formatDateOnly } from "../../utils/formatHelper";
 import { getIcon } from "../../utils/iconManager";
+import { NtfActionsContext } from "./utils/NotificationsContext";
 
-function InvitationMsgItem({ item, handleAcceptINV, handleDeclineINV }) {
+function InvitationMsgItem({ item }) {
+  const { acceptingINV, declineINV } = useContext(NtfActionsContext);
+
   const handleAcceptInvitation = (e) => {
     e.preventDefault(e);
 
-    handleAcceptINV(item._id, item.ntf_house);
+    acceptingINV(item._id, item.ntf_house);
   };
 
   const handleDeclineInvitation = (e) => {
     e.preventDefault(e);
 
-    handleDeclineINV(item._id, item.ntf_house);
+    declineINV(item._id, item.ntf_house);
   };
 
   return (

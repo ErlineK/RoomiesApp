@@ -1,41 +1,8 @@
 import React, { useContext } from "react";
-import "./homeLists.scss";
-import HomeFragment from "./HomeFragment";
-import BillItem from "../../Bills/BillItem";
-import { BillsContext } from "../../Bills/BillsContext";
-
-const tempData = {
-  bills: [
-    {
-      type: "Hydro",
-      refNum: "9435897",
-      total: "120",
-      paid: "20",
-      dueDate: new Date(2020, 1, 30),
-    },
-    {
-      type: "Gas",
-      refNum: "0076435345",
-      total: "45",
-      paid: "",
-      dueDate: new Date(2020, 3, 15),
-    },
-    {
-      type: "Internet",
-      refNum: "7632432",
-      total: "65",
-      paid: "10",
-      dueDate: new Date(2020, 3, 15),
-    },
-    {
-      type: "Grocerys",
-      refNum: "",
-      total: "230",
-      paid: "230",
-      dueDate: new Date(2020, 5, 2),
-    },
-  ],
-};
+// import "./homeLists.scss";
+import HomeFragment from "../Home/UserHome/HomeFragment";
+import BillItem from "./BillItem";
+import { BillsContext } from "./utils/BillsContext";
 
 export default function HomeBills() {
   const { bills, requestStatus } = useContext(BillsContext);
@@ -44,7 +11,7 @@ export default function HomeBills() {
 
   const billItems = bills
     ? bills
-        .slice(0, 5)
+        // .slice(0, 5)
         .map((bill, i) => (
           <BillItem key={`bill${i}`} item={bill} type={"HOME"} />
         ))

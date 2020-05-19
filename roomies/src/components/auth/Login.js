@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import useInputState from "../../hooks/useInputState";
 import "./auth.scss";
 import { Link, useHistory } from "react-router-dom";
-import { AuthContext } from "../auth/AuthContext";
+import { AuthContext } from "../auth/utils/AuthContext";
 import { MdArrowBack } from "react-icons/md";
 import { BASE_URL } from "../../utils/AppParams";
 import CircleLoader from "../GenericComponents/Loader/CircleLoader";

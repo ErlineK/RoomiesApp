@@ -4,13 +4,13 @@ import "./navbar.scss";
 import { Link } from "react-router-dom";
 import uuid from "uuid";
 import { AiOutlineLogout } from "react-icons/ai";
-import { AuthContext } from "../auth/AuthContext";
+import { AuthContext } from "../auth/utils/AuthContext";
 import { getNavIconByName } from "./navHelper";
 
 function TopNav(props) {
   const { isLoggedIn, logoutUser } = useContext(AuthContext);
 
-  let navArray = props.navItems.map(ni =>
+  let navArray = props.navItems.map((ni) =>
     ni.logout ? (
       <div className="navLink-holder" key={uuid()}>
         <AiOutlineLogout

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import "./bills.scss";
 import { getIcon } from "../../utils/iconManager";
 import { formatDayMonth, formatDateOnly } from "../../utils/formatHelper";
-import { BillsContext } from "./BillsContext";
+import { BillsContext } from "./utils/BillsContext";
 import AddPayment from "./Payments/AddPayment";
 import EditableDataItem from "../GenericComponents/EditableDataItem/EditableDataItem";
 import PaymentItem from "./Payments/PaymentItem";
@@ -37,11 +37,11 @@ export default function ViewBill(props) {
     console.log("clicked add document");
   };
 
-  const handleAddComment = (e) => {
-    e.preventDefault();
+  // const handleAddComment = (e) => {
+  //   e.preventDefault();
 
-    console.log("clicked add comment");
-  };
+  //   console.log("clicked add comment");
+  // };
 
   const paymentItems =
     bill && bill.payments && bill.payments.length > 0 ? (

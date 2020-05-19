@@ -1,21 +1,21 @@
 import { useContext } from "react";
 import axios from "axios";
-import useGetData from "./useGetData";
-import { AuthContext } from "../components/auth/AuthContext";
+import useGetData from "../../../hooks/useGetData";
+import { AuthContext } from "../../auth/utils/AuthContext";
 
 const BASE_URI_CHORES = "http://localhost:5000/api/chores";
 
 const choresMode = { HOME: "HOME", NONE: undefined };
 
-export default (initialChores, mode) => {
+export default (mode) => {
   const { houseId, userId } = useContext(AuthContext);
   const [{ data, isLoading, isError }, setRequest] = useGetData(
     {
       reqUri: `chores/${houseId}`,
       reqType: "get",
-      reqData: { leader: userId }
+      reqData: { leader: userId },
     },
-    initialChores
+    {}
   );
 
   const getAllChores = () => {
@@ -24,35 +24,35 @@ export default (initialChores, mode) => {
       setRequest({
         reqUri: `${houseId}`,
         reqType: "get",
-        reqData: { leader: userId }
+        reqData: { leader: userId },
       });
     } else {
       setRequest({
         reqUri: `${houseId}`,
         reqType: "get",
-        reqData: null
+        reqData: null,
       });
     }
   };
 
-  const addChoreToDB = chore => {
+  const addChoreToDB = (chore) => {
     const data = {
       task: chore,
-      completed: false
+      completed: false,
     };
 
     axios
       .post(BASE_URI_CHORES, data)
-      .then(res => {
+      .then((res) => {
         console.log("added chore successfully");
         getAllChores();
       })
-      .catch(err => {
+      .catch((err) => {
         console.log("Error in CreateChore!");
       });
   };
 
-  const addChore = newChore => {
+  const addChore = (newChore) => {
     // setChores([...Chores, { id: uuid(), task: newChore, completed: false }]);
     addChoreToDB(newChore);
   };
@@ -64,12 +64,12 @@ export default (initialChores, mode) => {
     // setChores(updatedChores);
   };
 
-  const removeChore = choreId => {
+  const removeChore = (choreId) => {
     // const updatedChores = data.chores.filter(chore => chore.id !== choreId);
     // setChores(updatedChores);
   };
 
-  const toggleChore = choreId => {
+  const toggleChore = (choreId) => {
     // const updatedChores = data.chores.map(chore =>
     //   chore.id === choreId ? { ...chore, completed: !chore.completed } : chore
     // );
@@ -82,7 +82,7 @@ export default (initialChores, mode) => {
     editChore: editChore,
     removeChore: removeChore,
     toggleChore: toggleChore,
-    getAllChores: getAllChores
+    getAllChores: getAllChores,
   };
 
   // const requestStatus = [isLoading, isError];

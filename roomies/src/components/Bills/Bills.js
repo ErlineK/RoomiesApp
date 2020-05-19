@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import "./bills.scss";
 import BillItem from "./BillItem";
 import { getIcon } from "../../utils/iconManager";
-import { BillsContext } from "./BillsContext";
+import { BillsContext } from "./utils/BillsContext";
 import AddBillPop from "./AddBillPop";
 import { BILL_TYPES } from "../../utils/AppParams";
 import useInputState from "../../hooks/useInputState";

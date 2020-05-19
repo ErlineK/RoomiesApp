@@ -1,11 +1,9 @@
 import React, { useContext, useState } from "react";
 import useInputState from "../../../hooks/useInputState";
-// import "../GenericComponents/ui/forms.scss";
 import PopUpCard from "../../GenericComponents/PopUpCard";
-import { BillsContext } from "../BillsContext";
+import { BillsContext } from "../utils/BillsContext";
 import CircleLoader from "../../GenericComponents/Loader/CircleLoader";
 import { formatInputDate } from "../../../utils/formatHelper";
-import { HouseContext } from "../../UserSettings/House/HouseContext";
 import CustomInput from "../../GenericComponents/CustomInput";
 
 function AddPayment({ bill }) {
@@ -38,19 +36,12 @@ function AddPayment({ bill }) {
 
   const [comment, handleCommentChange] = useInputState("", "COMMENT");
 
-  // const houseTenants = getActiveTenants();
-
-  // const tenantsList = houseTenants
-  //   ? houseTenants.map((tenant) => tenant.name)
-  //   : "";
-
   const handleAddPayment = () => {
     console.log("saving payment");
 
     const payment = {
       transaction_date: paymentDate,
       reference_num: refNum,
-      // to_user: isRoomieTransfer ? paidTo : undefined,
       total_amount: paymentSum,
       comment: comment,
     };
@@ -58,7 +49,7 @@ function AddPayment({ bill }) {
     addBillPayment(payment, bill._id);
   };
 
-  //   Validate name exist and not empty
+  //  Validate name exist and not empty
   function validate() {
     let validated = false;
     setError(undefined);
@@ -81,12 +72,6 @@ function AddPayment({ bill }) {
   };
 
   const isRoomieTransfer = bill.billType === "Roomie Transfer";
-
-  // const roomieOptions = houseTenants.map((roomie) => (
-  //   <option key={roomie.name} value={roomie.name}>
-  //     {roomie.name}
-  //   </option>
-  // ));
 
   const pageTitle = isRoomieTransfer
     ? "Add Roomie Transfer"

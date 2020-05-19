@@ -1,11 +1,13 @@
-import React, { memo } from "react";
-import HomeFragment from "./HomeFragment";
-import { formatCurrency } from "../../../utils/formatHelper";
-import useBalanceState from "../../../hooks/useBalanceState";
+import React, { memo, useContext } from "react";
+import HomeFragment from "../Home/UserHome/HomeFragment";
+import { formatCurrency } from "../../utils/formatHelper";
+import { BalanceContext, BalanceActionsContext } from "./utils/BalanceContext";
 
 function HomeBalance() {
-  const [data, requestStatus, myBalance, isMyId] = useBalanceState();
-  const balance = data ? data.balance : data;
+  const { balance, requestStatus } = useContext(BalanceContext);
+  const balanceActions = useContext(BalanceActionsContext);
+
+  const myBalance = balanceActions.getMyBalance();
 
   let balanceMsg =
     myBalance > 0
@@ -22,8 +24,9 @@ function HomeBalance() {
 
   const tenants =
     balance && balance.length > 0
-      ? balance.map((roomie) =>
-          !isMyId(roomie._id) ? (
+      ? balance
+          .filter((r) => !balanceActions.isMyId(r._id))
+          .map((roomie) => (
             <div key={roomie._id} className="balanceItem">
               <p
                 className={`${roomie.totalBalance < 0 ? "red" : ""} underline`}
@@ -35,10 +38,7 @@ function HomeBalance() {
                 {formatCurrency(roomie.totalBalance)}
               </p>
             </div>
-          ) : (
-            ""
-          )
-        )
+          ))
       : "";
 
   return (

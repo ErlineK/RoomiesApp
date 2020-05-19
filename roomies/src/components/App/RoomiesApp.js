@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
 import "./app.scss";
 import { Redirect } from "react-router-dom";
-import { AuthContext } from "../auth/AuthContext";
+import { AuthContext } from "../auth/utils/AuthContext";
 
-export default function() {
+export default function () {
   const { isLoggedIn } = useContext(AuthContext);
+
+  console.log("Roomies app is called");
 
   return (
     <div>

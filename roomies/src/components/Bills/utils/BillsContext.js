@@ -1,11 +1,11 @@
 import React, { createContext } from "react";
-import useToggle from "../../hooks/useToggle";
-import useBillsState from "../../hooks/useBillsState";
+import useToggle from "../../../hooks/useToggle";
+import useBillsState from "./useBillsState";
 
 export const BillsContext = createContext();
 
 export function BillsProvider(props) {
-  const [data, billActions, requestStatus] = useBillsState();
+  const [{ bills, billActions, requestStatus }] = useBillsState();
   const [showAddBill, toggleAddBill] = useToggle(false);
   const [showAddPayment, toggleAddPayment] = useToggle(false);
 
@@ -22,10 +22,9 @@ export function BillsProvider(props) {
   };
 
   const getBillById = (billId) => {
-    const bill =
-      data && data.bills
-        ? data.bills.filter((bill) => bill._id === billId)
-        : undefined;
+    const bill = bills
+      ? bills.filter((bill) => bill._id === billId)
+      : undefined;
 
     return bill ? bill[0] : undefined;
   };
@@ -33,7 +32,7 @@ export function BillsProvider(props) {
   return (
     <BillsContext.Provider
       value={{
-        bills: data && data.bills ? data.bills : data,
+        bills,
         showAddBill: showAddBill,
         toggleAddBill: toggleAddBill,
 

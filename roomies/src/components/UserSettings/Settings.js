@@ -3,7 +3,7 @@ import "./settings.scss";
 import HouseCard from "./House/HouseCard";
 import SettingsProfile from "../Profile/SettingsProfile";
 import AddHousePop from "./House/AddHouse";
-import { HouseContext } from "./House/HouseContext";
+import { HouseContext } from "./House/utils/HouseContext";
 import AddTenantsPop from "./House/Tenants/AddTenantsPop";
 import CardWithLoader from "../GenericComponents/CardWithLoader";
 

@@ -1,7 +1,7 @@
 import React, { memo } from "react";
-import HomeFragment from "./HomeFragment";
-import HomeChoreItem from "../../Chores/HomeChoreItem";
-import useChoresState from "../../../hooks/useChoresState";
+import HomeFragment from "../Home/UserHome/HomeFragment";
+import HomeChoreItem from "./HomeChoreItem";
+import useChoresState from "./utils/useChoresState";
 
 // TODO: get USER'S last 5 chores by due date
 

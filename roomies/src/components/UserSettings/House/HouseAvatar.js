@@ -8,7 +8,7 @@ export default function HouseAvatar({ avatar, addAvatarToForm }) {
     { displayImg },
     handleSaveImage,
     handleDismissImage,
-    handleImageUpload
+    handleImageUpload,
   ] = useImageUploadState(avatar, "HOUSE");
 
   useEffect(() => {

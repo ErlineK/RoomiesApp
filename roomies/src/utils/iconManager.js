@@ -17,7 +17,7 @@ import {
 import { IoMdClose } from "react-icons/io";
 import { GoPlus, GoCalendar, GoMegaphone } from "react-icons/go";
 // import { GrDocumentTime } from "react-icons/gr";
-import { TiMessages, TiDeleteOutline } from "react-icons/ti";
+import { TiMessages } from "react-icons/ti";
 import { MdReplyAll, MdArrowBack } from "react-icons/md";
 import { AiFillFileAdd } from "react-icons/ai";
 import { RiTimerFlashLine } from "react-icons/ri";
@@ -97,13 +97,6 @@ function getIcon(iconName, classNames, onIconClick) {
       break;
 
     case "delete":
-      // iconObj = (
-      //   <TiDeleteOutline
-      //     className={classNames}
-      //     style={{ fontSize: "1.75rem" }}
-      //     onClick={onIconClick}
-      //   />
-      // );
       iconObj = <IoMdClose className={classNames} onClick={onIconClick} />;
       break;
 

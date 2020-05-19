@@ -3,7 +3,7 @@ import useInputState from "../../hooks/useInputState";
 import "./auth.scss";
 import { Link, useHistory } from "react-router-dom";
 import { MdArrowBack } from "react-icons/md";
-import { AuthContext } from "../auth/AuthContext";
+import { AuthContext } from "../auth/utils/AuthContext";
 import { BASE_URL } from "../../utils/AppParams";
 import CircleLoader from "../GenericComponents/Loader/CircleLoader";
 import axios from "axios";
@@ -34,7 +34,7 @@ function Registration() {
 
     axios
       .post(`${BASE_URL}/users`, { name, email, password })
-      .then(res => {
+      .then((res) => {
         console.log("Registered successfully");
         console.log(res);
         //  save user and token to context
@@ -43,7 +43,7 @@ function Registration() {
         // redirect home
         history.push("/CreateProfile");
       })
-      .catch(error => {
+      .catch((error) => {
         setLoading(false);
         console.log("Registration Error: ");
         console.log(error.response.data.error);
@@ -85,7 +85,7 @@ function Registration() {
     ""
   );
 
-  const doSubmit = event => {
+  const doSubmit = (event) => {
     //This will handle the form data
     console.log("register form submit");
     event.preventDefault();

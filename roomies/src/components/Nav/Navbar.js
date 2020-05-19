@@ -3,7 +3,7 @@ import "./side-nav.scss";
 import "./navbar.scss";
 import SideNav from "../Nav/SideNav";
 import TopNav from "./TopNav";
-import { AuthContext } from "../auth/AuthContext";
+import { AuthContext } from "../auth/utils/AuthContext";
 
 function Navbar() {
   const { isLoggedIn } = useContext(AuthContext);
@@ -13,19 +13,19 @@ function Navbar() {
     {
       title: "Profile Settings",
       icon: "userCog",
-      path: "Settings"
+      path: "Settings",
     },
     {
       title: "Notifications",
       icon: "notifications",
-      path: "/"
+      path: "UserHome",
     },
     {
       title: "Log Out",
       icon: "logout",
       path: "/",
-      logout: true
-    }
+      logout: true,
+    },
   ];
 
   const userSideNavItems = [
@@ -36,9 +36,9 @@ function Navbar() {
       title: "Household",
       path: "HouseList",
       icon: "household",
-      color: "green"
+      color: "green",
     },
-    { title: "Chat", path: "GroupChat", icon: "chat", color: "red-light" }
+    { title: "Chat", path: "GroupChat", icon: "chat", color: "red-light" },
   ];
 
   return isLoggedIn() ? (

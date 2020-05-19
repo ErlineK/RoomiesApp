@@ -1,21 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import CardWithLoader from "../GenericComponents/CardWithLoader";
-import useBalanceState from "../../hooks/useBalanceState";
 import { formatCurrency } from "../../utils/formatHelper";
-// import BalanceChart from "../GenericComponents/Charts/BalanceChart";
 import ColumnChart from "../GenericComponents/Charts/ColumnChart";
 import RoomiePieChart from "../GenericComponents/Charts/RoomiePieChart";
+import { BalanceContext, BalanceActionsContext } from "./utils/BalanceContext";
 
 export default function Balance() {
-  const [data, requestStatus, myBalance, isMyId] = useBalanceState();
-  const balance = data ? data.balance : data;
+  const { balance, requestStatus } = useContext(BalanceContext);
+  const balanceActions = useContext(BalanceActionsContext);
 
   const tenants =
     balance && balance.length > 0
       ? balance.map((roomie) => (
           <div key={roomie._id} className="balanceItem">
             <p className={`${roomie.totalBalance < 0 ? "red" : ""} underline`}>
-              {isMyId(roomie._id) ? "Me" : roomie.user}
+              {balanceActions.isMyId(roomie._id) ? "Me" : roomie.user}
             </p>
             <p className="balance-text">
               {" "}
@@ -27,7 +26,7 @@ export default function Balance() {
 
   const billsData = balance
     ? balance.map((roomie) => ({
-        name: isMyId(roomie._id) ? "Me" : roomie.user,
+        name: balanceActions.isMyId(roomie._id) ? "Me" : roomie.user,
         balance: roomie.totals.paidBills,
         even: roomie.totals.billsEven,
       }))
@@ -37,7 +36,9 @@ export default function Balance() {
 
   const rtDataTranferred = balance
     ? balance
-        .filter((r) => !isMyId(r._id) && r.totals.transfered > 0)
+        .filter(
+          (r) => !balanceActions.isMyId(r._id) && r.totals.transfered !== 0
+        )
         .map((roomie) => ({
           name: roomie.user,
           balance: Math.abs(roomie.totals.transfered),
@@ -47,7 +48,7 @@ export default function Balance() {
 
   const rtDataReceived = balance
     ? balance
-        .filter((r) => !isMyId(r._id) && r.totals.received > 0)
+        .filter((r) => !balanceActions.isMyId(r._id) && r.totals.received !== 0)
         .map((roomie) => ({
           name: roomie.user,
           balance: Math.abs(roomie.totals.received),
@@ -71,7 +72,10 @@ export default function Balance() {
             />
           )}
         </div>
-        <div className="flex-container flex-columns-holder billsHolder">
+        <div
+          className="flex-container flex-columns-holder billsHolder"
+          style={{ marginTop: "1rem" }}
+        >
           {rtDataReceived && rtDataReceived.length > 0 && (
             <RoomiePieChart
               title={"Roomie Transfers (To me)"}

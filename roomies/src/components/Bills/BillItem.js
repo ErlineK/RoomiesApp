@@ -7,10 +7,10 @@ import {
 } from "../../utils/formatHelper";
 import { getBackgroundByDue } from "../GenericComponents/listsHelper";
 import { getIcon } from "../../utils/iconManager";
-import { getIconByBillType } from "./billsHelper";
+import { getIconByBillType } from "./utils/billsHelper";
 import { Link } from "react-router-dom";
-import { BillsContext } from "./BillsContext";
-import { AuthContext } from "../auth/AuthContext";
+import { BillsContext } from "./utils/BillsContext";
+import { AuthContext } from "../auth/utils/AuthContext";
 import AcceptBtn from "../GenericComponents/Buttons/AcceptBtn";
 // import CommentItem from "../GenericComponents/Comment/CommentItem";
 // import CommentSection from "../GenericComponents/Comment/CommentSection";

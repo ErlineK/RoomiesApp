@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { formatDateOnly } from "../../../utils/formatHelper";
-import { getIconByAction } from "../../Bills/billsHelper";
+import { getIconByAction } from "../../Bills/utils/billsHelper";
 import "./comment.scss";
 import { getIcon } from "../../../utils/iconManager";
-import { AuthContext } from "../../auth/AuthContext";
+import { AuthContext } from "../../auth/utils/AuthContext";
 
 function CommentItem({ item }) {
   const { userId } = useContext(AuthContext);
