@@ -9,22 +9,20 @@ export default function Balance() {
   const { balance, requestStatus } = useContext(BalanceContext);
   const balanceActions = useContext(BalanceActionsContext);
 
-  const tenants =
-    balance && balance.length > 0
-      ? balance.map((roomie) => (
-          <div key={roomie._id} className="balanceItem">
-            <p className={`${roomie.totalBalance < 0 ? "red" : ""} underline`}>
-              {balanceActions.isMyId(roomie._id) ? "Me" : roomie.user}
-            </p>
-            <p className="balance-text">
-              {" "}
-              {formatCurrency(roomie.totalBalance)}
-            </p>
-          </div>
-        ))
-      : "";
+  const dataNotEmpty = balance && balance.length > 0;
 
-  const billsData = balance
+  const tenantsBalance = dataNotEmpty
+    ? balance.map((roomie) => (
+        <div key={roomie._id} className="balanceItem">
+          <p className={`${roomie.totalBalance < 0 ? "red" : ""} underline`}>
+            {balanceActions.isMyId(roomie._id) ? "Me" : roomie.user}
+          </p>
+          <p className="balance-text"> {formatCurrency(roomie.totalBalance)}</p>
+        </div>
+      ))
+    : "";
+
+  const billsData = dataNotEmpty
     ? balance.map((roomie) => ({
         name: balanceActions.isMyId(roomie._id) ? "Me" : roomie.user,
         balance: roomie.totals.paidBills,
@@ -32,9 +30,9 @@ export default function Balance() {
       }))
     : undefined;
 
-  const billsEven = balance ? balance[0].totals.billsEven : undefined;
+  const billsEven = dataNotEmpty ? balance[0].totals.billsEven : undefined;
 
-  const rtDataTranferred = balance
+  const rtDataTranferred = dataNotEmpty
     ? balance
         .filter(
           (r) => !balanceActions.isMyId(r._id) && r.totals.transfered !== 0
@@ -46,7 +44,7 @@ export default function Balance() {
         }))
     : undefined;
 
-  const rtDataReceived = balance
+  const rtDataReceived = dataNotEmpty
     ? balance
         .filter((r) => !balanceActions.isMyId(r._id) && r.totals.received !== 0)
         .map((roomie) => ({
@@ -60,7 +58,7 @@ export default function Balance() {
     <CardWithLoader loading={requestStatus.isLoading}>
       <h4>Roomies Balance</h4>
       <div className="billsHolder listContainer">
-        <div className="flex-container flex-around  ">{tenants}</div>
+        <div className="flex-container flex-around  ">{tenantsBalance}</div>
       </div>
       <div className="billsHolder listContainer">
         <div className="centerRsp">

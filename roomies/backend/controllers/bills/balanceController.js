@@ -109,7 +109,7 @@ function getTransfersForUser(me, transfers, iUserId) {
     }
   }
 
-  // totalTransfered = me ? 0 - totalTransfered : totalTransfered;
+  totalTransfered = me ? 0 - totalTransfered : totalTransfered;
 
   return totalTransfered;
 }

@@ -6,13 +6,14 @@ import useImageUploadState from "../../../hooks/useImageUploadState";
 export default function HouseAvatar({ avatar, addAvatarToForm }) {
   const [
     { displayImg },
-    handleSaveImage,
+    undefined,
     handleDismissImage,
     handleImageUpload,
   ] = useImageUploadState(avatar, "HOUSE");
 
   useEffect(() => {
     addAvatarToForm(displayImg);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [displayImg]);
 
   const uploadButton = (

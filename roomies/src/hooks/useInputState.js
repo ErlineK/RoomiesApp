@@ -37,6 +37,5 @@ export default (initialVal, valueType) => {
     return valid;
   };
 
-  // return [value, handleChange, setValue, reset, validate, errorMsg];
   return [value, handleChange, validate, errorMsg, reset];
 };

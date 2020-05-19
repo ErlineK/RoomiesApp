@@ -60,6 +60,7 @@ export default ({ reqUri, reqType, reqData }, initData) => {
     return () => {
       didCancel = true;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [requst]);
 
   return [state, setRequest];

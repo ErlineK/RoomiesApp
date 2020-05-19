@@ -14,12 +14,13 @@ export default () => {
         reqData: {},
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const balanceNotEnpty = data && data.balance && data.balance.length > 0;
 
   const isMyId = (idToTest) => {
-    return idToTest === user._id;
+    return user && idToTest === user._id;
   };
 
   const getMyBalance = () => {

@@ -1,11 +1,10 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext } from "react";
 import useChoresState from "./useChoresState";
 
 export const ChoresContext = createContext();
 export const ChoresActionsContext = createContext();
 
 export function ChoresProvider(props) {
-  //   const [choresState, choresDispatch] = useReducer(choresReducer, defaultData);
   const [{ data, choresActions, requestStatus }] = useChoresState();
 
   return (

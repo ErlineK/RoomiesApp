@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import CircleLoader from "./Loader/CircleLoader";
+import { Redirect } from "react-router-dom";
+import { AuthContext } from "../auth/utils/AuthContext";
 
 export default function CardWithLoader(props, { loading }) {
+  const { isLoggedIn } = useContext(AuthContext);
   return (
-    <div className="card user-main">
-      <div className="floatingLoaderHolder">{loading && <CircleLoader />}</div>
-      {props.children}
-    </div>
+    <>
+      {isLoggedIn() ? (
+        <div className="card user-main">
+          <div className="floatingLoaderHolder">
+            {loading && <CircleLoader />}
+          </div>
+          {props.children}
+        </div>
+      ) : (
+        <Redirect to="/" />
+      )}
+    </>
   );
 }

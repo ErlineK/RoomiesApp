@@ -17,6 +17,7 @@ export default () => {
         reqData: {},
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId(), setRequest]);
 
   useEffect(() => {
@@ -26,6 +27,7 @@ export default () => {
       getUserData();
       toggleAcceptingINV();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, acceptingINV, getUserData, toggleAcceptingINV]);
 
   const acceptINV = async (ntfId) => {

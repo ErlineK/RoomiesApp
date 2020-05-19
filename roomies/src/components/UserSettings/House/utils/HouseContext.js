@@ -36,6 +36,7 @@ export function HouseProvider(props) {
           setLoading(false);
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const setHouses = (houses) => {
