@@ -24,9 +24,11 @@ export function AuthProvider(props) {
   };
 
   const logoutUser = () => {
-    console.log("logging out user in Auth Context");
-    setToken(undefined);
+    /* Important! do not change order to avoid redundant calls to services */
     setUser(undefined);
+    setToken(undefined);
+
+    console.log("logging out user in Auth Context");
   };
 
   const getUserData = () => {
@@ -54,8 +56,6 @@ export function AuthProvider(props) {
         requestHeader
       )
       .then((res) => {
-        // console.log("Getting user data:");
-        // console.log(res);
         // save user
         setUser(res.data.user);
       })
@@ -65,11 +65,11 @@ export function AuthProvider(props) {
   };
 
   const userId = () => {
-    return user ? user._id : "";
+    return user && user !== undefined ? user._id : undefined;
   };
 
   const activeHouseId = () => {
-    return user ? user.active_house : "";
+    return user ? user.active_house : undefined;
   };
 
   const requestHeader = {
@@ -87,7 +87,7 @@ export function AuthProvider(props) {
         logoutUser: logoutUser,
         isLoggedIn: isLoggedIn,
 
-        userId: userId(),
+        userId: userId,
         activeHouseId: activeHouseId(),
         getUserData: getUserData,
 

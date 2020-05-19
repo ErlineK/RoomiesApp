@@ -82,10 +82,13 @@ export default function CreateProfile() {
 
   return (
     <div>
-      <div className="homeContainer guestBackground">
+      <div className="homeContainer">
         <div className="from-container">
-          <h4>{`Hi! ${user.name}! Welcome home`}</h4>
-          <p> Would you like share few details with your roomies?</p>
+          <h4 className="textLight">{`Hi! ${user.name}! Welcome home`}</h4>
+          <p className="textLight">
+            {" "}
+            Would you like share few details with your roomies?
+          </p>
 
           <form className="card" onSubmit={doSubmit}>
             {serverError}

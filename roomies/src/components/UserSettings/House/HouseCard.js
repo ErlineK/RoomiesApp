@@ -31,7 +31,7 @@ export default function HouseCard({ house }) {
   const tenants =
     house && house.house_tenants
       ? house.house_tenants.map((tenant) =>
-          userId === tenant._id ? (
+          userId() === tenant._id ? (
             ""
           ) : (
             <li
@@ -56,7 +56,9 @@ export default function HouseCard({ house }) {
   const houseActive = house && house._id === activeHouseId;
   const houseApproved =
     house &&
-    (house.admin === userId || houseActive || isTenantApproved(house, userId));
+    (house.admin === userId ||
+      houseActive ||
+      isTenantApproved(house, userId()));
 
   return (
     <div
@@ -106,7 +108,7 @@ export default function HouseCard({ house }) {
               <li>
                 You
                 <span className="small-note success">
-                  {house.admin === userId ? "admin" : ""}
+                  {house.admin === userId() ? "admin" : ""}
                 </span>
               </li>
               {tenants}

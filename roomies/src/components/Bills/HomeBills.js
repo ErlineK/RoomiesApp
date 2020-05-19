@@ -10,8 +10,6 @@ import {
 export default function HomeBills() {
   const { bills, requestStatus } = useContext(BillsContext);
 
-  console.log("Home bills is called");
-
   const homeBills =
     bills && bills.length > 0
       ? bills

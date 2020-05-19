@@ -48,6 +48,7 @@ exports.getNotificationsForUser = async (req, res) => {
       .populate({
         path: "ntf_bill",
         select: "bill_type total_amount start_date end_date payments",
+        populate: { path: "payments" },
       })
       .sort({ added_date: -1 });
 
@@ -156,6 +157,7 @@ exports.createNtfNotificationBill = async (houseId, billId) => {
       type: "NTF",
       ntf_house: houseId,
       ntf_bill: billId,
+      ntf_type: "bill",
     });
 
     return newNtfNotification;

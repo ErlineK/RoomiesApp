@@ -141,7 +141,7 @@ function AddBillPop() {
 
   // get only other roomies
   const roomieOptions = houseTenants
-    .filter((tenant) => tenant._id !== userId)
+    .filter((tenant) => tenant._id !== userId())
     .map((roomie) => (
       <option key={roomie.name} value={roomie.name}>
         {roomie.name}

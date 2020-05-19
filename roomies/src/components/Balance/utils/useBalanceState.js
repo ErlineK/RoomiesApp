@@ -7,7 +7,7 @@ export default () => {
   const [{ data, isLoading, isError }, setRequest] = useGetData({}, {});
 
   useEffect(() => {
-    if (user && user._id !== "") {
+    if (user && user._id !== "" && user.active_house) {
       setRequest({
         url: `bills/balance/${user.active_house}/${user._id}`,
         reqType: "get",

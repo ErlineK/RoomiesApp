@@ -49,7 +49,7 @@ export default (initImage, imgSource) => {
 
     const uploadData =
       imgSource === "USER"
-        ? { userId: userId, avatar: imgState.displayImg }
+        ? { userId: userId(), avatar: imgState.displayImg }
         : "";
 
     axios

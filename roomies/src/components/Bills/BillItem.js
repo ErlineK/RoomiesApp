@@ -28,7 +28,7 @@ function BillItem({ item, type }) {
   const { removeBill, acceptRoomieTransfer } = useContext(BillsContext);
 
   const isRoomieTransfer = checkRoomieTransfer(item);
-  const fromMe = checkRtFromMe(item, userId);
+  const fromMe = checkRtFromMe(item, userId());
   const paymentAccepted = checkRoomieTransferAccepted(item);
 
   const handleAcceptPayment = (e) => {

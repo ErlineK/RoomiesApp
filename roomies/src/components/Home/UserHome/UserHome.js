@@ -13,8 +13,6 @@ import { AuthContext } from "../../auth/utils/AuthContext";
 function UserHome() {
   const { isLoggedIn, user, activeHouseId } = useContext(AuthContext);
 
-  console.log("UserHomr is called");
-
   return (
     <>
       {isLoggedIn() ? (
@@ -32,9 +30,13 @@ function UserHome() {
             <div className="card" style={{ margin: "0.1rem" }}>
               <div className="homePersonalContainer">
                 <h2 className="homeMainTitle">Hi {user ? user.name : ""}! </h2>
+
                 <Link className="secondary-link" to="/Settings">
                   Would you like to open a new Roomies house?
                 </Link>
+                <p className="comment" style={{ textAlign: "center" }}>
+                  (Or ask a Roomie to invite you)
+                </p>
               </div>
             </div>
           )}

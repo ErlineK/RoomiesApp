@@ -59,7 +59,7 @@ export default function PaymentItem({ item, action }) {
           <span style={{ marginLeft: "0.5rem" }}>
             {" "}
             {item &&
-              item.from_user._id === userId &&
+              item.from_user._id === userId() &&
               getIcon(
                 "delete",
                 "Remove payment",

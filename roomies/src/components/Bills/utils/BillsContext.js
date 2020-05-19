@@ -9,8 +9,6 @@ export function BillsProvider(props) {
   const [showAddBill, toggleAddBill] = useToggle(false);
   const [showAddPayment, toggleAddPayment] = useToggle(false);
 
-  console.log("bills context is called");
-
   const addBill = async (bill) => {
     await billActions.addBill(bill);
     toggleAddBill();
@@ -45,17 +43,9 @@ export function BillsProvider(props) {
         showAddBill: showAddBill,
         toggleAddBill: toggleAddBill,
 
-        // addBill: addBill,
-        // editBill: billActions.editBill,
-        // removeBill: billActions.removeBill,
-        // // getAllBills: billActions.getAllBills,
-        // acceptRoomieTransfer: billActions.acceptBill,
-        // getBillById: getBillById,
-
         showAddPayment: showAddPayment,
         toggleAddPayment: toggleAddPayment,
-        // addBillPayment: addPayment,
-        // removePayment: billActions.removePayment,
+
         requestStatus: requestStatus,
       }}
     >

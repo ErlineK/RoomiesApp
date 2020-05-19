@@ -6,9 +6,9 @@ import { AuthProvider } from "../auth/utils/AuthContext";
 import { HouseProvider } from "../UserSettings/House/utils/HouseContext";
 import Navbar from "../Nav/Navbar";
 import { BillsProvider } from "../Bills/utils/BillsContext";
-
 import { BalanceProvider } from "../Balance/utils/BalanceContext";
 import { NotificationsProvider } from "../Messages/utils/NotificationsContext";
+import { ChoresProvider } from "../Chores/utils/ChoresContext";
 
 class App extends Component {
   render() {
@@ -20,8 +20,10 @@ class App extends Component {
               <Navbar />
               <BalanceProvider>
                 <BillsProvider>
-                  <RoomiesApp />
-                  <AppRouter />
+                  <ChoresProvider>
+                    <RoomiesApp />
+                    <AppRouter />
+                  </ChoresProvider>
                 </BillsProvider>
               </BalanceProvider>
             </NotificationsProvider>

@@ -13,7 +13,7 @@ export default (mode) => {
     {
       reqUri: `chores/${houseId}`,
       reqType: "get",
-      reqData: { leader: userId },
+      reqData: { leader: userId() },
     },
     {}
   );
@@ -24,7 +24,7 @@ export default (mode) => {
       setRequest({
         reqUri: `${houseId}`,
         reqType: "get",
-        reqData: { leader: userId },
+        reqData: { leader: userId() },
       });
     } else {
       setRequest({
@@ -88,5 +88,5 @@ export default (mode) => {
   // const requestStatus = [isLoading, isError];
   const requestStatus = { isLoading: isLoading, isError: isError };
 
-  return [data, choresActions, requestStatus];
+  return [{ data, choresActions, requestStatus }];
 };

@@ -7,23 +7,19 @@ export default () => {
   const [{ data, isLoading, isError }, setRequest] = useGetData({}, {});
 
   useEffect(() => {
-    if (userId && activeHouseId) {
-      getAllBills();
+    if (userId() && activeHouseId) {
+      setRequest({
+        url: `bills/${activeHouseId}/${userId()}`,
+        reqType: "get",
+        reqData: null,
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userId, activeHouseId]);
-
-  const getAllBills = () => {
-    setRequest({
-      url: `bills/${activeHouseId}/${userId}`,
-      reqType: "get",
-      reqData: null,
-    });
-  };
+  }, [userId(), activeHouseId]);
 
   const addBill = async (bill) => {
     await setRequest({
-      url: `bills/${activeHouseId}/${userId}`,
+      url: `bills/${activeHouseId}/${userId()}`,
       reqType: "post",
       reqData: bill,
     });
@@ -36,7 +32,7 @@ export default () => {
       billId: billId,
     };
     await setRequest({
-      url: `bills/${activeHouseId}/${userId}`,
+      url: `bills/${activeHouseId}/${userId()}`,
       reqType: "patch",
       reqData: reqBill,
     });
@@ -44,7 +40,7 @@ export default () => {
 
   const acceptBill = async (billId) => {
     await setRequest({
-      url: `bills/accept/${activeHouseId}/${userId}`,
+      url: `bills/accept/${activeHouseId}/${userId()}`,
       reqType: "patch",
       reqData: { billId: billId },
     });
@@ -56,10 +52,10 @@ export default () => {
     const newPayemnt = {
       ...payment,
       house_ref: activeHouseId,
-      from_user: userId,
+      from_user: userId(),
     };
     setRequest({
-      url: `bills/payment/${billId}/${userId}`,
+      url: `bills/payment/${billId}/${userId()}`,
       reqType: "post",
       reqData: newPayemnt,
     });
@@ -67,14 +63,14 @@ export default () => {
 
   const removeBill = (billId) => {
     setRequest({
-      url: `bills/bill/${billId}/${userId}`,
+      url: `bills/bill/${billId}/${userId()}`,
       reqType: "delete",
     });
   };
 
   const removePayment = (paymentId) => {
     setRequest({
-      url: `bills/payment/${paymentId}/${userId}`,
+      url: `bills/payment/${paymentId}/${userId()}`,
       reqType: "delete",
     });
   };
@@ -83,7 +79,7 @@ export default () => {
     addBill: addBill,
     editBill: editBill,
     removeBill: removeBill,
-    getAllBills: getAllBills,
+    // getAllBills: getAllBills,
     acceptBill: acceptBill,
     addBillPayment: addBillPayment,
     removePayment: removePayment,

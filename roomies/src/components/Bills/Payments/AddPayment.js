@@ -7,7 +7,7 @@ import { formatInputDate } from "../../../utils/formatHelper";
 import CustomInput from "../../GenericComponents/CustomInput";
 
 function AddPayment({ bill }) {
-  const { toggleAddPayment, addBillPayment, requestStatus } = useContext(
+  const { billActs, toggleAddPayment, requestStatus } = useContext(
     BillsContext
   );
 
@@ -46,7 +46,7 @@ function AddPayment({ bill }) {
       comment: comment,
     };
 
-    addBillPayment(payment, bill._id);
+    billActs.addBillPayment(payment, bill._id);
   };
 
   //  Validate name exist and not empty

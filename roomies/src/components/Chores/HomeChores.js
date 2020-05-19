@@ -1,21 +1,19 @@
-import React, { memo } from "react";
+import React, { memo, useContext } from "react";
 import HomeFragment from "../Home/UserHome/HomeFragment";
 import HomeChoreItem from "./HomeChoreItem";
-import useChoresState from "./utils/useChoresState";
+import { ChoresContext, ChoresActionsContext } from "./utils/ChoresContext";
 
 // TODO: get USER'S last 5 chores by due date
 
 function HomeChores() {
-  const [chores, choresActions, requestStatus] = useChoresState({}, "HOME");
+  const chores = useContext(ChoresContext);
+  const { requestStatus } = useContext(ChoresActionsContext);
 
   const choreItems =
     chores !== undefined && Object.entries(chores).length > 0
       ? chores.map((chore) => (
           <div key={`holder${chore._id}`}>
-            <HomeChoreItem
-              item={chore}
-              toggleChore={choresActions.toggleChore}
-            />
+            <HomeChoreItem item={chore} />
           </div>
         ))
       : "";

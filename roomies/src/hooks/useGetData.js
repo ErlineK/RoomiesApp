@@ -60,7 +60,7 @@ export default ({ reqUri, reqType, reqData }, initData) => {
     return () => {
       didCancel = true;
     };
-  }, [requst, requestHeader]);
+  }, [requst]);
 
   return [state, setRequest];
 };

@@ -33,7 +33,7 @@ function CommentItem({ item }) {
             </p>
           </div>
         </div>
-        {item.author._id === userId &&
+        {item.author._id === userId() &&
           getIcon(
             "delete",
             "Remove comment",
