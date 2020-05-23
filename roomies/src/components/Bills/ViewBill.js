@@ -1,7 +1,10 @@
 import React, { useContext } from "react";
 import "./bills.scss";
-import { getIcon } from "../../utils/iconManager";
-import { formatDayMonth, formatDateOnly } from "../../utils/formatHelper";
+import { getIcon } from "../../general/utils/iconManager";
+import {
+  formatDayMonth,
+  formatDateOnly,
+} from "../../general/utils/formatHelper";
 import { BillsContext } from "./utils/BillsContext";
 import AddPayment from "./Payments/AddPayment";
 import EditableDataItem from "../GenericComponents/EditableDataItem/EditableDataItem";

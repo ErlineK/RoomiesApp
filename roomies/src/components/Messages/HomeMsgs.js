@@ -1,11 +1,9 @@
 import React, { useContext, memo } from "react";
 import HomeFragment from "../Home/UserHome/HomeFragment";
-import {
-  InvitationMsgItem,
-  NofiticationMsgItem,
-  GeneralMsgItem,
-  ApprovalMsgItem,
-} from "./msgComponents";
+import GeneralMsgItem from "./GeneralMsgItem";
+import InvitationMsgItem from "./InvitationMsgItem";
+import NofiticationMsgItem from "./NofiticationMsgItem";
+import ApprovalMsgItem from "./ApprovalMsgItem";
 import {
   NotificationsContext,
   NtfStatusContext,

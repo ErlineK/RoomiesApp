@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
-import useInputState from "../../hooks/useInputState";
+import useInputState from "../../general/hooks/useInputState";
 // import "../auth/auth.scss";
-import "../GenericComponents/ui/forms.scss";
+import "../../general/ui/forms.scss";
 import PopUpCard from "../GenericComponents/PopUpCard";
 import { BillsContext } from "./utils/BillsContext";
-import { BILL_TYPES } from "../../utils/AppParams";
+import { BILL_TYPES } from "../../general/utils/AppParams";
 import CircleLoader from "../GenericComponents/Loader/CircleLoader";
-import { formatInputDate } from "../../utils/formatHelper";
+import { formatInputDate } from "../../general/utils/formatHelper";
 import CustomInput from "../GenericComponents/CustomInput";
 import { HouseContext } from "../UserSettings/House/utils/HouseContext";
 import { AuthContext } from "../auth/utils/AuthContext";

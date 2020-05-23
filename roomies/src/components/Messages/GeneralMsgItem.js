@@ -1,6 +1,6 @@
 import React from "react";
-import { getIcon } from "../../utils/iconManager";
-import { formatDate } from "../../utils/formatHelper";
+import { getIcon } from "../../general/utils/iconManager";
+import { formatDate } from "../../general/utils/formatHelper";
 
 // TODO: on reply button click -> open quick reply module
 

@@ -5,6 +5,7 @@ import { BillsContext } from "./utils/BillsContext";
 import {
   checkBillFullyPaid,
   checkRoomieTransferAccepted,
+  checkRoomieTransfer,
 } from "./utils/billsHelper";
 
 export default function HomeBills() {
@@ -20,8 +21,9 @@ export default function HomeBills() {
             );
           })
           .reverse()
-          .sort((b) => (checkBillFullyPaid(b) ? -1 : 1))
-          .sort((b) => (checkRoomieTransferAccepted(b) ? 1 : -1))
+          .sort((b) =>
+            checkBillFullyPaid(b) && !checkRoomieTransfer(b) ? 1 : -1
+          )
           .slice(0, 5)
       : bills;
 

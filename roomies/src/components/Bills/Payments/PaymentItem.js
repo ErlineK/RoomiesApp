@@ -1,9 +1,12 @@
 import React, { useContext } from "react";
-import { formatDateOnly, formatCurrency } from "../../../utils/formatHelper";
-import "../../GenericComponents/ui/generic_list.scss";
+import {
+  formatDateOnly,
+  formatCurrency,
+} from "../../../general/utils/formatHelper";
+import "../../../general/ui/generic_list.scss";
 import { getIconByAction } from "../utils/billsHelper";
-import "../../GenericComponents/ui/icons.scss";
-import { getIcon } from "../../../utils/iconManager";
+import "../../../general/ui/icons.scss";
+import { getIcon } from "../../../general/utils/iconManager";
 import { AuthContext } from "../../auth/utils/AuthContext";
 import { BillsContext } from "../utils/BillsContext";
 

@@ -1,6 +1,6 @@
 import React, { memo, useContext } from "react";
 import HomeFragment from "../Home/UserHome/HomeFragment";
-import { formatCurrency } from "../../utils/formatHelper";
+import { formatCurrency } from "../../general/utils/formatHelper";
 import { BalanceContext, BalanceActionsContext } from "./utils/BalanceContext";
 
 function HomeBalance() {

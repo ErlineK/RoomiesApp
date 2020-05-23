@@ -9,7 +9,7 @@ import {
   Tooltip,
   LabelList,
 } from "recharts";
-import { formatCurrency } from "../../../utils/formatHelper";
+import { formatCurrency } from "../../../general/utils/formatHelper";
 
 export default function ColumnChart({ title, data, even }) {
   const formatter = (value) => formatCurrency(value);

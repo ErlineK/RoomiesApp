@@ -1,7 +1,7 @@
 import { useContext, useEffect } from "react";
-import useGetData from "../../../hooks/useGetData";
+import useGetData from "../../../general/hooks/useGetData";
 import { AuthContext } from "../../auth/utils/AuthContext";
-import useToggle from "../../../hooks/useToggle";
+import useToggle from "../../../general/hooks/useToggle";
 
 export default () => {
   const { userId, getUserData } = useContext(AuthContext);

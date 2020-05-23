@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import axios from "axios";
-import useGetData from "../../../hooks/useGetData";
+import useGetData from "../../../general/hooks/useGetData";
 import { AuthContext } from "../../auth/utils/AuthContext";
 
 const BASE_URI_CHORES = "http://localhost:5000/api/chores";

@@ -1,4 +1,4 @@
-@import "../GenericComponents/ui/ui_consts.scss";
+@import "../../general/ui/ui_consts.scss";
 @import "./navbar.scss";
 
 .snHolder {
@@ -143,48 +143,7 @@
         color: transparent;
         transition: width 0.75s ease-out, color 0.5s ease-out;
       }
-
-      // &:hover {
-      //   background-color: rgba($color: $accent-dark, $alpha: 0.5);
-      //   color: white;
-
-      //   .snTitle {
-      //     color: white;
-      //   }
-      // }
-
-      // &:active {
-      //   color: $primary-color;
-      //   .snTitle {
-      //     color: $primary-color;
-      //   }
-      // }
     }
-
-    // .sn-link-active {
-    //   background-color: rgba($color: $orange-color, $alpha: 0.5);
-    //   color: $primary-color-dark;
-
-    //   &.active-orange {
-    //     color: $primary-color-dark;
-    //   }
-
-    //   &.active-red {
-    //     color: $accent-red;
-    //   }
-
-    //   &.active-green {
-    //     color: $accent-green;
-    //   }
-
-    //   &.active-blue {
-    //     color: $accent-blue;
-    //   }
-
-    //   &.active-red-light {
-    //     color: $accent-red-light;
-    //   }
-    // }
 
     &:hover {
       .snTitle {

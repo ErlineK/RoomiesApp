@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import "./profile.scss";
 import "../auth/auth.scss";
 import EditableDataItem from "../GenericComponents/EditableDataItem/EditableDataItem";
-import { formatInputDate } from "../../utils/formatHelper";
+import { formatInputDate } from "../../general/utils/formatHelper";
 import UserAvatarSettings from "./UserAvatarSettings";
 import { AuthContext } from "../auth/utils/AuthContext";
 

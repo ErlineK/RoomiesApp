@@ -1,5 +1,5 @@
 import { useContext, useEffect } from "react";
-import useGetData from "../../../hooks/useGetData";
+import useGetData from "../../../general/hooks/useGetData";
 import { AuthContext } from "../../auth/utils/AuthContext";
 
 export default () => {

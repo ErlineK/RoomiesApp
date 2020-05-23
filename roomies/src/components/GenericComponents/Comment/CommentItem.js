@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { formatDateOnly } from "../../../utils/formatHelper";
+import { formatDateOnly } from "../../../general/utils/formatHelper";
 import { getIconByAction } from "../../Bills/utils/billsHelper";
 import "./comment.scss";
-import { getIcon } from "../../../utils/iconManager";
+import { getIcon } from "../../../general/utils/iconManager";
 import { AuthContext } from "../../auth/utils/AuthContext";
 
 function CommentItem({ item }) {

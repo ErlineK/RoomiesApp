@@ -1,8 +1,8 @@
 import React from "react";
 import "./profile.scss";
-import { getIcon } from "../../utils/iconManager";
+import { getIcon } from "../../general/utils/iconManager";
 import CircleLoader from "../GenericComponents/Loader/CircleLoader";
-import useImageUploadState from "../../hooks/useImageUploadState";
+import useImageUploadState from "../../general/hooks/useImageUploadState";
 
 // TODO: handle error message
 

@@ -4,9 +4,9 @@ import {
   formatCurrency,
   formatDateOnly,
   formatDayMonth,
-} from "../../utils/formatHelper";
+} from "../../general/utils/formatHelper";
 import { getBackgroundByDue } from "../GenericComponents/listsHelper";
-import { getIcon } from "../../utils/iconManager";
+import { getIcon } from "../../general/utils/iconManager";
 import {
   getIconByBillType,
   checkRoomieTransfer,

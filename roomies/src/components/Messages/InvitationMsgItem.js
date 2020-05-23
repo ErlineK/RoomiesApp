@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { FaCheck } from "react-icons/fa";
 
-import { formatDateOnly } from "../../utils/formatHelper";
-import { getIcon } from "../../utils/iconManager";
+import { formatDateOnly } from "../../general/utils/formatHelper";
+import { getIcon } from "../../general/utils/iconManager";
 import { NtfActionsContext } from "./utils/NotificationsContext";
 
 function InvitationMsgItem({ item }) {

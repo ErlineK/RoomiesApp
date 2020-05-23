@@ -1,6 +1,6 @@
 import React from "react";
-import { formatDate } from "../../utils/formatHelper";
-import { getIcon } from "../../utils/iconManager";
+import { formatDate } from "../../general/utils/formatHelper";
+import { getIcon } from "../../general/utils/iconManager";
 
 /**
  * types of notifications:

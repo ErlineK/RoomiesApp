@@ -1,5 +1,5 @@
 import React from "react";
-import { getIcon } from "../../../utils/iconManager";
+import { getIcon } from "../../../general/utils/iconManager";
 
 export default function AcceptBtn({ onClick }) {
   return (

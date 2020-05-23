@@ -1,10 +1,10 @@
 import React, { useContext, useState } from "react";
-import useInputState from "../../hooks/useInputState";
+import useInputState from "../../general/hooks/useInputState";
 import "./auth.scss";
 import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../auth/utils/AuthContext";
 import { MdArrowBack } from "react-icons/md";
-import { BASE_URL } from "../../utils/AppParams";
+import { BASE_URL } from "../../general/utils/AppParams";
 import CircleLoader from "../GenericComponents/Loader/CircleLoader";
 import axios from "axios";
 

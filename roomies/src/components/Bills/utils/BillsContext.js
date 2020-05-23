@@ -1,5 +1,5 @@
 import React, { createContext } from "react";
-import useToggle from "../../../hooks/useToggle";
+import useToggle from "../../../general/hooks/useToggle";
 import useBillsState from "./useBillsState";
 
 export const BillsContext = createContext();

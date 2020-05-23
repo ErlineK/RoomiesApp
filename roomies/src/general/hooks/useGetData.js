@@ -2,7 +2,7 @@ import { useReducer, useState, useEffect, useContext } from "react";
 import axios from "axios";
 import dataFetchReducer from "../reducers/dataFetch.reducer";
 import { BASE_URL } from "../utils/AppParams";
-import { AuthContext } from "../components/auth/utils/AuthContext";
+import { AuthContext } from "../../components/auth/utils/AuthContext";
 
 export default ({ reqUri, reqType, reqData }, initData) => {
   const { requestHeader } = useContext(AuthContext);

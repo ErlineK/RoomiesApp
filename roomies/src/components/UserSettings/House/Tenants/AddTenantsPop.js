@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import useInputState from "../../../../hooks/useInputState";
+import useInputState from "../../../../general/hooks/useInputState";
 import "../../../auth/auth.scss";
 import PopUpCard from "../../../GenericComponents/PopUpCard";
 import { HouseContext } from "../utils/HouseContext";

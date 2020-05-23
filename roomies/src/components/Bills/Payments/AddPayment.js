@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
-import useInputState from "../../../hooks/useInputState";
+import useInputState from "../../../general/hooks/useInputState";
 import PopUpCard from "../../GenericComponents/PopUpCard";
 import { BillsContext } from "../utils/BillsContext";
 import CircleLoader from "../../GenericComponents/Loader/CircleLoader";
-import { formatInputDate } from "../../../utils/formatHelper";
+import { formatInputDate } from "../../../general/utils/formatHelper";
 import CustomInput from "../../GenericComponents/CustomInput";
 
 function AddPayment({ bill }) {

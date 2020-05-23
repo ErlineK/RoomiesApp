@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import CardWithLoader from "../GenericComponents/CardWithLoader";
-import { formatCurrency } from "../../utils/formatHelper";
+import { formatCurrency } from "../../general/utils/formatHelper";
 import ColumnChart from "../GenericComponents/Charts/ColumnChart";
 import RoomiePieChart from "../GenericComponents/Charts/RoomiePieChart";
 import { BalanceContext, BalanceActionsContext } from "./utils/BalanceContext";

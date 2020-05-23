@@ -21,9 +21,6 @@ exports.getUserBalance = async (req, res) => {
       req.params.userId
     );
 
-    // console.log("got user balance sums:");
-    // console.log(roomieTransSums);
-
     // calculate base bills break-even
     const billsNotEmpty =
       roomieTransSums.billSums && roomieTransSums.billSums.length > 0;
@@ -32,15 +29,6 @@ exports.getUserBalance = async (req, res) => {
       ? roomieTransSums.billSums.map((p) => p.total).reduce((a, b) => a + b, 0)
       : 0;
     const billsEven = billsPaidTotal / numRoomies;
-
-    // console.log(
-    //   "numRoomies: " +
-    //     numRoomies +
-    //     " billsPaidTotal: " +
-    //     billsPaidTotal +
-    //     " billsEven: " +
-    //     billsEven
-    // );
 
     // calculate individual balance for each user
     let userBalances = roomieTransSums.billSums;

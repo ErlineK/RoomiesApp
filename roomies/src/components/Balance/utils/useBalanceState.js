@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
-import useGetData from "../../../hooks/useGetData";
 import { AuthContext } from "../../auth/utils/AuthContext";
+import useGetData from "../../../general/hooks/useGetData";
 
 export default () => {
   const { user } = useContext(AuthContext);
@@ -32,7 +32,6 @@ export default () => {
     return myBalance;
   };
 
-  // const requestStatus = [isLoading, isError];
   const requestStatus = { isLoading: isLoading, isError: isError };
   const balanceActions = { getMyBalance: getMyBalance, isMyId: isMyId };
 

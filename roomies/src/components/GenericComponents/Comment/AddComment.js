@@ -1,8 +1,8 @@
 import "./comment.scss";
 import React from "react";
-import useToggle from "../../../hooks/useToggle";
-import useInputState from "../../../hooks/useInputState";
-import { getIcon } from "../../../utils/iconManager";
+import useToggle from "../../../general/hooks/useToggle";
+import useInputState from "../../../general/hooks/useInputState";
+import { getIcon } from "../../../general/utils/iconManager";
 
 // TODO: handle comment after edit bill
 

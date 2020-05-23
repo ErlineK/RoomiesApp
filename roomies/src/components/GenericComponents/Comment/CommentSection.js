@@ -1,7 +1,4 @@
 import React from "react";
-import useToggle from "../../../hooks/useToggle";
-import { getIcon } from "../../../utils/iconManager";
-// import "./comment.scss";
 import CommentItem from "./CommentItem";
 
 function CommentSection({ comments, type }) {

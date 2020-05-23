@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import "./house.scss";
-import { getIcon } from "../../../utils/iconManager";
+import { getIcon } from "../../../general/utils/iconManager";
 import { AuthContext } from "../../auth/utils/AuthContext";
 import { HouseContext } from "./utils/HouseContext";
 import { isTenantApproved } from "./utils/houseHelper";

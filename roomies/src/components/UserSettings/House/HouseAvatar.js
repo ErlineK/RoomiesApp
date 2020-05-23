@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "../../Profile/profile.scss";
 import "./house.scss";
-import useImageUploadState from "../../../hooks/useImageUploadState";
+import useImageUploadState from "../../../general/hooks/useImageUploadState";
 
 export default function HouseAvatar({ avatar, addAvatarToForm }) {
   const [

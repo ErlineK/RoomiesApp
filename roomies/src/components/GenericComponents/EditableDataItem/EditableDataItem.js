@@ -1,10 +1,10 @@
 import React from "react";
 import "./editableDataItem.scss";
-import "../../GenericComponents/ui/icons.scss";
-import useToggle from "../../../hooks/useToggle";
-import useInputState from "../../../hooks/useInputState";
-import { getIcon } from "../../../utils/iconManager";
-import { formatInputDate } from "../../../utils/formatHelper";
+import "../../../general/ui/icons.scss";
+import useInputState from "../../../general/hooks/useInputState";
+import { getIcon } from "../../../general/utils/iconManager";
+import { formatInputDate } from "../../../general/utils/formatHelper";
+import useToggle from "../../../general/hooks/useToggle";
 
 export default function EditableDataItem({ item, handleUpdate, parentObjId }) {
   const [editMode, toggleEdit] = useToggle(false);

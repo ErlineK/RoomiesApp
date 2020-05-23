@@ -1,16 +1,16 @@
 import React from "react";
-import useToggle from "../../hooks/useToggle";
 import "./navbar.scss";
 import "./new-side-nav.scss";
 import { NavLink } from "react-router-dom";
 import uuid from "uuid";
 // import { FaUserCog, FaBell, FaPowerOff } from "react-icons/fa";
 import { getNavIconByName } from "./navHelper";
+import useToggle from "../../general/hooks/useToggle";
 
 function SideNav({ navItems }) {
   const [collapsed, toggleMenu] = useToggle(true);
 
-  let navArray = navItems.map(ni => (
+  let navArray = navItems.map((ni) => (
     // <div key={uuid()}>
     <NavLink
       key={uuid()}

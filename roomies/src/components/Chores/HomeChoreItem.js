@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import "../Home/UserHome/homeLists.scss";
-import { formatDateOnly } from "../../utils/formatHelper";
+import { formatDateOnly } from "../../general/utils/formatHelper";
 import { ChoresActionsContext } from "./utils/ChoresContext";
 
 // TODO: on tesk complete - change glow to complete with animation + send to DB

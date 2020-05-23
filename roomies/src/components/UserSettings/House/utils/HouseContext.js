@@ -1,12 +1,10 @@
 import React, { createContext, useEffect, useContext, useState } from "react";
-import useToggle from "../../../../hooks/useToggle";
-import { BASE_URL } from "../../../../utils/AppParams";
+import useToggle from "../../../../general/hooks/useToggle";
+import { BASE_URL } from "../../../../general/utils/AppParams";
 import { AuthContext } from "../../../auth/utils/AuthContext";
 import axios from "axios";
 
 export const HouseContext = createContext();
-
-// TODO: create houses state hook
 
 export function HouseProvider(props) {
   const { requestHeader, user, loginUser } = useContext(AuthContext);
@@ -131,13 +129,6 @@ export function HouseProvider(props) {
     return selectedHouse.approved_tenants;
   };
 
-  // const getCurrentHouseTenants = () => {
-  //   const selectedhouseObj = selectedHouse();
-  //   console.log("selected house object:");
-  //   console.log(selectedhouseObj);
-  //   return selectedhouseObj[0].house_tenants;
-  // };
-
   return (
     <HouseContext.Provider
       value={{
@@ -156,7 +147,6 @@ export function HouseProvider(props) {
         getActiveTenants: getSelectedHouseActiveTenants,
 
         isLoading: isLoading,
-        // setSelectedHouse: setSelectedHouse
       }}
     >
       {props.children}

@@ -2,7 +2,8 @@ import { useState, useContext, useReducer } from "react";
 import { BASE_URL } from "../utils/AppParams";
 import imageCompression from "browser-image-compression";
 import axios from "axios";
-import { AuthContext } from "../components/auth/utils/AuthContext";
+
+import { AuthContext } from "../../components/auth/utils/AuthContext";
 import imgUploadReducer from "../reducers/imgUpload.reducer";
 
 /** Hook manages selecting image, preview and saving to DB

@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { formatDate, formatCurrency } from "../../utils/formatHelper";
-import { getIcon } from "../../utils/iconManager";
+import { formatDate, formatCurrency } from "../../general/utils/formatHelper";
+import { getIcon } from "../../general/utils/iconManager";
 import AcceptBtn from "../GenericComponents/Buttons/AcceptBtn";
 import { NtfActionsContext } from "./utils/NotificationsContext";
 
 function ApprovalMsgItem({ item }) {
-  const { acceptingINV } = useContext(NtfActionsContext);
+  const { accacceptINV } = useContext(NtfActionsContext);
 
   const amountPaid =
     item.ntf_bill && item.ntf_bill.total_amount
@@ -32,7 +32,7 @@ function ApprovalMsgItem({ item }) {
   const handleAcceptPayment = (e) => {
     e.preventDefault();
 
-    acceptingINV(item._id, item.ntf_house);
+    accacceptINV(item._id, item.ntf_house);
   };
 
   return (
