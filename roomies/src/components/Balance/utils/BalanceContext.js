@@ -5,7 +5,6 @@ export const BalanceContext = createContext();
 export const BalanceActionsContext = createContext();
 
 export function BalanceProvider(props) {
-  console.log();
   const [{ balance, requestStatus, balanceActions }] = useBalanceState();
 
   return (
